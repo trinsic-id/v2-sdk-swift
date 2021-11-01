@@ -26,7 +26,7 @@ let package = Package(
             .target(
                     name: "TrinsicServices",
                     dependencies: [.product(name: "GRPC", package: "grpc-swift"),
-                                   .product(name: "TrinsicOkapi", package: "okapi-swift"),
+                                   .product(name: "Okapi", package: "okapi-swift"),
                                    "SwiftProtobuf",]),
             .testTarget(
                     name: "TrinsicServicesTests",
