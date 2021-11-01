@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "Okapi",
+        "repositoryURL": "https://github.com/trinsic-id/okapi-swift.git",
+        "state": {
+          "branch": null,
+          "revision": "9d93a6de7f17007b3ad4d1116fd763dc594ece0d",
+          "version": "0.1.0"
+        }
+      },
+      {
         "package": "swift-log",
         "repositoryURL": "https://github.com/apple/swift-log.git",
         "state": {

@@ -18,7 +18,7 @@ let package = Package(
             // Dependencies declare other packages that this package depends on.
             .package(url: "https://github.com/grpc/grpc-swift.git", from: "1.3.0"),
             .package(name: "SwiftProtobuf", url: "https://github.com/apple/swift-protobuf.git", from: "1.17.0"),
-            .package(path: "../../../okapi/swift/Okapi")
+            .package(url: "https://github.com/trinsic-id/okapi-swift.git", from: "0.1.0")
         ],
         targets: [
             // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -26,7 +26,7 @@ let package = Package(
             .target(
                     name: "TrinsicServices",
                     dependencies: [.product(name: "GRPC", package: "grpc-swift"),
-                                   .product(name: "TrinsicOkapi", package: "Okapi"),
+                                   .product(name: "TrinsicOkapi", package: "okapi-swift"),
                                    "SwiftProtobuf",]),
             .testTarget(
                     name: "TrinsicServicesTests",
