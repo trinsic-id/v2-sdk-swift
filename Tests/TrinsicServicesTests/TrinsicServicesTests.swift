@@ -81,7 +81,7 @@ final class TrinsicServicesTests: XCTestCase {
     }
     
     func testTrinsicServicesDemo() throws {
-        let serverAddress = "http://trinsic-staging.centralus.azurecontainer.io:5000";
+        let serverAddress = "http://20.75.134.127:80";
         let walletService = try WalletService(serviceAddress: serverAddress);
         
         // SETUP Actors
