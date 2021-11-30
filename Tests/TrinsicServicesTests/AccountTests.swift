@@ -12,7 +12,7 @@ import XCTest
 
 final class AccountTests: XCTestCase {
     func testSignIn() throws {
-        let service = Service.Account()
+        let service = Services.Account()
             .with(endpoint: "staging-internal.trinsic.cloud")
             .build()
         

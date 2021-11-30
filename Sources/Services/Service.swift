@@ -11,57 +11,59 @@ import Proto
 import GRPC;
 import NIO;
 import NIOHPACK
+import SwiftProtobuf
 
-public class Service {
-    
-    var config: Config
-    var channel: ClientConnection
-    
-    required init(config: Config) {
-        self.config = config
-        
-        let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
-        let builder = config.useTls ?
-            ClientConnection.usingPlatformAppropriateTLS(for: group) :
-            ClientConnection.insecure(group: group)
-        
-        self.channel = builder.connect(host: config.endpoint, port: Int(config.port))
-    }
+public class Services {
     
     static func Account() -> ServiceBuilder<AccountService> {
-        return ServiceBuilder<AccountService>()
+        ServiceBuilder<AccountService>()
     }
     
-    func callOptions() -> CallOptions {
-        var options = CallOptions();
+    static func Wallet() -> ServiceBuilder<WalletService> {
+        ServiceBuilder<WalletService>()
+    }
+    
+    static func Credential() -> ServiceBuilder<CredentialService> {
+        ServiceBuilder<CredentialService>()
+    }
+    
+    static func TrustRegistry() -> ServiceBuilder<TrustRegistryService> {
+        ServiceBuilder<TrustRegistryService>()
+    }
+}
+
+protocol ServiceProfile {
+    associatedtype Service
+    var profile: Services_Account_V1_AccountProfile? { get }
+    static func create(channel: GRPCChannel, profile: Services_Account_V1_AccountProfile?) -> Service
+}
+
+extension ServiceProfile {
+    func getMetadata(_ request: Message) throws -> CallOptions {
+        var options = CallOptions()
         options.customMetadata.add(name: "Authorization", value: "TODO")
         
         return options
     }
 }
 
-public struct Config {
-    internal var endpoint: String
-    internal var port: UInt16
-    internal var useTls: Bool
-    
-    internal var profile: String?
-}
-
-class ServiceBuilder<T: Service> {
+class ServiceBuilder<T: ServiceProfile> {
     
     internal var endpoint = "prod.trincis.cloud"
     internal var port: UInt16 = 443
     internal var useTls = true
     
-    internal var profile: String? = nil
+    internal var profile: Services_Account_V1_AccountProfile? = nil
     
-    func build() -> T {
-        return T(config: Config(
-            endpoint: endpoint,
-            port: port,
-            useTls: useTls,
-            profile: profile))
+    func build() -> T.Service {
+        let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+        let builder = self.useTls ?
+            ClientConnection.usingPlatformAppropriateTLS(for: group) :
+            ClientConnection.insecure(group: group)
+        
+        let channel = builder.connect(host: self.endpoint, port: Int(self.port))
+        
+        return T.create(channel: channel, profile: self.profile)
     }
     
     func with(endpoint: String) -> ServiceBuilder<T> {
@@ -79,7 +81,7 @@ class ServiceBuilder<T: Service> {
         return self
     }
     
-    func with(profile: String) -> ServiceBuilder<T> {
+    func with(profile: Services_Account_V1_AccountProfile) -> ServiceBuilder<T> {
         self.profile = profile
         return self
     }
