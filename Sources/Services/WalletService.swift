@@ -46,6 +46,9 @@ extension WalletService : ServiceProfile {
     typealias Service = WalletService
     
     internal static func create(channel: GRPCChannel, profile: Services_Account_V1_AccountProfile?) -> WalletService {
-        WalletService(client: Services_Universalwallet_V1_UniversalWalletClient(channel: channel))
+        let service = WalletService(client: Services_Universalwallet_V1_UniversalWalletClient(channel: channel))
+        service.profile = profile
+        
+        return service
     }
 }
