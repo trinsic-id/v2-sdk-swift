@@ -23,6 +23,9 @@ extension ProviderService : ServiceProfile {
     typealias Service = ProviderService
     
     internal static func create(channel: GRPCChannel, profile: Services_Account_V1_AccountProfile?) -> ProviderService {
-        ProviderService(client: Services_Provider_V1_ProviderClient(channel: channel))
+        let service = ProviderService(client: Services_Provider_V1_ProviderClient(channel: channel))
+        service.profile = profile
+        
+        return service
     }
 }

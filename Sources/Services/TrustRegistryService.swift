@@ -23,6 +23,9 @@ extension TrustRegistryService : ServiceProfile {
     typealias Service = TrustRegistryService
     
     internal static func create(channel: GRPCChannel, profile: Services_Account_V1_AccountProfile?) -> TrustRegistryService {
-        TrustRegistryService(client: Services_Trustregistry_V1_TrustRegistryClient(channel: channel))
+        let service = TrustRegistryService(client: Services_Trustregistry_V1_TrustRegistryClient(channel: channel))
+        service.profile = profile
+        
+        return service
     }
 }
