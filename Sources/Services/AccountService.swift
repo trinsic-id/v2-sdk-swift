@@ -37,6 +37,9 @@ extension AccountService: ServiceProfile {
     typealias Service = AccountService
     
     internal static func create(channel: GRPCChannel, profile: Services_Account_V1_AccountProfile?) -> AccountService {
-        AccountService(client: Services_Account_V1_AccountClient(channel: channel))
+        let service = AccountService(client: Services_Account_V1_AccountClient(channel: channel))
+        service.profile = profile
+        
+        return service
     }
 }

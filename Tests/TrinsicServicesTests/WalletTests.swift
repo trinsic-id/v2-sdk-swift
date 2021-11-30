@@ -33,4 +33,16 @@ final class WalletTests: XCTestCase {
         
         XCTAssertNotNil(response)
     }
+    
+    func testInsertItem() throws {
+        
+        let service = Services.Wallet()
+            .with(endpoint: testEndpoint)
+            .with(profile: self.profile!)
+            .build()
+        
+        let response = try service.insertItem(item: ["test": "document"])
+        
+        XCTAssertNotNil(response)
+    }
 }

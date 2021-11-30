@@ -33,14 +33,14 @@ public class CredentialService
     }
     
     func send(document: [String: Any], email: String) throws {
-        var sendRequest = Services_Verifiablecredentials_V1_SendRequest();
-        sendRequest.email = email;
-        sendRequest.document = Services_Common_V1_JsonPayload();
-        sendRequest.document.jsonBytes = try JSONSerialization.data(
+        var request = Services_Verifiablecredentials_V1_SendRequest();
+        request.email = email;
+        request.document = Services_Common_V1_JsonPayload();
+        request.document.jsonBytes = try JSONSerialization.data(
             withJSONObject: document,
             options: JSONSerialization.WritingOptions.prettyPrinted)
         
-        _ = try client.Send(sendRequest, callOptions: getMetadata(sendRequest))
+        _ = try client.Send(request, callOptions: getMetadata(request))
             .response
             .wait();
     }
