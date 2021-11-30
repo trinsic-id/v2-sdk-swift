@@ -110,20 +110,6 @@
 //        return (try JSONSerialization.jsonObject(with: response.document.jsonString.data(using: .utf8)!, options: [])) as! [String: Any];
 //    }
 //
-//    func search(query: String = "SELECT * from c") async throws -> Trinsic_Services_SearchResponse {
-//        var searchRequest = Trinsic_Services_SearchRequest();
-//        searchRequest.query = query;
-//        return try await walletClient.search(searchRequest, callOptions: self.getCallOptions()).response;
-//    }
-//
-//    func insertItem(item: [String: Any]) async throws -> String {
-//        var request = Trinsic_Services_InsertItemRequest();
-//        request.item = Trinsic_Services_JsonPayload();
-//        request.item.jsonString = String(decoding:try JSONSerialization.data(withJSONObject: item, options: JSONSerialization.WritingOptions.prettyPrinted), as: UTF8.self);
-//        let result = try walletClient.insertItem(request, callOptions: getCallOptions());
-//        return try await result.response.itemID;
-//    }
-//
 //    func send(document: [String: Any], email: String) async throws {
 //        var sendRequest = Trinsic_Services_SendRequest();
 //        sendRequest.email = email;
