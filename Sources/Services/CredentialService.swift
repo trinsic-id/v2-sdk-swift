@@ -29,7 +29,10 @@ public class CredentialService
             .response
             .wait()
         
-        return (try JSONSerialization.jsonObject(with: response.document.jsonBytes, options: [])) as! [String: Any]
+        return try JSONSerialization.jsonObject(
+            with: response.document.jsonBytes,
+            options: [])
+        as! [String: Any]
     }
     
     func send(document: [String: Any], email: String) throws {

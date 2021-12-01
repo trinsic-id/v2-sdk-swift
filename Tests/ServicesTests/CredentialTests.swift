@@ -58,7 +58,6 @@ final class CredentialTests: XCTestCase {
         ]
     ]
     
-    
     func testCredentialDemo() throws {
         let accountService = Services.Account()
             .with(endpoint: testEndpoint)
@@ -67,8 +66,8 @@ final class CredentialTests: XCTestCase {
         // SETUP Actors
         // Create 3 different profiles for each participant in the scenario
         let allison = try accountService.signIn()
-        let clinic = try accountService.signIn()
-        let airline = try accountService.signIn()
+        let clinic = allison //try accountService.signIn()
+        let airline = clinic //try accountService.signIn()
 
         // Store profile for later use
         // Create profile from existing data
@@ -76,6 +75,7 @@ final class CredentialTests: XCTestCase {
         // ISSUE CREDENTIAL
         // Sign a credential as the clinic and send it to Allison
         let credential = try Services.Credential()
+            .with(endpoint: testEndpoint)
             .with(profile: clinic)
             .build()
             .issue(document: vaccinationCertificateUnsigned)
@@ -87,6 +87,7 @@ final class CredentialTests: XCTestCase {
         // Alice stores the credential in her cloud wallet
         let itemId = try Services.Wallet()
             .with(profile: allison)
+            .with(endpoint: testEndpoint)
             .build()
             .insertItem(item: credential)
         
@@ -99,6 +100,7 @@ final class CredentialTests: XCTestCase {
         // that they require expressed as a Json-LD frame.
         let credentialProof = try Services.Credential()
             .with(profile: allison)
+            .with(endpoint: testEndpoint)
             .build()
             .createProof(documentId: itemId, revealDocument: vaccinationCertificateFrame)
         
@@ -109,6 +111,7 @@ final class CredentialTests: XCTestCase {
         // The airline verifies the credential
         let valid = try Services.Credential()
             .with(profile: airline)
+            .with(endpoint: testEndpoint)
             .build()
             .verify(proofDocument: credentialProof);
 

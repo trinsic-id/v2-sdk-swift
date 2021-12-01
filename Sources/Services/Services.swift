@@ -55,7 +55,7 @@ class ServiceBuilder<T: ServiceProfile> {
     internal var profile: AccountProfile? = nil
     
     func build() -> T.TService {
-        let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+        let group = MultiThreadedEventLoopGroup(numberOfThreads: 10)
         let builder = self.useTls ?
             ClientConnection.usingPlatformAppropriateTLS(for: group) :
             ClientConnection.insecure(group: group)
