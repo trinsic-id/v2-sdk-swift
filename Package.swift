@@ -1,4 +1,4 @@
-// swift-tools-version:5.5
+// swift-tools-version:5.3
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -6,8 +6,8 @@ import PackageDescription
 let package = Package(
     name: "Trinsic",
     platforms: [
-        .iOS(.v15),
-        .macOS(.v12)
+        .iOS(.v13),
+        .macOS(.v11)
     ],
     products: [
         .library(
@@ -36,7 +36,7 @@ let package = Package(
                 .product(name: "GRPC", package: "grpc-swift")
             ]),
         .testTarget(
-                name: "TrinsicServicesTests",
+                name: "ServicesTests",
                 dependencies: ["Services"]),
     ]
 )

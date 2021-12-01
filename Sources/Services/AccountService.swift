@@ -9,15 +9,18 @@ import Foundation
 import Proto
 import GRPC
 
+
+typealias AccountProfile = Services_Account_V1_AccountProfile
+
 public class AccountService {
-    var profile: Services_Account_V1_AccountProfile?
+    var profile: AccountProfile?
     var client: Services_Account_V1_AccountClient
 
     private init (client: Services_Account_V1_AccountClient) {
         self.client = client
     }
     
-    func signIn() throws -> Services_Account_V1_AccountProfile {
+    func signIn() throws -> AccountProfile {
         let response = try client.SignIn(Services_Account_V1_SignInRequest())
             .response.wait()
         
@@ -34,7 +37,7 @@ public class AccountService {
 }
 
 extension AccountService: ServiceProfile {
-    typealias Service = AccountService
+    typealias TService = AccountService
     
     internal static func create(channel: GRPCChannel, profile: Services_Account_V1_AccountProfile?) -> AccountService {
         let service = AccountService(client: Services_Account_V1_AccountClient(channel: channel))

@@ -75,7 +75,7 @@ public class CredentialService
 }
 
 extension CredentialService : ServiceProfile {
-    typealias Service = CredentialService
+    typealias TService = CredentialService
     
     internal static func create(channel: GRPCChannel, profile: Services_Account_V1_AccountProfile?) -> CredentialService {
         let service = CredentialService(client: Services_Verifiablecredentials_V1_VerifiableCredentialClient(channel: channel))

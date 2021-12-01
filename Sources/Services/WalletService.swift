@@ -43,7 +43,7 @@ public class WalletService
 }
 
 extension WalletService : ServiceProfile {
-    typealias Service = WalletService
+    typealias TService = WalletService
     
     internal static func create(channel: GRPCChannel, profile: Services_Account_V1_AccountProfile?) -> WalletService {
         let service = WalletService(client: Services_Universalwallet_V1_UniversalWalletClient(channel: channel))

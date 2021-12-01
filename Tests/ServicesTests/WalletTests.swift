@@ -13,7 +13,7 @@ import XCTest
 final class WalletTests: XCTestCase {
     
     let testEndpoint = "staging-internal.trinsic.cloud"
-    var profile: Services_Account_V1_AccountProfile?
+    var profile: AccountProfile?
     
     override func setUpWithError() throws {
         self.profile = try Services.Account()
