@@ -5,7 +5,7 @@ PROTOC_GEN_GRPC_SWIFT=`which protoc-gen-grpc-swift`
 
 PROTO_ROOT=./sdk/proto/
 PROTO_DIR=./sdk/proto/services
-OUT_DIR=./Sources/Proto
+OUT_DIR=./Sources/Trinsic/Proto
 
 for f in $(find $PROTO_ROOT -name "*.proto");
 do
