@@ -66,8 +66,8 @@ final class CredentialTests: XCTestCase {
         // SETUP Actors
         // Create 3 different profiles for each participant in the scenario
         let allison = try accountService.signIn()
-        let clinic = allison //try accountService.signIn()
-        let airline = clinic //try accountService.signIn()
+        let clinic = try accountService.signIn()
+        let airline = try accountService.signIn()
 
         // Store profile for later use
         // Create profile from existing data
