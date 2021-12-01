@@ -9,7 +9,6 @@ import Foundation
 import GRPC
 import SwiftProtobuf
 import BLAKE3
-import Proto
 import Okapi
 
 extension Date {

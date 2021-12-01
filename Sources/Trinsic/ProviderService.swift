@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Proto
 import GRPC
 
 public class ProviderService

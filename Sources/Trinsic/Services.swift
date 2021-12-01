@@ -7,7 +7,6 @@
 
 import Foundation
 import Okapi
-import Proto
 import GRPC
 import NIO
 
