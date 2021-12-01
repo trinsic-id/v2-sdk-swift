@@ -17,7 +17,7 @@ public class CredentialService
         self.client = client
     }
     
-    func issue(document: [String: Any]) throws -> [String: Any] {
+    public func issue(document: [String: Any]) throws -> [String: Any] {
         var request = Services_Verifiablecredentials_V1_IssueRequest()
         request.document = Services_Common_V1_JsonPayload()
         request.document.jsonBytes = try JSONSerialization.data(
@@ -34,7 +34,7 @@ public class CredentialService
         as! [String: Any]
     }
     
-    func send(document: [String: Any], email: String) throws {
+    public func send(document: [String: Any], email: String) throws {
         var request = Services_Verifiablecredentials_V1_SendRequest();
         request.email = email;
         request.document = Services_Common_V1_JsonPayload();
@@ -47,7 +47,7 @@ public class CredentialService
             .wait();
     }
 
-    func createProof(documentId: String, revealDocument: [String: Any]) throws -> [String: Any] {
+    public func createProof(documentId: String, revealDocument: [String: Any]) throws -> [String: Any] {
         var request = Services_Verifiablecredentials_V1_CreateProofRequest();
         request.documentID = documentId;
         request.revealDocument = Services_Common_V1_JsonPayload();
@@ -61,7 +61,7 @@ public class CredentialService
         return try JSONSerialization.jsonObject(with: result.proofDocument.jsonBytes, options: []) as! [String: Any];
     }
 
-    func verify(proofDocument: [String: Any]) throws -> Bool {
+    public func verify(proofDocument: [String: Any]) throws -> Bool {
         var request = Services_Verifiablecredentials_V1_VerifyProofRequest();
         request.proofDocument = Services_Common_V1_JsonPayload();
         request.proofDocument.jsonBytes = try JSONSerialization.data(

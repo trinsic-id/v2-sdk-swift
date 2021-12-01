@@ -17,7 +17,7 @@ public class WalletService
         self.client = client
     }
     
-    func search(query: String = "SELECT * from c") throws -> [Services_Common_V1_JsonPayload] {
+    public func search(query: String = "SELECT * from c") throws -> [Services_Common_V1_JsonPayload] {
         var request = Services_Universalwallet_V1_SearchRequest();
         request.query = query;
         
@@ -28,7 +28,7 @@ public class WalletService
         return response.items
     }
 
-    func insertItem(item: [String: Any]) throws -> String {
+    public func insertItem(item: [String: Any]) throws -> String {
         var request = Services_Universalwallet_V1_InsertItemRequest();
         request.item = Services_Common_V1_JsonPayload();
         request.item.jsonBytes = try JSONSerialization.data(withJSONObject: item, options: JSONSerialization.WritingOptions.prettyPrinted)

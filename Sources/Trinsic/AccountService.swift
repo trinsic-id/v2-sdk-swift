@@ -19,14 +19,14 @@ public class AccountService {
         self.client = client
     }
     
-    func signIn() throws -> AccountProfile {
+    public func signIn() throws -> AccountProfile {
         let response = try client.SignIn(Services_Account_V1_SignInRequest())
             .response.wait()
         
         return response.profile
     }
     
-    func info() throws -> Services_Account_V1_InfoResponse {
+    public func info() throws -> Services_Account_V1_InfoResponse {
         let request = Services_Account_V1_InfoRequest()
         let response = try client.Info(request, callOptions: getMetadata(request))
             .response.wait()
