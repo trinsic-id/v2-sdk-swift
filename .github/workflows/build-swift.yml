@@ -13,13 +13,7 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Download workflow artifact
-        uses: dawidd6/action-download-artifact@v2.14.0
-        with:
-          workflow: "build-libs.yml"
-          path: ./libs
-          repo: trinsic-id/okapi
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build, Test, Pack
-        run: ./BuildSwift.ps1 -GitTag ${{ github.ref }}
-        shell: pwsh
+      - name: Build, Test
+        run: |
+          swift build
+          swift test
