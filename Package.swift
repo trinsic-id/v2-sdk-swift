@@ -12,7 +12,7 @@ let package = Package(
     products: [
         .library(
             name: "Trinsic",
-            targets: ["Services"]),
+            targets: ["Trinsic"]),
     ],
     dependencies: [
         .package(name: "grpc-swift", url: "https://github.com/grpc/grpc-swift.git", from: "1.3.0"),
@@ -22,21 +22,15 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "Services",
+            name: "Trinsic",
             dependencies: [
-                .target(name: "Proto"),
                 .product(name: "GRPC", package: "grpc-swift"),
                 .product(name: "Okapi", package: "Okapi"),
                 .product(name: "SwiftProtobuf", package: "SwiftProtobuf"),
                 .product(name: "BLAKE3", package: "BLAKE3")
             ]),
-        .target(
-            name: "Proto",
-            dependencies: [
-                .product(name: "GRPC", package: "grpc-swift")
-            ]),
         .testTarget(
-                name: "ServicesTests",
-                dependencies: ["Services"]),
+                name: "TrinsicTests",
+                dependencies: ["Trinsic"]),
     ]
 )

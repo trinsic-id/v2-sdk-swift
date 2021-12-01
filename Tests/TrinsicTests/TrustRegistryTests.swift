@@ -6,9 +6,8 @@
 //
 
 import Foundation
-import Proto
 import XCTest
-@testable import Services
+@testable import Trinsic
 
 final class TrustRegistryTests: XCTestCase {
     

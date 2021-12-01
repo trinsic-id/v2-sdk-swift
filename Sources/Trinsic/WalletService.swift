@@ -6,12 +6,11 @@
 //
 
 import Foundation
-import Proto
 import GRPC
 
 public class WalletService
 {
-    var profile: Services_Account_V1_AccountProfile?
+    public private(set) var profile: Services_Account_V1_AccountProfile?
     var client: Services_Universalwallet_V1_UniversalWalletClient
 
     private init (client: Services_Universalwallet_V1_UniversalWalletClient) {
@@ -43,9 +42,9 @@ public class WalletService
 }
 
 extension WalletService : ServiceProfile {
-    typealias TService = WalletService
+    public typealias TService = WalletService
     
-    internal static func create(channel: GRPCChannel, profile: Services_Account_V1_AccountProfile?) -> WalletService {
+    public static func create(channel: GRPCChannel, profile: Services_Account_V1_AccountProfile?) -> WalletService {
         let service = WalletService(client: Services_Universalwallet_V1_UniversalWalletClient(channel: channel))
         service.profile = profile
         

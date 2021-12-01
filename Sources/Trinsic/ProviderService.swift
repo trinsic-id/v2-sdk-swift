@@ -6,12 +6,11 @@
 //
 
 import Foundation
-import Proto
 import GRPC
 
 public class ProviderService
 {
-    var profile: Services_Account_V1_AccountProfile?
+    public private(set) var profile: Services_Account_V1_AccountProfile?
     var client: Services_Provider_V1_ProviderClient
 
     private init (client: Services_Provider_V1_ProviderClient) {
@@ -20,9 +19,9 @@ public class ProviderService
 }
 
 extension ProviderService : ServiceProfile {
-    typealias TService = ProviderService
+    public typealias TService = ProviderService
     
-    internal static func create(channel: GRPCChannel, profile: Services_Account_V1_AccountProfile?) -> ProviderService {
+    public static func create(channel: GRPCChannel, profile: Services_Account_V1_AccountProfile?) -> ProviderService {
         let service = ProviderService(client: Services_Provider_V1_ProviderClient(channel: channel))
         service.profile = profile
         
