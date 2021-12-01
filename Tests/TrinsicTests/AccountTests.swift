@@ -8,7 +8,7 @@
 import Foundation
 
 import XCTest
-@testable import Services
+@testable import Trinsic
 
 final class AccountTests: XCTestCase {
     func testAccountService() throws {

@@ -34,19 +34,19 @@ public class Services {
     }
 }
 
-protocol ServiceProfile {
+public protocol ServiceProfile {
     associatedtype TService
     var profile: AccountProfile? { get }
     static func create(channel: GRPCChannel, profile: AccountProfile?) -> TService
 }
 
-enum SdkError: Error {
+public enum SdkError: Error {
     case profileNotSet
     case serverError(code: Int)
     case unknown
 }
 
-class ServiceBuilder<T: ServiceProfile> {
+public  class ServiceBuilder<T: ServiceProfile> {
     
     internal var endpoint = "prod.trincis.cloud"
     internal var port: UInt16 = 443
@@ -54,7 +54,7 @@ class ServiceBuilder<T: ServiceProfile> {
     
     internal var profile: AccountProfile? = nil
     
-    func build() -> T.TService {
+    public func build() -> T.TService {
         let group = MultiThreadedEventLoopGroup(numberOfThreads: 10)
         let builder = self.useTls ?
             ClientConnection.usingPlatformAppropriateTLS(for: group) :
@@ -65,22 +65,22 @@ class ServiceBuilder<T: ServiceProfile> {
         return T.create(channel: channel, profile: self.profile)
     }
     
-    func with(endpoint: String) -> ServiceBuilder<T> {
+    public func with(endpoint: String) -> ServiceBuilder<T> {
         self.endpoint = endpoint
         return self
     }
     
-    func with(port: UInt16) -> ServiceBuilder<T> {
+    public func with(port: UInt16) -> ServiceBuilder<T> {
         self.port = port
         return self
     }
     
-    func with(useTls: Bool) -> ServiceBuilder<T> {
+    public func with(useTls: Bool) -> ServiceBuilder<T> {
         self.useTls = useTls
         return self
     }
     
-    func with(profile: AccountProfile) -> ServiceBuilder<T> {
+    public func with(profile: AccountProfile) -> ServiceBuilder<T> {
         self.profile = profile
         return self
     }

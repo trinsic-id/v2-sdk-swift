@@ -10,7 +10,7 @@ import Proto
 import GRPC
 
 public class TrustRegistryService {
-    var profile: Services_Account_V1_AccountProfile?
+    public var profile: Services_Account_V1_AccountProfile?
     var client: Services_Trustregistry_V1_TrustRegistryClient
 
     private init (client: Services_Trustregistry_V1_TrustRegistryClient) {
@@ -88,9 +88,9 @@ public class TrustRegistryService {
 }
 
 extension TrustRegistryService: ServiceProfile {
-    typealias TService = TrustRegistryService
+    public typealias TService = TrustRegistryService
     
-    internal static func create(channel: GRPCChannel, profile: Services_Account_V1_AccountProfile?) -> TrustRegistryService {
+    public static func create(channel: GRPCChannel, profile: Services_Account_V1_AccountProfile?) -> TrustRegistryService {
         let service = TrustRegistryService(client: Services_Trustregistry_V1_TrustRegistryClient(channel: channel))
         service.profile = profile
         
