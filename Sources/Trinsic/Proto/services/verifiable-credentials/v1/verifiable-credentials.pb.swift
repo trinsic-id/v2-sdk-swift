@@ -69,20 +69,23 @@ public struct Services_Verifiablecredentials_V1_IssueFromTemplateRequest {
 
   public var templateID: String = String()
 
-  public var attributes: Services_Common_V1_JsonPayload {
-    get {return _attributes ?? Services_Common_V1_JsonPayload()}
-    set {_attributes = newValue}
-  }
-  /// Returns true if `attributes` has been explicitly set.
-  public var hasAttributes: Bool {return self._attributes != nil}
-  /// Clears the value of `attributes`. Subsequent reads from it will return its default value.
-  public mutating func clearAttributes() {self._attributes = nil}
+  public var valuesJson: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
+}
 
-  fileprivate var _attributes: Services_Common_V1_JsonPayload? = nil
+public struct Services_Verifiablecredentials_V1_IssueFromTemplateResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var documentJson: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
 }
 
 /// Create Proof
@@ -252,6 +255,64 @@ public struct Services_Verifiablecredentials_V1_SendResponse {
   public init() {}
 }
 
+/// request object to update the status of the revocation entry
+public struct Services_Verifiablecredentials_V1_UpdateStatusRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// the credential status id
+  public var credentialStatusID: String = String()
+
+  /// indicates if the status is revoked
+  public var revoked: Bool = false
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+/// response object for update of status of revocation entry
+public struct Services_Verifiablecredentials_V1_UpdateStatusResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var status: Services_Common_V1_ResponseStatus = .success
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+/// request object to update the status of the revocation entry
+public struct Services_Verifiablecredentials_V1_CheckStatusRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// the credential status id
+  public var credentialStatusID: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+/// response object for update of status of revocation entry
+public struct Services_Verifiablecredentials_V1_CheckStatusResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// indicates if the status is revoked
+  public var revoked: Bool = false
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "services.verifiablecredentials.v1"
@@ -331,8 +392,8 @@ extension Services_Verifiablecredentials_V1_IssueResponse: SwiftProtobuf.Message
 extension Services_Verifiablecredentials_V1_IssueFromTemplateRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".IssueFromTemplateRequest"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "templateId"),
-    2: .same(proto: "attributes"),
+    1: .standard(proto: "template_id"),
+    2: .standard(proto: "values_json"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -342,29 +403,57 @@ extension Services_Verifiablecredentials_V1_IssueFromTemplateRequest: SwiftProto
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.templateID) }()
-      case 2: try { try decoder.decodeSingularMessageField(value: &self._attributes) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.valuesJson) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
     if !self.templateID.isEmpty {
       try visitor.visitSingularStringField(value: self.templateID, fieldNumber: 1)
     }
-    try { if let v = self._attributes {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-    } }()
+    if !self.valuesJson.isEmpty {
+      try visitor.visitSingularStringField(value: self.valuesJson, fieldNumber: 2)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Services_Verifiablecredentials_V1_IssueFromTemplateRequest, rhs: Services_Verifiablecredentials_V1_IssueFromTemplateRequest) -> Bool {
     if lhs.templateID != rhs.templateID {return false}
-    if lhs._attributes != rhs._attributes {return false}
+    if lhs.valuesJson != rhs.valuesJson {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Services_Verifiablecredentials_V1_IssueFromTemplateResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".IssueFromTemplateResponse"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "document_json"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.documentJson) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.documentJson.isEmpty {
+      try visitor.visitSingularStringField(value: self.documentJson, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Services_Verifiablecredentials_V1_IssueFromTemplateResponse, rhs: Services_Verifiablecredentials_V1_IssueFromTemplateResponse) -> Bool {
+    if lhs.documentJson != rhs.documentJson {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -627,6 +716,140 @@ extension Services_Verifiablecredentials_V1_SendResponse: SwiftProtobuf.Message,
 
   public static func ==(lhs: Services_Verifiablecredentials_V1_SendResponse, rhs: Services_Verifiablecredentials_V1_SendResponse) -> Bool {
     if lhs.status != rhs.status {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Services_Verifiablecredentials_V1_UpdateStatusRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".UpdateStatusRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "credential_status_id"),
+    2: .same(proto: "revoked"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.credentialStatusID) }()
+      case 2: try { try decoder.decodeSingularBoolField(value: &self.revoked) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.credentialStatusID.isEmpty {
+      try visitor.visitSingularStringField(value: self.credentialStatusID, fieldNumber: 1)
+    }
+    if self.revoked != false {
+      try visitor.visitSingularBoolField(value: self.revoked, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Services_Verifiablecredentials_V1_UpdateStatusRequest, rhs: Services_Verifiablecredentials_V1_UpdateStatusRequest) -> Bool {
+    if lhs.credentialStatusID != rhs.credentialStatusID {return false}
+    if lhs.revoked != rhs.revoked {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Services_Verifiablecredentials_V1_UpdateStatusResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".UpdateStatusResponse"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "status"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.status) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.status != .success {
+      try visitor.visitSingularEnumField(value: self.status, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Services_Verifiablecredentials_V1_UpdateStatusResponse, rhs: Services_Verifiablecredentials_V1_UpdateStatusResponse) -> Bool {
+    if lhs.status != rhs.status {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Services_Verifiablecredentials_V1_CheckStatusRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".CheckStatusRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "credential_status_id"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.credentialStatusID) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.credentialStatusID.isEmpty {
+      try visitor.visitSingularStringField(value: self.credentialStatusID, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Services_Verifiablecredentials_V1_CheckStatusRequest, rhs: Services_Verifiablecredentials_V1_CheckStatusRequest) -> Bool {
+    if lhs.credentialStatusID != rhs.credentialStatusID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Services_Verifiablecredentials_V1_CheckStatusResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".CheckStatusResponse"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "revoked"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularBoolField(value: &self.revoked) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.revoked != false {
+      try visitor.visitSingularBoolField(value: self.revoked, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Services_Verifiablecredentials_V1_CheckStatusResponse, rhs: Services_Verifiablecredentials_V1_CheckStatusResponse) -> Bool {
+    if lhs.revoked != rhs.revoked {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

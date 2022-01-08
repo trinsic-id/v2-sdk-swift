@@ -31,6 +31,10 @@ public class Services {
     public static func Provider() -> ServiceBuilder<ProviderService> {
         ServiceBuilder<ProviderService>()
     }
+    
+    public static func Template() -> ServiceBuilder<TemplateService> {
+        ServiceBuilder<TemplateService>()
+    }
 }
 
 public protocol ServiceProfile {
@@ -47,10 +51,13 @@ public enum SdkError: Error {
 
 public  class ServiceBuilder<T: ServiceProfile> {
     
+    // server configuration
     internal var endpoint = "prod.trincis.cloud"
     internal var port: UInt16 = 443
     internal var useTls = true
     
+    // auth configuration
+    internal var ecosystem: String? = nil
     internal var profile: AccountProfile? = nil
     
     public func build() -> T.TService {
@@ -76,6 +83,11 @@ public  class ServiceBuilder<T: ServiceProfile> {
     
     public func with(useTls: Bool) -> ServiceBuilder<T> {
         self.useTls = useTls
+        return self
+    }
+    
+    public func with(ecosystem: String) -> ServiceBuilder<T> {
+        self.ecosystem = ecosystem
         return self
     }
     

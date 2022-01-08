@@ -34,6 +34,36 @@ public class CredentialService
         as! [String: Any]
     }
     
+    public func issueFromTemplate(request: Services_Verifiablecredentials_V1_IssueFromTemplateRequest) throws -> Services_Verifiablecredentials_V1_IssueFromTemplateResponse {
+        
+        let response = try client.IssueFromTemplate(request, callOptions: getMetadata(request))
+            .response
+            .wait()
+        
+        return response
+    }
+    
+    public func getStatus(credentialStatusId: String) throws -> Services_Verifiablecredentials_V1_CheckStatusResponse {
+        var request = Services_Verifiablecredentials_V1_CheckStatusRequest()
+        request.credentialStatusID = credentialStatusId
+        
+        let response = try client.CheckStatus(request, callOptions: getMetadata(request))
+            .response
+            .wait()
+        
+        return response
+    }
+    
+    public func updateStatus(credentialStatusId: String, revoked: Bool) throws {
+        var request = Services_Verifiablecredentials_V1_UpdateStatusRequest()
+        request.credentialStatusID = credentialStatusId
+        request.revoked = revoked
+        
+        _ = try client.UpdateStatus(request, callOptions: getMetadata(request))
+            .response
+            .wait()
+    }
+    
     public func send(document: [String: Any], email: String) throws {
         var request = Services_Verifiablecredentials_V1_SendRequest();
         request.email = email;

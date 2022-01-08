@@ -1,10 +1,22 @@
 #!/bin/bash
+
+# install protoc and required plugins
+
+brew install protobuf swift-protobuf grpc-swift
+
+# add 'trinsic-id/sdk' repository as submodule
+# to use the proto files for code generation
+
+git submodule add https://github.com/trinsic-id/sdk
+
+# define protoc plugin paths and generate the files
+
 PROTOC=`which protoc`
 PROTOC_GEN_SWIFT=`which protoc-gen-swift`
 PROTOC_GEN_GRPC_SWIFT=`which protoc-gen-grpc-swift`
 
 PROTO_ROOT=./sdk/proto/
-PROTO_DIR=./sdk/proto/services
+PROTO_DIR=./sdk/proto/
 OUT_DIR=./Sources/Trinsic/Proto
 
 for f in $(find $PROTO_ROOT -name "*.proto");
@@ -19,3 +31,9 @@ do
     --grpc-swift_opt=KeepMethodCasing=true \
     --grpc-swift_out=${OUT_DIR} $f
 done
+
+# remove the git submodule
+
+git submodule deinit sdk
+git rm sdk
+rm -rf .git/modules/sdk

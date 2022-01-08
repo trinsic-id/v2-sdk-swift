@@ -247,6 +247,9 @@ public struct Services_Account_V1_InfoResponse {
   /// Clears the value of `details`. Subsequent reads from it will return its default value.
   public mutating func clearDetails() {self._details = nil}
 
+  /// any ecosystems the account has access to
+  public var ecosystems: [Services_Provider_V1_Ecosystem] = []
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -557,6 +560,7 @@ extension Services_Account_V1_InfoResponse: SwiftProtobuf.Message, SwiftProtobuf
   public static let protoMessageName: String = _protobuf_package + ".InfoResponse"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "details"),
+    2: .same(proto: "ecosystems"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -566,6 +570,7 @@ extension Services_Account_V1_InfoResponse: SwiftProtobuf.Message, SwiftProtobuf
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._details) }()
+      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.ecosystems) }()
       default: break
       }
     }
@@ -579,11 +584,15 @@ extension Services_Account_V1_InfoResponse: SwiftProtobuf.Message, SwiftProtobuf
     try { if let v = self._details {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     } }()
+    if !self.ecosystems.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.ecosystems, fieldNumber: 2)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Services_Account_V1_InfoResponse, rhs: Services_Account_V1_InfoResponse) -> Bool {
     if lhs._details != rhs._details {return false}
+    if lhs.ecosystems != rhs.ecosystems {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
