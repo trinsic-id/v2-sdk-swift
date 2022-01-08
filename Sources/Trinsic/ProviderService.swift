@@ -16,6 +16,22 @@ public class ProviderService
     private init (client: Services_Provider_V1_ProviderClient) {
         self.client = client
     }
+    
+    public func createEcosystem(request: Services_Provider_V1_CreateEcosystemRequest) throws -> Services_Provider_V1_CreateEcosystemResponse {
+            let result = try client.CreateEcosystem(request, callOptions: getMetadata(request))
+                .response
+                .wait()
+            
+            return result
+    }
+    
+    public func listEcosystems(request: Services_Provider_V1_ListEcosystemsRequest) throws -> Services_Provider_V1_ListEcosystemsResponse {
+            let result = try client.ListEcosystems(request, callOptions: getMetadata(request))
+                .response
+                .wait()
+            
+            return result
+    }
 }
 
 extension ProviderService : ServiceProfile {

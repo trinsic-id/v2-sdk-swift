@@ -72,7 +72,7 @@ public class TrustRegistryService {
         return result
     }
     
-    public func searchRegistry(query: String = "SELECT * from c") throws -> [Services_Common_V1_JsonPayload] {
+    public func searchRegistry(query: String = "SELECT * from c") throws -> Services_Trustregistry_V1_SearchRegistryResponse {
         var request = Services_Trustregistry_V1_SearchRegistryRequest()
         request.query = query
         request.options = Services_Common_V1_RequestOptions()
@@ -82,7 +82,7 @@ public class TrustRegistryService {
             .response
             .wait()
         
-        return result.items
+        return result
     }
 }
 
