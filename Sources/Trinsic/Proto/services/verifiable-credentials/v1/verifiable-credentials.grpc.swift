@@ -38,7 +38,17 @@ public protocol Services_Verifiablecredentials_V1_VerifiableCredentialClientProt
   func IssueFromTemplate(
     _ request: Services_Verifiablecredentials_V1_IssueFromTemplateRequest,
     callOptions: CallOptions?
-  ) -> UnaryCall<Services_Verifiablecredentials_V1_IssueFromTemplateRequest, Services_Verifiablecredentials_V1_IssueResponse>
+  ) -> UnaryCall<Services_Verifiablecredentials_V1_IssueFromTemplateRequest, Services_Verifiablecredentials_V1_IssueFromTemplateResponse>
+
+  func CheckStatus(
+    _ request: Services_Verifiablecredentials_V1_CheckStatusRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Services_Verifiablecredentials_V1_CheckStatusRequest, Services_Verifiablecredentials_V1_CheckStatusResponse>
+
+  func UpdateStatus(
+    _ request: Services_Verifiablecredentials_V1_UpdateStatusRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Services_Verifiablecredentials_V1_UpdateStatusRequest, Services_Verifiablecredentials_V1_UpdateStatusResponse>
 
   func CreateProof(
     _ request: Services_Verifiablecredentials_V1_CreateProofRequest,
@@ -88,12 +98,48 @@ extension Services_Verifiablecredentials_V1_VerifiableCredentialClientProtocol {
   public func IssueFromTemplate(
     _ request: Services_Verifiablecredentials_V1_IssueFromTemplateRequest,
     callOptions: CallOptions? = nil
-  ) -> UnaryCall<Services_Verifiablecredentials_V1_IssueFromTemplateRequest, Services_Verifiablecredentials_V1_IssueResponse> {
+  ) -> UnaryCall<Services_Verifiablecredentials_V1_IssueFromTemplateRequest, Services_Verifiablecredentials_V1_IssueFromTemplateResponse> {
     return self.makeUnaryCall(
       path: "/services.verifiablecredentials.v1.VerifiableCredential/IssueFromTemplate",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
       interceptors: self.interceptors?.makeIssueFromTemplateInterceptors() ?? []
+    )
+  }
+
+  /// Check credential status by setting the revocation value
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to CheckStatus.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  public func CheckStatus(
+    _ request: Services_Verifiablecredentials_V1_CheckStatusRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Services_Verifiablecredentials_V1_CheckStatusRequest, Services_Verifiablecredentials_V1_CheckStatusResponse> {
+    return self.makeUnaryCall(
+      path: "/services.verifiablecredentials.v1.VerifiableCredential/CheckStatus",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeCheckStatusInterceptors() ?? []
+    )
+  }
+
+  /// Update credential status by setting the revocation value
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to UpdateStatus.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  public func UpdateStatus(
+    _ request: Services_Verifiablecredentials_V1_UpdateStatusRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Services_Verifiablecredentials_V1_UpdateStatusRequest, Services_Verifiablecredentials_V1_UpdateStatusResponse> {
+    return self.makeUnaryCall(
+      path: "/services.verifiablecredentials.v1.VerifiableCredential/UpdateStatus",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeUpdateStatusInterceptors() ?? []
     )
   }
 
@@ -158,7 +204,13 @@ public protocol Services_Verifiablecredentials_V1_VerifiableCredentialClientInte
   func makeIssueInterceptors() -> [ClientInterceptor<Services_Verifiablecredentials_V1_IssueRequest, Services_Verifiablecredentials_V1_IssueResponse>]
 
   /// - Returns: Interceptors to use when invoking 'IssueFromTemplate'.
-  func makeIssueFromTemplateInterceptors() -> [ClientInterceptor<Services_Verifiablecredentials_V1_IssueFromTemplateRequest, Services_Verifiablecredentials_V1_IssueResponse>]
+  func makeIssueFromTemplateInterceptors() -> [ClientInterceptor<Services_Verifiablecredentials_V1_IssueFromTemplateRequest, Services_Verifiablecredentials_V1_IssueFromTemplateResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'CheckStatus'.
+  func makeCheckStatusInterceptors() -> [ClientInterceptor<Services_Verifiablecredentials_V1_CheckStatusRequest, Services_Verifiablecredentials_V1_CheckStatusResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'UpdateStatus'.
+  func makeUpdateStatusInterceptors() -> [ClientInterceptor<Services_Verifiablecredentials_V1_UpdateStatusRequest, Services_Verifiablecredentials_V1_UpdateStatusResponse>]
 
   /// - Returns: Interceptors to use when invoking 'CreateProof'.
   func makeCreateProofInterceptors() -> [ClientInterceptor<Services_Verifiablecredentials_V1_CreateProofRequest, Services_Verifiablecredentials_V1_CreateProofResponse>]
@@ -198,7 +250,13 @@ public protocol Services_Verifiablecredentials_V1_VerifiableCredentialProvider: 
 
   func Issue(request: Services_Verifiablecredentials_V1_IssueRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Verifiablecredentials_V1_IssueResponse>
 
-  func IssueFromTemplate(request: Services_Verifiablecredentials_V1_IssueFromTemplateRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Verifiablecredentials_V1_IssueResponse>
+  func IssueFromTemplate(request: Services_Verifiablecredentials_V1_IssueFromTemplateRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Verifiablecredentials_V1_IssueFromTemplateResponse>
+
+  /// Check credential status by setting the revocation value
+  func CheckStatus(request: Services_Verifiablecredentials_V1_CheckStatusRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Verifiablecredentials_V1_CheckStatusResponse>
+
+  /// Update credential status by setting the revocation value
+  func UpdateStatus(request: Services_Verifiablecredentials_V1_UpdateStatusRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Verifiablecredentials_V1_UpdateStatusResponse>
 
   func CreateProof(request: Services_Verifiablecredentials_V1_CreateProofRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Verifiablecredentials_V1_CreateProofResponse>
 
@@ -230,9 +288,27 @@ extension Services_Verifiablecredentials_V1_VerifiableCredentialProvider {
       return UnaryServerHandler(
         context: context,
         requestDeserializer: ProtobufDeserializer<Services_Verifiablecredentials_V1_IssueFromTemplateRequest>(),
-        responseSerializer: ProtobufSerializer<Services_Verifiablecredentials_V1_IssueResponse>(),
+        responseSerializer: ProtobufSerializer<Services_Verifiablecredentials_V1_IssueFromTemplateResponse>(),
         interceptors: self.interceptors?.makeIssueFromTemplateInterceptors() ?? [],
         userFunction: self.IssueFromTemplate(request:context:)
+      )
+
+    case "CheckStatus":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Services_Verifiablecredentials_V1_CheckStatusRequest>(),
+        responseSerializer: ProtobufSerializer<Services_Verifiablecredentials_V1_CheckStatusResponse>(),
+        interceptors: self.interceptors?.makeCheckStatusInterceptors() ?? [],
+        userFunction: self.CheckStatus(request:context:)
+      )
+
+    case "UpdateStatus":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Services_Verifiablecredentials_V1_UpdateStatusRequest>(),
+        responseSerializer: ProtobufSerializer<Services_Verifiablecredentials_V1_UpdateStatusResponse>(),
+        interceptors: self.interceptors?.makeUpdateStatusInterceptors() ?? [],
+        userFunction: self.UpdateStatus(request:context:)
       )
 
     case "CreateProof":
@@ -276,7 +352,15 @@ public protocol Services_Verifiablecredentials_V1_VerifiableCredentialServerInte
 
   /// - Returns: Interceptors to use when handling 'IssueFromTemplate'.
   ///   Defaults to calling `self.makeInterceptors()`.
-  func makeIssueFromTemplateInterceptors() -> [ServerInterceptor<Services_Verifiablecredentials_V1_IssueFromTemplateRequest, Services_Verifiablecredentials_V1_IssueResponse>]
+  func makeIssueFromTemplateInterceptors() -> [ServerInterceptor<Services_Verifiablecredentials_V1_IssueFromTemplateRequest, Services_Verifiablecredentials_V1_IssueFromTemplateResponse>]
+
+  /// - Returns: Interceptors to use when handling 'CheckStatus'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeCheckStatusInterceptors() -> [ServerInterceptor<Services_Verifiablecredentials_V1_CheckStatusRequest, Services_Verifiablecredentials_V1_CheckStatusResponse>]
+
+  /// - Returns: Interceptors to use when handling 'UpdateStatus'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeUpdateStatusInterceptors() -> [ServerInterceptor<Services_Verifiablecredentials_V1_UpdateStatusRequest, Services_Verifiablecredentials_V1_UpdateStatusResponse>]
 
   /// - Returns: Interceptors to use when handling 'CreateProof'.
   ///   Defaults to calling `self.makeInterceptors()`.
