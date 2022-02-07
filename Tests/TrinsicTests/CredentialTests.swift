@@ -64,32 +64,36 @@ final class CredentialTests: XCTestCase {
         
         // SETUP Actors
         // Create 3 different profiles for each participant in the scenario
+        // setupActors() {
         let allison = try accountService.signIn()
         let clinic = try accountService.signIn()
         let airline = try accountService.signIn()
+        // }
 
         // Store profile for later use
         // Create profile from existing data
 
         // ISSUE CREDENTIAL
+        // issueCredential() {
         // Sign a credential as the clinic and send it to Allison
         let credential = try Services.Credential()
             .with(endpoint: testEndpoint)
             .with(profile: clinic)
             .build()
             .issue(document: vaccinationCertificateUnsigned)
-
+        // }
         NSLog("%@", credential);
         XCTAssertNotNil(credential)
 
         // STORE CREDENTIAL
+        // storeCredential() {
         // Alice stores the credential in her cloud wallet
         let itemId = try Services.Wallet()
             .with(profile: allison)
             .with(endpoint: testEndpoint)
             .build()
             .insertItem(item: credential)
-        
+        // }
         NSLog("item id = %@", itemId)
         XCTAssertNotNil(itemId)
 
@@ -97,23 +101,25 @@ final class CredentialTests: XCTestCase {
         // Allison shares the credential with the venue
         // The venue has communicated with Allison the details of the credential
         // that they require expressed as a Json-LD frame.
+        // shareCredential() {
         let credentialProof = try Services.Credential()
             .with(profile: allison)
             .with(endpoint: testEndpoint)
             .build()
             .createProof(documentId: itemId, revealDocument: vaccinationCertificateFrame)
-        
+        // }
         NSLog("Proof: %@", credentialProof)
         XCTAssertNotNil(credentialProof)
 
         // VERIFY CREDENTIAL
         // The airline verifies the credential
+        // verifyCredential() {
         let valid = try Services.Credential()
             .with(profile: airline)
             .with(endpoint: testEndpoint)
             .build()
             .verify(proofDocument: credentialProof);
-
+        // }
         XCTAssertTrue(valid, "Result should be valid");
     }
 }
