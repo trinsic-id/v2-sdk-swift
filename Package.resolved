@@ -2,15 +2,6 @@
   "object": {
     "pins": [
       {
-        "package": "BLAKE3",
-        "repositoryURL": "https://github.com/nixberg/blake3-swift",
-        "state": {
-          "branch": null,
-          "revision": "9af9a8cd04f2aa8ae2bd7b089e80e98d5cc9099f",
-          "version": "0.1.0"
-        }
-      },
-      {
         "package": "grpc-swift",
         "repositoryURL": "https://github.com/grpc/grpc-swift.git",
         "state": {
@@ -24,8 +15,8 @@
         "repositoryURL": "https://github.com/trinsic-id/okapi-swift.git",
         "state": {
           "branch": null,
-          "revision": "4d3f8ac357b4a0e80b8dfc02a878d6f91b613dcd",
-          "version": "1.2.0"
+          "revision": "82ffa0e7077fcb623d5919d8cb2592940886b3d1",
+          "version": "1.4.0"
         }
       },
       {

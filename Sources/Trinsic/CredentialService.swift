@@ -8,111 +8,59 @@
 import Foundation
 import GRPC
 
-public class CredentialService
+public class CredentialService : ServiceBase
 {
-    public private(set) var profile: Services_Account_V1_AccountProfile?
-    var client: Services_Verifiablecredentials_V1_VerifiableCredentialClient
+    var client: Services_Verifiablecredentials_V1_VerifiableCredentialClient?
 
-    private init (client: Services_Verifiablecredentials_V1_VerifiableCredentialClient) {
-        self.client = client
+    public init () {
+        super.init(options: Sdk_Options_V1_ServiceOptions())
+        client = Services_Verifiablecredentials_V1_VerifiableCredentialClient(channel: createChannel())
     }
     
-    public func issue(document: [String: Any]) throws -> [String: Any] {
-        var request = Services_Verifiablecredentials_V1_IssueRequest()
-        request.document = Services_Common_V1_JsonPayload()
-        request.document.jsonBytes = try JSONSerialization.data(
-            withJSONObject: document,
-            options: JSONSerialization.WritingOptions.prettyPrinted)
-        
-        let response = try client.Issue(request, callOptions: getMetadata(request))
+    public override init (options: Sdk_Options_V1_ServiceOptions) {
+        super.init(options: options)
+        client = Services_Verifiablecredentials_V1_VerifiableCredentialClient(channel: createChannel())
+    }
+    
+    public func issue(request: Services_Verifiablecredentials_V1_IssueRequest) throws -> Services_Verifiablecredentials_V1_IssueResponse {
+        return try client!.Issue(request, callOptions: try buildMetadata(request))
             .response
             .wait()
-        
-        return try JSONSerialization.jsonObject(
-            with: response.document.jsonBytes,
-            options: [])
-        as! [String: Any]
     }
     
     public func issueFromTemplate(request: Services_Verifiablecredentials_V1_IssueFromTemplateRequest) throws -> Services_Verifiablecredentials_V1_IssueFromTemplateResponse {
-        
-        let response = try client.IssueFromTemplate(request, callOptions: getMetadata(request))
-            .response
-            .wait()
-        
-        return response
-    }
-    
-    public func getStatus(credentialStatusId: String) throws -> Services_Verifiablecredentials_V1_CheckStatusResponse {
-        var request = Services_Verifiablecredentials_V1_CheckStatusRequest()
-        request.credentialStatusID = credentialStatusId
-        
-        let response = try client.CheckStatus(request, callOptions: getMetadata(request))
-            .response
-            .wait()
-        
-        return response
-    }
-    
-    public func updateStatus(credentialStatusId: String, revoked: Bool) throws {
-        var request = Services_Verifiablecredentials_V1_UpdateStatusRequest()
-        request.credentialStatusID = credentialStatusId
-        request.revoked = revoked
-        
-        _ = try client.UpdateStatus(request, callOptions: getMetadata(request))
+        return try client!.IssueFromTemplate(request, callOptions: try buildMetadata(request))
             .response
             .wait()
     }
     
-    public func send(document: [String: Any], email: String) throws {
-        var request = Services_Verifiablecredentials_V1_SendRequest();
-        request.email = email;
-        request.document = Services_Common_V1_JsonPayload();
-        request.document.jsonBytes = try JSONSerialization.data(
-            withJSONObject: document,
-            options: JSONSerialization.WritingOptions.prettyPrinted)
-        
-        _ = try client.Send(request, callOptions: getMetadata(request))
+    public func getStatus(request: Services_Verifiablecredentials_V1_CheckStatusRequest) throws -> Services_Verifiablecredentials_V1_CheckStatusResponse {
+        return try client!.CheckStatus(request, callOptions: try buildMetadata(request))
+            .response
+            .wait()
+    }
+    
+    public func updateStatus(request: Services_Verifiablecredentials_V1_UpdateStatusRequest) throws {
+        _ = try client!.UpdateStatus(request, callOptions: try buildMetadata(request))
+            .response
+            .wait()
+    }
+    
+    public func send(request: Services_Verifiablecredentials_V1_SendRequest, email: String) throws {
+        _ = try client!.Send(request, callOptions: try buildMetadata(request))
             .response
             .wait();
     }
 
-    public func createProof(documentId: String, revealDocument: [String: Any]) throws -> [String: Any] {
-        var request = Services_Verifiablecredentials_V1_CreateProofRequest();
-        request.documentID = documentId;
-        request.revealDocument = Services_Common_V1_JsonPayload();
-        request.revealDocument.jsonBytes = try JSONSerialization.data(
-            withJSONObject: revealDocument,
-            options: JSONSerialization.WritingOptions.prettyPrinted)
-        
-        let result = try client.CreateProof(request, callOptions: getMetadata(request))
+    public func createProof(request: Services_Verifiablecredentials_V1_CreateProofRequest) throws -> Services_Verifiablecredentials_V1_CreateProofResponse {
+        return try client!.CreateProof(request, callOptions: try buildMetadata(request))
             .response
             .wait()
-        return try JSONSerialization.jsonObject(with: result.proofDocument.jsonBytes, options: []) as! [String: Any];
     }
 
-    public func verify(proofDocument: [String: Any]) throws -> Bool {
-        var request = Services_Verifiablecredentials_V1_VerifyProofRequest();
-        request.proofDocument = Services_Common_V1_JsonPayload();
-        request.proofDocument.jsonBytes = try JSONSerialization.data(
-            withJSONObject: proofDocument,
-            options: JSONSerialization.WritingOptions.prettyPrinted)
-        
-        let result = try client.VerifyProof(request, callOptions: getMetadata(request))
+    public func verify(request: Services_Verifiablecredentials_V1_VerifyProofRequest) throws -> Services_Verifiablecredentials_V1_VerifyProofResponse {
+        return try client!.VerifyProof(request, callOptions: try buildMetadata(request))
             .response
             .wait()
-        
-        return result.valid;
-    }
-}
-
-extension CredentialService : ServiceProfile {
-    public typealias TService = CredentialService
-    
-    public static func create(channel: GRPCChannel, profile: Services_Account_V1_AccountProfile?) -> CredentialService {
-        let service = CredentialService(client: Services_Verifiablecredentials_V1_VerifiableCredentialClient(channel: channel))
-        service.profile = profile
-        
-        return service
     }
 }

@@ -6,27 +6,20 @@
 //
 
 import Foundation
-
 import XCTest
 @testable import Trinsic
 
 final class AccountTests: XCTestCase {
     func testAccountService() throws {
-        var service = Services.Account()
-            .with(endpoint: "staging-internal.trinsic.cloud")
-            .build()
+        var options = Sdk_Options_V1_ServiceOptions()
+        options.serverEndpoint = "dev-internal.trinsic.cloud"
+        let service = AccountService(options: options)
         
-        let profile = try service.signIn()
+        let authToken = try service.signIn(request: Services_Account_V1_SignInRequest())
         
-        XCTAssertNotNil(profile)
-        XCTAssertFalse(profile.protection.enabled)
+        XCTAssertNotNil(authToken)
         
-        service = Services.Account()
-            .with(endpoint: "staging-internal.trinsic.cloud")
-            .with(profile: profile)
-            .build()
-        
-        let info = try service.info()
+        let info = try service.info(request: Services_Account_V1_InfoRequest())
         
         XCTAssertNotNil(info)
         XCTAssertNotNil(info.details)
