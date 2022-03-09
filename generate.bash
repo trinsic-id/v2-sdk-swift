@@ -1,16 +1,22 @@
 #!/bin/bash
 
-# install protoc and required plugins
+# ensure clean tree
+if [[ -z $(git status -s) ]]
+then
+  :
+else
+  echo "git tree is dirty, please commit or stash changes before running this script"
+  exit
+fi
 
+# install protoc and required plugins
 brew install protobuf swift-protobuf grpc-swift
 
 # add 'trinsic-id/sdk' repository as submodule
 # to use the proto files for code generation
-
 git submodule add https://github.com/trinsic-id/sdk
 
 # define protoc plugin paths and generate the files
-
 PROTOC=`which protoc`
 PROTOC_GEN_SWIFT=`which protoc-gen-swift`
 PROTOC_GEN_GRPC_SWIFT=`which protoc-gen-grpc-swift`
@@ -34,6 +40,5 @@ done
 
 # remove the git submodule
 
-git submodule deinit sdk
-git rm sdk
+git submodule deinit -f sdk
 rm -rf .git/modules/sdk
