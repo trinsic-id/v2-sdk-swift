@@ -8,46 +8,32 @@
 import Foundation
 import GRPC
 
-public class WalletService
+public class WalletService : ServiceBase
 {
-    public private(set) var profile: Services_Account_V1_AccountProfile?
-    var client: Services_Universalwallet_V1_UniversalWalletClient
+    var client: Services_Universalwallet_V1_UniversalWalletClient?
 
-    private init (client: Services_Universalwallet_V1_UniversalWalletClient) {
-        self.client = client
+    public init () {
+        super.init(options: Sdk_Options_V1_ServiceOptions())
+        client = Services_Universalwallet_V1_UniversalWalletClient(channel: createChannel())
     }
     
-    public func search(query: String = "SELECT * from c") throws -> [Services_Common_V1_JsonPayload] {
+    public override init (options: Sdk_Options_V1_ServiceOptions) {
+        super.init(options: options)
+        client = Services_Universalwallet_V1_UniversalWalletClient(channel: createChannel())
+    }
+    
+    public func search(query: String = "SELECT * from c") throws -> Services_Universalwallet_V1_SearchResponse {
         var request = Services_Universalwallet_V1_SearchRequest();
         request.query = query;
         
-        let response = try client.Search(request, callOptions: getMetadata(request))
+        return try client!.Search(request, callOptions: try buildMetadata(request))
             .response
             .wait();
-        
-        return response.items
     }
 
-    public func insertItem(item: [String: Any]) throws -> String {
-        var request = Services_Universalwallet_V1_InsertItemRequest();
-        request.item = Services_Common_V1_JsonPayload();
-        request.item.jsonBytes = try JSONSerialization.data(withJSONObject: item, options: JSONSerialization.WritingOptions.prettyPrinted)
-        
-        let result = try client.InsertItem(request, callOptions: getMetadata(request))
+    public func insertItem(request: Services_Universalwallet_V1_InsertItemRequest) throws -> Services_Universalwallet_V1_InsertItemResponse {
+        return try client!.InsertItem(request, callOptions: try buildMetadata(request))
             .response
             .wait()
-        
-        return result.itemID;
-    }
-}
-
-extension WalletService : ServiceProfile {
-    public typealias TService = WalletService
-    
-    public static func create(channel: GRPCChannel, profile: Services_Account_V1_AccountProfile?) -> WalletService {
-        let service = WalletService(client: Services_Universalwallet_V1_UniversalWalletClient(channel: channel))
-        service.profile = profile
-        
-        return service
     }
 }

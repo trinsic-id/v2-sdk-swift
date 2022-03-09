@@ -11,28 +11,24 @@ import XCTest
 
 final class TemplateTests: XCTestCase {
     
-    let testEndpoint = "staging-internal.trinsic.cloud"
-    var profile: AccountProfile?
+    let testEndpoint = "dev-internal.trinsic.cloud"
+    var service: TemplateService?
     
     override func setUpWithError() throws {
-        self.profile = try Services.Account()
-            .with(endpoint: testEndpoint)
-            .build()
-            .signIn()
+        var options = Sdk_Options_V1_ServiceOptions()
+        options.serverEndpoint = testEndpoint
+        let accountService = AccountService(options: options)
+        
+        options.authToken = try accountService.signIn(request: Services_Account_V1_SignInRequest())
+        self.service = TemplateService(options: options)
     }
     
     func testTemplatesDemo() throws {
-        
-        let service = Services.Template()
-            .with(endpoint: testEndpoint)
-            .with(profile: self.profile!)
-            .build()
-        
         var createRequest = Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateRequest()
         createRequest.name = "Test Swift Template Credential"
         createRequest.fields["firstName"] = Services_Verifiablecredentials_Templates_V1_TemplateField()
         
-        let createResponse = try service.create(request: createRequest)
+        let createResponse = try service!.create(request: createRequest)
         
         XCTAssertNotNil(createResponse)
         XCTAssertNotEqual(createResponse.data.id, "")
@@ -40,7 +36,7 @@ final class TemplateTests: XCTestCase {
         var getRequest = Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateRequest()
         getRequest.id = createResponse.data.id
         
-        let response = try service.get(request: getRequest)
+        let response = try service!.get(request: getRequest)
         
         XCTAssertNotNil(response)
         XCTAssertEqual(response.template, createResponse.data)

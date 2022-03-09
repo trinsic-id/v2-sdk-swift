@@ -11,7 +11,7 @@ import XCTest
 
 final class CredentialTests: XCTestCase {
     
-    let testEndpoint = "staging-internal.trinsic.cloud"
+    let testEndpoint = "dev-internal.trinsic.cloud"
     
     let vaccinationCertificateFrame: [String: Any] = [
         "@context": [
@@ -58,16 +58,22 @@ final class CredentialTests: XCTestCase {
     ]
     
     func testCredentialDemo() throws {
-        let accountService = Services.Account()
-            .with(endpoint: testEndpoint)
-            .build()
+        var options = Sdk_Options_V1_ServiceOptions()
+        options.serverEndpoint = testEndpoint
+        
+        let accountService = AccountService(options: options)
+        let credentialService = CredentialService(options: options)
+        let walletService = WalletService(options: options)
+        
+        let authToken = try accountService.signIn(request: Services_Account_V1_SignInRequest())
+        options.authToken = authToken
         
         // SETUP Actors
         // Create 3 different profiles for each participant in the scenario
         // setupActors() {
-        let allison = try accountService.signIn()
-        let clinic = try accountService.signIn()
-        let airline = try accountService.signIn()
+        let allison = try accountService.signIn(request: Services_Account_V1_SignInRequest())
+        let clinic = try accountService.signIn(request: Services_Account_V1_SignInRequest())
+        let airline = try accountService.signIn(request: Services_Account_V1_SignInRequest())
         // }
 
         // Store profile for later use
@@ -76,50 +82,58 @@ final class CredentialTests: XCTestCase {
         // ISSUE CREDENTIAL
         // issueCredential() {
         // Sign a credential as the clinic and send it to Allison
-        let credential = try Services.Credential()
-            .with(endpoint: testEndpoint)
-            .with(profile: clinic)
-            .build()
-            .issue(document: vaccinationCertificateUnsigned)
+        credentialService.options.authToken = clinic
+        
+        var issueRequest = Services_Verifiablecredentials_V1_IssueRequest()
+        issueRequest.documentJson = String(
+            decoding: try JSONSerialization.data(
+                withJSONObject: vaccinationCertificateUnsigned,
+                options: JSONSerialization.WritingOptions.prettyPrinted),
+            as: UTF8.self)
+        
+        let credential = try credentialService.issue(request: issueRequest)
         // }
-        NSLog("%@", credential);
         XCTAssertNotNil(credential)
+        XCTAssertNotEqual("", credential.signedDocumentJson)
 
         // STORE CREDENTIAL
         // storeCredential() {
         // Alice stores the credential in her cloud wallet
-        let itemId = try Services.Wallet()
-            .with(profile: allison)
-            .with(endpoint: testEndpoint)
-            .build()
-            .insertItem(item: credential)
+        walletService.options.authToken = allison
+        
+        var insertRequest = Services_Universalwallet_V1_InsertItemRequest()
+        insertRequest.itemJson = credential.signedDocumentJson
+        
+        let insertResponse = try walletService.insertItem(request: insertRequest)
         // }
-        NSLog("item id = %@", itemId)
-        XCTAssertNotNil(itemId)
+        XCTAssertNotNil(insertResponse)
+        XCTAssertNotEqual("", insertResponse.itemID)
 
         // SHARE CREDENTIAL
         // Allison shares the credential with the venue
         // The venue has communicated with Allison the details of the credential
         // that they require expressed as a Json-LD frame.
         // shareCredential() {
-        let credentialProof = try Services.Credential()
-            .with(profile: allison)
-            .with(endpoint: testEndpoint)
-            .build()
-            .createProof(documentId: itemId, revealDocument: vaccinationCertificateFrame)
+        credentialService.options.authToken = allison
+        
+        var proofRequest = Services_Verifiablecredentials_V1_CreateProofRequest()
+        proofRequest.itemID = insertResponse.itemID
+        
+        let proofResponse = try credentialService.createProof(request: proofRequest)
         // }
-        NSLog("Proof: %@", credentialProof)
-        XCTAssertNotNil(credentialProof)
+        XCTAssertNotNil(proofResponse)
 
         // VERIFY CREDENTIAL
         // The airline verifies the credential
         // verifyCredential() {
-        let valid = try Services.Credential()
-            .with(profile: airline)
-            .with(endpoint: testEndpoint)
-            .build()
-            .verify(proofDocument: credentialProof);
+        credentialService.options.authToken = airline
+        
+        var verifyRequest = Services_Verifiablecredentials_V1_VerifyProofRequest()
+        verifyRequest.proofDocumentJson = proofResponse.proofDocumentJson
+        
+        let verifyResponse = try credentialService.verify(request: verifyRequest);
         // }
-        XCTAssertTrue(valid, "Result should be valid");
+        XCTAssertNotNil(verifyResponse)
+        XCTAssertTrue(verifyResponse.isValid, "Result should be valid");
     }
 }

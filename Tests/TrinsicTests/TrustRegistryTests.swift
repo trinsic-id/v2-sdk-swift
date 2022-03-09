@@ -11,46 +11,36 @@ import XCTest
 
 final class TrustRegistryTests: XCTestCase {
     
-    let testEndpoint = "staging-internal.trinsic.cloud"
-    var profile: AccountProfile?
+    let testEndpoint = "dev-internal.trinsic.cloud"
+    var service: TrustRegistryService?
     
     override func setUpWithError() throws {
-        self.profile = try Services.Account()
-            .with(endpoint: testEndpoint)
-            .build()
-            .signIn()
+        var options = Sdk_Options_V1_ServiceOptions()
+        options.serverEndpoint = testEndpoint
+        let accountService = AccountService(options: options)
+        
+        options.authToken = try accountService.signIn(request: Services_Account_V1_SignInRequest())
+        self.service = TrustRegistryService(options: options)
     }
     
     func testAddFramework() throws {
-        
-        let service = Services.TrustRegistry()
-            .with(endpoint: testEndpoint)
-            .with(profile: self.profile!)
-            .build()
-        
         var request = Services_Trustregistry_V1_AddFrameworkRequest()
         request.governanceFramework.governanceFrameworkUri = "https://test#\(UUID().uuidString)"
         request.governanceFramework.description_p = "test egf"
         
-        let response = try service.addFramework(request: request)
+        let response = try service!.addFramework(request: request)
         
         XCTAssertNotNil(response)
         XCTAssertEqual(response.status, .success)
     }
     
     func testRegisterIssuer() throws {
-        
-        let service = Services.TrustRegistry()
-            .with(endpoint: testEndpoint)
-            .with(profile: self.profile!)
-            .build()
-        
         var request = Services_Trustregistry_V1_RegisterIssuerRequest()
         request.governanceFrameworkUri = "https://test"
         request.didUri = "did:example:isser"
         request.credentialTypeUri = "https://credential"
         
-        let response = try service.registerIssuer(request: request)
+        let response = try service!.registerIssuer(request: request)
         
         XCTAssertNotNil(response)
         XCTAssertEqual(response.status, .success)
