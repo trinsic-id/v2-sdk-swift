@@ -35,20 +35,15 @@ public protocol Services_Provider_V1_ProviderClientProtocol: GRPCClient {
     callOptions: CallOptions?
   ) -> UnaryCall<Services_Provider_V1_CreateEcosystemRequest, Services_Provider_V1_CreateEcosystemResponse>
 
-  func ListEcosystems(
-    _ request: Services_Provider_V1_ListEcosystemsRequest,
+  func GenerateToken(
+    _ request: Services_Provider_V1_GenerateTokenRequest,
     callOptions: CallOptions?
-  ) -> UnaryCall<Services_Provider_V1_ListEcosystemsRequest, Services_Provider_V1_ListEcosystemsResponse>
+  ) -> UnaryCall<Services_Provider_V1_GenerateTokenRequest, Services_Provider_V1_GenerateTokenResponse>
 
   func Invite(
     _ request: Services_Provider_V1_InviteRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<Services_Provider_V1_InviteRequest, Services_Provider_V1_InviteResponse>
-
-  func AcceptInvite(
-    _ request: Services_Provider_V1_AcceptInviteRequest,
-    callOptions: CallOptions?
-  ) -> UnaryCall<Services_Provider_V1_AcceptInviteRequest, Services_Provider_V1_AcceptInviteResponse>
 
   func InvitationStatus(
     _ request: Services_Provider_V1_InvitationStatusRequest,
@@ -79,21 +74,22 @@ extension Services_Provider_V1_ProviderClientProtocol {
     )
   }
 
-  /// List all ecosystems assigned to the authenticated account
+  /// Generates an unprotected authentication token that can be used to
+  /// configure server side applications
   ///
   /// - Parameters:
-  ///   - request: Request to send to ListEcosystems.
+  ///   - request: Request to send to GenerateToken.
   ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func ListEcosystems(
-    _ request: Services_Provider_V1_ListEcosystemsRequest,
+  public func GenerateToken(
+    _ request: Services_Provider_V1_GenerateTokenRequest,
     callOptions: CallOptions? = nil
-  ) -> UnaryCall<Services_Provider_V1_ListEcosystemsRequest, Services_Provider_V1_ListEcosystemsResponse> {
+  ) -> UnaryCall<Services_Provider_V1_GenerateTokenRequest, Services_Provider_V1_GenerateTokenResponse> {
     return self.makeUnaryCall(
-      path: "/services.provider.v1.Provider/ListEcosystems",
+      path: "/services.provider.v1.Provider/GenerateToken",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeListEcosystemsInterceptors() ?? []
+      interceptors: self.interceptors?.makeGenerateTokenInterceptors() ?? []
     )
   }
 
@@ -112,24 +108,6 @@ extension Services_Provider_V1_ProviderClientProtocol {
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
       interceptors: self.interceptors?.makeInviteInterceptors() ?? []
-    )
-  }
-
-  /// Accept an invite to the ecosystem
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to AcceptInvite.
-  ///   - callOptions: Call options.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func AcceptInvite(
-    _ request: Services_Provider_V1_AcceptInviteRequest,
-    callOptions: CallOptions? = nil
-  ) -> UnaryCall<Services_Provider_V1_AcceptInviteRequest, Services_Provider_V1_AcceptInviteResponse> {
-    return self.makeUnaryCall(
-      path: "/services.provider.v1.Provider/AcceptInvite",
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeAcceptInviteInterceptors() ?? []
     )
   }
 
@@ -157,14 +135,11 @@ public protocol Services_Provider_V1_ProviderClientInterceptorFactoryProtocol {
   /// - Returns: Interceptors to use when invoking 'CreateEcosystem'.
   func makeCreateEcosystemInterceptors() -> [ClientInterceptor<Services_Provider_V1_CreateEcosystemRequest, Services_Provider_V1_CreateEcosystemResponse>]
 
-  /// - Returns: Interceptors to use when invoking 'ListEcosystems'.
-  func makeListEcosystemsInterceptors() -> [ClientInterceptor<Services_Provider_V1_ListEcosystemsRequest, Services_Provider_V1_ListEcosystemsResponse>]
+  /// - Returns: Interceptors to use when invoking 'GenerateToken'.
+  func makeGenerateTokenInterceptors() -> [ClientInterceptor<Services_Provider_V1_GenerateTokenRequest, Services_Provider_V1_GenerateTokenResponse>]
 
   /// - Returns: Interceptors to use when invoking 'Invite'.
   func makeInviteInterceptors() -> [ClientInterceptor<Services_Provider_V1_InviteRequest, Services_Provider_V1_InviteResponse>]
-
-  /// - Returns: Interceptors to use when invoking 'AcceptInvite'.
-  func makeAcceptInviteInterceptors() -> [ClientInterceptor<Services_Provider_V1_AcceptInviteRequest, Services_Provider_V1_AcceptInviteResponse>]
 
   /// - Returns: Interceptors to use when invoking 'InvitationStatus'.
   func makeInvitationStatusInterceptors() -> [ClientInterceptor<Services_Provider_V1_InvitationStatusRequest, Services_Provider_V1_InvitationStatusResponse>]
@@ -199,14 +174,12 @@ public protocol Services_Provider_V1_ProviderProvider: CallHandlerProvider {
   /// Create new ecosystem and assign the authenticated user as owner
   func CreateEcosystem(request: Services_Provider_V1_CreateEcosystemRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_CreateEcosystemResponse>
 
-  /// List all ecosystems assigned to the authenticated account
-  func ListEcosystems(request: Services_Provider_V1_ListEcosystemsRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_ListEcosystemsResponse>
+  /// Generates an unprotected authentication token that can be used to
+  /// configure server side applications
+  func GenerateToken(request: Services_Provider_V1_GenerateTokenRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_GenerateTokenResponse>
 
   /// Invite a user to the ecosystem
   func Invite(request: Services_Provider_V1_InviteRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_InviteResponse>
-
-  /// Accept an invite to the ecosystem
-  func AcceptInvite(request: Services_Provider_V1_AcceptInviteRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_AcceptInviteResponse>
 
   /// Check the invitation status
   func InvitationStatus(request: Services_Provider_V1_InvitationStatusRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_InvitationStatusResponse>
@@ -231,13 +204,13 @@ extension Services_Provider_V1_ProviderProvider {
         userFunction: self.CreateEcosystem(request:context:)
       )
 
-    case "ListEcosystems":
+    case "GenerateToken":
       return UnaryServerHandler(
         context: context,
-        requestDeserializer: ProtobufDeserializer<Services_Provider_V1_ListEcosystemsRequest>(),
-        responseSerializer: ProtobufSerializer<Services_Provider_V1_ListEcosystemsResponse>(),
-        interceptors: self.interceptors?.makeListEcosystemsInterceptors() ?? [],
-        userFunction: self.ListEcosystems(request:context:)
+        requestDeserializer: ProtobufDeserializer<Services_Provider_V1_GenerateTokenRequest>(),
+        responseSerializer: ProtobufSerializer<Services_Provider_V1_GenerateTokenResponse>(),
+        interceptors: self.interceptors?.makeGenerateTokenInterceptors() ?? [],
+        userFunction: self.GenerateToken(request:context:)
       )
 
     case "Invite":
@@ -247,15 +220,6 @@ extension Services_Provider_V1_ProviderProvider {
         responseSerializer: ProtobufSerializer<Services_Provider_V1_InviteResponse>(),
         interceptors: self.interceptors?.makeInviteInterceptors() ?? [],
         userFunction: self.Invite(request:context:)
-      )
-
-    case "AcceptInvite":
-      return UnaryServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<Services_Provider_V1_AcceptInviteRequest>(),
-        responseSerializer: ProtobufSerializer<Services_Provider_V1_AcceptInviteResponse>(),
-        interceptors: self.interceptors?.makeAcceptInviteInterceptors() ?? [],
-        userFunction: self.AcceptInvite(request:context:)
       )
 
     case "InvitationStatus":
@@ -279,17 +243,13 @@ public protocol Services_Provider_V1_ProviderServerInterceptorFactoryProtocol {
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeCreateEcosystemInterceptors() -> [ServerInterceptor<Services_Provider_V1_CreateEcosystemRequest, Services_Provider_V1_CreateEcosystemResponse>]
 
-  /// - Returns: Interceptors to use when handling 'ListEcosystems'.
+  /// - Returns: Interceptors to use when handling 'GenerateToken'.
   ///   Defaults to calling `self.makeInterceptors()`.
-  func makeListEcosystemsInterceptors() -> [ServerInterceptor<Services_Provider_V1_ListEcosystemsRequest, Services_Provider_V1_ListEcosystemsResponse>]
+  func makeGenerateTokenInterceptors() -> [ServerInterceptor<Services_Provider_V1_GenerateTokenRequest, Services_Provider_V1_GenerateTokenResponse>]
 
   /// - Returns: Interceptors to use when handling 'Invite'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeInviteInterceptors() -> [ServerInterceptor<Services_Provider_V1_InviteRequest, Services_Provider_V1_InviteResponse>]
-
-  /// - Returns: Interceptors to use when handling 'AcceptInvite'.
-  ///   Defaults to calling `self.makeInterceptors()`.
-  func makeAcceptInviteInterceptors() -> [ServerInterceptor<Services_Provider_V1_AcceptInviteRequest, Services_Provider_V1_AcceptInviteResponse>]
 
   /// - Returns: Interceptors to use when handling 'InvitationStatus'.
   ///   Defaults to calling `self.makeInterceptors()`.

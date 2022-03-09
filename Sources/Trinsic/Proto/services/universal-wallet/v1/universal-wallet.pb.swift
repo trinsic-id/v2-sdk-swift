@@ -30,20 +30,9 @@ public struct Services_Universalwallet_V1_SearchRequest {
 
   public var continuationToken: String = String()
 
-  public var options: Services_Common_V1_RequestOptions {
-    get {return _options ?? Services_Common_V1_RequestOptions()}
-    set {_options = newValue}
-  }
-  /// Returns true if `options` has been explicitly set.
-  public var hasOptions: Bool {return self._options != nil}
-  /// Clears the value of `options`. Subsequent reads from it will return its default value.
-  public mutating func clearOptions() {self._options = nil}
-
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  fileprivate var _options: Services_Common_V1_RequestOptions? = nil
 }
 
 /// Search response object
@@ -52,7 +41,7 @@ public struct Services_Universalwallet_V1_SearchResponse {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var items: [Services_Common_V1_JsonPayload] = []
+  public var items: [String] = []
 
   public var hasMore_p: Bool = false
 
@@ -65,28 +54,83 @@ public struct Services_Universalwallet_V1_SearchResponse {
   public init() {}
 }
 
+/// Get item request object
+public struct Services_Universalwallet_V1_GetItemRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The item identifier
+  public var itemID: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+/// Get item response object
+public struct Services_Universalwallet_V1_GetItemResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The item data represented as stringified JSON
+  public var itemJson: String = String()
+
+  /// User set item type that described the content of this item
+  public var itemType: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+/// Update item request object
+public struct Services_Universalwallet_V1_UpdateItemRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// The item identifier
+  public var itemID: String = String()
+
+  /// The item type that described the content of this item
+  public var itemType: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+/// Update item response object
+public struct Services_Universalwallet_V1_UpdateItemResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Response status
+  public var status: Services_Common_V1_ResponseStatus = .success
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
 /// Insert item request
 public struct Services_Universalwallet_V1_InsertItemRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var item: Services_Common_V1_JsonPayload {
-    get {return _item ?? Services_Common_V1_JsonPayload()}
-    set {_item = newValue}
-  }
-  /// Returns true if `item` has been explicitly set.
-  public var hasItem: Bool {return self._item != nil}
-  /// Clears the value of `item`. Subsequent reads from it will return its default value.
-  public mutating func clearItem() {self._item = nil}
+  /// the document to insert as stringified json
+  public var itemJson: String = String()
 
+  /// optional item type ex. "VerifiableCredential"
   public var itemType: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  fileprivate var _item: Services_Common_V1_JsonPayload? = nil
 }
 
 /// Insert item response
@@ -111,20 +155,39 @@ public struct Services_Universalwallet_V1_DeleteItemRequest {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// item identifier of the record to delete
+  public var itemID: String = String()
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 }
 
+/// Delete item response
 public struct Services_Universalwallet_V1_DeleteItemResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  public var status: Services_Common_V1_ResponseStatus = .success
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 }
+
+#if swift(>=5.5) && canImport(_Concurrency)
+extension Services_Universalwallet_V1_SearchRequest: @unchecked Sendable {}
+extension Services_Universalwallet_V1_SearchResponse: @unchecked Sendable {}
+extension Services_Universalwallet_V1_GetItemRequest: @unchecked Sendable {}
+extension Services_Universalwallet_V1_GetItemResponse: @unchecked Sendable {}
+extension Services_Universalwallet_V1_UpdateItemRequest: @unchecked Sendable {}
+extension Services_Universalwallet_V1_UpdateItemResponse: @unchecked Sendable {}
+extension Services_Universalwallet_V1_InsertItemRequest: @unchecked Sendable {}
+extension Services_Universalwallet_V1_InsertItemResponse: @unchecked Sendable {}
+extension Services_Universalwallet_V1_DeleteItemRequest: @unchecked Sendable {}
+extension Services_Universalwallet_V1_DeleteItemResponse: @unchecked Sendable {}
+#endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
@@ -135,7 +198,6 @@ extension Services_Universalwallet_V1_SearchRequest: SwiftProtobuf.Message, Swif
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "query"),
     2: .standard(proto: "continuation_token"),
-    5: .same(proto: "options"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -146,33 +208,24 @@ extension Services_Universalwallet_V1_SearchRequest: SwiftProtobuf.Message, Swif
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.query) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.continuationToken) }()
-      case 5: try { try decoder.decodeSingularMessageField(value: &self._options) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
     if !self.query.isEmpty {
       try visitor.visitSingularStringField(value: self.query, fieldNumber: 1)
     }
     if !self.continuationToken.isEmpty {
       try visitor.visitSingularStringField(value: self.continuationToken, fieldNumber: 2)
     }
-    try { if let v = self._options {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
-    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Services_Universalwallet_V1_SearchRequest, rhs: Services_Universalwallet_V1_SearchRequest) -> Bool {
     if lhs.query != rhs.query {return false}
     if lhs.continuationToken != rhs.continuationToken {return false}
-    if lhs._options != rhs._options {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -193,7 +246,7 @@ extension Services_Universalwallet_V1_SearchResponse: SwiftProtobuf.Message, Swi
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.items) }()
+      case 1: try { try decoder.decodeRepeatedStringField(value: &self.items) }()
       case 2: try { try decoder.decodeSingularBoolField(value: &self.hasMore_p) }()
       case 3: try { try decoder.decodeSingularInt32Field(value: &self.count) }()
       case 4: try { try decoder.decodeSingularStringField(value: &self.continuationToken) }()
@@ -204,7 +257,7 @@ extension Services_Universalwallet_V1_SearchResponse: SwiftProtobuf.Message, Swi
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if !self.items.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.items, fieldNumber: 1)
+      try visitor.visitRepeatedStringField(value: self.items, fieldNumber: 1)
     }
     if self.hasMore_p != false {
       try visitor.visitSingularBoolField(value: self.hasMore_p, fieldNumber: 2)
@@ -228,10 +281,42 @@ extension Services_Universalwallet_V1_SearchResponse: SwiftProtobuf.Message, Swi
   }
 }
 
-extension Services_Universalwallet_V1_InsertItemRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".InsertItemRequest"
+extension Services_Universalwallet_V1_GetItemRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetItemRequest"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "item"),
+    1: .standard(proto: "item_id"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.itemID) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.itemID.isEmpty {
+      try visitor.visitSingularStringField(value: self.itemID, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Services_Universalwallet_V1_GetItemRequest, rhs: Services_Universalwallet_V1_GetItemRequest) -> Bool {
+    if lhs.itemID != rhs.itemID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Services_Universalwallet_V1_GetItemResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetItemResponse"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "item_json"),
     2: .standard(proto: "item_type"),
   ]
 
@@ -241,7 +326,7 @@ extension Services_Universalwallet_V1_InsertItemRequest: SwiftProtobuf.Message, 
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularMessageField(value: &self._item) }()
+      case 1: try { try decoder.decodeSingularStringField(value: &self.itemJson) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.itemType) }()
       default: break
       }
@@ -249,13 +334,117 @@ extension Services_Universalwallet_V1_InsertItemRequest: SwiftProtobuf.Message, 
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    try { if let v = self._item {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    } }()
+    if !self.itemJson.isEmpty {
+      try visitor.visitSingularStringField(value: self.itemJson, fieldNumber: 1)
+    }
+    if !self.itemType.isEmpty {
+      try visitor.visitSingularStringField(value: self.itemType, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Services_Universalwallet_V1_GetItemResponse, rhs: Services_Universalwallet_V1_GetItemResponse) -> Bool {
+    if lhs.itemJson != rhs.itemJson {return false}
+    if lhs.itemType != rhs.itemType {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Services_Universalwallet_V1_UpdateItemRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".UpdateItemRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "item_id"),
+    2: .standard(proto: "item_type"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.itemID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.itemType) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.itemID.isEmpty {
+      try visitor.visitSingularStringField(value: self.itemID, fieldNumber: 1)
+    }
+    if !self.itemType.isEmpty {
+      try visitor.visitSingularStringField(value: self.itemType, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Services_Universalwallet_V1_UpdateItemRequest, rhs: Services_Universalwallet_V1_UpdateItemRequest) -> Bool {
+    if lhs.itemID != rhs.itemID {return false}
+    if lhs.itemType != rhs.itemType {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Services_Universalwallet_V1_UpdateItemResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".UpdateItemResponse"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "status"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.status) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.status != .success {
+      try visitor.visitSingularEnumField(value: self.status, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Services_Universalwallet_V1_UpdateItemResponse, rhs: Services_Universalwallet_V1_UpdateItemResponse) -> Bool {
+    if lhs.status != rhs.status {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Services_Universalwallet_V1_InsertItemRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".InsertItemRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "item_json"),
+    2: .standard(proto: "item_type"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.itemJson) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.itemType) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.itemJson.isEmpty {
+      try visitor.visitSingularStringField(value: self.itemJson, fieldNumber: 1)
+    }
     if !self.itemType.isEmpty {
       try visitor.visitSingularStringField(value: self.itemType, fieldNumber: 2)
     }
@@ -263,7 +452,7 @@ extension Services_Universalwallet_V1_InsertItemRequest: SwiftProtobuf.Message, 
   }
 
   public static func ==(lhs: Services_Universalwallet_V1_InsertItemRequest, rhs: Services_Universalwallet_V1_InsertItemRequest) -> Bool {
-    if lhs._item != rhs._item {return false}
+    if lhs.itemJson != rhs.itemJson {return false}
     if lhs.itemType != rhs.itemType {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
@@ -310,18 +499,31 @@ extension Services_Universalwallet_V1_InsertItemResponse: SwiftProtobuf.Message,
 
 extension Services_Universalwallet_V1_DeleteItemRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".DeleteItemRequest"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "item_id"),
+  ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let _ = try decoder.nextFieldNumber() {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.itemID) }()
+      default: break
+      }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.itemID.isEmpty {
+      try visitor.visitSingularStringField(value: self.itemID, fieldNumber: 1)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Services_Universalwallet_V1_DeleteItemRequest, rhs: Services_Universalwallet_V1_DeleteItemRequest) -> Bool {
+    if lhs.itemID != rhs.itemID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -329,18 +531,31 @@ extension Services_Universalwallet_V1_DeleteItemRequest: SwiftProtobuf.Message, 
 
 extension Services_Universalwallet_V1_DeleteItemResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".DeleteItemResponse"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "status"),
+  ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let _ = try decoder.nextFieldNumber() {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.status) }()
+      default: break
+      }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.status != .success {
+      try visitor.visitSingularEnumField(value: self.status, fieldNumber: 1)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Services_Universalwallet_V1_DeleteItemResponse, rhs: Services_Universalwallet_V1_DeleteItemResponse) -> Bool {
+    if lhs.status != rhs.status {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

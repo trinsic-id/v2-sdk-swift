@@ -76,127 +76,6 @@ extension Services_Common_V1_ResponseStatus: CaseIterable {
 
 #endif  // swift(>=4.2)
 
-public enum Services_Common_V1_JsonFormat: SwiftProtobuf.Enum {
-  public typealias RawValue = Int
-  case protobuf // = 0
-  case binary // = 1
-  case string // = 2
-  case UNRECOGNIZED(Int)
-
-  public init() {
-    self = .protobuf
-  }
-
-  public init?(rawValue: Int) {
-    switch rawValue {
-    case 0: self = .protobuf
-    case 1: self = .binary
-    case 2: self = .string
-    default: self = .UNRECOGNIZED(rawValue)
-    }
-  }
-
-  public var rawValue: Int {
-    switch self {
-    case .protobuf: return 0
-    case .binary: return 1
-    case .string: return 2
-    case .UNRECOGNIZED(let i): return i
-    }
-  }
-
-}
-
-#if swift(>=4.2)
-
-extension Services_Common_V1_JsonFormat: CaseIterable {
-  // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Services_Common_V1_JsonFormat] = [
-    .protobuf,
-    .binary,
-    .string,
-  ]
-}
-
-#endif  // swift(>=4.2)
-
-public struct Services_Common_V1_RequestOptions {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var responseJsonFormat: Services_Common_V1_JsonFormat = .protobuf
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-}
-
-public struct Services_Common_V1_JsonPayload {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var json: Services_Common_V1_JsonPayload.OneOf_Json? = nil
-
-  public var jsonStruct: SwiftProtobuf.Google_Protobuf_Struct {
-    get {
-      if case .jsonStruct(let v)? = json {return v}
-      return SwiftProtobuf.Google_Protobuf_Struct()
-    }
-    set {json = .jsonStruct(newValue)}
-  }
-
-  public var jsonString: String {
-    get {
-      if case .jsonString(let v)? = json {return v}
-      return String()
-    }
-    set {json = .jsonString(newValue)}
-  }
-
-  public var jsonBytes: Data {
-    get {
-      if case .jsonBytes(let v)? = json {return v}
-      return Data()
-    }
-    set {json = .jsonBytes(newValue)}
-  }
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public enum OneOf_Json: Equatable {
-    case jsonStruct(SwiftProtobuf.Google_Protobuf_Struct)
-    case jsonString(String)
-    case jsonBytes(Data)
-
-  #if !swift(>=4.1)
-    public static func ==(lhs: Services_Common_V1_JsonPayload.OneOf_Json, rhs: Services_Common_V1_JsonPayload.OneOf_Json) -> Bool {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch (lhs, rhs) {
-      case (.jsonStruct, .jsonStruct): return {
-        guard case .jsonStruct(let l) = lhs, case .jsonStruct(let r) = rhs else { preconditionFailure() }
-        return l == r
-      }()
-      case (.jsonString, .jsonString): return {
-        guard case .jsonString(let l) = lhs, case .jsonString(let r) = rhs else { preconditionFailure() }
-        return l == r
-      }()
-      case (.jsonBytes, .jsonBytes): return {
-        guard case .jsonBytes(let l) = lhs, case .jsonBytes(let r) = rhs else { preconditionFailure() }
-        return l == r
-      }()
-      default: return false
-      }
-    }
-  #endif
-  }
-
-  public init() {}
-}
-
 public struct Services_Common_V1_ServerConfig {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -233,6 +112,12 @@ public struct Services_Common_V1_Nonce {
   public init() {}
 }
 
+#if swift(>=5.5) && canImport(_Concurrency)
+extension Services_Common_V1_ResponseStatus: @unchecked Sendable {}
+extension Services_Common_V1_ServerConfig: @unchecked Sendable {}
+extension Services_Common_V1_Nonce: @unchecked Sendable {}
+#endif  // swift(>=5.5) && canImport(_Concurrency)
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "services.common.v1"
@@ -246,124 +131,6 @@ extension Services_Common_V1_ResponseStatus: SwiftProtobuf._ProtoNameProviding {
     100: .same(proto: "UNKNOWN_ERROR"),
     200: .same(proto: "SERIALIZATION_ERROR"),
   ]
-}
-
-extension Services_Common_V1_JsonFormat: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "Protobuf"),
-    1: .same(proto: "Binary"),
-    2: .same(proto: "String"),
-  ]
-}
-
-extension Services_Common_V1_RequestOptions: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".RequestOptions"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "response_json_format"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularEnumField(value: &self.responseJsonFormat) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.responseJsonFormat != .protobuf {
-      try visitor.visitSingularEnumField(value: self.responseJsonFormat, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Services_Common_V1_RequestOptions, rhs: Services_Common_V1_RequestOptions) -> Bool {
-    if lhs.responseJsonFormat != rhs.responseJsonFormat {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Services_Common_V1_JsonPayload: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".JsonPayload"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "json_struct"),
-    2: .standard(proto: "json_string"),
-    3: .standard(proto: "json_bytes"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try {
-        var v: SwiftProtobuf.Google_Protobuf_Struct?
-        var hadOneofValue = false
-        if let current = self.json {
-          hadOneofValue = true
-          if case .jsonStruct(let m) = current {v = m}
-        }
-        try decoder.decodeSingularMessageField(value: &v)
-        if let v = v {
-          if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.json = .jsonStruct(v)
-        }
-      }()
-      case 2: try {
-        var v: String?
-        try decoder.decodeSingularStringField(value: &v)
-        if let v = v {
-          if self.json != nil {try decoder.handleConflictingOneOf()}
-          self.json = .jsonString(v)
-        }
-      }()
-      case 3: try {
-        var v: Data?
-        try decoder.decodeSingularBytesField(value: &v)
-        if let v = v {
-          if self.json != nil {try decoder.handleConflictingOneOf()}
-          self.json = .jsonBytes(v)
-        }
-      }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    switch self.json {
-    case .jsonStruct?: try {
-      guard case .jsonStruct(let v)? = self.json else { preconditionFailure() }
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    }()
-    case .jsonString?: try {
-      guard case .jsonString(let v)? = self.json else { preconditionFailure() }
-      try visitor.visitSingularStringField(value: v, fieldNumber: 2)
-    }()
-    case .jsonBytes?: try {
-      guard case .jsonBytes(let v)? = self.json else { preconditionFailure() }
-      try visitor.visitSingularBytesField(value: v, fieldNumber: 3)
-    }()
-    case nil: break
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Services_Common_V1_JsonPayload, rhs: Services_Common_V1_JsonPayload) -> Bool {
-    if lhs.json != rhs.json {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
 }
 
 extension Services_Common_V1_ServerConfig: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

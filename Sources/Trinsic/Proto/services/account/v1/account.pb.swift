@@ -103,6 +103,10 @@ public struct Services_Account_V1_SignInRequest {
   /// This field is optional.
   public var invitationCode: String = String()
 
+  /// EcosystemId to sign in. This field is optional
+  /// and will be ignored if invitation_code is passed
+  public var ecosystemID: String = String()
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -248,7 +252,7 @@ public struct Services_Account_V1_InfoResponse {
   public mutating func clearDetails() {self._details = nil}
 
   /// any ecosystems the account has access to
-  public var ecosystems: [Services_Provider_V1_Ecosystem] = []
+  public var ecosystems: [Services_Account_V1_AccountEcosystem] = []
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -297,6 +301,40 @@ public struct Services_Account_V1_RevokeDeviceResponse {
   public init() {}
 }
 
+public struct Services_Account_V1_AccountEcosystem {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var id: String = String()
+
+  public var name: String = String()
+
+  public var description_p: String = String()
+
+  public var uri: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+#if swift(>=5.5) && canImport(_Concurrency)
+extension Services_Account_V1_ConfirmationMethod: @unchecked Sendable {}
+extension Services_Account_V1_SignInRequest: @unchecked Sendable {}
+extension Services_Account_V1_AccountDetails: @unchecked Sendable {}
+extension Services_Account_V1_SignInResponse: @unchecked Sendable {}
+extension Services_Account_V1_AccountProfile: @unchecked Sendable {}
+extension Services_Account_V1_TokenProtection: @unchecked Sendable {}
+extension Services_Account_V1_InfoRequest: @unchecked Sendable {}
+extension Services_Account_V1_InfoResponse: @unchecked Sendable {}
+extension Services_Account_V1_ListDevicesRequest: @unchecked Sendable {}
+extension Services_Account_V1_ListDevicesResponse: @unchecked Sendable {}
+extension Services_Account_V1_RevokeDeviceRequest: @unchecked Sendable {}
+extension Services_Account_V1_RevokeDeviceResponse: @unchecked Sendable {}
+extension Services_Account_V1_AccountEcosystem: @unchecked Sendable {}
+#endif  // swift(>=5.5) && canImport(_Concurrency)
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "services.account.v1"
@@ -316,6 +354,7 @@ extension Services_Account_V1_SignInRequest: SwiftProtobuf.Message, SwiftProtobu
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "details"),
     2: .standard(proto: "invitation_code"),
+    3: .standard(proto: "ecosystem_id"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -326,6 +365,7 @@ extension Services_Account_V1_SignInRequest: SwiftProtobuf.Message, SwiftProtobu
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._details) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.invitationCode) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.ecosystemID) }()
       default: break
       }
     }
@@ -342,12 +382,16 @@ extension Services_Account_V1_SignInRequest: SwiftProtobuf.Message, SwiftProtobu
     if !self.invitationCode.isEmpty {
       try visitor.visitSingularStringField(value: self.invitationCode, fieldNumber: 2)
     }
+    if !self.ecosystemID.isEmpty {
+      try visitor.visitSingularStringField(value: self.ecosystemID, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Services_Account_V1_SignInRequest, rhs: Services_Account_V1_SignInRequest) -> Bool {
     if lhs._details != rhs._details {return false}
     if lhs.invitationCode != rhs.invitationCode {return false}
+    if lhs.ecosystemID != rhs.ecosystemID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -669,6 +713,56 @@ extension Services_Account_V1_RevokeDeviceResponse: SwiftProtobuf.Message, Swift
   }
 
   public static func ==(lhs: Services_Account_V1_RevokeDeviceResponse, rhs: Services_Account_V1_RevokeDeviceResponse) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Services_Account_V1_AccountEcosystem: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".AccountEcosystem"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "name"),
+    3: .same(proto: "description"),
+    4: .same(proto: "uri"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.name) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.uri) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.id.isEmpty {
+      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
+    }
+    if !self.name.isEmpty {
+      try visitor.visitSingularStringField(value: self.name, fieldNumber: 2)
+    }
+    if !self.description_p.isEmpty {
+      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 3)
+    }
+    if !self.uri.isEmpty {
+      try visitor.visitSingularStringField(value: self.uri, fieldNumber: 4)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Services_Account_V1_AccountEcosystem, rhs: Services_Account_V1_AccountEcosystem) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs.name != rhs.name {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.uri != rhs.uri {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

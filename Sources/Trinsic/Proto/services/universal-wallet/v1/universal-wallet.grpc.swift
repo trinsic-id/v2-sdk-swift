@@ -30,6 +30,11 @@ public protocol Services_Universalwallet_V1_UniversalWalletClientProtocol: GRPCC
   var serviceName: String { get }
   var interceptors: Services_Universalwallet_V1_UniversalWalletClientInterceptorFactoryProtocol? { get }
 
+  func GetItem(
+    _ request: Services_Universalwallet_V1_GetItemRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Services_Universalwallet_V1_GetItemRequest, Services_Universalwallet_V1_GetItemResponse>
+
   func Search(
     _ request: Services_Universalwallet_V1_SearchRequest,
     callOptions: CallOptions?
@@ -40,7 +45,12 @@ public protocol Services_Universalwallet_V1_UniversalWalletClientProtocol: GRPCC
     callOptions: CallOptions?
   ) -> UnaryCall<Services_Universalwallet_V1_InsertItemRequest, Services_Universalwallet_V1_InsertItemResponse>
 
-  func Deleteitem(
+  func UpdateItem(
+    _ request: Services_Universalwallet_V1_UpdateItemRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Services_Universalwallet_V1_UpdateItemRequest, Services_Universalwallet_V1_UpdateItemResponse>
+
+  func DeleteItem(
     _ request: Services_Universalwallet_V1_DeleteItemRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<Services_Universalwallet_V1_DeleteItemRequest, Services_Universalwallet_V1_DeleteItemResponse>
@@ -49,6 +59,24 @@ public protocol Services_Universalwallet_V1_UniversalWalletClientProtocol: GRPCC
 extension Services_Universalwallet_V1_UniversalWalletClientProtocol {
   public var serviceName: String {
     return "services.universalwallet.v1.UniversalWallet"
+  }
+
+  /// Retrieve an item from the wallet with a given item identifier
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to GetItem.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  public func GetItem(
+    _ request: Services_Universalwallet_V1_GetItemRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Services_Universalwallet_V1_GetItemRequest, Services_Universalwallet_V1_GetItemResponse> {
+    return self.makeUnaryCall(
+      path: "/services.universalwallet.v1.UniversalWallet/GetItem",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetItemInterceptors() ?? []
+    )
   }
 
   /// Search the wallet using a SQL-like syntax
@@ -87,26 +115,47 @@ extension Services_Universalwallet_V1_UniversalWalletClientProtocol {
     )
   }
 
+  /// Insert an item into the wallet
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to UpdateItem.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  public func UpdateItem(
+    _ request: Services_Universalwallet_V1_UpdateItemRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Services_Universalwallet_V1_UpdateItemRequest, Services_Universalwallet_V1_UpdateItemResponse> {
+    return self.makeUnaryCall(
+      path: "/services.universalwallet.v1.UniversalWallet/UpdateItem",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeUpdateItemInterceptors() ?? []
+    )
+  }
+
   /// Delete an item from the wallet permanently
   ///
   /// - Parameters:
-  ///   - request: Request to send to Deleteitem.
+  ///   - request: Request to send to DeleteItem.
   ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func Deleteitem(
+  public func DeleteItem(
     _ request: Services_Universalwallet_V1_DeleteItemRequest,
     callOptions: CallOptions? = nil
   ) -> UnaryCall<Services_Universalwallet_V1_DeleteItemRequest, Services_Universalwallet_V1_DeleteItemResponse> {
     return self.makeUnaryCall(
-      path: "/services.universalwallet.v1.UniversalWallet/Deleteitem",
+      path: "/services.universalwallet.v1.UniversalWallet/DeleteItem",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeDeleteitemInterceptors() ?? []
+      interceptors: self.interceptors?.makeDeleteItemInterceptors() ?? []
     )
   }
 }
 
 public protocol Services_Universalwallet_V1_UniversalWalletClientInterceptorFactoryProtocol {
+
+  /// - Returns: Interceptors to use when invoking 'GetItem'.
+  func makeGetItemInterceptors() -> [ClientInterceptor<Services_Universalwallet_V1_GetItemRequest, Services_Universalwallet_V1_GetItemResponse>]
 
   /// - Returns: Interceptors to use when invoking 'Search'.
   func makeSearchInterceptors() -> [ClientInterceptor<Services_Universalwallet_V1_SearchRequest, Services_Universalwallet_V1_SearchResponse>]
@@ -114,8 +163,11 @@ public protocol Services_Universalwallet_V1_UniversalWalletClientInterceptorFact
   /// - Returns: Interceptors to use when invoking 'InsertItem'.
   func makeInsertItemInterceptors() -> [ClientInterceptor<Services_Universalwallet_V1_InsertItemRequest, Services_Universalwallet_V1_InsertItemResponse>]
 
-  /// - Returns: Interceptors to use when invoking 'Deleteitem'.
-  func makeDeleteitemInterceptors() -> [ClientInterceptor<Services_Universalwallet_V1_DeleteItemRequest, Services_Universalwallet_V1_DeleteItemResponse>]
+  /// - Returns: Interceptors to use when invoking 'UpdateItem'.
+  func makeUpdateItemInterceptors() -> [ClientInterceptor<Services_Universalwallet_V1_UpdateItemRequest, Services_Universalwallet_V1_UpdateItemResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'DeleteItem'.
+  func makeDeleteItemInterceptors() -> [ClientInterceptor<Services_Universalwallet_V1_DeleteItemRequest, Services_Universalwallet_V1_DeleteItemResponse>]
 }
 
 public final class Services_Universalwallet_V1_UniversalWalletClient: Services_Universalwallet_V1_UniversalWalletClientProtocol {
@@ -144,14 +196,20 @@ public final class Services_Universalwallet_V1_UniversalWalletClient: Services_U
 public protocol Services_Universalwallet_V1_UniversalWalletProvider: CallHandlerProvider {
   var interceptors: Services_Universalwallet_V1_UniversalWalletServerInterceptorFactoryProtocol? { get }
 
+  /// Retrieve an item from the wallet with a given item identifier
+  func GetItem(request: Services_Universalwallet_V1_GetItemRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Universalwallet_V1_GetItemResponse>
+
   /// Search the wallet using a SQL-like syntax
   func Search(request: Services_Universalwallet_V1_SearchRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Universalwallet_V1_SearchResponse>
 
   /// Insert an item into the wallet
   func InsertItem(request: Services_Universalwallet_V1_InsertItemRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Universalwallet_V1_InsertItemResponse>
 
+  /// Insert an item into the wallet
+  func UpdateItem(request: Services_Universalwallet_V1_UpdateItemRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Universalwallet_V1_UpdateItemResponse>
+
   /// Delete an item from the wallet permanently
-  func Deleteitem(request: Services_Universalwallet_V1_DeleteItemRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Universalwallet_V1_DeleteItemResponse>
+  func DeleteItem(request: Services_Universalwallet_V1_DeleteItemRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Universalwallet_V1_DeleteItemResponse>
 }
 
 extension Services_Universalwallet_V1_UniversalWalletProvider {
@@ -164,6 +222,15 @@ extension Services_Universalwallet_V1_UniversalWalletProvider {
     context: CallHandlerContext
   ) -> GRPCServerHandlerProtocol? {
     switch name {
+    case "GetItem":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Services_Universalwallet_V1_GetItemRequest>(),
+        responseSerializer: ProtobufSerializer<Services_Universalwallet_V1_GetItemResponse>(),
+        interceptors: self.interceptors?.makeGetItemInterceptors() ?? [],
+        userFunction: self.GetItem(request:context:)
+      )
+
     case "Search":
       return UnaryServerHandler(
         context: context,
@@ -182,13 +249,22 @@ extension Services_Universalwallet_V1_UniversalWalletProvider {
         userFunction: self.InsertItem(request:context:)
       )
 
-    case "Deleteitem":
+    case "UpdateItem":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Services_Universalwallet_V1_UpdateItemRequest>(),
+        responseSerializer: ProtobufSerializer<Services_Universalwallet_V1_UpdateItemResponse>(),
+        interceptors: self.interceptors?.makeUpdateItemInterceptors() ?? [],
+        userFunction: self.UpdateItem(request:context:)
+      )
+
+    case "DeleteItem":
       return UnaryServerHandler(
         context: context,
         requestDeserializer: ProtobufDeserializer<Services_Universalwallet_V1_DeleteItemRequest>(),
         responseSerializer: ProtobufSerializer<Services_Universalwallet_V1_DeleteItemResponse>(),
-        interceptors: self.interceptors?.makeDeleteitemInterceptors() ?? [],
-        userFunction: self.Deleteitem(request:context:)
+        interceptors: self.interceptors?.makeDeleteItemInterceptors() ?? [],
+        userFunction: self.DeleteItem(request:context:)
       )
 
     default:
@@ -199,6 +275,10 @@ extension Services_Universalwallet_V1_UniversalWalletProvider {
 
 public protocol Services_Universalwallet_V1_UniversalWalletServerInterceptorFactoryProtocol {
 
+  /// - Returns: Interceptors to use when handling 'GetItem'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeGetItemInterceptors() -> [ServerInterceptor<Services_Universalwallet_V1_GetItemRequest, Services_Universalwallet_V1_GetItemResponse>]
+
   /// - Returns: Interceptors to use when handling 'Search'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeSearchInterceptors() -> [ServerInterceptor<Services_Universalwallet_V1_SearchRequest, Services_Universalwallet_V1_SearchResponse>]
@@ -207,7 +287,11 @@ public protocol Services_Universalwallet_V1_UniversalWalletServerInterceptorFact
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeInsertItemInterceptors() -> [ServerInterceptor<Services_Universalwallet_V1_InsertItemRequest, Services_Universalwallet_V1_InsertItemResponse>]
 
-  /// - Returns: Interceptors to use when handling 'Deleteitem'.
+  /// - Returns: Interceptors to use when handling 'UpdateItem'.
   ///   Defaults to calling `self.makeInterceptors()`.
-  func makeDeleteitemInterceptors() -> [ServerInterceptor<Services_Universalwallet_V1_DeleteItemRequest, Services_Universalwallet_V1_DeleteItemResponse>]
+  func makeUpdateItemInterceptors() -> [ServerInterceptor<Services_Universalwallet_V1_UpdateItemRequest, Services_Universalwallet_V1_UpdateItemResponse>]
+
+  /// - Returns: Interceptors to use when handling 'DeleteItem'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeDeleteItemInterceptors() -> [ServerInterceptor<Services_Universalwallet_V1_DeleteItemRequest, Services_Universalwallet_V1_DeleteItemResponse>]
 }

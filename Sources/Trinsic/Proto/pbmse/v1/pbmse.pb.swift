@@ -213,6 +213,17 @@ public struct Pbmse_V1_EncryptionRecipient {
   fileprivate var _header: Pbmse_V1_EncryptionHeader? = nil
 }
 
+#if swift(>=5.5) && canImport(_Concurrency)
+extension Pbmse_V1_EncryptionMode: @unchecked Sendable {}
+extension Pbmse_V1_EncryptionAlgorithm: @unchecked Sendable {}
+extension Pbmse_V1_SignedMessage: @unchecked Sendable {}
+extension Pbmse_V1_Signature: @unchecked Sendable {}
+extension Pbmse_V1_SignatureHeader: @unchecked Sendable {}
+extension Pbmse_V1_EncryptedMessage: @unchecked Sendable {}
+extension Pbmse_V1_EncryptionHeader: @unchecked Sendable {}
+extension Pbmse_V1_EncryptionRecipient: @unchecked Sendable {}
+#endif  // swift(>=5.5) && canImport(_Concurrency)
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "pbmse.v1"

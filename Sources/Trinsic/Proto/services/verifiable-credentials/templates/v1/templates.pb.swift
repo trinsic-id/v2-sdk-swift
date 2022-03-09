@@ -324,6 +324,26 @@ public struct Services_Verifiablecredentials_Templates_V1_TemplateData {
   public init() {}
 }
 
+#if swift(>=5.5) && canImport(_Concurrency)
+extension Services_Verifiablecredentials_Templates_V1_FieldType: @unchecked Sendable {}
+extension Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateRequest: @unchecked Sendable {}
+extension Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateResponse: @unchecked Sendable {}
+extension Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesRequest: @unchecked Sendable {}
+extension Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesResponse: @unchecked Sendable {}
+extension Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesRequest: @unchecked Sendable {}
+extension Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesResponse: @unchecked Sendable {}
+extension Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateRequest: @unchecked Sendable {}
+extension Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateResponse: @unchecked Sendable {}
+extension Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateRequest: @unchecked Sendable {}
+extension Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateResponse: @unchecked Sendable {}
+extension Services_Verifiablecredentials_Templates_V1_TemplateField: @unchecked Sendable {}
+extension Services_Verifiablecredentials_Templates_V1_GetTemplateRequest: @unchecked Sendable {}
+extension Services_Verifiablecredentials_Templates_V1_GetTemplateResponse: @unchecked Sendable {}
+extension Services_Verifiablecredentials_Templates_V1_ListTemplatesRequest: @unchecked Sendable {}
+extension Services_Verifiablecredentials_Templates_V1_ListTemplatesResponse: @unchecked Sendable {}
+extension Services_Verifiablecredentials_Templates_V1_TemplateData: @unchecked Sendable {}
+#endif  // swift(>=5.5) && canImport(_Concurrency)
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "services.verifiablecredentials.templates.v1"
@@ -879,7 +899,7 @@ extension Services_Verifiablecredentials_Templates_V1_TemplateData: SwiftProtobu
     5: .standard(proto: "allow_additional_fields"),
     6: .standard(proto: "schema_uri"),
     7: .standard(proto: "context_uri"),
-    8: .unique(proto: "ecosystem_id", json: "_ecosystemId"),
+    8: .standard(proto: "ecosystem_id"),
     9: .same(proto: "type"),
   ]
 

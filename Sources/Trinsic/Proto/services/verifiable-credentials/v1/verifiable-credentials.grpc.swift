@@ -71,7 +71,8 @@ extension Services_Verifiablecredentials_V1_VerifiableCredentialClientProtocol {
     return "services.verifiablecredentials.v1.VerifiableCredential"
   }
 
-  /// Unary call to Issue
+  /// Sign and issue a verifiable credential from a submitted document.
+  /// The document must be a valid JSON-LD document.
   ///
   /// - Parameters:
   ///   - request: Request to send to Issue.
@@ -89,7 +90,9 @@ extension Services_Verifiablecredentials_V1_VerifiableCredentialClientProtocol {
     )
   }
 
-  /// Unary call to IssueFromTemplate
+  /// Sign and issue a verifiable credential from a pre-defined template.
+  /// This process will also add schema validation and 
+  /// revocation registry entry in the credential.
   ///
   /// - Parameters:
   ///   - request: Request to send to IssueFromTemplate.
@@ -143,7 +146,8 @@ extension Services_Verifiablecredentials_V1_VerifiableCredentialClientProtocol {
     )
   }
 
-  /// Unary call to CreateProof
+  /// Create a proof from a signed document that is a valid
+  /// verifiable credential and contains a signature from which a proof can be derived.
   ///
   /// - Parameters:
   ///   - request: Request to send to CreateProof.
@@ -161,7 +165,8 @@ extension Services_Verifiablecredentials_V1_VerifiableCredentialClientProtocol {
     )
   }
 
-  /// Unary call to VerifyProof
+  /// Verifies a proof by checking the signature value, and if possible schema validation,
+  /// revocation status, and issuer status against a trust registry
   ///
   /// - Parameters:
   ///   - request: Request to send to VerifyProof.
@@ -179,7 +184,7 @@ extension Services_Verifiablecredentials_V1_VerifiableCredentialClientProtocol {
     )
   }
 
-  /// Unary call to Send
+  /// Sends a document directly to a user's email within the given ecosystem
   ///
   /// - Parameters:
   ///   - request: Request to send to Send.
@@ -248,8 +253,13 @@ public final class Services_Verifiablecredentials_V1_VerifiableCredentialClient:
 public protocol Services_Verifiablecredentials_V1_VerifiableCredentialProvider: CallHandlerProvider {
   var interceptors: Services_Verifiablecredentials_V1_VerifiableCredentialServerInterceptorFactoryProtocol? { get }
 
+  /// Sign and issue a verifiable credential from a submitted document.
+  /// The document must be a valid JSON-LD document.
   func Issue(request: Services_Verifiablecredentials_V1_IssueRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Verifiablecredentials_V1_IssueResponse>
 
+  /// Sign and issue a verifiable credential from a pre-defined template.
+  /// This process will also add schema validation and 
+  /// revocation registry entry in the credential.
   func IssueFromTemplate(request: Services_Verifiablecredentials_V1_IssueFromTemplateRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Verifiablecredentials_V1_IssueFromTemplateResponse>
 
   /// Check credential status by setting the revocation value
@@ -258,10 +268,15 @@ public protocol Services_Verifiablecredentials_V1_VerifiableCredentialProvider: 
   /// Update credential status by setting the revocation value
   func UpdateStatus(request: Services_Verifiablecredentials_V1_UpdateStatusRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Verifiablecredentials_V1_UpdateStatusResponse>
 
+  /// Create a proof from a signed document that is a valid
+  /// verifiable credential and contains a signature from which a proof can be derived.
   func CreateProof(request: Services_Verifiablecredentials_V1_CreateProofRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Verifiablecredentials_V1_CreateProofResponse>
 
+  /// Verifies a proof by checking the signature value, and if possible schema validation,
+  /// revocation status, and issuer status against a trust registry
   func VerifyProof(request: Services_Verifiablecredentials_V1_VerifyProofRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Verifiablecredentials_V1_VerifyProofResponse>
 
+  /// Sends a document directly to a user's email within the given ecosystem
   func Send(request: Services_Verifiablecredentials_V1_SendRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Verifiablecredentials_V1_SendResponse>
 }
 

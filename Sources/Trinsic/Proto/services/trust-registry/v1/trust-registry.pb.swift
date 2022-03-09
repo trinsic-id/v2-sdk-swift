@@ -156,20 +156,9 @@ public struct Services_Trustregistry_V1_SearchRegistryRequest {
 
   public var continuationToken: String = String()
 
-  public var options: Services_Common_V1_RequestOptions {
-    get {return _options ?? Services_Common_V1_RequestOptions()}
-    set {_options = newValue}
-  }
-  /// Returns true if `options` has been explicitly set.
-  public var hasOptions: Bool {return self._options != nil}
-  /// Clears the value of `options`. Subsequent reads from it will return its default value.
-  public mutating func clearOptions() {self._options = nil}
-
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  fileprivate var _options: Services_Common_V1_RequestOptions? = nil
 }
 
 public struct Services_Trustregistry_V1_SearchRegistryResponse {
@@ -652,6 +641,37 @@ public struct Services_Trustregistry_V1_FetchDataResponse {
   public init() {}
 }
 
+#if swift(>=5.5) && canImport(_Concurrency)
+extension Services_Trustregistry_V1_RegistrationStatus: @unchecked Sendable {}
+extension Services_Trustregistry_V1_AddFrameworkRequest: @unchecked Sendable {}
+extension Services_Trustregistry_V1_AddFrameworkResponse: @unchecked Sendable {}
+extension Services_Trustregistry_V1_RemoveFrameworkRequest: @unchecked Sendable {}
+extension Services_Trustregistry_V1_RemoveFrameworkResponse: @unchecked Sendable {}
+extension Services_Trustregistry_V1_SearchRegistryRequest: @unchecked Sendable {}
+extension Services_Trustregistry_V1_SearchRegistryResponse: @unchecked Sendable {}
+extension Services_Trustregistry_V1_GovernanceFramework: @unchecked Sendable {}
+extension Services_Trustregistry_V1_RegisterIssuerRequest: @unchecked Sendable {}
+extension Services_Trustregistry_V1_RegisterIssuerRequest.OneOf_Authority: @unchecked Sendable {}
+extension Services_Trustregistry_V1_RegisterIssuerResponse: @unchecked Sendable {}
+extension Services_Trustregistry_V1_RegisterVerifierRequest: @unchecked Sendable {}
+extension Services_Trustregistry_V1_RegisterVerifierRequest.OneOf_Authority: @unchecked Sendable {}
+extension Services_Trustregistry_V1_RegisterVerifierResponse: @unchecked Sendable {}
+extension Services_Trustregistry_V1_UnregisterIssuerRequest: @unchecked Sendable {}
+extension Services_Trustregistry_V1_UnregisterIssuerRequest.OneOf_Authority: @unchecked Sendable {}
+extension Services_Trustregistry_V1_UnregisterIssuerResponse: @unchecked Sendable {}
+extension Services_Trustregistry_V1_UnregisterVerifierRequest: @unchecked Sendable {}
+extension Services_Trustregistry_V1_UnregisterVerifierRequest.OneOf_Authority: @unchecked Sendable {}
+extension Services_Trustregistry_V1_UnregisterVerifierResponse: @unchecked Sendable {}
+extension Services_Trustregistry_V1_CheckIssuerStatusRequest: @unchecked Sendable {}
+extension Services_Trustregistry_V1_CheckIssuerStatusRequest.OneOf_Member: @unchecked Sendable {}
+extension Services_Trustregistry_V1_CheckIssuerStatusResponse: @unchecked Sendable {}
+extension Services_Trustregistry_V1_CheckVerifierStatusRequest: @unchecked Sendable {}
+extension Services_Trustregistry_V1_CheckVerifierStatusRequest.OneOf_Member: @unchecked Sendable {}
+extension Services_Trustregistry_V1_CheckVerifierStatusResponse: @unchecked Sendable {}
+extension Services_Trustregistry_V1_FetchDataRequest: @unchecked Sendable {}
+extension Services_Trustregistry_V1_FetchDataResponse: @unchecked Sendable {}
+#endif  // swift(>=5.5) && canImport(_Concurrency)
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "services.trustregistry.v1"
@@ -807,7 +827,6 @@ extension Services_Trustregistry_V1_SearchRegistryRequest: SwiftProtobuf.Message
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "query"),
     2: .standard(proto: "continuation_token"),
-    5: .same(proto: "options"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -818,33 +837,24 @@ extension Services_Trustregistry_V1_SearchRegistryRequest: SwiftProtobuf.Message
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.query) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.continuationToken) }()
-      case 5: try { try decoder.decodeSingularMessageField(value: &self._options) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
     if !self.query.isEmpty {
       try visitor.visitSingularStringField(value: self.query, fieldNumber: 1)
     }
     if !self.continuationToken.isEmpty {
       try visitor.visitSingularStringField(value: self.continuationToken, fieldNumber: 2)
     }
-    try { if let v = self._options {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
-    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Services_Trustregistry_V1_SearchRegistryRequest, rhs: Services_Trustregistry_V1_SearchRegistryRequest) -> Bool {
     if lhs.query != rhs.query {return false}
     if lhs.continuationToken != rhs.continuationToken {return false}
-    if lhs._options != rhs._options {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
