@@ -40,5 +40,7 @@ done
 
 # remove the git submodule
 
-git submodule deinit -f sdk
+git submodule deinit -f --all
 rm -rf .git/modules/sdk
+rm .gitmodules
+rm -fr sdk
