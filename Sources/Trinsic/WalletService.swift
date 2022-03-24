@@ -24,7 +24,7 @@ public class WalletService : ServiceBase
     
     public func search(request: Services_Universalwallet_V1_SearchRequest) throws -> Services_Universalwallet_V1_SearchResponse {
         var request = request
-        if request.query.isBlank {
+        if request.query.isEmpty {
             request.query = "SELECT * FROM c";
         }        
         return try client!.Search(request, callOptions: try buildMetadata(request))
