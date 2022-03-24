@@ -23,6 +23,7 @@ public class WalletService : ServiceBase
     }
     
     public func search(request: Services_Universalwallet_V1_SearchRequest) throws -> Services_Universalwallet_V1_SearchResponse {
+        var request = request
         if request.query.isBlank {
             request.query = "SELECT * FROM c";
         }        
