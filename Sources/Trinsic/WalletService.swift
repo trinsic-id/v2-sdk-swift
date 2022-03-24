@@ -23,6 +23,7 @@ public class WalletService : ServiceBase
     }
     
     public func search(request: Services_Universalwallet_V1_SearchRequest) throws -> Services_Universalwallet_V1_SearchResponse {
+        var request = request
         if request.query.isEmpty {
             request.query = "SELECT c.id, c.type, c.data FROM c";
         }        
