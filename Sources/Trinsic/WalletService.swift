@@ -32,7 +32,7 @@ public class WalletService : ServiceBase
             .wait();
     }
 
-    public func insertItem(request: Services_Universalwallet_V1_InsertItemRequest) throws -> Services_Universalwallet_V1_InsertItemResponse {
+    public func insertItem(request: Services_Universalwallet_V1_InsertItemRequest) throws -> Services_Universalwallet_V1_DeleteItemResponse {
         return try client!.InsertItem(request, callOptions: try buildMetadata(request))
             .response
             .wait()
