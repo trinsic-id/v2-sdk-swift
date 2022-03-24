@@ -32,13 +32,13 @@ public class WalletService : ServiceBase
             .wait();
     }
 
-    public func insertItem(request: Services_Universalwallet_V1_InsertItemRequest) throws -> Services_Universalwallet_V1_DeleteItemResponse {
+    public func insertItem(request: Services_Universalwallet_V1_InsertItemRequest) throws -> Services_Universalwallet_V1_InsertItemResponse {
         return try client!.InsertItem(request, callOptions: try buildMetadata(request))
             .response
             .wait()
     }
 
-    public func deleteItem(request: Services_Universalwallet_V1_DeleteItemRequest) throws -> Services_Universalwallet_V1_InsertItemResponse {
+    public func deleteItem(request: Services_Universalwallet_V1_DeleteItemRequest) throws -> Services_Universalwallet_V1_DeleteItemResponse {
         return try client!.DeleteItem(request, callOptions: try buildMetadata(request))
                 .response
                 .wait()
