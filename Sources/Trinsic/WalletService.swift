@@ -37,4 +37,10 @@ public class WalletService : ServiceBase
             .response
             .wait()
     }
+
+    public func deleteItem(request: Services_Universalwallet_V1_DeleteItemRequest) throws -> Services_Universalwallet_V1_InsertItemResponse {
+        return try client!.DeleteItem(request, callOptions: try buildMetadata(request))
+                .response
+                .wait()
+    }
 }
