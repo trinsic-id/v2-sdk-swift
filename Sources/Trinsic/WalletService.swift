@@ -22,7 +22,7 @@ public class WalletService : ServiceBase
         client = Services_Universalwallet_V1_UniversalWalletClient(channel: createChannel())
     }
     
-    public func search(request: Services_Universalwallet_V1_SearchRequest) throws -> Services_Universalwallet_V1_SearchResponse {
+    public func search(request: Services_Universalwallet_V1_SearchRequest()) throws -> Services_Universalwallet_V1_SearchResponse {
         var request = request
         if request.query.isEmpty {
             request.query = "SELECT * FROM c";
