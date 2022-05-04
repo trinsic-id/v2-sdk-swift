@@ -22,7 +22,7 @@ public class WalletService : ServiceBase
         client = Services_Universalwallet_V1_UniversalWalletClient(channel: createChannel())
     }
     
-    public func search(query: String = "SELECT c.id, c.type, c.data FROM c LIMIT 100") throws -> Services_Universalwallet_V1_SearchResponse {
+    public func search(query: String = "SELECT c.id, c.type, c.data FROM c OFFSET 0 LIMIT 100") throws -> Services_Universalwallet_V1_SearchResponse {
         var request = Services_Universalwallet_V1_SearchRequest();
         request.query = query;
         
