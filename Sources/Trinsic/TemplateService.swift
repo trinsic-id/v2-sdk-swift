@@ -34,7 +34,7 @@ public class TemplateService : ServiceBase {
     
     public func list(request: inout Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesRequest) throws -> Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesResponse {
         if request.query.isEmpty {
-            request.query = "SELECT * FROM c"
+            request.query = "SELECT * FROM c OFFSET 0 LIMIT 100"
         }
         return try client!.List(request, callOptions: try buildMetadata(request))
             .response
@@ -43,7 +43,7 @@ public class TemplateService : ServiceBase {
     
     public func search(request: inout Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesRequest) throws -> Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesResponse {
         if request.query.isEmpty {
-            request.query = "SELECT * FROM c"
+            request.query = "SELECT * FROM c OFFSET 0 LIMIT 100"
         }
         return try client!.Search(request, callOptions: try buildMetadata(request))
             .response

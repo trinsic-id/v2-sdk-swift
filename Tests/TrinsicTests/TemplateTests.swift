@@ -25,7 +25,7 @@ final class TemplateTests: XCTestCase {
     
     func testTemplatesDemo() throws {
         var createRequest = Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateRequest()
-        createRequest.name = "Test Swift Template Credential"
+        createRequest.name = "Test Swift Template Credential" + UUID().uuidString // Make it random so it builds
         createRequest.fields["firstName"] = Services_Verifiablecredentials_Templates_V1_TemplateField()
         
         let createResponse = try service!.create(request: createRequest)
