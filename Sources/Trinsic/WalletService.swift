@@ -22,10 +22,15 @@ public class WalletService : ServiceBase
         client = Services_Universalwallet_V1_UniversalWalletClient(channel: createChannel())
     }
     
-    public func search(query: String = "SELECT c.id, c.type, c.data FROM c OFFSET 0 LIMIT 100") throws -> Services_Universalwallet_V1_SearchResponse {
-        var request = Services_Universalwallet_V1_SearchRequest();
-        request.query = query;
-        
+    public func search() throws -> Services_Universalwallet_V1_SearchResponse {
+        return try search(request: Services_Universalwallet_V1_SearchRequest());
+    }
+    
+    public func search(request: Services_Universalwallet_V1_SearchRequest) throws -> Services_Universalwallet_V1_SearchResponse {
+        var request = request
+        if request.query.isEmpty {
+            request.query = "SELECT c.id, c.type, c.data FROM c OFFSET 0 LIMIT 100";
+        }        
         return try client!.Search(request, callOptions: try buildMetadata(request))
             .response
             .wait();
@@ -35,5 +40,11 @@ public class WalletService : ServiceBase
         return try client!.InsertItem(request, callOptions: try buildMetadata(request))
             .response
             .wait()
+    }
+
+    public func deleteItem(request: Services_Universalwallet_V1_DeleteItemRequest) throws -> Services_Universalwallet_V1_DeleteItemResponse {
+        return try client!.DeleteItem(request, callOptions: try buildMetadata(request))
+                .response
+                .wait()
     }
 }
