@@ -20,11 +20,13 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
+/// Request to sign a JSON-LD Credential using public key tied to caller
 public struct Services_Verifiablecredentials_V1_IssueRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Valid JSON-LD Credential document to be signed, in string form
   public var documentJson: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -32,11 +34,14 @@ public struct Services_Verifiablecredentials_V1_IssueRequest {
   public init() {}
 }
 
+/// Response to `IssueRequest`
 public struct Services_Verifiablecredentials_V1_IssueResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Verifiable Credential document, signed with public key
+  /// tied to caller of `IssueRequest`
   public var signedDocumentJson: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -44,25 +49,38 @@ public struct Services_Verifiablecredentials_V1_IssueResponse {
   public init() {}
 }
 
+/// Request to create and sign a JSON-LD Verifiable Credential from a template using public key tied to caller
 public struct Services_Verifiablecredentials_V1_IssueFromTemplateRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// ID of template to use
   public var templateID: String = String()
 
+  /// JSON document string with keys corresponding to the fields of
+  /// the template referenced by `template_id`
   public var valuesJson: String = String()
+
+  /// Governance framework ID to use with issuance of this credential.
+  /// If specified, the issued credential will contain extended issuer
+  /// metadata with membership info for the given ecosystem governance framework (EGF)
+  public var frameworkID: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 }
 
+/// Response to `IssueFromTemplateRequest`
 public struct Services_Verifiablecredentials_V1_IssueFromTemplateResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Verifiable Credential document, in JSON-LD form,
+  /// constructed from the specified template and values; signed
+  /// with public key tied to caller of `IssueFromTemplateRequest`
   public var documentJson: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -70,25 +88,23 @@ public struct Services_Verifiablecredentials_V1_IssueFromTemplateResponse {
   public init() {}
 }
 
-/// Create Proof
+/// Request to create a proof for a Verifiable Credential using public key tied to caller.
+/// Either `item_id` or `document_json` may be provided, not both.
 public struct Services_Verifiablecredentials_V1_CreateProofRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  /// Optional document that describes which fields should be
-  /// revealed in the generated proof. If specified, this document must be
-  /// a valid JSON-LD frame.
-  /// If this field is not specified, a default reveal document will be
-  /// used and all fields in the signed document will be revealed
+  /// A valid JSON-LD frame describing which fields should be
+  /// revealed in the generated proof. 
+  /// If unspecified, all fields in the document will be revealed
   public var revealDocumentJson: String = String()
 
   /// Specify the input to be used to derive this proof.
   /// Input can be an existing item in the wallet or an input document
   public var proof: Services_Verifiablecredentials_V1_CreateProofRequest.OneOf_Proof? = nil
 
-  /// The item identifier that contains a record with a verifiable
-  /// credential to be used for generating the proof.
+  /// ID of wallet item stored in a Trinsic cloud wallet
   public var itemID: String {
     get {
       if case .itemID(let v)? = proof {return v}
@@ -97,9 +113,9 @@ public struct Services_Verifiablecredentials_V1_CreateProofRequest {
     set {proof = .itemID(newValue)}
   }
 
-  /// A document that contains a valid verifiable credential with an
-  /// unbound signature. The proof will be derived from this document
-  /// directly. The document will not be stored in the wallet.
+  /// A valid JSON-LD Verifiable Credential document string 
+  /// with an unbound signature. The proof will be derived from this
+  /// document directly. The document will not be stored in the wallet.
   public var documentJson: String {
     get {
       if case .documentJson(let v)? = proof {return v}
@@ -113,12 +129,11 @@ public struct Services_Verifiablecredentials_V1_CreateProofRequest {
   /// Specify the input to be used to derive this proof.
   /// Input can be an existing item in the wallet or an input document
   public enum OneOf_Proof: Equatable {
-    /// The item identifier that contains a record with a verifiable
-    /// credential to be used for generating the proof.
+    /// ID of wallet item stored in a Trinsic cloud wallet
     case itemID(String)
-    /// A document that contains a valid verifiable credential with an
-    /// unbound signature. The proof will be derived from this document
-    /// directly. The document will not be stored in the wallet.
+    /// A valid JSON-LD Verifiable Credential document string 
+    /// with an unbound signature. The proof will be derived from this
+    /// document directly. The document will not be stored in the wallet.
     case documentJson(String)
 
   #if !swift(>=4.1)
@@ -144,11 +159,13 @@ public struct Services_Verifiablecredentials_V1_CreateProofRequest {
   public init() {}
 }
 
+/// Response to `CreateProofRequest`
 public struct Services_Verifiablecredentials_V1_CreateProofResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Valid JSON-LD proof for the specified credential
   public var proofDocumentJson: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -156,12 +173,13 @@ public struct Services_Verifiablecredentials_V1_CreateProofResponse {
   public init() {}
 }
 
-/// Verify Proof
+/// Request to verify a proof
 public struct Services_Verifiablecredentials_V1_VerifyProofRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// JSON-LD proof document string to verify
   public var proofDocumentJson: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -169,26 +187,46 @@ public struct Services_Verifiablecredentials_V1_VerifyProofRequest {
   public init() {}
 }
 
+/// Response to `VerifyProofRequest`
 public struct Services_Verifiablecredentials_V1_VerifyProofResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  /// Indicates if the proof is valid
+  /// Whether or not all validations in `validation_results` passed
   public var isValid: Bool = false
 
-  /// Validation messages that describe invalid verifications
-  /// based on different factors, such as schema validation,
-  /// proof verification, revocation registry membership, etc.
-  /// If the proof is not valid, this field will contain detailed
-  /// results where this verification failed.
+  /// Use `validation_results` instead
   public var validationMessages: [String] = []
+
+  /// Results of each validation check performed, 
+  /// such as schema conformance, revocation status, signature, etc.
+  /// Detailed results are provided for failed validations.
+  public var validationResults: Dictionary<String,Services_Verifiablecredentials_V1_ValidationMessage> = [:]
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 }
 
+/// Result of a validation check on a proof
+public struct Services_Verifiablecredentials_V1_ValidationMessage {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Whether or not this validation check passed
+  public var isValid: Bool = false
+
+  /// If validation failed, contains messages explaining why
+  public var messages: [String] = []
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+/// Request to send a document to another user's wallet
 public struct Services_Verifiablecredentials_V1_SendRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -196,6 +234,7 @@ public struct Services_Verifiablecredentials_V1_SendRequest {
 
   public var deliveryMethod: Services_Verifiablecredentials_V1_SendRequest.OneOf_DeliveryMethod? = nil
 
+  /// Email address of user to send item to
   public var email: String {
     get {
       if case .email(let v)? = deliveryMethod {return v}
@@ -204,6 +243,7 @@ public struct Services_Verifiablecredentials_V1_SendRequest {
     set {deliveryMethod = .email(newValue)}
   }
 
+  /// DID of recipient (presently unsupported)
   public var didUri: String {
     get {
       if case .didUri(let v)? = deliveryMethod {return v}
@@ -212,6 +252,7 @@ public struct Services_Verifiablecredentials_V1_SendRequest {
     set {deliveryMethod = .didUri(newValue)}
   }
 
+  /// DIDComm out-of-band invitation JSON (presently unsupported)
   public var didcommInvitationJson: String {
     get {
       if case .didcommInvitationJson(let v)? = deliveryMethod {return v}
@@ -220,13 +261,17 @@ public struct Services_Verifiablecredentials_V1_SendRequest {
     set {deliveryMethod = .didcommInvitationJson(newValue)}
   }
 
+  /// JSON document to send to recipient
   public var documentJson: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public enum OneOf_DeliveryMethod: Equatable {
+    /// Email address of user to send item to
     case email(String)
+    /// DID of recipient (presently unsupported)
     case didUri(String)
+    /// DIDComm out-of-band invitation JSON (presently unsupported)
     case didcommInvitationJson(String)
 
   #if !swift(>=4.1)
@@ -256,28 +301,27 @@ public struct Services_Verifiablecredentials_V1_SendRequest {
   public init() {}
 }
 
+/// Response to `SendRequest`
 public struct Services_Verifiablecredentials_V1_SendResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
-
-  public var status: Services_Common_V1_ResponseStatus = .success
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 }
 
-/// request object to update the status of the revocation entry
+/// Request to update a credential's revocation status
 public struct Services_Verifiablecredentials_V1_UpdateStatusRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  /// the credential status id
+  /// Credential Status ID to update
   public var credentialStatusID: String = String()
 
-  /// indicates if the status is revoked
+  /// New revocation status of credential
   public var revoked: Bool = false
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -285,26 +329,24 @@ public struct Services_Verifiablecredentials_V1_UpdateStatusRequest {
   public init() {}
 }
 
-/// response object for update of status of revocation entry
+/// Response to `UpdateStatusRequest`
 public struct Services_Verifiablecredentials_V1_UpdateStatusResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
-
-  public var status: Services_Common_V1_ResponseStatus = .success
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 }
 
-/// request object to update the status of the revocation entry
+/// Request to check a credential's revocation status
 public struct Services_Verifiablecredentials_V1_CheckStatusRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  /// the credential status id
+  /// Credential Status ID to check
   public var credentialStatusID: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -312,13 +354,13 @@ public struct Services_Verifiablecredentials_V1_CheckStatusRequest {
   public init() {}
 }
 
-/// response object for update of status of revocation entry
+/// Response to `CheckStatusRequest`
 public struct Services_Verifiablecredentials_V1_CheckStatusResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  /// indicates if the status is revoked
+  /// The credential's revocation status
   public var revoked: Bool = false
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -336,6 +378,7 @@ extension Services_Verifiablecredentials_V1_CreateProofRequest.OneOf_Proof: @unc
 extension Services_Verifiablecredentials_V1_CreateProofResponse: @unchecked Sendable {}
 extension Services_Verifiablecredentials_V1_VerifyProofRequest: @unchecked Sendable {}
 extension Services_Verifiablecredentials_V1_VerifyProofResponse: @unchecked Sendable {}
+extension Services_Verifiablecredentials_V1_ValidationMessage: @unchecked Sendable {}
 extension Services_Verifiablecredentials_V1_SendRequest: @unchecked Sendable {}
 extension Services_Verifiablecredentials_V1_SendRequest.OneOf_DeliveryMethod: @unchecked Sendable {}
 extension Services_Verifiablecredentials_V1_SendResponse: @unchecked Sendable {}
@@ -418,6 +461,7 @@ extension Services_Verifiablecredentials_V1_IssueFromTemplateRequest: SwiftProto
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "template_id"),
     2: .standard(proto: "values_json"),
+    3: .standard(proto: "framework_id"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -428,6 +472,7 @@ extension Services_Verifiablecredentials_V1_IssueFromTemplateRequest: SwiftProto
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.templateID) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.valuesJson) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.frameworkID) }()
       default: break
       }
     }
@@ -440,12 +485,16 @@ extension Services_Verifiablecredentials_V1_IssueFromTemplateRequest: SwiftProto
     if !self.valuesJson.isEmpty {
       try visitor.visitSingularStringField(value: self.valuesJson, fieldNumber: 2)
     }
+    if !self.frameworkID.isEmpty {
+      try visitor.visitSingularStringField(value: self.frameworkID, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Services_Verifiablecredentials_V1_IssueFromTemplateRequest, rhs: Services_Verifiablecredentials_V1_IssueFromTemplateRequest) -> Bool {
     if lhs.templateID != rhs.templateID {return false}
     if lhs.valuesJson != rhs.valuesJson {return false}
+    if lhs.frameworkID != rhs.frameworkID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -618,6 +667,7 @@ extension Services_Verifiablecredentials_V1_VerifyProofResponse: SwiftProtobuf.M
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "is_valid"),
     2: .standard(proto: "validation_messages"),
+    3: .standard(proto: "validation_results"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -628,6 +678,7 @@ extension Services_Verifiablecredentials_V1_VerifyProofResponse: SwiftProtobuf.M
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularBoolField(value: &self.isValid) }()
       case 2: try { try decoder.decodeRepeatedStringField(value: &self.validationMessages) }()
+      case 3: try { try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString,Services_Verifiablecredentials_V1_ValidationMessage>.self, value: &self.validationResults) }()
       default: break
       }
     }
@@ -640,12 +691,54 @@ extension Services_Verifiablecredentials_V1_VerifyProofResponse: SwiftProtobuf.M
     if !self.validationMessages.isEmpty {
       try visitor.visitRepeatedStringField(value: self.validationMessages, fieldNumber: 2)
     }
+    if !self.validationResults.isEmpty {
+      try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString,Services_Verifiablecredentials_V1_ValidationMessage>.self, value: self.validationResults, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Services_Verifiablecredentials_V1_VerifyProofResponse, rhs: Services_Verifiablecredentials_V1_VerifyProofResponse) -> Bool {
     if lhs.isValid != rhs.isValid {return false}
     if lhs.validationMessages != rhs.validationMessages {return false}
+    if lhs.validationResults != rhs.validationResults {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Services_Verifiablecredentials_V1_ValidationMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ValidationMessage"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "is_valid"),
+    2: .same(proto: "messages"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularBoolField(value: &self.isValid) }()
+      case 2: try { try decoder.decodeRepeatedStringField(value: &self.messages) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.isValid != false {
+      try visitor.visitSingularBoolField(value: self.isValid, fieldNumber: 1)
+    }
+    if !self.messages.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.messages, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Services_Verifiablecredentials_V1_ValidationMessage, rhs: Services_Verifiablecredentials_V1_ValidationMessage) -> Bool {
+    if lhs.isValid != rhs.isValid {return false}
+    if lhs.messages != rhs.messages {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -732,31 +825,18 @@ extension Services_Verifiablecredentials_V1_SendRequest: SwiftProtobuf.Message, 
 
 extension Services_Verifiablecredentials_V1_SendResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".SendResponse"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "status"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularEnumField(value: &self.status) }()
-      default: break
-      }
+    while let _ = try decoder.nextFieldNumber() {
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.status != .success {
-      try visitor.visitSingularEnumField(value: self.status, fieldNumber: 1)
-    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Services_Verifiablecredentials_V1_SendResponse, rhs: Services_Verifiablecredentials_V1_SendResponse) -> Bool {
-    if lhs.status != rhs.status {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -802,31 +882,18 @@ extension Services_Verifiablecredentials_V1_UpdateStatusRequest: SwiftProtobuf.M
 
 extension Services_Verifiablecredentials_V1_UpdateStatusResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".UpdateStatusResponse"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "status"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularEnumField(value: &self.status) }()
-      default: break
-      }
+    while let _ = try decoder.nextFieldNumber() {
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.status != .success {
-      try visitor.visitSingularEnumField(value: self.status, fieldNumber: 1)
-    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Services_Verifiablecredentials_V1_UpdateStatusResponse, rhs: Services_Verifiablecredentials_V1_UpdateStatusResponse) -> Bool {
-    if lhs.status != rhs.status {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

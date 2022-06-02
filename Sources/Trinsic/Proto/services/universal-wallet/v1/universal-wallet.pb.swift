@@ -20,14 +20,17 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-/// Search request object
+/// Request to search items in wallet
 public struct Services_Universalwallet_V1_SearchRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// SQL Query to execute against items in wallet
   public var query: String = String()
 
+  /// Token provided by previous `SearchResponse`
+  /// if more data is available for query
   public var continuationToken: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -35,18 +38,19 @@ public struct Services_Universalwallet_V1_SearchRequest {
   public init() {}
 }
 
-/// Search response object
+/// Response to `SearchRequest`
 public struct Services_Universalwallet_V1_SearchResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Array of query results, as JSON strings
   public var items: [String] = []
 
+  /// Whether more results are available for this query via `continuation_token`
   public var hasMore_p: Bool = false
 
-  public var count: Int32 = 0
-
+  /// Token to fetch next set of results via `SearchRequest`
   public var continuationToken: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -54,13 +58,13 @@ public struct Services_Universalwallet_V1_SearchResponse {
   public init() {}
 }
 
-/// Get item request object
+/// Request to fetch an item from wallet
 public struct Services_Universalwallet_V1_GetItemRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  /// The item identifier
+  /// ID of item in wallet
   public var itemID: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -68,16 +72,16 @@ public struct Services_Universalwallet_V1_GetItemRequest {
   public init() {}
 }
 
-/// Get item response object
+/// Response to `GetItemRequest`
 public struct Services_Universalwallet_V1_GetItemResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  /// The item data represented as stringified JSON
+  /// Item data as a JSON string
   public var itemJson: String = String()
 
-  /// User set item type that described the content of this item
+  /// Type of item specified when item was inserted into wallet
   public var itemType: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -85,16 +89,16 @@ public struct Services_Universalwallet_V1_GetItemResponse {
   public init() {}
 }
 
-/// Update item request object
+/// Request to update item in wallet
 public struct Services_Universalwallet_V1_UpdateItemRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  /// The item identifier
+  /// ID of item in wallet
   public var itemID: String = String()
 
-  /// The item type that described the content of this item
+  /// Item type (ex. "VerifiableCredential")
   public var itemType: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -102,30 +106,27 @@ public struct Services_Universalwallet_V1_UpdateItemRequest {
   public init() {}
 }
 
-/// Update item response object
+/// Response to `UpdateItemRequest`
 public struct Services_Universalwallet_V1_UpdateItemResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  /// Response status
-  public var status: Services_Common_V1_ResponseStatus = .success
-
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 }
 
-/// Insert item request
+/// Request to insert a JSON document into a wallet
 public struct Services_Universalwallet_V1_InsertItemRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  /// the document to insert as stringified json
+  /// Document to insert; must be stringified JSON
   public var itemJson: String = String()
 
-  /// optional item type ex. "VerifiableCredential"
+  /// Item type (ex. "VerifiableCredential")
   public var itemType: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -133,15 +134,13 @@ public struct Services_Universalwallet_V1_InsertItemRequest {
   public init() {}
 }
 
-/// Insert item response
+/// Response to `InsertItemRequest`
 public struct Services_Universalwallet_V1_InsertItemResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var status: Services_Common_V1_ResponseStatus = .success
-
-  /// The item identifier of the inserted record
+  /// ID of item inserted into wallet
   public var itemID: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -149,13 +148,13 @@ public struct Services_Universalwallet_V1_InsertItemResponse {
   public init() {}
 }
 
-/// Delete item request
+/// Request to delete an item in a wallet
 public struct Services_Universalwallet_V1_DeleteItemRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  /// item identifier of the record to delete
+  /// ID of item to delete
   public var itemID: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -163,13 +162,11 @@ public struct Services_Universalwallet_V1_DeleteItemRequest {
   public init() {}
 }
 
-/// Delete item response
+/// Response to `DeleteItemRequest`
 public struct Services_Universalwallet_V1_DeleteItemResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
-
-  public var status: Services_Common_V1_ResponseStatus = .success
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -236,7 +233,6 @@ extension Services_Universalwallet_V1_SearchResponse: SwiftProtobuf.Message, Swi
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "items"),
     2: .standard(proto: "has_more"),
-    3: .same(proto: "count"),
     4: .standard(proto: "continuation_token"),
   ]
 
@@ -248,7 +244,6 @@ extension Services_Universalwallet_V1_SearchResponse: SwiftProtobuf.Message, Swi
       switch fieldNumber {
       case 1: try { try decoder.decodeRepeatedStringField(value: &self.items) }()
       case 2: try { try decoder.decodeSingularBoolField(value: &self.hasMore_p) }()
-      case 3: try { try decoder.decodeSingularInt32Field(value: &self.count) }()
       case 4: try { try decoder.decodeSingularStringField(value: &self.continuationToken) }()
       default: break
       }
@@ -262,9 +257,6 @@ extension Services_Universalwallet_V1_SearchResponse: SwiftProtobuf.Message, Swi
     if self.hasMore_p != false {
       try visitor.visitSingularBoolField(value: self.hasMore_p, fieldNumber: 2)
     }
-    if self.count != 0 {
-      try visitor.visitSingularInt32Field(value: self.count, fieldNumber: 3)
-    }
     if !self.continuationToken.isEmpty {
       try visitor.visitSingularStringField(value: self.continuationToken, fieldNumber: 4)
     }
@@ -274,7 +266,6 @@ extension Services_Universalwallet_V1_SearchResponse: SwiftProtobuf.Message, Swi
   public static func ==(lhs: Services_Universalwallet_V1_SearchResponse, rhs: Services_Universalwallet_V1_SearchResponse) -> Bool {
     if lhs.items != rhs.items {return false}
     if lhs.hasMore_p != rhs.hasMore_p {return false}
-    if lhs.count != rhs.count {return false}
     if lhs.continuationToken != rhs.continuationToken {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
@@ -391,31 +382,18 @@ extension Services_Universalwallet_V1_UpdateItemRequest: SwiftProtobuf.Message, 
 
 extension Services_Universalwallet_V1_UpdateItemResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".UpdateItemResponse"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "status"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularEnumField(value: &self.status) }()
-      default: break
-      }
+    while let _ = try decoder.nextFieldNumber() {
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.status != .success {
-      try visitor.visitSingularEnumField(value: self.status, fieldNumber: 1)
-    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Services_Universalwallet_V1_UpdateItemResponse, rhs: Services_Universalwallet_V1_UpdateItemResponse) -> Bool {
-    if lhs.status != rhs.status {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -462,7 +440,6 @@ extension Services_Universalwallet_V1_InsertItemRequest: SwiftProtobuf.Message, 
 extension Services_Universalwallet_V1_InsertItemResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".InsertItemResponse"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "status"),
     2: .standard(proto: "item_id"),
   ]
 
@@ -472,7 +449,6 @@ extension Services_Universalwallet_V1_InsertItemResponse: SwiftProtobuf.Message,
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularEnumField(value: &self.status) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.itemID) }()
       default: break
       }
@@ -480,9 +456,6 @@ extension Services_Universalwallet_V1_InsertItemResponse: SwiftProtobuf.Message,
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.status != .success {
-      try visitor.visitSingularEnumField(value: self.status, fieldNumber: 1)
-    }
     if !self.itemID.isEmpty {
       try visitor.visitSingularStringField(value: self.itemID, fieldNumber: 2)
     }
@@ -490,7 +463,6 @@ extension Services_Universalwallet_V1_InsertItemResponse: SwiftProtobuf.Message,
   }
 
   public static func ==(lhs: Services_Universalwallet_V1_InsertItemResponse, rhs: Services_Universalwallet_V1_InsertItemResponse) -> Bool {
-    if lhs.status != rhs.status {return false}
     if lhs.itemID != rhs.itemID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
@@ -531,31 +503,18 @@ extension Services_Universalwallet_V1_DeleteItemRequest: SwiftProtobuf.Message, 
 
 extension Services_Universalwallet_V1_DeleteItemResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".DeleteItemResponse"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "status"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularEnumField(value: &self.status) }()
-      default: break
-      }
+    while let _ = try decoder.nextFieldNumber() {
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.status != .success {
-      try visitor.visitSingularEnumField(value: self.status, fieldNumber: 1)
-    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Services_Universalwallet_V1_DeleteItemResponse, rhs: Services_Universalwallet_V1_DeleteItemResponse) -> Bool {
-    if lhs.status != rhs.status {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

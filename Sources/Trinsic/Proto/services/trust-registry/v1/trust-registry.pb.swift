@@ -80,25 +80,21 @@ extension Services_Trustregistry_V1_RegistrationStatus: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+/// Register new ecosystem governance framework
 public struct Services_Trustregistry_V1_AddFrameworkRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var governanceFramework: Services_Trustregistry_V1_GovernanceFramework {
-    get {return _governanceFramework ?? Services_Trustregistry_V1_GovernanceFramework()}
-    set {_governanceFramework = newValue}
-  }
-  /// Returns true if `governanceFramework` has been explicitly set.
-  public var hasGovernanceFramework: Bool {return self._governanceFramework != nil}
-  /// Clears the value of `governanceFramework`. Subsequent reads from it will return its default value.
-  public mutating func clearGovernanceFramework() {self._governanceFramework = nil}
+  public var governanceFrameworkUri: String = String()
+
+  public var name: String = String()
+
+  public var description_p: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  fileprivate var _governanceFramework: Services_Trustregistry_V1_GovernanceFramework? = nil
 }
 
 public struct Services_Trustregistry_V1_AddFrameworkResponse {
@@ -106,7 +102,12 @@ public struct Services_Trustregistry_V1_AddFrameworkResponse {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var status: Services_Common_V1_ResponseStatus = .success
+  /// Unique framework identifier
+  public var id: String = String()
+
+  public var governingAuthority: String = String()
+
+  public var trustRegistry: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -118,28 +119,17 @@ public struct Services_Trustregistry_V1_RemoveFrameworkRequest {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var governanceFramework: Services_Trustregistry_V1_GovernanceFramework {
-    get {return _governanceFramework ?? Services_Trustregistry_V1_GovernanceFramework()}
-    set {_governanceFramework = newValue}
-  }
-  /// Returns true if `governanceFramework` has been explicitly set.
-  public var hasGovernanceFramework: Bool {return self._governanceFramework != nil}
-  /// Clears the value of `governanceFramework`. Subsequent reads from it will return its default value.
-  public mutating func clearGovernanceFramework() {self._governanceFramework = nil}
+  public var id: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
-
-  fileprivate var _governanceFramework: Services_Trustregistry_V1_GovernanceFramework? = nil
 }
 
 public struct Services_Trustregistry_V1_RemoveFrameworkResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
-
-  public var status: Services_Common_V1_ResponseStatus = .success
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -170,8 +160,6 @@ public struct Services_Trustregistry_V1_SearchRegistryResponse {
 
   public var hasMore_p: Bool = false
 
-  public var count: Int32 = 0
-
   public var continuationToken: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -195,45 +183,55 @@ public struct Services_Trustregistry_V1_GovernanceFramework {
   public init() {}
 }
 
-public struct Services_Trustregistry_V1_RegisterIssuerRequest {
+public struct Services_Trustregistry_V1_RegisterMemberRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var authority: Services_Trustregistry_V1_RegisterIssuerRequest.OneOf_Authority? = nil
+  public var member: Services_Trustregistry_V1_RegisterMemberRequest.OneOf_Member? = nil
 
   public var didUri: String {
     get {
-      if case .didUri(let v)? = authority {return v}
+      if case .didUri(let v)? = member {return v}
       return String()
     }
-    set {authority = .didUri(newValue)}
+    set {member = .didUri(newValue)}
   }
 
-  public var x509Cert: String {
+  public var walletID: String {
     get {
-      if case .x509Cert(let v)? = authority {return v}
+      if case .walletID(let v)? = member {return v}
       return String()
     }
-    set {authority = .x509Cert(newValue)}
+    set {member = .walletID(newValue)}
   }
 
-  public var credentialTypeUri: String = String()
+  public var email: String {
+    get {
+      if case .email(let v)? = member {return v}
+      return String()
+    }
+    set {member = .email(newValue)}
+  }
+
+  public var schemaUri: String = String()
 
   public var validFromUtc: UInt64 = 0
 
   public var validUntilUtc: UInt64 = 0
 
-  public var governanceFrameworkUri: String = String()
+  /// the id of the governance framework
+  public var frameworkID: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  public enum OneOf_Authority: Equatable {
+  public enum OneOf_Member: Equatable {
     case didUri(String)
-    case x509Cert(String)
+    case walletID(String)
+    case email(String)
 
   #if !swift(>=4.1)
-    public static func ==(lhs: Services_Trustregistry_V1_RegisterIssuerRequest.OneOf_Authority, rhs: Services_Trustregistry_V1_RegisterIssuerRequest.OneOf_Authority) -> Bool {
+    public static func ==(lhs: Services_Trustregistry_V1_RegisterMemberRequest.OneOf_Member, rhs: Services_Trustregistry_V1_RegisterMemberRequest.OneOf_Member) -> Bool {
       // The use of inline closures is to circumvent an issue where the compiler
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
@@ -242,8 +240,12 @@ public struct Services_Trustregistry_V1_RegisterIssuerRequest {
         guard case .didUri(let l) = lhs, case .didUri(let r) = rhs else { preconditionFailure() }
         return l == r
       }()
-      case (.x509Cert, .x509Cert): return {
-        guard case .x509Cert(let l) = lhs, case .x509Cert(let r) = rhs else { preconditionFailure() }
+      case (.walletID, .walletID): return {
+        guard case .walletID(let l) = lhs, case .walletID(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      case (.email, .email): return {
+        guard case .email(let l) = lhs, case .email(let r) = rhs else { preconditionFailure() }
         return l == r
       }()
       default: return false
@@ -255,57 +257,60 @@ public struct Services_Trustregistry_V1_RegisterIssuerRequest {
   public init() {}
 }
 
-public struct Services_Trustregistry_V1_RegisterIssuerResponse {
+public struct Services_Trustregistry_V1_RegisterMemberResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
-
-  public var status: Services_Common_V1_ResponseStatus = .success
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 }
 
-public struct Services_Trustregistry_V1_RegisterVerifierRequest {
+public struct Services_Trustregistry_V1_UnregisterMemberRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var authority: Services_Trustregistry_V1_RegisterVerifierRequest.OneOf_Authority? = nil
+  public var member: Services_Trustregistry_V1_UnregisterMemberRequest.OneOf_Member? = nil
 
   public var didUri: String {
     get {
-      if case .didUri(let v)? = authority {return v}
+      if case .didUri(let v)? = member {return v}
       return String()
     }
-    set {authority = .didUri(newValue)}
+    set {member = .didUri(newValue)}
   }
 
-  public var x509Cert: String {
+  public var walletID: String {
     get {
-      if case .x509Cert(let v)? = authority {return v}
+      if case .walletID(let v)? = member {return v}
       return String()
     }
-    set {authority = .x509Cert(newValue)}
+    set {member = .walletID(newValue)}
   }
 
-  public var presentationTypeUri: String = String()
+  public var email: String {
+    get {
+      if case .email(let v)? = member {return v}
+      return String()
+    }
+    set {member = .email(newValue)}
+  }
 
-  public var validFromUtc: UInt64 = 0
+  public var schemaUri: String = String()
 
-  public var validUntilUtc: UInt64 = 0
-
-  public var governanceFrameworkUri: String = String()
+  public var frameworkID: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  public enum OneOf_Authority: Equatable {
+  public enum OneOf_Member: Equatable {
     case didUri(String)
-    case x509Cert(String)
+    case walletID(String)
+    case email(String)
 
   #if !swift(>=4.1)
-    public static func ==(lhs: Services_Trustregistry_V1_RegisterVerifierRequest.OneOf_Authority, rhs: Services_Trustregistry_V1_RegisterVerifierRequest.OneOf_Authority) -> Bool {
+    public static func ==(lhs: Services_Trustregistry_V1_UnregisterMemberRequest.OneOf_Member, rhs: Services_Trustregistry_V1_UnregisterMemberRequest.OneOf_Member) -> Bool {
       // The use of inline closures is to circumvent an issue where the compiler
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
@@ -314,8 +319,12 @@ public struct Services_Trustregistry_V1_RegisterVerifierRequest {
         guard case .didUri(let l) = lhs, case .didUri(let r) = rhs else { preconditionFailure() }
         return l == r
       }()
-      case (.x509Cert, .x509Cert): return {
-        guard case .x509Cert(let l) = lhs, case .x509Cert(let r) = rhs else { preconditionFailure() }
+      case (.walletID, .walletID): return {
+        guard case .walletID(let l) = lhs, case .walletID(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      case (.email, .email): return {
+        guard case .email(let l) = lhs, case .email(let r) = rhs else { preconditionFailure() }
         return l == r
       }()
       default: return false
@@ -327,162 +336,24 @@ public struct Services_Trustregistry_V1_RegisterVerifierRequest {
   public init() {}
 }
 
-public struct Services_Trustregistry_V1_RegisterVerifierResponse {
+public struct Services_Trustregistry_V1_UnregisterMemberResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
-
-  public var status: Services_Common_V1_ResponseStatus = .success
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 }
 
-public struct Services_Trustregistry_V1_UnregisterIssuerRequest {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var authority: Services_Trustregistry_V1_UnregisterIssuerRequest.OneOf_Authority? = nil
-
-  public var didUri: String {
-    get {
-      if case .didUri(let v)? = authority {return v}
-      return String()
-    }
-    set {authority = .didUri(newValue)}
-  }
-
-  public var x509Cert: String {
-    get {
-      if case .x509Cert(let v)? = authority {return v}
-      return String()
-    }
-    set {authority = .x509Cert(newValue)}
-  }
-
-  public var credentialTypeUri: String = String()
-
-  public var governanceFrameworkUri: String = String()
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public enum OneOf_Authority: Equatable {
-    case didUri(String)
-    case x509Cert(String)
-
-  #if !swift(>=4.1)
-    public static func ==(lhs: Services_Trustregistry_V1_UnregisterIssuerRequest.OneOf_Authority, rhs: Services_Trustregistry_V1_UnregisterIssuerRequest.OneOf_Authority) -> Bool {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch (lhs, rhs) {
-      case (.didUri, .didUri): return {
-        guard case .didUri(let l) = lhs, case .didUri(let r) = rhs else { preconditionFailure() }
-        return l == r
-      }()
-      case (.x509Cert, .x509Cert): return {
-        guard case .x509Cert(let l) = lhs, case .x509Cert(let r) = rhs else { preconditionFailure() }
-        return l == r
-      }()
-      default: return false
-      }
-    }
-  #endif
-  }
-
-  public init() {}
-}
-
-public struct Services_Trustregistry_V1_UnregisterIssuerResponse {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var status: Services_Common_V1_ResponseStatus = .success
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-}
-
-public struct Services_Trustregistry_V1_UnregisterVerifierRequest {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var authority: Services_Trustregistry_V1_UnregisterVerifierRequest.OneOf_Authority? = nil
-
-  public var didUri: String {
-    get {
-      if case .didUri(let v)? = authority {return v}
-      return String()
-    }
-    set {authority = .didUri(newValue)}
-  }
-
-  public var x509Cert: String {
-    get {
-      if case .x509Cert(let v)? = authority {return v}
-      return String()
-    }
-    set {authority = .x509Cert(newValue)}
-  }
-
-  public var presentationTypeUri: String = String()
-
-  public var governanceFrameworkUri: String = String()
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public enum OneOf_Authority: Equatable {
-    case didUri(String)
-    case x509Cert(String)
-
-  #if !swift(>=4.1)
-    public static func ==(lhs: Services_Trustregistry_V1_UnregisterVerifierRequest.OneOf_Authority, rhs: Services_Trustregistry_V1_UnregisterVerifierRequest.OneOf_Authority) -> Bool {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch (lhs, rhs) {
-      case (.didUri, .didUri): return {
-        guard case .didUri(let l) = lhs, case .didUri(let r) = rhs else { preconditionFailure() }
-        return l == r
-      }()
-      case (.x509Cert, .x509Cert): return {
-        guard case .x509Cert(let l) = lhs, case .x509Cert(let r) = rhs else { preconditionFailure() }
-        return l == r
-      }()
-      default: return false
-      }
-    }
-  #endif
-  }
-
-  public init() {}
-}
-
-public struct Services_Trustregistry_V1_UnregisterVerifierResponse {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var status: Services_Common_V1_ResponseStatus = .success
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-}
-
-public struct Services_Trustregistry_V1_CheckIssuerStatusRequest {
+public struct Services_Trustregistry_V1_GetMembershipStatusRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
   public var governanceFrameworkUri: String = String()
 
-  public var member: Services_Trustregistry_V1_CheckIssuerStatusRequest.OneOf_Member? = nil
+  public var member: Services_Trustregistry_V1_GetMembershipStatusRequest.OneOf_Member? = nil
 
   public var didUri: String {
     get {
@@ -500,7 +371,7 @@ public struct Services_Trustregistry_V1_CheckIssuerStatusRequest {
     set {member = .x509Cert(newValue)}
   }
 
-  public var credentialTypeUri: String = String()
+  public var schemaUri: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -509,7 +380,7 @@ public struct Services_Trustregistry_V1_CheckIssuerStatusRequest {
     case x509Cert(String)
 
   #if !swift(>=4.1)
-    public static func ==(lhs: Services_Trustregistry_V1_CheckIssuerStatusRequest.OneOf_Member, rhs: Services_Trustregistry_V1_CheckIssuerStatusRequest.OneOf_Member) -> Bool {
+    public static func ==(lhs: Services_Trustregistry_V1_GetMembershipStatusRequest.OneOf_Member, rhs: Services_Trustregistry_V1_GetMembershipStatusRequest.OneOf_Member) -> Bool {
       // The use of inline closures is to circumvent an issue where the compiler
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
@@ -531,75 +402,7 @@ public struct Services_Trustregistry_V1_CheckIssuerStatusRequest {
   public init() {}
 }
 
-public struct Services_Trustregistry_V1_CheckIssuerStatusResponse {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var status: Services_Trustregistry_V1_RegistrationStatus = .current
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public init() {}
-}
-
-public struct Services_Trustregistry_V1_CheckVerifierStatusRequest {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  public var governanceFrameworkUri: String = String()
-
-  public var member: Services_Trustregistry_V1_CheckVerifierStatusRequest.OneOf_Member? = nil
-
-  public var didUri: String {
-    get {
-      if case .didUri(let v)? = member {return v}
-      return String()
-    }
-    set {member = .didUri(newValue)}
-  }
-
-  public var x509Cert: String {
-    get {
-      if case .x509Cert(let v)? = member {return v}
-      return String()
-    }
-    set {member = .x509Cert(newValue)}
-  }
-
-  public var presentationTypeUri: String = String()
-
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  public enum OneOf_Member: Equatable {
-    case didUri(String)
-    case x509Cert(String)
-
-  #if !swift(>=4.1)
-    public static func ==(lhs: Services_Trustregistry_V1_CheckVerifierStatusRequest.OneOf_Member, rhs: Services_Trustregistry_V1_CheckVerifierStatusRequest.OneOf_Member) -> Bool {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch (lhs, rhs) {
-      case (.didUri, .didUri): return {
-        guard case .didUri(let l) = lhs, case .didUri(let r) = rhs else { preconditionFailure() }
-        return l == r
-      }()
-      case (.x509Cert, .x509Cert): return {
-        guard case .x509Cert(let l) = lhs, case .x509Cert(let r) = rhs else { preconditionFailure() }
-        return l == r
-      }()
-      default: return false
-      }
-    }
-  #endif
-  }
-
-  public init() {}
-}
-
-public struct Services_Trustregistry_V1_CheckVerifierStatusResponse {
+public struct Services_Trustregistry_V1_GetMembershipStatusResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -650,24 +453,15 @@ extension Services_Trustregistry_V1_RemoveFrameworkResponse: @unchecked Sendable
 extension Services_Trustregistry_V1_SearchRegistryRequest: @unchecked Sendable {}
 extension Services_Trustregistry_V1_SearchRegistryResponse: @unchecked Sendable {}
 extension Services_Trustregistry_V1_GovernanceFramework: @unchecked Sendable {}
-extension Services_Trustregistry_V1_RegisterIssuerRequest: @unchecked Sendable {}
-extension Services_Trustregistry_V1_RegisterIssuerRequest.OneOf_Authority: @unchecked Sendable {}
-extension Services_Trustregistry_V1_RegisterIssuerResponse: @unchecked Sendable {}
-extension Services_Trustregistry_V1_RegisterVerifierRequest: @unchecked Sendable {}
-extension Services_Trustregistry_V1_RegisterVerifierRequest.OneOf_Authority: @unchecked Sendable {}
-extension Services_Trustregistry_V1_RegisterVerifierResponse: @unchecked Sendable {}
-extension Services_Trustregistry_V1_UnregisterIssuerRequest: @unchecked Sendable {}
-extension Services_Trustregistry_V1_UnregisterIssuerRequest.OneOf_Authority: @unchecked Sendable {}
-extension Services_Trustregistry_V1_UnregisterIssuerResponse: @unchecked Sendable {}
-extension Services_Trustregistry_V1_UnregisterVerifierRequest: @unchecked Sendable {}
-extension Services_Trustregistry_V1_UnregisterVerifierRequest.OneOf_Authority: @unchecked Sendable {}
-extension Services_Trustregistry_V1_UnregisterVerifierResponse: @unchecked Sendable {}
-extension Services_Trustregistry_V1_CheckIssuerStatusRequest: @unchecked Sendable {}
-extension Services_Trustregistry_V1_CheckIssuerStatusRequest.OneOf_Member: @unchecked Sendable {}
-extension Services_Trustregistry_V1_CheckIssuerStatusResponse: @unchecked Sendable {}
-extension Services_Trustregistry_V1_CheckVerifierStatusRequest: @unchecked Sendable {}
-extension Services_Trustregistry_V1_CheckVerifierStatusRequest.OneOf_Member: @unchecked Sendable {}
-extension Services_Trustregistry_V1_CheckVerifierStatusResponse: @unchecked Sendable {}
+extension Services_Trustregistry_V1_RegisterMemberRequest: @unchecked Sendable {}
+extension Services_Trustregistry_V1_RegisterMemberRequest.OneOf_Member: @unchecked Sendable {}
+extension Services_Trustregistry_V1_RegisterMemberResponse: @unchecked Sendable {}
+extension Services_Trustregistry_V1_UnregisterMemberRequest: @unchecked Sendable {}
+extension Services_Trustregistry_V1_UnregisterMemberRequest.OneOf_Member: @unchecked Sendable {}
+extension Services_Trustregistry_V1_UnregisterMemberResponse: @unchecked Sendable {}
+extension Services_Trustregistry_V1_GetMembershipStatusRequest: @unchecked Sendable {}
+extension Services_Trustregistry_V1_GetMembershipStatusRequest.OneOf_Member: @unchecked Sendable {}
+extension Services_Trustregistry_V1_GetMembershipStatusResponse: @unchecked Sendable {}
 extension Services_Trustregistry_V1_FetchDataRequest: @unchecked Sendable {}
 extension Services_Trustregistry_V1_FetchDataResponse: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
@@ -689,7 +483,9 @@ extension Services_Trustregistry_V1_RegistrationStatus: SwiftProtobuf._ProtoName
 extension Services_Trustregistry_V1_AddFrameworkRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".AddFrameworkRequest"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "governance_framework"),
+    1: .standard(proto: "governance_framework_uri"),
+    2: .same(proto: "name"),
+    3: .same(proto: "description"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -698,25 +494,31 @@ extension Services_Trustregistry_V1_AddFrameworkRequest: SwiftProtobuf.Message, 
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularMessageField(value: &self._governanceFramework) }()
+      case 1: try { try decoder.decodeSingularStringField(value: &self.governanceFrameworkUri) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.name) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    try { if let v = self._governanceFramework {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    } }()
+    if !self.governanceFrameworkUri.isEmpty {
+      try visitor.visitSingularStringField(value: self.governanceFrameworkUri, fieldNumber: 1)
+    }
+    if !self.name.isEmpty {
+      try visitor.visitSingularStringField(value: self.name, fieldNumber: 2)
+    }
+    if !self.description_p.isEmpty {
+      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Services_Trustregistry_V1_AddFrameworkRequest, rhs: Services_Trustregistry_V1_AddFrameworkRequest) -> Bool {
-    if lhs._governanceFramework != rhs._governanceFramework {return false}
+    if lhs.governanceFrameworkUri != rhs.governanceFrameworkUri {return false}
+    if lhs.name != rhs.name {return false}
+    if lhs.description_p != rhs.description_p {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -725,7 +527,9 @@ extension Services_Trustregistry_V1_AddFrameworkRequest: SwiftProtobuf.Message, 
 extension Services_Trustregistry_V1_AddFrameworkResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".AddFrameworkResponse"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "status"),
+    1: .same(proto: "id"),
+    2: .standard(proto: "governing_authority"),
+    3: .standard(proto: "trust_registry"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -734,21 +538,31 @@ extension Services_Trustregistry_V1_AddFrameworkResponse: SwiftProtobuf.Message,
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularEnumField(value: &self.status) }()
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.governingAuthority) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.trustRegistry) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.status != .success {
-      try visitor.visitSingularEnumField(value: self.status, fieldNumber: 1)
+    if !self.id.isEmpty {
+      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
+    }
+    if !self.governingAuthority.isEmpty {
+      try visitor.visitSingularStringField(value: self.governingAuthority, fieldNumber: 2)
+    }
+    if !self.trustRegistry.isEmpty {
+      try visitor.visitSingularStringField(value: self.trustRegistry, fieldNumber: 3)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Services_Trustregistry_V1_AddFrameworkResponse, rhs: Services_Trustregistry_V1_AddFrameworkResponse) -> Bool {
-    if lhs.status != rhs.status {return false}
+    if lhs.id != rhs.id {return false}
+    if lhs.governingAuthority != rhs.governingAuthority {return false}
+    if lhs.trustRegistry != rhs.trustRegistry {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -757,7 +571,7 @@ extension Services_Trustregistry_V1_AddFrameworkResponse: SwiftProtobuf.Message,
 extension Services_Trustregistry_V1_RemoveFrameworkRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".RemoveFrameworkRequest"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "governance_framework"),
+    1: .same(proto: "id"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -766,25 +580,21 @@ extension Services_Trustregistry_V1_RemoveFrameworkRequest: SwiftProtobuf.Messag
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularMessageField(value: &self._governanceFramework) }()
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
       default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    try { if let v = self._governanceFramework {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    } }()
+    if !self.id.isEmpty {
+      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Services_Trustregistry_V1_RemoveFrameworkRequest, rhs: Services_Trustregistry_V1_RemoveFrameworkRequest) -> Bool {
-    if lhs._governanceFramework != rhs._governanceFramework {return false}
+    if lhs.id != rhs.id {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -792,31 +602,18 @@ extension Services_Trustregistry_V1_RemoveFrameworkRequest: SwiftProtobuf.Messag
 
 extension Services_Trustregistry_V1_RemoveFrameworkResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".RemoveFrameworkResponse"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "status"),
-  ]
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularEnumField(value: &self.status) }()
-      default: break
-      }
+    while let _ = try decoder.nextFieldNumber() {
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.status != .success {
-      try visitor.visitSingularEnumField(value: self.status, fieldNumber: 1)
-    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Services_Trustregistry_V1_RemoveFrameworkResponse, rhs: Services_Trustregistry_V1_RemoveFrameworkResponse) -> Bool {
-    if lhs.status != rhs.status {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -865,7 +662,6 @@ extension Services_Trustregistry_V1_SearchRegistryResponse: SwiftProtobuf.Messag
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "items_json"),
     2: .standard(proto: "has_more"),
-    3: .same(proto: "count"),
     4: .standard(proto: "continuation_token"),
   ]
 
@@ -877,7 +673,6 @@ extension Services_Trustregistry_V1_SearchRegistryResponse: SwiftProtobuf.Messag
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.itemsJson) }()
       case 2: try { try decoder.decodeSingularBoolField(value: &self.hasMore_p) }()
-      case 3: try { try decoder.decodeSingularInt32Field(value: &self.count) }()
       case 4: try { try decoder.decodeSingularStringField(value: &self.continuationToken) }()
       default: break
       }
@@ -891,9 +686,6 @@ extension Services_Trustregistry_V1_SearchRegistryResponse: SwiftProtobuf.Messag
     if self.hasMore_p != false {
       try visitor.visitSingularBoolField(value: self.hasMore_p, fieldNumber: 2)
     }
-    if self.count != 0 {
-      try visitor.visitSingularInt32Field(value: self.count, fieldNumber: 3)
-    }
     if !self.continuationToken.isEmpty {
       try visitor.visitSingularStringField(value: self.continuationToken, fieldNumber: 4)
     }
@@ -903,7 +695,6 @@ extension Services_Trustregistry_V1_SearchRegistryResponse: SwiftProtobuf.Messag
   public static func ==(lhs: Services_Trustregistry_V1_SearchRegistryResponse, rhs: Services_Trustregistry_V1_SearchRegistryResponse) -> Bool {
     if lhs.itemsJson != rhs.itemsJson {return false}
     if lhs.hasMore_p != rhs.hasMore_p {return false}
-    if lhs.count != rhs.count {return false}
     if lhs.continuationToken != rhs.continuationToken {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
@@ -954,15 +745,16 @@ extension Services_Trustregistry_V1_GovernanceFramework: SwiftProtobuf.Message, 
   }
 }
 
-extension Services_Trustregistry_V1_RegisterIssuerRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".RegisterIssuerRequest"
+extension Services_Trustregistry_V1_RegisterMemberRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".RegisterMemberRequest"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "did_uri"),
-    2: .standard(proto: "x509_cert"),
-    10: .standard(proto: "credential_type_uri"),
+    3: .standard(proto: "wallet_id"),
+    4: .same(proto: "email"),
+    10: .standard(proto: "schema_uri"),
     11: .standard(proto: "valid_from_utc"),
     12: .standard(proto: "valid_until_utc"),
-    20: .standard(proto: "governance_framework_uri"),
+    30: .standard(proto: "framework_id"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -975,22 +767,30 @@ extension Services_Trustregistry_V1_RegisterIssuerRequest: SwiftProtobuf.Message
         var v: String?
         try decoder.decodeSingularStringField(value: &v)
         if let v = v {
-          if self.authority != nil {try decoder.handleConflictingOneOf()}
-          self.authority = .didUri(v)
+          if self.member != nil {try decoder.handleConflictingOneOf()}
+          self.member = .didUri(v)
         }
       }()
-      case 2: try {
+      case 3: try {
         var v: String?
         try decoder.decodeSingularStringField(value: &v)
         if let v = v {
-          if self.authority != nil {try decoder.handleConflictingOneOf()}
-          self.authority = .x509Cert(v)
+          if self.member != nil {try decoder.handleConflictingOneOf()}
+          self.member = .walletID(v)
         }
       }()
-      case 10: try { try decoder.decodeSingularStringField(value: &self.credentialTypeUri) }()
+      case 4: try {
+        var v: String?
+        try decoder.decodeSingularStringField(value: &v)
+        if let v = v {
+          if self.member != nil {try decoder.handleConflictingOneOf()}
+          self.member = .email(v)
+        }
+      }()
+      case 10: try { try decoder.decodeSingularStringField(value: &self.schemaUri) }()
       case 11: try { try decoder.decodeSingularUInt64Field(value: &self.validFromUtc) }()
       case 12: try { try decoder.decodeSingularUInt64Field(value: &self.validUntilUtc) }()
-      case 20: try { try decoder.decodeSingularStringField(value: &self.governanceFrameworkUri) }()
+      case 30: try { try decoder.decodeSingularStringField(value: &self.frameworkID) }()
       default: break
       }
     }
@@ -1001,19 +801,23 @@ extension Services_Trustregistry_V1_RegisterIssuerRequest: SwiftProtobuf.Message
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    switch self.authority {
+    switch self.member {
     case .didUri?: try {
-      guard case .didUri(let v)? = self.authority else { preconditionFailure() }
+      guard case .didUri(let v)? = self.member else { preconditionFailure() }
       try visitor.visitSingularStringField(value: v, fieldNumber: 1)
     }()
-    case .x509Cert?: try {
-      guard case .x509Cert(let v)? = self.authority else { preconditionFailure() }
-      try visitor.visitSingularStringField(value: v, fieldNumber: 2)
+    case .walletID?: try {
+      guard case .walletID(let v)? = self.member else { preconditionFailure() }
+      try visitor.visitSingularStringField(value: v, fieldNumber: 3)
+    }()
+    case .email?: try {
+      guard case .email(let v)? = self.member else { preconditionFailure() }
+      try visitor.visitSingularStringField(value: v, fieldNumber: 4)
     }()
     case nil: break
     }
-    if !self.credentialTypeUri.isEmpty {
-      try visitor.visitSingularStringField(value: self.credentialTypeUri, fieldNumber: 10)
+    if !self.schemaUri.isEmpty {
+      try visitor.visitSingularStringField(value: self.schemaUri, fieldNumber: 10)
     }
     if self.validFromUtc != 0 {
       try visitor.visitSingularUInt64Field(value: self.validFromUtc, fieldNumber: 11)
@@ -1021,64 +825,50 @@ extension Services_Trustregistry_V1_RegisterIssuerRequest: SwiftProtobuf.Message
     if self.validUntilUtc != 0 {
       try visitor.visitSingularUInt64Field(value: self.validUntilUtc, fieldNumber: 12)
     }
-    if !self.governanceFrameworkUri.isEmpty {
-      try visitor.visitSingularStringField(value: self.governanceFrameworkUri, fieldNumber: 20)
+    if !self.frameworkID.isEmpty {
+      try visitor.visitSingularStringField(value: self.frameworkID, fieldNumber: 30)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Services_Trustregistry_V1_RegisterIssuerRequest, rhs: Services_Trustregistry_V1_RegisterIssuerRequest) -> Bool {
-    if lhs.authority != rhs.authority {return false}
-    if lhs.credentialTypeUri != rhs.credentialTypeUri {return false}
+  public static func ==(lhs: Services_Trustregistry_V1_RegisterMemberRequest, rhs: Services_Trustregistry_V1_RegisterMemberRequest) -> Bool {
+    if lhs.member != rhs.member {return false}
+    if lhs.schemaUri != rhs.schemaUri {return false}
     if lhs.validFromUtc != rhs.validFromUtc {return false}
     if lhs.validUntilUtc != rhs.validUntilUtc {return false}
-    if lhs.governanceFrameworkUri != rhs.governanceFrameworkUri {return false}
+    if lhs.frameworkID != rhs.frameworkID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Services_Trustregistry_V1_RegisterIssuerResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".RegisterIssuerResponse"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "status"),
-  ]
+extension Services_Trustregistry_V1_RegisterMemberResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".RegisterMemberResponse"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularEnumField(value: &self.status) }()
-      default: break
-      }
+    while let _ = try decoder.nextFieldNumber() {
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.status != .success {
-      try visitor.visitSingularEnumField(value: self.status, fieldNumber: 1)
-    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Services_Trustregistry_V1_RegisterIssuerResponse, rhs: Services_Trustregistry_V1_RegisterIssuerResponse) -> Bool {
-    if lhs.status != rhs.status {return false}
+  public static func ==(lhs: Services_Trustregistry_V1_RegisterMemberResponse, rhs: Services_Trustregistry_V1_RegisterMemberResponse) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Services_Trustregistry_V1_RegisterVerifierRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".RegisterVerifierRequest"
+extension Services_Trustregistry_V1_UnregisterMemberRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".UnregisterMemberRequest"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "did_uri"),
-    2: .standard(proto: "x509_cert"),
-    10: .standard(proto: "presentation_type_uri"),
-    11: .standard(proto: "valid_from_utc"),
-    12: .standard(proto: "valid_until_utc"),
-    20: .standard(proto: "governance_framework_uri"),
+    3: .standard(proto: "wallet_id"),
+    4: .same(proto: "email"),
+    10: .standard(proto: "schema_uri"),
+    20: .standard(proto: "framework_id"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1091,22 +881,28 @@ extension Services_Trustregistry_V1_RegisterVerifierRequest: SwiftProtobuf.Messa
         var v: String?
         try decoder.decodeSingularStringField(value: &v)
         if let v = v {
-          if self.authority != nil {try decoder.handleConflictingOneOf()}
-          self.authority = .didUri(v)
+          if self.member != nil {try decoder.handleConflictingOneOf()}
+          self.member = .didUri(v)
         }
       }()
-      case 2: try {
+      case 3: try {
         var v: String?
         try decoder.decodeSingularStringField(value: &v)
         if let v = v {
-          if self.authority != nil {try decoder.handleConflictingOneOf()}
-          self.authority = .x509Cert(v)
+          if self.member != nil {try decoder.handleConflictingOneOf()}
+          self.member = .walletID(v)
         }
       }()
-      case 10: try { try decoder.decodeSingularStringField(value: &self.presentationTypeUri) }()
-      case 11: try { try decoder.decodeSingularUInt64Field(value: &self.validFromUtc) }()
-      case 12: try { try decoder.decodeSingularUInt64Field(value: &self.validUntilUtc) }()
-      case 20: try { try decoder.decodeSingularStringField(value: &self.governanceFrameworkUri) }()
+      case 4: try {
+        var v: String?
+        try decoder.decodeSingularStringField(value: &v)
+        if let v = v {
+          if self.member != nil {try decoder.handleConflictingOneOf()}
+          self.member = .email(v)
+        }
+      }()
+      case 10: try { try decoder.decodeSingularStringField(value: &self.schemaUri) }()
+      case 20: try { try decoder.decodeSingularStringField(value: &self.frameworkID) }()
       default: break
       }
     }
@@ -1117,290 +913,65 @@ extension Services_Trustregistry_V1_RegisterVerifierRequest: SwiftProtobuf.Messa
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    switch self.authority {
+    switch self.member {
     case .didUri?: try {
-      guard case .didUri(let v)? = self.authority else { preconditionFailure() }
+      guard case .didUri(let v)? = self.member else { preconditionFailure() }
       try visitor.visitSingularStringField(value: v, fieldNumber: 1)
     }()
-    case .x509Cert?: try {
-      guard case .x509Cert(let v)? = self.authority else { preconditionFailure() }
-      try visitor.visitSingularStringField(value: v, fieldNumber: 2)
+    case .walletID?: try {
+      guard case .walletID(let v)? = self.member else { preconditionFailure() }
+      try visitor.visitSingularStringField(value: v, fieldNumber: 3)
+    }()
+    case .email?: try {
+      guard case .email(let v)? = self.member else { preconditionFailure() }
+      try visitor.visitSingularStringField(value: v, fieldNumber: 4)
     }()
     case nil: break
     }
-    if !self.presentationTypeUri.isEmpty {
-      try visitor.visitSingularStringField(value: self.presentationTypeUri, fieldNumber: 10)
+    if !self.schemaUri.isEmpty {
+      try visitor.visitSingularStringField(value: self.schemaUri, fieldNumber: 10)
     }
-    if self.validFromUtc != 0 {
-      try visitor.visitSingularUInt64Field(value: self.validFromUtc, fieldNumber: 11)
-    }
-    if self.validUntilUtc != 0 {
-      try visitor.visitSingularUInt64Field(value: self.validUntilUtc, fieldNumber: 12)
-    }
-    if !self.governanceFrameworkUri.isEmpty {
-      try visitor.visitSingularStringField(value: self.governanceFrameworkUri, fieldNumber: 20)
+    if !self.frameworkID.isEmpty {
+      try visitor.visitSingularStringField(value: self.frameworkID, fieldNumber: 20)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Services_Trustregistry_V1_RegisterVerifierRequest, rhs: Services_Trustregistry_V1_RegisterVerifierRequest) -> Bool {
-    if lhs.authority != rhs.authority {return false}
-    if lhs.presentationTypeUri != rhs.presentationTypeUri {return false}
-    if lhs.validFromUtc != rhs.validFromUtc {return false}
-    if lhs.validUntilUtc != rhs.validUntilUtc {return false}
-    if lhs.governanceFrameworkUri != rhs.governanceFrameworkUri {return false}
+  public static func ==(lhs: Services_Trustregistry_V1_UnregisterMemberRequest, rhs: Services_Trustregistry_V1_UnregisterMemberRequest) -> Bool {
+    if lhs.member != rhs.member {return false}
+    if lhs.schemaUri != rhs.schemaUri {return false}
+    if lhs.frameworkID != rhs.frameworkID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Services_Trustregistry_V1_RegisterVerifierResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".RegisterVerifierResponse"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "status"),
-  ]
+extension Services_Trustregistry_V1_UnregisterMemberResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".UnregisterMemberResponse"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularEnumField(value: &self.status) }()
-      default: break
-      }
+    while let _ = try decoder.nextFieldNumber() {
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.status != .success {
-      try visitor.visitSingularEnumField(value: self.status, fieldNumber: 1)
-    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Services_Trustregistry_V1_RegisterVerifierResponse, rhs: Services_Trustregistry_V1_RegisterVerifierResponse) -> Bool {
-    if lhs.status != rhs.status {return false}
+  public static func ==(lhs: Services_Trustregistry_V1_UnregisterMemberResponse, rhs: Services_Trustregistry_V1_UnregisterMemberResponse) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Services_Trustregistry_V1_UnregisterIssuerRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".UnregisterIssuerRequest"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "did_uri"),
-    2: .standard(proto: "x509_cert"),
-    10: .standard(proto: "credential_type_uri"),
-    20: .standard(proto: "governance_framework_uri"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try {
-        var v: String?
-        try decoder.decodeSingularStringField(value: &v)
-        if let v = v {
-          if self.authority != nil {try decoder.handleConflictingOneOf()}
-          self.authority = .didUri(v)
-        }
-      }()
-      case 2: try {
-        var v: String?
-        try decoder.decodeSingularStringField(value: &v)
-        if let v = v {
-          if self.authority != nil {try decoder.handleConflictingOneOf()}
-          self.authority = .x509Cert(v)
-        }
-      }()
-      case 10: try { try decoder.decodeSingularStringField(value: &self.credentialTypeUri) }()
-      case 20: try { try decoder.decodeSingularStringField(value: &self.governanceFrameworkUri) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    switch self.authority {
-    case .didUri?: try {
-      guard case .didUri(let v)? = self.authority else { preconditionFailure() }
-      try visitor.visitSingularStringField(value: v, fieldNumber: 1)
-    }()
-    case .x509Cert?: try {
-      guard case .x509Cert(let v)? = self.authority else { preconditionFailure() }
-      try visitor.visitSingularStringField(value: v, fieldNumber: 2)
-    }()
-    case nil: break
-    }
-    if !self.credentialTypeUri.isEmpty {
-      try visitor.visitSingularStringField(value: self.credentialTypeUri, fieldNumber: 10)
-    }
-    if !self.governanceFrameworkUri.isEmpty {
-      try visitor.visitSingularStringField(value: self.governanceFrameworkUri, fieldNumber: 20)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Services_Trustregistry_V1_UnregisterIssuerRequest, rhs: Services_Trustregistry_V1_UnregisterIssuerRequest) -> Bool {
-    if lhs.authority != rhs.authority {return false}
-    if lhs.credentialTypeUri != rhs.credentialTypeUri {return false}
-    if lhs.governanceFrameworkUri != rhs.governanceFrameworkUri {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Services_Trustregistry_V1_UnregisterIssuerResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".UnregisterIssuerResponse"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "status"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularEnumField(value: &self.status) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.status != .success {
-      try visitor.visitSingularEnumField(value: self.status, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Services_Trustregistry_V1_UnregisterIssuerResponse, rhs: Services_Trustregistry_V1_UnregisterIssuerResponse) -> Bool {
-    if lhs.status != rhs.status {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Services_Trustregistry_V1_UnregisterVerifierRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".UnregisterVerifierRequest"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "did_uri"),
-    2: .standard(proto: "x509_cert"),
-    10: .standard(proto: "presentation_type_uri"),
-    20: .standard(proto: "governance_framework_uri"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try {
-        var v: String?
-        try decoder.decodeSingularStringField(value: &v)
-        if let v = v {
-          if self.authority != nil {try decoder.handleConflictingOneOf()}
-          self.authority = .didUri(v)
-        }
-      }()
-      case 2: try {
-        var v: String?
-        try decoder.decodeSingularStringField(value: &v)
-        if let v = v {
-          if self.authority != nil {try decoder.handleConflictingOneOf()}
-          self.authority = .x509Cert(v)
-        }
-      }()
-      case 10: try { try decoder.decodeSingularStringField(value: &self.presentationTypeUri) }()
-      case 20: try { try decoder.decodeSingularStringField(value: &self.governanceFrameworkUri) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    switch self.authority {
-    case .didUri?: try {
-      guard case .didUri(let v)? = self.authority else { preconditionFailure() }
-      try visitor.visitSingularStringField(value: v, fieldNumber: 1)
-    }()
-    case .x509Cert?: try {
-      guard case .x509Cert(let v)? = self.authority else { preconditionFailure() }
-      try visitor.visitSingularStringField(value: v, fieldNumber: 2)
-    }()
-    case nil: break
-    }
-    if !self.presentationTypeUri.isEmpty {
-      try visitor.visitSingularStringField(value: self.presentationTypeUri, fieldNumber: 10)
-    }
-    if !self.governanceFrameworkUri.isEmpty {
-      try visitor.visitSingularStringField(value: self.governanceFrameworkUri, fieldNumber: 20)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Services_Trustregistry_V1_UnregisterVerifierRequest, rhs: Services_Trustregistry_V1_UnregisterVerifierRequest) -> Bool {
-    if lhs.authority != rhs.authority {return false}
-    if lhs.presentationTypeUri != rhs.presentationTypeUri {return false}
-    if lhs.governanceFrameworkUri != rhs.governanceFrameworkUri {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Services_Trustregistry_V1_UnregisterVerifierResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".UnregisterVerifierResponse"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "status"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularEnumField(value: &self.status) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.status != .success {
-      try visitor.visitSingularEnumField(value: self.status, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Services_Trustregistry_V1_UnregisterVerifierResponse, rhs: Services_Trustregistry_V1_UnregisterVerifierResponse) -> Bool {
-    if lhs.status != rhs.status {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Services_Trustregistry_V1_CheckIssuerStatusRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".CheckIssuerStatusRequest"
+extension Services_Trustregistry_V1_GetMembershipStatusRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetMembershipStatusRequest"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "governance_framework_uri"),
     2: .standard(proto: "did_uri"),
     3: .standard(proto: "x509_cert"),
-    4: .standard(proto: "credential_type_uri"),
+    4: .standard(proto: "schema_uri"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1426,7 +997,7 @@ extension Services_Trustregistry_V1_CheckIssuerStatusRequest: SwiftProtobuf.Mess
           self.member = .x509Cert(v)
         }
       }()
-      case 4: try { try decoder.decodeSingularStringField(value: &self.credentialTypeUri) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.schemaUri) }()
       default: break
       }
     }
@@ -1451,23 +1022,23 @@ extension Services_Trustregistry_V1_CheckIssuerStatusRequest: SwiftProtobuf.Mess
     }()
     case nil: break
     }
-    if !self.credentialTypeUri.isEmpty {
-      try visitor.visitSingularStringField(value: self.credentialTypeUri, fieldNumber: 4)
+    if !self.schemaUri.isEmpty {
+      try visitor.visitSingularStringField(value: self.schemaUri, fieldNumber: 4)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Services_Trustregistry_V1_CheckIssuerStatusRequest, rhs: Services_Trustregistry_V1_CheckIssuerStatusRequest) -> Bool {
+  public static func ==(lhs: Services_Trustregistry_V1_GetMembershipStatusRequest, rhs: Services_Trustregistry_V1_GetMembershipStatusRequest) -> Bool {
     if lhs.governanceFrameworkUri != rhs.governanceFrameworkUri {return false}
     if lhs.member != rhs.member {return false}
-    if lhs.credentialTypeUri != rhs.credentialTypeUri {return false}
+    if lhs.schemaUri != rhs.schemaUri {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Services_Trustregistry_V1_CheckIssuerStatusResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".CheckIssuerStatusResponse"
+extension Services_Trustregistry_V1_GetMembershipStatusResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetMembershipStatusResponse"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "status"),
   ]
@@ -1491,111 +1062,7 @@ extension Services_Trustregistry_V1_CheckIssuerStatusResponse: SwiftProtobuf.Mes
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Services_Trustregistry_V1_CheckIssuerStatusResponse, rhs: Services_Trustregistry_V1_CheckIssuerStatusResponse) -> Bool {
-    if lhs.status != rhs.status {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Services_Trustregistry_V1_CheckVerifierStatusRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".CheckVerifierStatusRequest"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "governance_framework_uri"),
-    2: .standard(proto: "did_uri"),
-    3: .standard(proto: "x509_cert"),
-    4: .standard(proto: "presentation_type_uri"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.governanceFrameworkUri) }()
-      case 2: try {
-        var v: String?
-        try decoder.decodeSingularStringField(value: &v)
-        if let v = v {
-          if self.member != nil {try decoder.handleConflictingOneOf()}
-          self.member = .didUri(v)
-        }
-      }()
-      case 3: try {
-        var v: String?
-        try decoder.decodeSingularStringField(value: &v)
-        if let v = v {
-          if self.member != nil {try decoder.handleConflictingOneOf()}
-          self.member = .x509Cert(v)
-        }
-      }()
-      case 4: try { try decoder.decodeSingularStringField(value: &self.presentationTypeUri) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    if !self.governanceFrameworkUri.isEmpty {
-      try visitor.visitSingularStringField(value: self.governanceFrameworkUri, fieldNumber: 1)
-    }
-    switch self.member {
-    case .didUri?: try {
-      guard case .didUri(let v)? = self.member else { preconditionFailure() }
-      try visitor.visitSingularStringField(value: v, fieldNumber: 2)
-    }()
-    case .x509Cert?: try {
-      guard case .x509Cert(let v)? = self.member else { preconditionFailure() }
-      try visitor.visitSingularStringField(value: v, fieldNumber: 3)
-    }()
-    case nil: break
-    }
-    if !self.presentationTypeUri.isEmpty {
-      try visitor.visitSingularStringField(value: self.presentationTypeUri, fieldNumber: 4)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Services_Trustregistry_V1_CheckVerifierStatusRequest, rhs: Services_Trustregistry_V1_CheckVerifierStatusRequest) -> Bool {
-    if lhs.governanceFrameworkUri != rhs.governanceFrameworkUri {return false}
-    if lhs.member != rhs.member {return false}
-    if lhs.presentationTypeUri != rhs.presentationTypeUri {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Services_Trustregistry_V1_CheckVerifierStatusResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".CheckVerifierStatusResponse"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "status"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularEnumField(value: &self.status) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.status != .current {
-      try visitor.visitSingularEnumField(value: self.status, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Services_Trustregistry_V1_CheckVerifierStatusResponse, rhs: Services_Trustregistry_V1_CheckVerifierStatusResponse) -> Bool {
+  public static func ==(lhs: Services_Trustregistry_V1_GetMembershipStatusResponse, rhs: Services_Trustregistry_V1_GetMembershipStatusResponse) -> Bool {
     if lhs.status != rhs.status {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true

@@ -49,6 +49,11 @@ public protocol Services_Provider_V1_ProviderClientProtocol: GRPCClient {
     _ request: Services_Provider_V1_InvitationStatusRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<Services_Provider_V1_InvitationStatusRequest, Services_Provider_V1_InvitationStatusResponse>
+
+  func GetOberonKey(
+    _ request: Services_Provider_V1_GetOberonKeyRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Services_Provider_V1_GetOberonKeyRequest, Services_Provider_V1_GetOberonKeyResponse>
 }
 
 extension Services_Provider_V1_ProviderClientProtocol {
@@ -128,6 +133,24 @@ extension Services_Provider_V1_ProviderClientProtocol {
       interceptors: self.interceptors?.makeInvitationStatusInterceptors() ?? []
     )
   }
+
+  /// Returns the public key being used to create/verify oberon tokens
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to GetOberonKey.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  public func GetOberonKey(
+    _ request: Services_Provider_V1_GetOberonKeyRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Services_Provider_V1_GetOberonKeyRequest, Services_Provider_V1_GetOberonKeyResponse> {
+    return self.makeUnaryCall(
+      path: "/services.provider.v1.Provider/GetOberonKey",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetOberonKeyInterceptors() ?? []
+    )
+  }
 }
 
 public protocol Services_Provider_V1_ProviderClientInterceptorFactoryProtocol {
@@ -143,6 +166,9 @@ public protocol Services_Provider_V1_ProviderClientInterceptorFactoryProtocol {
 
   /// - Returns: Interceptors to use when invoking 'InvitationStatus'.
   func makeInvitationStatusInterceptors() -> [ClientInterceptor<Services_Provider_V1_InvitationStatusRequest, Services_Provider_V1_InvitationStatusResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'GetOberonKey'.
+  func makeGetOberonKeyInterceptors() -> [ClientInterceptor<Services_Provider_V1_GetOberonKeyRequest, Services_Provider_V1_GetOberonKeyResponse>]
 }
 
 public final class Services_Provider_V1_ProviderClient: Services_Provider_V1_ProviderClientProtocol {
@@ -183,6 +209,9 @@ public protocol Services_Provider_V1_ProviderProvider: CallHandlerProvider {
 
   /// Check the invitation status
   func InvitationStatus(request: Services_Provider_V1_InvitationStatusRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_InvitationStatusResponse>
+
+  /// Returns the public key being used to create/verify oberon tokens
+  func GetOberonKey(request: Services_Provider_V1_GetOberonKeyRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_GetOberonKeyResponse>
 }
 
 extension Services_Provider_V1_ProviderProvider {
@@ -231,6 +260,15 @@ extension Services_Provider_V1_ProviderProvider {
         userFunction: self.InvitationStatus(request:context:)
       )
 
+    case "GetOberonKey":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Services_Provider_V1_GetOberonKeyRequest>(),
+        responseSerializer: ProtobufSerializer<Services_Provider_V1_GetOberonKeyResponse>(),
+        interceptors: self.interceptors?.makeGetOberonKeyInterceptors() ?? [],
+        userFunction: self.GetOberonKey(request:context:)
+      )
+
     default:
       return nil
     }
@@ -254,4 +292,8 @@ public protocol Services_Provider_V1_ProviderServerInterceptorFactoryProtocol {
   /// - Returns: Interceptors to use when handling 'InvitationStatus'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeInvitationStatusInterceptors() -> [ServerInterceptor<Services_Provider_V1_InvitationStatusRequest, Services_Provider_V1_InvitationStatusResponse>]
+
+  /// - Returns: Interceptors to use when handling 'GetOberonKey'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeGetOberonKeyInterceptors() -> [ServerInterceptor<Services_Provider_V1_GetOberonKeyRequest, Services_Provider_V1_GetOberonKeyResponse>]
 }

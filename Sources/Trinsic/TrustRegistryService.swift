@@ -26,38 +26,26 @@ public class TrustRegistryService : ServiceBase {
             .wait()
     }
     
-    public func registerIssuer(request: Services_Trustregistry_V1_RegisterIssuerRequest) throws -> Services_Trustregistry_V1_RegisterIssuerResponse {
-        return try client!.RegisterIssuer(request, callOptions: try buildMetadata(request))
+    public func removeFramework(request: Services_Trustregistry_V1_RemoveFrameworkRequest) throws -> Services_Trustregistry_V1_RemoveFrameworkResponse {
+        return try client!.RemoveFramework(request, callOptions: try buildMetadata(request))
             .response
             .wait()
     }
     
-    public func registerVerifier(request: Services_Trustregistry_V1_RegisterVerifierRequest) throws -> Services_Trustregistry_V1_RegisterVerifierResponse {
-        return try client!.RegisterVerifier(request, callOptions: try buildMetadata(request))
+    public func registerMember(request: Services_Trustregistry_V1_RegisterMemberRequest) throws -> Services_Trustregistry_V1_RegisterMemberResponse {
+        return try client!.RegisterMember(request, callOptions: try buildMetadata(request))
             .response
             .wait()
     }
     
-    public func unregisterIssuer(request: Services_Trustregistry_V1_UnregisterIssuerRequest) throws -> Services_Trustregistry_V1_UnregisterIssuerResponse {
-        return try client!.UnregisterIssuer(request, callOptions: try buildMetadata(request))
+    public func unregisterMember(request: Services_Trustregistry_V1_UnregisterMemberRequest) throws -> Services_Trustregistry_V1_UnregisterMemberResponse {
+        return try client!.UnregisterMember(request, callOptions: try buildMetadata(request))
             .response
             .wait()
     }
     
-    public func unregisterVerifier(request: Services_Trustregistry_V1_UnregisterVerifierRequest) throws -> Services_Trustregistry_V1_UnregisterVerifierResponse {
-        return try client!.UnregisterVerifier(request, callOptions: try buildMetadata(request))
-            .response
-            .wait()
-    }
-    
-    public func checkIssuerStatus(request: Services_Trustregistry_V1_CheckIssuerStatusRequest) throws -> Services_Trustregistry_V1_CheckIssuerStatusResponse {
-        return try client!.CheckIssuerStatus(request, callOptions: try buildMetadata(request))
-            .response
-            .wait()
-    }
-    
-    public func checkVerifierStatus(request: Services_Trustregistry_V1_CheckVerifierStatusRequest) throws -> Services_Trustregistry_V1_CheckVerifierStatusResponse {
-        return try client!.CheckVerifierStatus(request, callOptions: try buildMetadata(request))
+    public func checkIssuerStatus(request: Services_Trustregistry_V1_GetMembershipStatusRequest) throws -> Services_Trustregistry_V1_GetMembershipStatusResponse {
+        return try client!.GetMembershipStatus(request, callOptions: try buildMetadata(request))
             .response
             .wait()
     }

@@ -45,35 +45,20 @@ public protocol Services_Trustregistry_V1_TrustRegistryClientProtocol: GRPCClien
     callOptions: CallOptions?
   ) -> UnaryCall<Services_Trustregistry_V1_SearchRegistryRequest, Services_Trustregistry_V1_SearchRegistryResponse>
 
-  func RegisterIssuer(
-    _ request: Services_Trustregistry_V1_RegisterIssuerRequest,
+  func RegisterMember(
+    _ request: Services_Trustregistry_V1_RegisterMemberRequest,
     callOptions: CallOptions?
-  ) -> UnaryCall<Services_Trustregistry_V1_RegisterIssuerRequest, Services_Trustregistry_V1_RegisterIssuerResponse>
+  ) -> UnaryCall<Services_Trustregistry_V1_RegisterMemberRequest, Services_Trustregistry_V1_RegisterMemberResponse>
 
-  func RegisterVerifier(
-    _ request: Services_Trustregistry_V1_RegisterVerifierRequest,
+  func UnregisterMember(
+    _ request: Services_Trustregistry_V1_UnregisterMemberRequest,
     callOptions: CallOptions?
-  ) -> UnaryCall<Services_Trustregistry_V1_RegisterVerifierRequest, Services_Trustregistry_V1_RegisterVerifierResponse>
+  ) -> UnaryCall<Services_Trustregistry_V1_UnregisterMemberRequest, Services_Trustregistry_V1_UnregisterMemberResponse>
 
-  func UnregisterIssuer(
-    _ request: Services_Trustregistry_V1_UnregisterIssuerRequest,
+  func GetMembershipStatus(
+    _ request: Services_Trustregistry_V1_GetMembershipStatusRequest,
     callOptions: CallOptions?
-  ) -> UnaryCall<Services_Trustregistry_V1_UnregisterIssuerRequest, Services_Trustregistry_V1_UnregisterIssuerResponse>
-
-  func UnregisterVerifier(
-    _ request: Services_Trustregistry_V1_UnregisterVerifierRequest,
-    callOptions: CallOptions?
-  ) -> UnaryCall<Services_Trustregistry_V1_UnregisterVerifierRequest, Services_Trustregistry_V1_UnregisterVerifierResponse>
-
-  func CheckIssuerStatus(
-    _ request: Services_Trustregistry_V1_CheckIssuerStatusRequest,
-    callOptions: CallOptions?
-  ) -> UnaryCall<Services_Trustregistry_V1_CheckIssuerStatusRequest, Services_Trustregistry_V1_CheckIssuerStatusResponse>
-
-  func CheckVerifierStatus(
-    _ request: Services_Trustregistry_V1_CheckVerifierStatusRequest,
-    callOptions: CallOptions?
-  ) -> UnaryCall<Services_Trustregistry_V1_CheckVerifierStatusRequest, Services_Trustregistry_V1_CheckVerifierStatusResponse>
+  ) -> UnaryCall<Services_Trustregistry_V1_GetMembershipStatusRequest, Services_Trustregistry_V1_GetMembershipStatusResponse>
 
   func FetchData(
     _ request: Services_Trustregistry_V1_FetchDataRequest,
@@ -144,108 +129,54 @@ extension Services_Trustregistry_V1_TrustRegistryClientProtocol {
   /// Registers an authoritative issuer with a credential template
   ///
   /// - Parameters:
-  ///   - request: Request to send to RegisterIssuer.
+  ///   - request: Request to send to RegisterMember.
   ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func RegisterIssuer(
-    _ request: Services_Trustregistry_V1_RegisterIssuerRequest,
+  public func RegisterMember(
+    _ request: Services_Trustregistry_V1_RegisterMemberRequest,
     callOptions: CallOptions? = nil
-  ) -> UnaryCall<Services_Trustregistry_V1_RegisterIssuerRequest, Services_Trustregistry_V1_RegisterIssuerResponse> {
+  ) -> UnaryCall<Services_Trustregistry_V1_RegisterMemberRequest, Services_Trustregistry_V1_RegisterMemberResponse> {
     return self.makeUnaryCall(
-      path: "/services.trustregistry.v1.TrustRegistry/RegisterIssuer",
+      path: "/services.trustregistry.v1.TrustRegistry/RegisterMember",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeRegisterIssuerInterceptors() ?? []
-    )
-  }
-
-  /// Registers an authoritative verifier with a credential template
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to RegisterVerifier.
-  ///   - callOptions: Call options.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func RegisterVerifier(
-    _ request: Services_Trustregistry_V1_RegisterVerifierRequest,
-    callOptions: CallOptions? = nil
-  ) -> UnaryCall<Services_Trustregistry_V1_RegisterVerifierRequest, Services_Trustregistry_V1_RegisterVerifierResponse> {
-    return self.makeUnaryCall(
-      path: "/services.trustregistry.v1.TrustRegistry/RegisterVerifier",
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeRegisterVerifierInterceptors() ?? []
+      interceptors: self.interceptors?.makeRegisterMemberInterceptors() ?? []
     )
   }
 
   /// Removes an authoritative issuer with a credential template from the trust registry
   ///
   /// - Parameters:
-  ///   - request: Request to send to UnregisterIssuer.
+  ///   - request: Request to send to UnregisterMember.
   ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func UnregisterIssuer(
-    _ request: Services_Trustregistry_V1_UnregisterIssuerRequest,
+  public func UnregisterMember(
+    _ request: Services_Trustregistry_V1_UnregisterMemberRequest,
     callOptions: CallOptions? = nil
-  ) -> UnaryCall<Services_Trustregistry_V1_UnregisterIssuerRequest, Services_Trustregistry_V1_UnregisterIssuerResponse> {
+  ) -> UnaryCall<Services_Trustregistry_V1_UnregisterMemberRequest, Services_Trustregistry_V1_UnregisterMemberResponse> {
     return self.makeUnaryCall(
-      path: "/services.trustregistry.v1.TrustRegistry/UnregisterIssuer",
+      path: "/services.trustregistry.v1.TrustRegistry/UnregisterMember",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeUnregisterIssuerInterceptors() ?? []
+      interceptors: self.interceptors?.makeUnregisterMemberInterceptors() ?? []
     )
   }
 
-  /// Removes an authoritative verifier with a presentation template from the trust registry
+  /// Unary call to GetMembershipStatus
   ///
   /// - Parameters:
-  ///   - request: Request to send to UnregisterVerifier.
+  ///   - request: Request to send to GetMembershipStatus.
   ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func UnregisterVerifier(
-    _ request: Services_Trustregistry_V1_UnregisterVerifierRequest,
+  public func GetMembershipStatus(
+    _ request: Services_Trustregistry_V1_GetMembershipStatusRequest,
     callOptions: CallOptions? = nil
-  ) -> UnaryCall<Services_Trustregistry_V1_UnregisterVerifierRequest, Services_Trustregistry_V1_UnregisterVerifierResponse> {
+  ) -> UnaryCall<Services_Trustregistry_V1_GetMembershipStatusRequest, Services_Trustregistry_V1_GetMembershipStatusResponse> {
     return self.makeUnaryCall(
-      path: "/services.trustregistry.v1.TrustRegistry/UnregisterVerifier",
+      path: "/services.trustregistry.v1.TrustRegistry/GetMembershipStatus",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeUnregisterVerifierInterceptors() ?? []
-    )
-  }
-
-  /// Unary call to CheckIssuerStatus
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to CheckIssuerStatus.
-  ///   - callOptions: Call options.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func CheckIssuerStatus(
-    _ request: Services_Trustregistry_V1_CheckIssuerStatusRequest,
-    callOptions: CallOptions? = nil
-  ) -> UnaryCall<Services_Trustregistry_V1_CheckIssuerStatusRequest, Services_Trustregistry_V1_CheckIssuerStatusResponse> {
-    return self.makeUnaryCall(
-      path: "/services.trustregistry.v1.TrustRegistry/CheckIssuerStatus",
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeCheckIssuerStatusInterceptors() ?? []
-    )
-  }
-
-  /// Unary call to CheckVerifierStatus
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to CheckVerifierStatus.
-  ///   - callOptions: Call options.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func CheckVerifierStatus(
-    _ request: Services_Trustregistry_V1_CheckVerifierStatusRequest,
-    callOptions: CallOptions? = nil
-  ) -> UnaryCall<Services_Trustregistry_V1_CheckVerifierStatusRequest, Services_Trustregistry_V1_CheckVerifierStatusResponse> {
-    return self.makeUnaryCall(
-      path: "/services.trustregistry.v1.TrustRegistry/CheckVerifierStatus",
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeCheckVerifierStatusInterceptors() ?? []
+      interceptors: self.interceptors?.makeGetMembershipStatusInterceptors() ?? []
     )
   }
 
@@ -282,23 +213,14 @@ public protocol Services_Trustregistry_V1_TrustRegistryClientInterceptorFactoryP
   /// - Returns: Interceptors to use when invoking 'SearchRegistry'.
   func makeSearchRegistryInterceptors() -> [ClientInterceptor<Services_Trustregistry_V1_SearchRegistryRequest, Services_Trustregistry_V1_SearchRegistryResponse>]
 
-  /// - Returns: Interceptors to use when invoking 'RegisterIssuer'.
-  func makeRegisterIssuerInterceptors() -> [ClientInterceptor<Services_Trustregistry_V1_RegisterIssuerRequest, Services_Trustregistry_V1_RegisterIssuerResponse>]
+  /// - Returns: Interceptors to use when invoking 'RegisterMember'.
+  func makeRegisterMemberInterceptors() -> [ClientInterceptor<Services_Trustregistry_V1_RegisterMemberRequest, Services_Trustregistry_V1_RegisterMemberResponse>]
 
-  /// - Returns: Interceptors to use when invoking 'RegisterVerifier'.
-  func makeRegisterVerifierInterceptors() -> [ClientInterceptor<Services_Trustregistry_V1_RegisterVerifierRequest, Services_Trustregistry_V1_RegisterVerifierResponse>]
+  /// - Returns: Interceptors to use when invoking 'UnregisterMember'.
+  func makeUnregisterMemberInterceptors() -> [ClientInterceptor<Services_Trustregistry_V1_UnregisterMemberRequest, Services_Trustregistry_V1_UnregisterMemberResponse>]
 
-  /// - Returns: Interceptors to use when invoking 'UnregisterIssuer'.
-  func makeUnregisterIssuerInterceptors() -> [ClientInterceptor<Services_Trustregistry_V1_UnregisterIssuerRequest, Services_Trustregistry_V1_UnregisterIssuerResponse>]
-
-  /// - Returns: Interceptors to use when invoking 'UnregisterVerifier'.
-  func makeUnregisterVerifierInterceptors() -> [ClientInterceptor<Services_Trustregistry_V1_UnregisterVerifierRequest, Services_Trustregistry_V1_UnregisterVerifierResponse>]
-
-  /// - Returns: Interceptors to use when invoking 'CheckIssuerStatus'.
-  func makeCheckIssuerStatusInterceptors() -> [ClientInterceptor<Services_Trustregistry_V1_CheckIssuerStatusRequest, Services_Trustregistry_V1_CheckIssuerStatusResponse>]
-
-  /// - Returns: Interceptors to use when invoking 'CheckVerifierStatus'.
-  func makeCheckVerifierStatusInterceptors() -> [ClientInterceptor<Services_Trustregistry_V1_CheckVerifierStatusRequest, Services_Trustregistry_V1_CheckVerifierStatusResponse>]
+  /// - Returns: Interceptors to use when invoking 'GetMembershipStatus'.
+  func makeGetMembershipStatusInterceptors() -> [ClientInterceptor<Services_Trustregistry_V1_GetMembershipStatusRequest, Services_Trustregistry_V1_GetMembershipStatusResponse>]
 
   /// - Returns: Interceptors to use when invoking 'FetchData'.
   func makeFetchDataInterceptors() -> [ClientInterceptor<Services_Trustregistry_V1_FetchDataRequest, Services_Trustregistry_V1_FetchDataResponse>]
@@ -338,20 +260,12 @@ public protocol Services_Trustregistry_V1_TrustRegistryProvider: CallHandlerProv
   func SearchRegistry(request: Services_Trustregistry_V1_SearchRegistryRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Trustregistry_V1_SearchRegistryResponse>
 
   /// Registers an authoritative issuer with a credential template
-  func RegisterIssuer(request: Services_Trustregistry_V1_RegisterIssuerRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Trustregistry_V1_RegisterIssuerResponse>
-
-  /// Registers an authoritative verifier with a credential template
-  func RegisterVerifier(request: Services_Trustregistry_V1_RegisterVerifierRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Trustregistry_V1_RegisterVerifierResponse>
+  func RegisterMember(request: Services_Trustregistry_V1_RegisterMemberRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Trustregistry_V1_RegisterMemberResponse>
 
   /// Removes an authoritative issuer with a credential template from the trust registry
-  func UnregisterIssuer(request: Services_Trustregistry_V1_UnregisterIssuerRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Trustregistry_V1_UnregisterIssuerResponse>
+  func UnregisterMember(request: Services_Trustregistry_V1_UnregisterMemberRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Trustregistry_V1_UnregisterMemberResponse>
 
-  /// Removes an authoritative verifier with a presentation template from the trust registry
-  func UnregisterVerifier(request: Services_Trustregistry_V1_UnregisterVerifierRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Trustregistry_V1_UnregisterVerifierResponse>
-
-  func CheckIssuerStatus(request: Services_Trustregistry_V1_CheckIssuerStatusRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Trustregistry_V1_CheckIssuerStatusResponse>
-
-  func CheckVerifierStatus(request: Services_Trustregistry_V1_CheckVerifierStatusRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Trustregistry_V1_CheckVerifierStatusResponse>
+  func GetMembershipStatus(request: Services_Trustregistry_V1_GetMembershipStatusRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Trustregistry_V1_GetMembershipStatusResponse>
 
   func FetchData(request: Services_Trustregistry_V1_FetchDataRequest, context: StreamingResponseCallContext<Services_Trustregistry_V1_FetchDataResponse>) -> EventLoopFuture<GRPCStatus>
 }
@@ -393,58 +307,31 @@ extension Services_Trustregistry_V1_TrustRegistryProvider {
         userFunction: self.SearchRegistry(request:context:)
       )
 
-    case "RegisterIssuer":
+    case "RegisterMember":
       return UnaryServerHandler(
         context: context,
-        requestDeserializer: ProtobufDeserializer<Services_Trustregistry_V1_RegisterIssuerRequest>(),
-        responseSerializer: ProtobufSerializer<Services_Trustregistry_V1_RegisterIssuerResponse>(),
-        interceptors: self.interceptors?.makeRegisterIssuerInterceptors() ?? [],
-        userFunction: self.RegisterIssuer(request:context:)
+        requestDeserializer: ProtobufDeserializer<Services_Trustregistry_V1_RegisterMemberRequest>(),
+        responseSerializer: ProtobufSerializer<Services_Trustregistry_V1_RegisterMemberResponse>(),
+        interceptors: self.interceptors?.makeRegisterMemberInterceptors() ?? [],
+        userFunction: self.RegisterMember(request:context:)
       )
 
-    case "RegisterVerifier":
+    case "UnregisterMember":
       return UnaryServerHandler(
         context: context,
-        requestDeserializer: ProtobufDeserializer<Services_Trustregistry_V1_RegisterVerifierRequest>(),
-        responseSerializer: ProtobufSerializer<Services_Trustregistry_V1_RegisterVerifierResponse>(),
-        interceptors: self.interceptors?.makeRegisterVerifierInterceptors() ?? [],
-        userFunction: self.RegisterVerifier(request:context:)
+        requestDeserializer: ProtobufDeserializer<Services_Trustregistry_V1_UnregisterMemberRequest>(),
+        responseSerializer: ProtobufSerializer<Services_Trustregistry_V1_UnregisterMemberResponse>(),
+        interceptors: self.interceptors?.makeUnregisterMemberInterceptors() ?? [],
+        userFunction: self.UnregisterMember(request:context:)
       )
 
-    case "UnregisterIssuer":
+    case "GetMembershipStatus":
       return UnaryServerHandler(
         context: context,
-        requestDeserializer: ProtobufDeserializer<Services_Trustregistry_V1_UnregisterIssuerRequest>(),
-        responseSerializer: ProtobufSerializer<Services_Trustregistry_V1_UnregisterIssuerResponse>(),
-        interceptors: self.interceptors?.makeUnregisterIssuerInterceptors() ?? [],
-        userFunction: self.UnregisterIssuer(request:context:)
-      )
-
-    case "UnregisterVerifier":
-      return UnaryServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<Services_Trustregistry_V1_UnregisterVerifierRequest>(),
-        responseSerializer: ProtobufSerializer<Services_Trustregistry_V1_UnregisterVerifierResponse>(),
-        interceptors: self.interceptors?.makeUnregisterVerifierInterceptors() ?? [],
-        userFunction: self.UnregisterVerifier(request:context:)
-      )
-
-    case "CheckIssuerStatus":
-      return UnaryServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<Services_Trustregistry_V1_CheckIssuerStatusRequest>(),
-        responseSerializer: ProtobufSerializer<Services_Trustregistry_V1_CheckIssuerStatusResponse>(),
-        interceptors: self.interceptors?.makeCheckIssuerStatusInterceptors() ?? [],
-        userFunction: self.CheckIssuerStatus(request:context:)
-      )
-
-    case "CheckVerifierStatus":
-      return UnaryServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<Services_Trustregistry_V1_CheckVerifierStatusRequest>(),
-        responseSerializer: ProtobufSerializer<Services_Trustregistry_V1_CheckVerifierStatusResponse>(),
-        interceptors: self.interceptors?.makeCheckVerifierStatusInterceptors() ?? [],
-        userFunction: self.CheckVerifierStatus(request:context:)
+        requestDeserializer: ProtobufDeserializer<Services_Trustregistry_V1_GetMembershipStatusRequest>(),
+        responseSerializer: ProtobufSerializer<Services_Trustregistry_V1_GetMembershipStatusResponse>(),
+        interceptors: self.interceptors?.makeGetMembershipStatusInterceptors() ?? [],
+        userFunction: self.GetMembershipStatus(request:context:)
       )
 
     case "FetchData":
@@ -476,29 +363,17 @@ public protocol Services_Trustregistry_V1_TrustRegistryServerInterceptorFactoryP
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeSearchRegistryInterceptors() -> [ServerInterceptor<Services_Trustregistry_V1_SearchRegistryRequest, Services_Trustregistry_V1_SearchRegistryResponse>]
 
-  /// - Returns: Interceptors to use when handling 'RegisterIssuer'.
+  /// - Returns: Interceptors to use when handling 'RegisterMember'.
   ///   Defaults to calling `self.makeInterceptors()`.
-  func makeRegisterIssuerInterceptors() -> [ServerInterceptor<Services_Trustregistry_V1_RegisterIssuerRequest, Services_Trustregistry_V1_RegisterIssuerResponse>]
+  func makeRegisterMemberInterceptors() -> [ServerInterceptor<Services_Trustregistry_V1_RegisterMemberRequest, Services_Trustregistry_V1_RegisterMemberResponse>]
 
-  /// - Returns: Interceptors to use when handling 'RegisterVerifier'.
+  /// - Returns: Interceptors to use when handling 'UnregisterMember'.
   ///   Defaults to calling `self.makeInterceptors()`.
-  func makeRegisterVerifierInterceptors() -> [ServerInterceptor<Services_Trustregistry_V1_RegisterVerifierRequest, Services_Trustregistry_V1_RegisterVerifierResponse>]
+  func makeUnregisterMemberInterceptors() -> [ServerInterceptor<Services_Trustregistry_V1_UnregisterMemberRequest, Services_Trustregistry_V1_UnregisterMemberResponse>]
 
-  /// - Returns: Interceptors to use when handling 'UnregisterIssuer'.
+  /// - Returns: Interceptors to use when handling 'GetMembershipStatus'.
   ///   Defaults to calling `self.makeInterceptors()`.
-  func makeUnregisterIssuerInterceptors() -> [ServerInterceptor<Services_Trustregistry_V1_UnregisterIssuerRequest, Services_Trustregistry_V1_UnregisterIssuerResponse>]
-
-  /// - Returns: Interceptors to use when handling 'UnregisterVerifier'.
-  ///   Defaults to calling `self.makeInterceptors()`.
-  func makeUnregisterVerifierInterceptors() -> [ServerInterceptor<Services_Trustregistry_V1_UnregisterVerifierRequest, Services_Trustregistry_V1_UnregisterVerifierResponse>]
-
-  /// - Returns: Interceptors to use when handling 'CheckIssuerStatus'.
-  ///   Defaults to calling `self.makeInterceptors()`.
-  func makeCheckIssuerStatusInterceptors() -> [ServerInterceptor<Services_Trustregistry_V1_CheckIssuerStatusRequest, Services_Trustregistry_V1_CheckIssuerStatusResponse>]
-
-  /// - Returns: Interceptors to use when handling 'CheckVerifierStatus'.
-  ///   Defaults to calling `self.makeInterceptors()`.
-  func makeCheckVerifierStatusInterceptors() -> [ServerInterceptor<Services_Trustregistry_V1_CheckVerifierStatusRequest, Services_Trustregistry_V1_CheckVerifierStatusResponse>]
+  func makeGetMembershipStatusInterceptors() -> [ServerInterceptor<Services_Trustregistry_V1_GetMembershipStatusRequest, Services_Trustregistry_V1_GetMembershipStatusResponse>]
 
   /// - Returns: Interceptors to use when handling 'FetchData'.
   ///   Defaults to calling `self.makeInterceptors()`.

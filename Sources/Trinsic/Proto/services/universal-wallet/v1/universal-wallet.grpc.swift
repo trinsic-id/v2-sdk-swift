@@ -115,7 +115,7 @@ extension Services_Universalwallet_V1_UniversalWalletClientProtocol {
     )
   }
 
-  /// Insert an item into the wallet
+  /// Update an item in the wallet
   ///
   /// - Parameters:
   ///   - request: Request to send to UpdateItem.
@@ -205,7 +205,7 @@ public protocol Services_Universalwallet_V1_UniversalWalletProvider: CallHandler
   /// Insert an item into the wallet
   func InsertItem(request: Services_Universalwallet_V1_InsertItemRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Universalwallet_V1_InsertItemResponse>
 
-  /// Insert an item into the wallet
+  /// Update an item in the wallet
   func UpdateItem(request: Services_Universalwallet_V1_UpdateItemRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Universalwallet_V1_UpdateItemResponse>
 
   /// Delete an item from the wallet permanently

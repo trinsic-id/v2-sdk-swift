@@ -25,24 +25,21 @@ final class TrustRegistryTests: XCTestCase {
     
     func testAddFramework() throws {
         var request = Services_Trustregistry_V1_AddFrameworkRequest()
-        request.governanceFramework.governanceFrameworkUri = "https://test#\(UUID().uuidString)"
-        request.governanceFramework.description_p = "test egf"
+        request.governanceFrameworkUri = "https://test#\(UUID().uuidString)"
+        request.description_p = "test egf"
+        request.name = "Example Framework: #\(UUID().uuidString)"
         
         let response = try service!.addFramework(request: request)
         
         XCTAssertNotNil(response)
-        XCTAssertEqual(response.status, .success)
-    }
-    
-    func testRegisterIssuer() throws {
-        var request = Services_Trustregistry_V1_RegisterIssuerRequest()
-        request.governanceFrameworkUri = "https://test"
-        request.didUri = "did:example:isser"
-        request.credentialTypeUri = "https://credential"
         
-        let response = try service!.registerIssuer(request: request)
+        var registerRequest = Services_Trustregistry_V1_RegisterMemberRequest()
+        registerRequest.frameworkID = response.id
+        registerRequest.didUri = "did:example:isser"
+        registerRequest.schemaUri = "https://credential"
         
-        XCTAssertNotNil(response)
-        XCTAssertEqual(response.status, .success)
+        let response2 = try service!.registerMember(request: registerRequest)
+        
+        XCTAssertNotNil(response2)
     }
 }
