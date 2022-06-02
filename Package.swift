@@ -17,7 +17,7 @@ let package = Package(
     dependencies: [
         .package(name: "grpc-swift", url: "https://github.com/grpc/grpc-swift.git", from: "1.3.0"),
         .package(name: "SwiftProtobuf", url: "https://github.com/apple/swift-protobuf.git", from: "1.18.0"),
-        .package(name: "Okapi", url: "https://github.com/trinsic-id/okapi-swift.git", from: "1.4.0")
+        .package(name: "Okapi", url: "https://github.com/trinsic-id/okapi-swift.git", from: "1.6.0")
     ],
     targets: [
         .target(

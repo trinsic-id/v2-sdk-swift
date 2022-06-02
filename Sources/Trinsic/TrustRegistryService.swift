@@ -26,6 +26,12 @@ public class TrustRegistryService : ServiceBase {
             .wait()
     }
     
+    public func removeFramework(request: Services_Trustregistry_V1_RemoveFrameworkRequest) throws -> Services_Trustregistry_V1_RemoveFrameworkResponse {
+        return try client!.RemoveFramework(request, callOptions: try buildMetadata(request))
+            .response
+            .wait()
+    }
+    
     public func registerIssuer(request: Services_Trustregistry_V1_RegisterIssuerRequest) throws -> Services_Trustregistry_V1_RegisterIssuerResponse {
         return try client!.RegisterIssuer(request, callOptions: try buildMetadata(request))
             .response
