@@ -33,12 +33,12 @@ final class TrustRegistryTests: XCTestCase {
         
         XCTAssertNotNil(response)
         
-        var request = Services_Trustregistry_V1_RegisterMemberRequest()
-        request.frameworkID = response.id
-        request.didUri = "did:example:isser"
-        request.schemaUri = "https://credential"
+        var registerRequest = Services_Trustregistry_V1_RegisterMemberRequest()
+        registerRequest.frameworkID = response.id
+        registerRequest.didUri = "did:example:isser"
+        registerRequest.schemaUri = "https://credential"
         
-        let response = try service!.registerMember(request: request)
+        let response = try service!.registerMember(request: registerRequest)
         
         XCTAssertNotNil(response)
     }
