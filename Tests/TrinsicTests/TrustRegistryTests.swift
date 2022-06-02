@@ -27,6 +27,7 @@ final class TrustRegistryTests: XCTestCase {
         var request = Services_Trustregistry_V1_AddFrameworkRequest()
         request.governanceFramework.governanceFrameworkUri = "https://test#\(UUID().uuidString)"
         request.governanceFramework.description_p = "test egf"
+        request.governanceFramework.name = "Example Framework: #\(UUID().uuidString)"
         
         let response = try service!.addFramework(request: request)
         
