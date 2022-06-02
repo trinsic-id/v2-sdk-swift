@@ -38,8 +38,8 @@ final class TrustRegistryTests: XCTestCase {
         registerRequest.didUri = "did:example:isser"
         registerRequest.schemaUri = "https://credential"
         
-        let response = try service!.registerMember(request: registerRequest)
+        let response2 = try service!.registerMember(request: registerRequest)
         
-        XCTAssertNotNil(response)
+        XCTAssertNotNil(response2)
     }
 }
