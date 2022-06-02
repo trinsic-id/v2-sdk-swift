@@ -85,10 +85,13 @@ public struct Services_Provider_V1_InviteRequest {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Type of participant being invited (individual/organization)
   public var participant: Services_Provider_V1_ParticipantType = .individual
 
+  /// Description of invitation
   public var description_p: String = String()
 
+  /// Account details of invitee
   public var details: Services_Account_V1_AccountDetails {
     get {return _details ?? Services_Account_V1_AccountDetails()}
     set {_details = newValue}
@@ -120,8 +123,7 @@ public struct Services_Provider_V1_InviteResponse {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var status: Services_Common_V1_ResponseStatus = .success
-
+  /// ID of created invitation
   public var invitationID: String = String()
 
   /// Invitation Code that must be passed with the account 'SignIn' request
@@ -142,6 +144,7 @@ public struct Services_Provider_V1_InvitationStatusRequest {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// ID of invitation
   public var invitationID: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -154,8 +157,10 @@ public struct Services_Provider_V1_InvitationStatusResponse {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Status of invitation
   public var status: Services_Provider_V1_InvitationStatusResponse.Status = .error
 
+  /// Human-readable string with details about invitation status
   public var statusDetails: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -247,12 +252,10 @@ public struct Services_Provider_V1_CreateEcosystemRequest {
   /// Allowed characters are lowercase letters, numbers, underscore and hyphen.
   public var name: String = String()
 
-  /// Ecosystem description.
-  /// This field is optional.
+  /// Ecosystem description
   public var description_p: String = String()
 
-  /// External URL associated with your organization or ecosystem entity.
-  /// This field is optional
+  /// External URL associated with your organization or ecosystem entity
   public var uri: String = String()
 
   /// The account details of the owner of the ecosystem
@@ -298,7 +301,7 @@ public struct Services_Provider_V1_CreateEcosystemResponse {
   public mutating func clearProfile() {self._profile = nil}
 
   /// Indicates if confirmation of account is required.
-  /// This settings is configured globally by the server administrator.
+  /// This setting is configured globally by the server administrator.
   public var confirmationMethod: Services_Account_V1_ConfirmationMethod = .none
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -314,7 +317,7 @@ public struct Services_Provider_V1_GenerateTokenRequest {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  /// Optional description to identify this token
+  /// Description to identify this token
   public var description_p: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -344,6 +347,31 @@ public struct Services_Provider_V1_GenerateTokenResponse {
   fileprivate var _profile: Services_Account_V1_AccountProfile? = nil
 }
 
+/// request message for GetOberonKey
+public struct Services_Provider_V1_GetOberonKeyRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+/// response message for GetOberonKey
+public struct Services_Provider_V1_GetOberonKeyResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Oberon Public Key as RAW base64 URL encoded string
+  public var key: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
 #if swift(>=5.5) && canImport(_Concurrency)
 extension Services_Provider_V1_ParticipantType: @unchecked Sendable {}
 extension Services_Provider_V1_Invite: @unchecked Sendable {}
@@ -358,6 +386,8 @@ extension Services_Provider_V1_CreateEcosystemRequest: @unchecked Sendable {}
 extension Services_Provider_V1_CreateEcosystemResponse: @unchecked Sendable {}
 extension Services_Provider_V1_GenerateTokenRequest: @unchecked Sendable {}
 extension Services_Provider_V1_GenerateTokenResponse: @unchecked Sendable {}
+extension Services_Provider_V1_GetOberonKeyRequest: @unchecked Sendable {}
+extension Services_Provider_V1_GetOberonKeyResponse: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -497,7 +527,6 @@ extension Services_Provider_V1_InviteRequest.DidCommInvitation: SwiftProtobuf.Me
 extension Services_Provider_V1_InviteResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".InviteResponse"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "status"),
     10: .standard(proto: "invitation_id"),
     11: .standard(proto: "invitation_code"),
   ]
@@ -508,7 +537,6 @@ extension Services_Provider_V1_InviteResponse: SwiftProtobuf.Message, SwiftProto
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularEnumField(value: &self.status) }()
       case 10: try { try decoder.decodeSingularStringField(value: &self.invitationID) }()
       case 11: try { try decoder.decodeSingularStringField(value: &self.invitationCode) }()
       default: break
@@ -517,9 +545,6 @@ extension Services_Provider_V1_InviteResponse: SwiftProtobuf.Message, SwiftProto
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.status != .success {
-      try visitor.visitSingularEnumField(value: self.status, fieldNumber: 1)
-    }
     if !self.invitationID.isEmpty {
       try visitor.visitSingularStringField(value: self.invitationID, fieldNumber: 10)
     }
@@ -530,7 +555,6 @@ extension Services_Provider_V1_InviteResponse: SwiftProtobuf.Message, SwiftProto
   }
 
   public static func ==(lhs: Services_Provider_V1_InviteResponse, rhs: Services_Provider_V1_InviteResponse) -> Bool {
-    if lhs.status != rhs.status {return false}
     if lhs.invitationID != rhs.invitationID {return false}
     if lhs.invitationCode != rhs.invitationCode {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -832,6 +856,57 @@ extension Services_Provider_V1_GenerateTokenResponse: SwiftProtobuf.Message, Swi
 
   public static func ==(lhs: Services_Provider_V1_GenerateTokenResponse, rhs: Services_Provider_V1_GenerateTokenResponse) -> Bool {
     if lhs._profile != rhs._profile {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Services_Provider_V1_GetOberonKeyRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetOberonKeyRequest"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Services_Provider_V1_GetOberonKeyRequest, rhs: Services_Provider_V1_GetOberonKeyRequest) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Services_Provider_V1_GetOberonKeyResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetOberonKeyResponse"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "key"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.key) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.key.isEmpty {
+      try visitor.visitSingularStringField(value: self.key, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Services_Provider_V1_GetOberonKeyResponse, rhs: Services_Provider_V1_GetOberonKeyResponse) -> Bool {
+    if lhs.key != rhs.key {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

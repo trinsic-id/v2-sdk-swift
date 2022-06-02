@@ -20,25 +20,25 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-/// service options
+/// Configuration for Trinsic SDK Services
 public struct Sdk_Options_V1_ServiceOptions {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  /// service endpoint
+  /// Trinsic API endpoint; defaults to `prod.trinsic.cloud`
   public var serverEndpoint: String = String()
 
-  /// service port
+  /// Trinsic API port; defaults to `443`
   public var serverPort: Int32 = 0
 
-  /// indicates if tls is used
+  /// Whether TLS is enabled between SDK and Trinsic API; defaults to `true`
   public var serverUseTls: Bool = false
 
-  /// default auth token for oberon security scheme
+  /// Authentication token for SDK calls; defaults to empty string (unauthenticated)
   public var authToken: String = String()
 
-  /// ecosystem to use with endpoints that require it
+  /// Default ecosystem ID to use for various SDK calls; defaults to `default`
   public var defaultEcosystem: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()

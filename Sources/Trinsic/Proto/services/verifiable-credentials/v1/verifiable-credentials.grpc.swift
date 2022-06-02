@@ -110,7 +110,7 @@ extension Services_Verifiablecredentials_V1_VerifiableCredentialClientProtocol {
     )
   }
 
-  /// Check credential status by setting the revocation value
+  /// Check credential status in the revocation registry
   ///
   /// - Parameters:
   ///   - request: Request to send to CheckStatus.
@@ -262,7 +262,7 @@ public protocol Services_Verifiablecredentials_V1_VerifiableCredentialProvider: 
   /// revocation registry entry in the credential.
   func IssueFromTemplate(request: Services_Verifiablecredentials_V1_IssueFromTemplateRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Verifiablecredentials_V1_IssueFromTemplateResponse>
 
-  /// Check credential status by setting the revocation value
+  /// Check credential status in the revocation registry
   func CheckStatus(request: Services_Verifiablecredentials_V1_CheckStatusRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Verifiablecredentials_V1_CheckStatusResponse>
 
   /// Update credential status by setting the revocation value

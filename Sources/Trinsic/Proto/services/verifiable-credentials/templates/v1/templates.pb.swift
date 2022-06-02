@@ -20,6 +20,7 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
+/// Valid types for credential fields
 public enum Services_Verifiablecredentials_Templates_V1_FieldType: SwiftProtobuf.Enum {
   public typealias RawValue = Int
   case string // = 0
@@ -68,11 +69,13 @@ extension Services_Verifiablecredentials_Templates_V1_FieldType: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+/// Request to fetch a template by ID
 public struct Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// ID of template to fetch
   public var id: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -80,11 +83,13 @@ public struct Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateR
   public init() {}
 }
 
+/// Response to `GetCredentialTemplateRequest`
 public struct Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Template fetched by ID
   public var template: Services_Verifiablecredentials_Templates_V1_TemplateData {
     get {return _template ?? Services_Verifiablecredentials_Templates_V1_TemplateData()}
     set {_template = newValue}
@@ -101,14 +106,17 @@ public struct Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateR
   fileprivate var _template: Services_Verifiablecredentials_Templates_V1_TemplateData? = nil
 }
 
+/// Request to search templates using a SQL query
 public struct Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  /// SELECT * FROM c WHERE c.name = 'Diploma'
+  /// SQL query to execute. Example: `SELECT * FROM c WHERE c.name = 'Diploma'`
   public var query: String = String()
 
+  /// Token provided by previous `SearchCredentialTemplatesResponse`
+  /// if more data is available for query
   public var continuationToken: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -116,17 +124,21 @@ public struct Services_Verifiablecredentials_Templates_V1_SearchCredentialTempla
   public init() {}
 }
 
+/// Response to `SearchCredentialTemplatesRequest`
 public struct Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Raw JSON data returned from query
   public var itemsJson: String = String()
 
+  /// Whether more results are available for this query via `continuation_token`
   public var hasMore_p: Bool = false
 
-  public var count: Int32 = 0
-
+  /// Count of items in `items_json`
+  /// int32 count = 3; unpopulated and unused
+  /// Token to fetch next set of results via `SearchCredentialTemplatesRequest`
   public var continuationToken: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -134,14 +146,17 @@ public struct Services_Verifiablecredentials_Templates_V1_SearchCredentialTempla
   public init() {}
 }
 
+/// Request to list templates using a SQL query
 public struct Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  /// SELECT * FROM c WHERE c.name = 'Diploma'
+  /// SQL query to execute. Example: `SELECT * FROM c WHERE c.name = 'Diploma'`
   public var query: String = String()
 
+  /// Token provided by previous `ListCredentialTemplatesResponse`
+  /// if more data is available for query
   public var continuationToken: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -149,15 +164,19 @@ public struct Services_Verifiablecredentials_Templates_V1_ListCredentialTemplate
   public init() {}
 }
 
+/// Response to `ListCredentialTemplatesRequest` 
 public struct Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Templates found by query
   public var templates: [Services_Verifiablecredentials_Templates_V1_TemplateData] = []
 
+  /// Whether more results are available for this query via `continuation_token`
   public var hasMoreResults_p: Bool = false
 
+  /// Token to fetch next set of resuts via `ListCredentialTemplatesRequest`
   public var continuationToken: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -165,11 +184,13 @@ public struct Services_Verifiablecredentials_Templates_V1_ListCredentialTemplate
   public init() {}
 }
 
+/// Request to delete a template by ID
 public struct Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// ID of template to delete
   public var id: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -177,6 +198,7 @@ public struct Services_Verifiablecredentials_Templates_V1_DeleteCredentialTempla
   public init() {}
 }
 
+/// Response to `DeleteCredentialTemplateRequest`
 public struct Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -187,16 +209,20 @@ public struct Services_Verifiablecredentials_Templates_V1_DeleteCredentialTempla
   public init() {}
 }
 
-/// Request to create new template
+/// Request to create a new template
 public struct Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Name of new template
   public var name: String = String()
 
+  /// Fields which compose the template
   public var fields: Dictionary<String,Services_Verifiablecredentials_Templates_V1_TemplateField> = [:]
 
+  /// Whether credentials may be issued against this template which have fields
+  /// not specified in `fields`
   public var allowAdditionalFields: Bool = false
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -204,11 +230,13 @@ public struct Services_Verifiablecredentials_Templates_V1_CreateCredentialTempla
   public init() {}
 }
 
+/// Response to `CreateCredentialTemplateRequest`
 public struct Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Created template
   public var data: Services_Verifiablecredentials_Templates_V1_TemplateData {
     get {return _data ?? Services_Verifiablecredentials_Templates_V1_TemplateData()}
     set {_data = newValue}
@@ -225,15 +253,19 @@ public struct Services_Verifiablecredentials_Templates_V1_CreateCredentialTempla
   fileprivate var _data: Services_Verifiablecredentials_Templates_V1_TemplateData? = nil
 }
 
+/// A field defined in a template
 public struct Services_Verifiablecredentials_Templates_V1_TemplateField {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Human-readable description of the field
   public var description_p: String = String()
 
+  /// Whether this field may be omitted when a credential is issued against the template
   public var optional: Bool = false
 
+  /// The type of the field
   public var type: Services_Verifiablecredentials_Templates_V1_FieldType = .string
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -241,6 +273,7 @@ public struct Services_Verifiablecredentials_Templates_V1_TemplateField {
   public init() {}
 }
 
+/// Unused
 public struct Services_Verifiablecredentials_Templates_V1_GetTemplateRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -253,6 +286,7 @@ public struct Services_Verifiablecredentials_Templates_V1_GetTemplateRequest {
   public init() {}
 }
 
+/// Unused
 public struct Services_Verifiablecredentials_Templates_V1_GetTemplateResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -274,6 +308,7 @@ public struct Services_Verifiablecredentials_Templates_V1_GetTemplateResponse {
   fileprivate var _data: Services_Verifiablecredentials_Templates_V1_TemplateData? = nil
 }
 
+/// Unused
 public struct Services_Verifiablecredentials_Templates_V1_ListTemplatesRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -284,6 +319,7 @@ public struct Services_Verifiablecredentials_Templates_V1_ListTemplatesRequest {
   public init() {}
 }
 
+/// Unused
 public struct Services_Verifiablecredentials_Templates_V1_ListTemplatesResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -296,28 +332,42 @@ public struct Services_Verifiablecredentials_Templates_V1_ListTemplatesResponse 
   public init() {}
 }
 
+/// Credential Template
 public struct Services_Verifiablecredentials_Templates_V1_TemplateData {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
+  /// Template ID
   public var id: String = String()
 
+  /// Template name
   public var name: String = String()
 
+  /// Template version number
   public var version: Int32 = 0
 
+  /// Fields defined for the template
   public var fields: Dictionary<String,Services_Verifiablecredentials_Templates_V1_TemplateField> = [:]
 
+  /// Whether credentials issued against this template may 
+  /// contain fields not defined by template
   public var allowAdditionalFields: Bool = false
 
+  /// URI pointing to template JSON schema document
   public var schemaUri: String = String()
 
+  /// URI pointing to template JSON-LD context document
   public var contextUri: String = String()
 
+  /// ID of ecosystem in which template resides
   public var ecosystemID: String = String()
 
+  /// Template type (`VerifiableCredential`)
   public var type: String = String()
+
+  /// ID of template creator
+  public var createdBy: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -468,7 +518,6 @@ extension Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesR
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "items_json"),
     2: .standard(proto: "has_more"),
-    3: .same(proto: "count"),
     4: .standard(proto: "continuation_token"),
   ]
 
@@ -480,7 +529,6 @@ extension Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesR
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.itemsJson) }()
       case 2: try { try decoder.decodeSingularBoolField(value: &self.hasMore_p) }()
-      case 3: try { try decoder.decodeSingularInt32Field(value: &self.count) }()
       case 4: try { try decoder.decodeSingularStringField(value: &self.continuationToken) }()
       default: break
       }
@@ -494,9 +542,6 @@ extension Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesR
     if self.hasMore_p != false {
       try visitor.visitSingularBoolField(value: self.hasMore_p, fieldNumber: 2)
     }
-    if self.count != 0 {
-      try visitor.visitSingularInt32Field(value: self.count, fieldNumber: 3)
-    }
     if !self.continuationToken.isEmpty {
       try visitor.visitSingularStringField(value: self.continuationToken, fieldNumber: 4)
     }
@@ -506,7 +551,6 @@ extension Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesR
   public static func ==(lhs: Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesResponse, rhs: Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesResponse) -> Bool {
     if lhs.itemsJson != rhs.itemsJson {return false}
     if lhs.hasMore_p != rhs.hasMore_p {return false}
-    if lhs.count != rhs.count {return false}
     if lhs.continuationToken != rhs.continuationToken {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
@@ -901,6 +945,7 @@ extension Services_Verifiablecredentials_Templates_V1_TemplateData: SwiftProtobu
     7: .standard(proto: "context_uri"),
     8: .standard(proto: "ecosystem_id"),
     9: .same(proto: "type"),
+    10: .standard(proto: "created_by"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -918,6 +963,7 @@ extension Services_Verifiablecredentials_Templates_V1_TemplateData: SwiftProtobu
       case 7: try { try decoder.decodeSingularStringField(value: &self.contextUri) }()
       case 8: try { try decoder.decodeSingularStringField(value: &self.ecosystemID) }()
       case 9: try { try decoder.decodeSingularStringField(value: &self.type) }()
+      case 10: try { try decoder.decodeSingularStringField(value: &self.createdBy) }()
       default: break
       }
     }
@@ -951,6 +997,9 @@ extension Services_Verifiablecredentials_Templates_V1_TemplateData: SwiftProtobu
     if !self.type.isEmpty {
       try visitor.visitSingularStringField(value: self.type, fieldNumber: 9)
     }
+    if !self.createdBy.isEmpty {
+      try visitor.visitSingularStringField(value: self.createdBy, fieldNumber: 10)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -964,6 +1013,7 @@ extension Services_Verifiablecredentials_Templates_V1_TemplateData: SwiftProtobu
     if lhs.contextUri != rhs.contextUri {return false}
     if lhs.ecosystemID != rhs.ecosystemID {return false}
     if lhs.type != rhs.type {return false}
+    if lhs.createdBy != rhs.createdBy {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

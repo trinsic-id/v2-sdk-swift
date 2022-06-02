@@ -83,7 +83,7 @@ extension Services_Account_V1_ConfirmationMethod: CaseIterable {
 
 #endif  // swift(>=4.2)
 
-/// Request for creating new account
+/// Request for creating or signing into an account
 public struct Services_Account_V1_SignInRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -100,11 +100,10 @@ public struct Services_Account_V1_SignInRequest {
   public mutating func clearDetails() {self._details = nil}
 
   /// Invitation code associated with this registration
-  /// This field is optional.
   public var invitationCode: String = String()
 
-  /// EcosystemId to sign in. This field is optional
-  /// and will be ignored if invitation_code is passed
+  /// ID of Ecosystem to sign into. 
+  /// Ignored if `invitation_code` is passed
   public var ecosystemID: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -114,19 +113,19 @@ public struct Services_Account_V1_SignInRequest {
   fileprivate var _details: Services_Account_V1_AccountDetails? = nil
 }
 
-/// Account Registration Details
+/// Account registration details
 public struct Services_Account_V1_AccountDetails {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  /// Account name (optional)
+  /// Account name
   public var name: String = String()
 
-  /// Email account (required)
+  /// Email account
   public var email: String = String()
 
-  /// SMS number including country code (optional)
+  /// SMS number including country code
   public var sms: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -142,9 +141,6 @@ public struct Services_Account_V1_SignInResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
-
-  /// The status of the response
-  public var status: Services_Common_V1_ResponseStatus = .success
 
   /// Indicates if confirmation of account is required.
   /// This settings is configured globally by the server administrator.
@@ -225,6 +221,7 @@ public struct Services_Account_V1_TokenProtection {
   public init() {}
 }
 
+/// Request for information about the account used to make the request
 public struct Services_Account_V1_InfoRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -235,6 +232,7 @@ public struct Services_Account_V1_InfoRequest {
   public init() {}
 }
 
+/// Information about the account used to make the request
 public struct Services_Account_V1_InfoResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -251,8 +249,21 @@ public struct Services_Account_V1_InfoResponse {
   /// Clears the value of `details`. Subsequent reads from it will return its default value.
   public mutating func clearDetails() {self._details = nil}
 
-  /// any ecosystems the account has access to
+  /// Use `ecosystem_id` instead
   public var ecosystems: [Services_Account_V1_AccountEcosystem] = []
+
+  /// The wallet ID associated with this account
+  public var walletID: String = String()
+
+  /// The device ID associated with this account session
+  public var deviceID: String = String()
+
+  /// The ecosystem ID within which this account resides
+  public var ecosystemID: String = String()
+
+  /// The public DID associated with this account.
+  /// This DID is used as "issuer" when signing verifiable credentials
+  public var publicDid: String = String()
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -444,7 +455,6 @@ extension Services_Account_V1_AccountDetails: SwiftProtobuf.Message, SwiftProtob
 extension Services_Account_V1_SignInResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".SignInResponse"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "status"),
     3: .standard(proto: "confirmation_method"),
     4: .same(proto: "profile"),
   ]
@@ -455,7 +465,6 @@ extension Services_Account_V1_SignInResponse: SwiftProtobuf.Message, SwiftProtob
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularEnumField(value: &self.status) }()
       case 3: try { try decoder.decodeSingularEnumField(value: &self.confirmationMethod) }()
       case 4: try { try decoder.decodeSingularMessageField(value: &self._profile) }()
       default: break
@@ -468,9 +477,6 @@ extension Services_Account_V1_SignInResponse: SwiftProtobuf.Message, SwiftProtob
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    if self.status != .success {
-      try visitor.visitSingularEnumField(value: self.status, fieldNumber: 1)
-    }
     if self.confirmationMethod != .none {
       try visitor.visitSingularEnumField(value: self.confirmationMethod, fieldNumber: 3)
     }
@@ -481,7 +487,6 @@ extension Services_Account_V1_SignInResponse: SwiftProtobuf.Message, SwiftProtob
   }
 
   public static func ==(lhs: Services_Account_V1_SignInResponse, rhs: Services_Account_V1_SignInResponse) -> Bool {
-    if lhs.status != rhs.status {return false}
     if lhs.confirmationMethod != rhs.confirmationMethod {return false}
     if lhs._profile != rhs._profile {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -605,6 +610,10 @@ extension Services_Account_V1_InfoResponse: SwiftProtobuf.Message, SwiftProtobuf
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "details"),
     2: .same(proto: "ecosystems"),
+    3: .standard(proto: "wallet_id"),
+    4: .standard(proto: "device_id"),
+    5: .standard(proto: "ecosystem_id"),
+    6: .standard(proto: "public_did"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -615,6 +624,10 @@ extension Services_Account_V1_InfoResponse: SwiftProtobuf.Message, SwiftProtobuf
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._details) }()
       case 2: try { try decoder.decodeRepeatedMessageField(value: &self.ecosystems) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.walletID) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.deviceID) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.ecosystemID) }()
+      case 6: try { try decoder.decodeSingularStringField(value: &self.publicDid) }()
       default: break
       }
     }
@@ -631,12 +644,28 @@ extension Services_Account_V1_InfoResponse: SwiftProtobuf.Message, SwiftProtobuf
     if !self.ecosystems.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.ecosystems, fieldNumber: 2)
     }
+    if !self.walletID.isEmpty {
+      try visitor.visitSingularStringField(value: self.walletID, fieldNumber: 3)
+    }
+    if !self.deviceID.isEmpty {
+      try visitor.visitSingularStringField(value: self.deviceID, fieldNumber: 4)
+    }
+    if !self.ecosystemID.isEmpty {
+      try visitor.visitSingularStringField(value: self.ecosystemID, fieldNumber: 5)
+    }
+    if !self.publicDid.isEmpty {
+      try visitor.visitSingularStringField(value: self.publicDid, fieldNumber: 6)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Services_Account_V1_InfoResponse, rhs: Services_Account_V1_InfoResponse) -> Bool {
     if lhs._details != rhs._details {return false}
     if lhs.ecosystems != rhs.ecosystems {return false}
+    if lhs.walletID != rhs.walletID {return false}
+    if lhs.deviceID != rhs.deviceID {return false}
+    if lhs.ecosystemID != rhs.ecosystemID {return false}
+    if lhs.publicDid != rhs.publicDid {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
