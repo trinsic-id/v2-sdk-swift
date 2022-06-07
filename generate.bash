@@ -10,7 +10,7 @@ else
 fi
 
 # install protoc and required plugins
-brew install protobuf swift-protobuf grpc-swift
+brew install protobuf swift-protobuf grpc-swift swiftformat
 
 # add 'trinsic-id/sdk' repository as submodule
 # to use the proto files for code generation
@@ -37,6 +37,8 @@ do
     --grpc-swift_opt=KeepMethodCasing=true \
     --grpc-swift_out=${OUT_DIR} $f
 done
+
+swiftformat .
 
 # remove the git submodule
 
