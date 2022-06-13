@@ -19,7 +19,7 @@ final class AccountTests: XCTestCase {
 
         XCTAssertNotNil(authToken)
 
-        let info = try service.info(request: Services_Account_V1_InfoRequest())
+        let info = try service.info(request: Services_Account_V1_AccountInfoRequest())
 
         XCTAssertNotNil(info)
         XCTAssertNotNil(info.details)

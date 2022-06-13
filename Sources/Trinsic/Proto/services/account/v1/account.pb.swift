@@ -973,9 +973,9 @@ extension Services_Account_V1_LoginRequest: SwiftProtobuf.Message, SwiftProtobuf
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &email)
-            case 2: try try decoder.decodeSingularStringField(value: &invitationCode)
-            case 3: try try decoder.decodeSingularStringField(value: &ecosystemID)
+            case 1: try decoder.decodeSingularStringField(value: &email)
+            case 2: try decoder.decodeSingularStringField(value: &invitationCode)
+            case 3: try decoder.decodeSingularStringField(value: &ecosystemID)
             default: break
             }
         }
