@@ -15,493 +15,492 @@ import SwiftProtobuf
 // incompatible with the version of SwiftProtobuf to which you are linking.
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
-fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
-  typealias Version = _2
+private struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
+    struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
+    typealias Version = _2
 }
 
 public enum Pbmse_V1_EncryptionMode: SwiftProtobuf.Enum {
-  public typealias RawValue = Int
-  case unspecified // = 0
-  case direct // = 1
-  case contentEncryptionKey // = 2
-  case UNRECOGNIZED(Int)
+    public typealias RawValue = Int
+    case unspecified // = 0
+    case direct // = 1
+    case contentEncryptionKey // = 2
+    case UNRECOGNIZED(Int)
 
-  public init() {
-    self = .unspecified
-  }
-
-  public init?(rawValue: Int) {
-    switch rawValue {
-    case 0: self = .unspecified
-    case 1: self = .direct
-    case 2: self = .contentEncryptionKey
-    default: self = .UNRECOGNIZED(rawValue)
+    public init() {
+        self = .unspecified
     }
-  }
 
-  public var rawValue: Int {
-    switch self {
-    case .unspecified: return 0
-    case .direct: return 1
-    case .contentEncryptionKey: return 2
-    case .UNRECOGNIZED(let i): return i
+    public init?(rawValue: Int) {
+        switch rawValue {
+        case 0: self = .unspecified
+        case 1: self = .direct
+        case 2: self = .contentEncryptionKey
+        default: self = .UNRECOGNIZED(rawValue)
+        }
     }
-  }
 
+    public var rawValue: Int {
+        switch self {
+        case .unspecified: return 0
+        case .direct: return 1
+        case .contentEncryptionKey: return 2
+        case let .UNRECOGNIZED(i): return i
+        }
+    }
 }
 
 #if swift(>=4.2)
 
-extension Pbmse_V1_EncryptionMode: CaseIterable {
-  // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Pbmse_V1_EncryptionMode] = [
-    .unspecified,
-    .direct,
-    .contentEncryptionKey,
-  ]
-}
+    extension Pbmse_V1_EncryptionMode: CaseIterable {
+        // The compiler won't synthesize support with the UNRECOGNIZED case.
+        public static var allCases: [Pbmse_V1_EncryptionMode] = [
+            .unspecified,
+            .direct,
+            .contentEncryptionKey,
+        ]
+    }
 
-#endif  // swift(>=4.2)
+#endif // swift(>=4.2)
 
 public enum Pbmse_V1_EncryptionAlgorithm: SwiftProtobuf.Enum {
-  public typealias RawValue = Int
-  case unspecified // = 0
-  case xchacha20Poly1305 // = 1
-  case aesGcm // = 2
-  case UNRECOGNIZED(Int)
+    public typealias RawValue = Int
+    case unspecified // = 0
+    case xchacha20Poly1305 // = 1
+    case aesGcm // = 2
+    case UNRECOGNIZED(Int)
 
-  public init() {
-    self = .unspecified
-  }
-
-  public init?(rawValue: Int) {
-    switch rawValue {
-    case 0: self = .unspecified
-    case 1: self = .xchacha20Poly1305
-    case 2: self = .aesGcm
-    default: self = .UNRECOGNIZED(rawValue)
+    public init() {
+        self = .unspecified
     }
-  }
 
-  public var rawValue: Int {
-    switch self {
-    case .unspecified: return 0
-    case .xchacha20Poly1305: return 1
-    case .aesGcm: return 2
-    case .UNRECOGNIZED(let i): return i
+    public init?(rawValue: Int) {
+        switch rawValue {
+        case 0: self = .unspecified
+        case 1: self = .xchacha20Poly1305
+        case 2: self = .aesGcm
+        default: self = .UNRECOGNIZED(rawValue)
+        }
     }
-  }
 
+    public var rawValue: Int {
+        switch self {
+        case .unspecified: return 0
+        case .xchacha20Poly1305: return 1
+        case .aesGcm: return 2
+        case let .UNRECOGNIZED(i): return i
+        }
+    }
 }
 
 #if swift(>=4.2)
 
-extension Pbmse_V1_EncryptionAlgorithm: CaseIterable {
-  // The compiler won't synthesize support with the UNRECOGNIZED case.
-  public static var allCases: [Pbmse_V1_EncryptionAlgorithm] = [
-    .unspecified,
-    .xchacha20Poly1305,
-    .aesGcm,
-  ]
-}
+    extension Pbmse_V1_EncryptionAlgorithm: CaseIterable {
+        // The compiler won't synthesize support with the UNRECOGNIZED case.
+        public static var allCases: [Pbmse_V1_EncryptionAlgorithm] = [
+            .unspecified,
+            .xchacha20Poly1305,
+            .aesGcm,
+        ]
+    }
 
-#endif  // swift(>=4.2)
+#endif // swift(>=4.2)
 
 /// JWS
 /// Protocol buffer message signing and encryption
 public struct Pbmse_V1_SignedMessage {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
 
-  public var payload: Data = Data()
+    public var payload: Data = .init()
 
-  public var signatures: [Pbmse_V1_Signature] = []
+    public var signatures: [Pbmse_V1_Signature] = []
 
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  public init() {}
+    public init() {}
 }
 
 public struct Pbmse_V1_Signature {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
 
-  public var header: Data = Data()
+    public var header: Data = .init()
 
-  public var signature: Data = Data()
+    public var signature: Data = .init()
 
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  public init() {}
+    public init() {}
 }
 
 public struct Pbmse_V1_SignatureHeader {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
 
-  public var algorithm: String = String()
+    public var algorithm: String = .init()
 
-  public var keyID: String = String()
+    public var keyID: String = .init()
 
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  public init() {}
+    public init() {}
 }
 
 public struct Pbmse_V1_EncryptedMessage {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
 
-  public var iv: Data = Data()
+    public var iv: Data = .init()
 
-  public var aad: Data = Data()
+    public var aad: Data = .init()
 
-  public var ciphertext: Data = Data()
+    public var ciphertext: Data = .init()
 
-  public var tag: Data = Data()
+    public var tag: Data = .init()
 
-  public var recipients: [Pbmse_V1_EncryptionRecipient] = []
+    public var recipients: [Pbmse_V1_EncryptionRecipient] = []
 
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  public init() {}
+    public init() {}
 }
 
 public struct Pbmse_V1_EncryptionHeader {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
 
-  public var mode: Pbmse_V1_EncryptionMode = .unspecified
+    public var mode: Pbmse_V1_EncryptionMode = .unspecified
 
-  public var algorithm: Pbmse_V1_EncryptionAlgorithm = .unspecified
+    public var algorithm: Pbmse_V1_EncryptionAlgorithm = .unspecified
 
-  public var keyID: String = String()
+    public var keyID: String = .init()
 
-  public var senderKeyID: String = String()
+    public var senderKeyID: String = .init()
 
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  public init() {}
+    public init() {}
 }
 
 public struct Pbmse_V1_EncryptionRecipient {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
 
-  public var header: Pbmse_V1_EncryptionHeader {
-    get {return _header ?? Pbmse_V1_EncryptionHeader()}
-    set {_header = newValue}
-  }
-  /// Returns true if `header` has been explicitly set.
-  public var hasHeader: Bool {return self._header != nil}
-  /// Clears the value of `header`. Subsequent reads from it will return its default value.
-  public mutating func clearHeader() {self._header = nil}
+    public var header: Pbmse_V1_EncryptionHeader {
+        get { return _header ?? Pbmse_V1_EncryptionHeader() }
+        set { _header = newValue }
+    }
 
-  public var contentEncryptionKey: Data = Data()
+    /// Returns true if `header` has been explicitly set.
+    public var hasHeader: Bool { return _header != nil }
+    /// Clears the value of `header`. Subsequent reads from it will return its default value.
+    public mutating func clearHeader() { _header = nil }
 
-  public var unknownFields = SwiftProtobuf.UnknownStorage()
+    public var contentEncryptionKey: Data = .init()
 
-  public init() {}
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  fileprivate var _header: Pbmse_V1_EncryptionHeader? = nil
+    public init() {}
+
+    fileprivate var _header: Pbmse_V1_EncryptionHeader?
 }
 
 #if swift(>=5.5) && canImport(_Concurrency)
-extension Pbmse_V1_EncryptionMode: @unchecked Sendable {}
-extension Pbmse_V1_EncryptionAlgorithm: @unchecked Sendable {}
-extension Pbmse_V1_SignedMessage: @unchecked Sendable {}
-extension Pbmse_V1_Signature: @unchecked Sendable {}
-extension Pbmse_V1_SignatureHeader: @unchecked Sendable {}
-extension Pbmse_V1_EncryptedMessage: @unchecked Sendable {}
-extension Pbmse_V1_EncryptionHeader: @unchecked Sendable {}
-extension Pbmse_V1_EncryptionRecipient: @unchecked Sendable {}
-#endif  // swift(>=5.5) && canImport(_Concurrency)
+    extension Pbmse_V1_EncryptionMode: @unchecked Sendable {}
+    extension Pbmse_V1_EncryptionAlgorithm: @unchecked Sendable {}
+    extension Pbmse_V1_SignedMessage: @unchecked Sendable {}
+    extension Pbmse_V1_Signature: @unchecked Sendable {}
+    extension Pbmse_V1_SignatureHeader: @unchecked Sendable {}
+    extension Pbmse_V1_EncryptedMessage: @unchecked Sendable {}
+    extension Pbmse_V1_EncryptionHeader: @unchecked Sendable {}
+    extension Pbmse_V1_EncryptionRecipient: @unchecked Sendable {}
+#endif // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
-fileprivate let _protobuf_package = "pbmse.v1"
+private let _protobuf_package = "pbmse.v1"
 
 extension Pbmse_V1_EncryptionMode: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "ENCRYPTION_MODE_UNSPECIFIED"),
-    1: .same(proto: "ENCRYPTION_MODE_DIRECT"),
-    2: .same(proto: "ENCRYPTION_MODE_CONTENT_ENCRYPTION_KEY"),
-  ]
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        0: .same(proto: "ENCRYPTION_MODE_UNSPECIFIED"),
+        1: .same(proto: "ENCRYPTION_MODE_DIRECT"),
+        2: .same(proto: "ENCRYPTION_MODE_CONTENT_ENCRYPTION_KEY"),
+    ]
 }
 
 extension Pbmse_V1_EncryptionAlgorithm: SwiftProtobuf._ProtoNameProviding {
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "ENCRYPTION_ALGORITHM_UNSPECIFIED"),
-    1: .same(proto: "ENCRYPTION_ALGORITHM_XCHACHA20POLY1305"),
-    2: .same(proto: "ENCRYPTION_ALGORITHM_AES_GCM"),
-  ]
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        0: .same(proto: "ENCRYPTION_ALGORITHM_UNSPECIFIED"),
+        1: .same(proto: "ENCRYPTION_ALGORITHM_XCHACHA20POLY1305"),
+        2: .same(proto: "ENCRYPTION_ALGORITHM_AES_GCM"),
+    ]
 }
 
 extension Pbmse_V1_SignedMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".SignedMessage"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "payload"),
-    2: .same(proto: "signatures"),
-  ]
+    public static let protoMessageName: String = _protobuf_package + ".SignedMessage"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .same(proto: "payload"),
+        2: .same(proto: "signatures"),
+    ]
 
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularBytesField(value: &self.payload) }()
-      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.signatures) }()
-      default: break
-      }
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 1: try try decoder.decodeSingularBytesField(value: &payload)
+            case 2: try try decoder.decodeRepeatedMessageField(value: &signatures)
+            default: break
+            }
+        }
     }
-  }
 
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.payload.isEmpty {
-      try visitor.visitSingularBytesField(value: self.payload, fieldNumber: 1)
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        if !payload.isEmpty {
+            try visitor.visitSingularBytesField(value: payload, fieldNumber: 1)
+        }
+        if !signatures.isEmpty {
+            try visitor.visitRepeatedMessageField(value: signatures, fieldNumber: 2)
+        }
+        try unknownFields.traverse(visitor: &visitor)
     }
-    if !self.signatures.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.signatures, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 
-  public static func ==(lhs: Pbmse_V1_SignedMessage, rhs: Pbmse_V1_SignedMessage) -> Bool {
-    if lhs.payload != rhs.payload {return false}
-    if lhs.signatures != rhs.signatures {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
+    public static func == (lhs: Pbmse_V1_SignedMessage, rhs: Pbmse_V1_SignedMessage) -> Bool {
+        if lhs.payload != rhs.payload { return false }
+        if lhs.signatures != rhs.signatures { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
 }
 
 extension Pbmse_V1_Signature: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".Signature"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "header"),
-    3: .same(proto: "signature"),
-  ]
+    public static let protoMessageName: String = _protobuf_package + ".Signature"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .same(proto: "header"),
+        3: .same(proto: "signature"),
+    ]
 
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularBytesField(value: &self.header) }()
-      case 3: try { try decoder.decodeSingularBytesField(value: &self.signature) }()
-      default: break
-      }
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 1: try try decoder.decodeSingularBytesField(value: &header)
+            case 3: try try decoder.decodeSingularBytesField(value: &signature)
+            default: break
+            }
+        }
     }
-  }
 
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.header.isEmpty {
-      try visitor.visitSingularBytesField(value: self.header, fieldNumber: 1)
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        if !header.isEmpty {
+            try visitor.visitSingularBytesField(value: header, fieldNumber: 1)
+        }
+        if !signature.isEmpty {
+            try visitor.visitSingularBytesField(value: signature, fieldNumber: 3)
+        }
+        try unknownFields.traverse(visitor: &visitor)
     }
-    if !self.signature.isEmpty {
-      try visitor.visitSingularBytesField(value: self.signature, fieldNumber: 3)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 
-  public static func ==(lhs: Pbmse_V1_Signature, rhs: Pbmse_V1_Signature) -> Bool {
-    if lhs.header != rhs.header {return false}
-    if lhs.signature != rhs.signature {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
+    public static func == (lhs: Pbmse_V1_Signature, rhs: Pbmse_V1_Signature) -> Bool {
+        if lhs.header != rhs.header { return false }
+        if lhs.signature != rhs.signature { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
 }
 
 extension Pbmse_V1_SignatureHeader: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".SignatureHeader"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "algorithm"),
-    2: .standard(proto: "key_id"),
-  ]
+    public static let protoMessageName: String = _protobuf_package + ".SignatureHeader"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .same(proto: "algorithm"),
+        2: .standard(proto: "key_id"),
+    ]
 
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.algorithm) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.keyID) }()
-      default: break
-      }
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 1: try try decoder.decodeSingularStringField(value: &algorithm)
+            case 2: try try decoder.decodeSingularStringField(value: &keyID)
+            default: break
+            }
+        }
     }
-  }
 
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.algorithm.isEmpty {
-      try visitor.visitSingularStringField(value: self.algorithm, fieldNumber: 1)
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        if !algorithm.isEmpty {
+            try visitor.visitSingularStringField(value: algorithm, fieldNumber: 1)
+        }
+        if !keyID.isEmpty {
+            try visitor.visitSingularStringField(value: keyID, fieldNumber: 2)
+        }
+        try unknownFields.traverse(visitor: &visitor)
     }
-    if !self.keyID.isEmpty {
-      try visitor.visitSingularStringField(value: self.keyID, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 
-  public static func ==(lhs: Pbmse_V1_SignatureHeader, rhs: Pbmse_V1_SignatureHeader) -> Bool {
-    if lhs.algorithm != rhs.algorithm {return false}
-    if lhs.keyID != rhs.keyID {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
+    public static func == (lhs: Pbmse_V1_SignatureHeader, rhs: Pbmse_V1_SignatureHeader) -> Bool {
+        if lhs.algorithm != rhs.algorithm { return false }
+        if lhs.keyID != rhs.keyID { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
 }
 
 extension Pbmse_V1_EncryptedMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".EncryptedMessage"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "iv"),
-    2: .same(proto: "aad"),
-    3: .same(proto: "ciphertext"),
-    4: .same(proto: "tag"),
-    5: .same(proto: "recipients"),
-  ]
+    public static let protoMessageName: String = _protobuf_package + ".EncryptedMessage"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .same(proto: "iv"),
+        2: .same(proto: "aad"),
+        3: .same(proto: "ciphertext"),
+        4: .same(proto: "tag"),
+        5: .same(proto: "recipients"),
+    ]
 
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularBytesField(value: &self.iv) }()
-      case 2: try { try decoder.decodeSingularBytesField(value: &self.aad) }()
-      case 3: try { try decoder.decodeSingularBytesField(value: &self.ciphertext) }()
-      case 4: try { try decoder.decodeSingularBytesField(value: &self.tag) }()
-      case 5: try { try decoder.decodeRepeatedMessageField(value: &self.recipients) }()
-      default: break
-      }
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 1: try try decoder.decodeSingularBytesField(value: &iv)
+            case 2: try try decoder.decodeSingularBytesField(value: &aad)
+            case 3: try try decoder.decodeSingularBytesField(value: &ciphertext)
+            case 4: try try decoder.decodeSingularBytesField(value: &tag)
+            case 5: try try decoder.decodeRepeatedMessageField(value: &recipients)
+            default: break
+            }
+        }
     }
-  }
 
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.iv.isEmpty {
-      try visitor.visitSingularBytesField(value: self.iv, fieldNumber: 1)
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        if !iv.isEmpty {
+            try visitor.visitSingularBytesField(value: iv, fieldNumber: 1)
+        }
+        if !aad.isEmpty {
+            try visitor.visitSingularBytesField(value: aad, fieldNumber: 2)
+        }
+        if !ciphertext.isEmpty {
+            try visitor.visitSingularBytesField(value: ciphertext, fieldNumber: 3)
+        }
+        if !tag.isEmpty {
+            try visitor.visitSingularBytesField(value: tag, fieldNumber: 4)
+        }
+        if !recipients.isEmpty {
+            try visitor.visitRepeatedMessageField(value: recipients, fieldNumber: 5)
+        }
+        try unknownFields.traverse(visitor: &visitor)
     }
-    if !self.aad.isEmpty {
-      try visitor.visitSingularBytesField(value: self.aad, fieldNumber: 2)
-    }
-    if !self.ciphertext.isEmpty {
-      try visitor.visitSingularBytesField(value: self.ciphertext, fieldNumber: 3)
-    }
-    if !self.tag.isEmpty {
-      try visitor.visitSingularBytesField(value: self.tag, fieldNumber: 4)
-    }
-    if !self.recipients.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.recipients, fieldNumber: 5)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 
-  public static func ==(lhs: Pbmse_V1_EncryptedMessage, rhs: Pbmse_V1_EncryptedMessage) -> Bool {
-    if lhs.iv != rhs.iv {return false}
-    if lhs.aad != rhs.aad {return false}
-    if lhs.ciphertext != rhs.ciphertext {return false}
-    if lhs.tag != rhs.tag {return false}
-    if lhs.recipients != rhs.recipients {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
+    public static func == (lhs: Pbmse_V1_EncryptedMessage, rhs: Pbmse_V1_EncryptedMessage) -> Bool {
+        if lhs.iv != rhs.iv { return false }
+        if lhs.aad != rhs.aad { return false }
+        if lhs.ciphertext != rhs.ciphertext { return false }
+        if lhs.tag != rhs.tag { return false }
+        if lhs.recipients != rhs.recipients { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
 }
 
 extension Pbmse_V1_EncryptionHeader: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".EncryptionHeader"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .unique(proto: "mode", json: "enc"),
-    2: .unique(proto: "algorithm", json: "alg"),
-    3: .unique(proto: "key_id", json: "kid"),
-    4: .unique(proto: "sender_key_id", json: "skid"),
-  ]
+    public static let protoMessageName: String = _protobuf_package + ".EncryptionHeader"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .unique(proto: "mode", json: "enc"),
+        2: .unique(proto: "algorithm", json: "alg"),
+        3: .unique(proto: "key_id", json: "kid"),
+        4: .unique(proto: "sender_key_id", json: "skid"),
+    ]
 
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularEnumField(value: &self.mode) }()
-      case 2: try { try decoder.decodeSingularEnumField(value: &self.algorithm) }()
-      case 3: try { try decoder.decodeSingularStringField(value: &self.keyID) }()
-      case 4: try { try decoder.decodeSingularStringField(value: &self.senderKeyID) }()
-      default: break
-      }
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 1: try try decoder.decodeSingularEnumField(value: &mode)
+            case 2: try try decoder.decodeSingularEnumField(value: &algorithm)
+            case 3: try try decoder.decodeSingularStringField(value: &keyID)
+            case 4: try try decoder.decodeSingularStringField(value: &senderKeyID)
+            default: break
+            }
+        }
     }
-  }
 
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.mode != .unspecified {
-      try visitor.visitSingularEnumField(value: self.mode, fieldNumber: 1)
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        if mode != .unspecified {
+            try visitor.visitSingularEnumField(value: mode, fieldNumber: 1)
+        }
+        if algorithm != .unspecified {
+            try visitor.visitSingularEnumField(value: algorithm, fieldNumber: 2)
+        }
+        if !keyID.isEmpty {
+            try visitor.visitSingularStringField(value: keyID, fieldNumber: 3)
+        }
+        if !senderKeyID.isEmpty {
+            try visitor.visitSingularStringField(value: senderKeyID, fieldNumber: 4)
+        }
+        try unknownFields.traverse(visitor: &visitor)
     }
-    if self.algorithm != .unspecified {
-      try visitor.visitSingularEnumField(value: self.algorithm, fieldNumber: 2)
-    }
-    if !self.keyID.isEmpty {
-      try visitor.visitSingularStringField(value: self.keyID, fieldNumber: 3)
-    }
-    if !self.senderKeyID.isEmpty {
-      try visitor.visitSingularStringField(value: self.senderKeyID, fieldNumber: 4)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 
-  public static func ==(lhs: Pbmse_V1_EncryptionHeader, rhs: Pbmse_V1_EncryptionHeader) -> Bool {
-    if lhs.mode != rhs.mode {return false}
-    if lhs.algorithm != rhs.algorithm {return false}
-    if lhs.keyID != rhs.keyID {return false}
-    if lhs.senderKeyID != rhs.senderKeyID {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
+    public static func == (lhs: Pbmse_V1_EncryptionHeader, rhs: Pbmse_V1_EncryptionHeader) -> Bool {
+        if lhs.mode != rhs.mode { return false }
+        if lhs.algorithm != rhs.algorithm { return false }
+        if lhs.keyID != rhs.keyID { return false }
+        if lhs.senderKeyID != rhs.senderKeyID { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
 }
 
 extension Pbmse_V1_EncryptionRecipient: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = _protobuf_package + ".EncryptionRecipient"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .unique(proto: "header", json: "unprotected"),
-    2: .unique(proto: "content_encryption_key", json: "cek"),
-  ]
+    public static let protoMessageName: String = _protobuf_package + ".EncryptionRecipient"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .unique(proto: "header", json: "unprotected"),
+        2: .unique(proto: "content_encryption_key", json: "cek"),
+    ]
 
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularMessageField(value: &self._header) }()
-      case 2: try { try decoder.decodeSingularBytesField(value: &self.contentEncryptionKey) }()
-      default: break
-      }
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 1: try try decoder.decodeSingularMessageField(value: &_header)
+            case 2: try try decoder.decodeSingularBytesField(value: &contentEncryptionKey)
+            default: break
+            }
+        }
     }
-  }
 
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    try { if let v = self._header {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    } }()
-    if !self.contentEncryptionKey.isEmpty {
-      try visitor.visitSingularBytesField(value: self.contentEncryptionKey, fieldNumber: 2)
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every if/case branch local when no optimizations
+        // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+        // https://github.com/apple/swift-protobuf/issues/1182
+        try { if let v = self._header {
+            try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+        } }()
+        if !contentEncryptionKey.isEmpty {
+            try visitor.visitSingularBytesField(value: contentEncryptionKey, fieldNumber: 2)
+        }
+        try unknownFields.traverse(visitor: &visitor)
     }
-    try unknownFields.traverse(visitor: &visitor)
-  }
 
-  public static func ==(lhs: Pbmse_V1_EncryptionRecipient, rhs: Pbmse_V1_EncryptionRecipient) -> Bool {
-    if lhs._header != rhs._header {return false}
-    if lhs.contentEncryptionKey != rhs.contentEncryptionKey {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
+    public static func == (lhs: Pbmse_V1_EncryptionRecipient, rhs: Pbmse_V1_EncryptionRecipient) -> Bool {
+        if lhs._header != rhs._header { return false }
+        if lhs.contentEncryptionKey != rhs.contentEncryptionKey { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
 }

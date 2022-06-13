@@ -24,269 +24,266 @@ import GRPC
 import NIO
 import SwiftProtobuf
 
-
 /// Usage: instantiate `Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClient`, then call methods of this protocol to make API calls.
 public protocol Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientProtocol: GRPCClient {
-  var serviceName: String { get }
-  var interceptors: Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientInterceptorFactoryProtocol? { get }
+    var serviceName: String { get }
+    var interceptors: Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientInterceptorFactoryProtocol? { get }
 
-  func Create(
-    _ request: Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateRequest,
-    callOptions: CallOptions?
-  ) -> UnaryCall<Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateRequest, Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateResponse>
+    func Create(
+        _ request: Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateRequest, Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateResponse>
 
-  func Get(
-    _ request: Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateRequest,
-    callOptions: CallOptions?
-  ) -> UnaryCall<Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateRequest, Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateResponse>
+    func Get(
+        _ request: Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateRequest, Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateResponse>
 
-  func List(
-    _ request: Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesRequest,
-    callOptions: CallOptions?
-  ) -> UnaryCall<Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesRequest, Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesResponse>
+    func List(
+        _ request: Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesRequest, Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesResponse>
 
-  func Search(
-    _ request: Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesRequest,
-    callOptions: CallOptions?
-  ) -> UnaryCall<Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesRequest, Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesResponse>
+    func Search(
+        _ request: Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesRequest, Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesResponse>
 
-  func Delete(
-    _ request: Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateRequest,
-    callOptions: CallOptions?
-  ) -> UnaryCall<Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateRequest, Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateResponse>
+    func Delete(
+        _ request: Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateRequest, Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateResponse>
 }
 
-extension Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientProtocol {
-  public var serviceName: String {
-    return "services.verifiablecredentials.templates.v1.CredentialTemplates"
-  }
+public extension Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientProtocol {
+    var serviceName: String {
+        return "services.verifiablecredentials.templates.v1.CredentialTemplates"
+    }
 
-  /// Unary call to Create
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to Create.
-  ///   - callOptions: Call options.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func Create(
-    _ request: Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateRequest,
-    callOptions: CallOptions? = nil
-  ) -> UnaryCall<Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateRequest, Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateResponse> {
-    return self.makeUnaryCall(
-      path: "/services.verifiablecredentials.templates.v1.CredentialTemplates/Create",
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeCreateInterceptors() ?? []
-    )
-  }
+    /// Unary call to Create
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to Create.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func Create(
+        _ request: Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateRequest, Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateResponse> {
+        return makeUnaryCall(
+            path: "/services.verifiablecredentials.templates.v1.CredentialTemplates/Create",
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeCreateInterceptors() ?? []
+        )
+    }
 
-  /// Unary call to Get
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to Get.
-  ///   - callOptions: Call options.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func Get(
-    _ request: Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateRequest,
-    callOptions: CallOptions? = nil
-  ) -> UnaryCall<Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateRequest, Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateResponse> {
-    return self.makeUnaryCall(
-      path: "/services.verifiablecredentials.templates.v1.CredentialTemplates/Get",
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeGetInterceptors() ?? []
-    )
-  }
+    /// Unary call to Get
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to Get.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func Get(
+        _ request: Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateRequest, Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateResponse> {
+        return makeUnaryCall(
+            path: "/services.verifiablecredentials.templates.v1.CredentialTemplates/Get",
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeGetInterceptors() ?? []
+        )
+    }
 
-  /// Unary call to List
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to List.
-  ///   - callOptions: Call options.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func List(
-    _ request: Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesRequest,
-    callOptions: CallOptions? = nil
-  ) -> UnaryCall<Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesRequest, Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesResponse> {
-    return self.makeUnaryCall(
-      path: "/services.verifiablecredentials.templates.v1.CredentialTemplates/List",
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeListInterceptors() ?? []
-    )
-  }
+    /// Unary call to List
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to List.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func List(
+        _ request: Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesRequest, Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesResponse> {
+        return makeUnaryCall(
+            path: "/services.verifiablecredentials.templates.v1.CredentialTemplates/List",
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeListInterceptors() ?? []
+        )
+    }
 
-  /// Unary call to Search
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to Search.
-  ///   - callOptions: Call options.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func Search(
-    _ request: Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesRequest,
-    callOptions: CallOptions? = nil
-  ) -> UnaryCall<Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesRequest, Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesResponse> {
-    return self.makeUnaryCall(
-      path: "/services.verifiablecredentials.templates.v1.CredentialTemplates/Search",
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeSearchInterceptors() ?? []
-    )
-  }
+    /// Unary call to Search
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to Search.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func Search(
+        _ request: Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesRequest, Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesResponse> {
+        return makeUnaryCall(
+            path: "/services.verifiablecredentials.templates.v1.CredentialTemplates/Search",
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeSearchInterceptors() ?? []
+        )
+    }
 
-  /// Unary call to Delete
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to Delete.
-  ///   - callOptions: Call options.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func Delete(
-    _ request: Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateRequest,
-    callOptions: CallOptions? = nil
-  ) -> UnaryCall<Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateRequest, Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateResponse> {
-    return self.makeUnaryCall(
-      path: "/services.verifiablecredentials.templates.v1.CredentialTemplates/Delete",
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeDeleteInterceptors() ?? []
-    )
-  }
+    /// Unary call to Delete
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to Delete.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func Delete(
+        _ request: Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateRequest, Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateResponse> {
+        return makeUnaryCall(
+            path: "/services.verifiablecredentials.templates.v1.CredentialTemplates/Delete",
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeDeleteInterceptors() ?? []
+        )
+    }
 }
 
 public protocol Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientInterceptorFactoryProtocol {
+    /// - Returns: Interceptors to use when invoking 'Create'.
+    func makeCreateInterceptors() -> [ClientInterceptor<Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateRequest, Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateResponse>]
 
-  /// - Returns: Interceptors to use when invoking 'Create'.
-  func makeCreateInterceptors() -> [ClientInterceptor<Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateRequest, Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateResponse>]
+    /// - Returns: Interceptors to use when invoking 'Get'.
+    func makeGetInterceptors() -> [ClientInterceptor<Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateRequest, Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateResponse>]
 
-  /// - Returns: Interceptors to use when invoking 'Get'.
-  func makeGetInterceptors() -> [ClientInterceptor<Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateRequest, Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateResponse>]
+    /// - Returns: Interceptors to use when invoking 'List'.
+    func makeListInterceptors() -> [ClientInterceptor<Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesRequest, Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesResponse>]
 
-  /// - Returns: Interceptors to use when invoking 'List'.
-  func makeListInterceptors() -> [ClientInterceptor<Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesRequest, Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesResponse>]
+    /// - Returns: Interceptors to use when invoking 'Search'.
+    func makeSearchInterceptors() -> [ClientInterceptor<Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesRequest, Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesResponse>]
 
-  /// - Returns: Interceptors to use when invoking 'Search'.
-  func makeSearchInterceptors() -> [ClientInterceptor<Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesRequest, Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesResponse>]
-
-  /// - Returns: Interceptors to use when invoking 'Delete'.
-  func makeDeleteInterceptors() -> [ClientInterceptor<Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateRequest, Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateResponse>]
+    /// - Returns: Interceptors to use when invoking 'Delete'.
+    func makeDeleteInterceptors() -> [ClientInterceptor<Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateRequest, Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateResponse>]
 }
 
 public final class Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClient: Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientProtocol {
-  public let channel: GRPCChannel
-  public var defaultCallOptions: CallOptions
-  public var interceptors: Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientInterceptorFactoryProtocol?
+    public let channel: GRPCChannel
+    public var defaultCallOptions: CallOptions
+    public var interceptors: Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientInterceptorFactoryProtocol?
 
-  /// Creates a client for the services.verifiablecredentials.templates.v1.CredentialTemplates service.
-  ///
-  /// - Parameters:
-  ///   - channel: `GRPCChannel` to the service host.
-  ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
-  ///   - interceptors: A factory providing interceptors for each RPC.
-  public init(
-    channel: GRPCChannel,
-    defaultCallOptions: CallOptions = CallOptions(),
-    interceptors: Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientInterceptorFactoryProtocol? = nil
-  ) {
-    self.channel = channel
-    self.defaultCallOptions = defaultCallOptions
-    self.interceptors = interceptors
-  }
+    /// Creates a client for the services.verifiablecredentials.templates.v1.CredentialTemplates service.
+    ///
+    /// - Parameters:
+    ///   - channel: `GRPCChannel` to the service host.
+    ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
+    ///   - interceptors: A factory providing interceptors for each RPC.
+    public init(
+        channel: GRPCChannel,
+        defaultCallOptions: CallOptions = CallOptions(),
+        interceptors: Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientInterceptorFactoryProtocol? = nil
+    ) {
+        self.channel = channel
+        self.defaultCallOptions = defaultCallOptions
+        self.interceptors = interceptors
+    }
 }
 
 /// To build a server, implement a class that conforms to this protocol.
 public protocol Services_Verifiablecredentials_Templates_V1_CredentialTemplatesProvider: CallHandlerProvider {
-  var interceptors: Services_Verifiablecredentials_Templates_V1_CredentialTemplatesServerInterceptorFactoryProtocol? { get }
+    var interceptors: Services_Verifiablecredentials_Templates_V1_CredentialTemplatesServerInterceptorFactoryProtocol? { get }
 
-  func Create(request: Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateResponse>
+    func Create(request: Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateResponse>
 
-  func Get(request: Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateResponse>
+    func Get(request: Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateResponse>
 
-  func List(request: Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesResponse>
+    func List(request: Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesResponse>
 
-  func Search(request: Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesResponse>
+    func Search(request: Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesResponse>
 
-  func Delete(request: Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateResponse>
+    func Delete(request: Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateResponse>
 }
 
-extension Services_Verifiablecredentials_Templates_V1_CredentialTemplatesProvider {
-  public var serviceName: Substring { return "services.verifiablecredentials.templates.v1.CredentialTemplates" }
+public extension Services_Verifiablecredentials_Templates_V1_CredentialTemplatesProvider {
+    var serviceName: Substring { return "services.verifiablecredentials.templates.v1.CredentialTemplates" }
 
-  /// Determines, calls and returns the appropriate request handler, depending on the request's method.
-  /// Returns nil for methods not handled by this service.
-  public func handle(
-    method name: Substring,
-    context: CallHandlerContext
-  ) -> GRPCServerHandlerProtocol? {
-    switch name {
-    case "Create":
-      return UnaryServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateRequest>(),
-        responseSerializer: ProtobufSerializer<Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateResponse>(),
-        interceptors: self.interceptors?.makeCreateInterceptors() ?? [],
-        userFunction: self.Create(request:context:)
-      )
+    /// Determines, calls and returns the appropriate request handler, depending on the request's method.
+    /// Returns nil for methods not handled by this service.
+    func handle(
+        method name: Substring,
+        context: CallHandlerContext
+    ) -> GRPCServerHandlerProtocol? {
+        switch name {
+        case "Create":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateResponse>(),
+                interceptors: interceptors?.makeCreateInterceptors() ?? [],
+                userFunction: Create(request:context:)
+            )
 
-    case "Get":
-      return UnaryServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateRequest>(),
-        responseSerializer: ProtobufSerializer<Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateResponse>(),
-        interceptors: self.interceptors?.makeGetInterceptors() ?? [],
-        userFunction: self.Get(request:context:)
-      )
+        case "Get":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateResponse>(),
+                interceptors: interceptors?.makeGetInterceptors() ?? [],
+                userFunction: Get(request:context:)
+            )
 
-    case "List":
-      return UnaryServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesRequest>(),
-        responseSerializer: ProtobufSerializer<Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesResponse>(),
-        interceptors: self.interceptors?.makeListInterceptors() ?? [],
-        userFunction: self.List(request:context:)
-      )
+        case "List":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesResponse>(),
+                interceptors: interceptors?.makeListInterceptors() ?? [],
+                userFunction: List(request:context:)
+            )
 
-    case "Search":
-      return UnaryServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesRequest>(),
-        responseSerializer: ProtobufSerializer<Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesResponse>(),
-        interceptors: self.interceptors?.makeSearchInterceptors() ?? [],
-        userFunction: self.Search(request:context:)
-      )
+        case "Search":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesResponse>(),
+                interceptors: interceptors?.makeSearchInterceptors() ?? [],
+                userFunction: Search(request:context:)
+            )
 
-    case "Delete":
-      return UnaryServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateRequest>(),
-        responseSerializer: ProtobufSerializer<Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateResponse>(),
-        interceptors: self.interceptors?.makeDeleteInterceptors() ?? [],
-        userFunction: self.Delete(request:context:)
-      )
+        case "Delete":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateResponse>(),
+                interceptors: interceptors?.makeDeleteInterceptors() ?? [],
+                userFunction: Delete(request:context:)
+            )
 
-    default:
-      return nil
+        default:
+            return nil
+        }
     }
-  }
 }
 
 public protocol Services_Verifiablecredentials_Templates_V1_CredentialTemplatesServerInterceptorFactoryProtocol {
+    /// - Returns: Interceptors to use when handling 'Create'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeCreateInterceptors() -> [ServerInterceptor<Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateRequest, Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateResponse>]
 
-  /// - Returns: Interceptors to use when handling 'Create'.
-  ///   Defaults to calling `self.makeInterceptors()`.
-  func makeCreateInterceptors() -> [ServerInterceptor<Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateRequest, Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateResponse>]
+    /// - Returns: Interceptors to use when handling 'Get'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeGetInterceptors() -> [ServerInterceptor<Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateRequest, Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateResponse>]
 
-  /// - Returns: Interceptors to use when handling 'Get'.
-  ///   Defaults to calling `self.makeInterceptors()`.
-  func makeGetInterceptors() -> [ServerInterceptor<Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateRequest, Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateResponse>]
+    /// - Returns: Interceptors to use when handling 'List'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeListInterceptors() -> [ServerInterceptor<Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesRequest, Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesResponse>]
 
-  /// - Returns: Interceptors to use when handling 'List'.
-  ///   Defaults to calling `self.makeInterceptors()`.
-  func makeListInterceptors() -> [ServerInterceptor<Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesRequest, Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesResponse>]
+    /// - Returns: Interceptors to use when handling 'Search'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeSearchInterceptors() -> [ServerInterceptor<Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesRequest, Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesResponse>]
 
-  /// - Returns: Interceptors to use when handling 'Search'.
-  ///   Defaults to calling `self.makeInterceptors()`.
-  func makeSearchInterceptors() -> [ServerInterceptor<Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesRequest, Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesResponse>]
-
-  /// - Returns: Interceptors to use when handling 'Delete'.
-  ///   Defaults to calling `self.makeInterceptors()`.
-  func makeDeleteInterceptors() -> [ServerInterceptor<Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateRequest, Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateResponse>]
+    /// - Returns: Interceptors to use when handling 'Delete'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeDeleteInterceptors() -> [ServerInterceptor<Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateRequest, Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateResponse>]
 }

@@ -24,232 +24,355 @@ import GRPC
 import NIO
 import SwiftProtobuf
 
-
 /// Usage: instantiate `Services_Account_V1_AccountClient`, then call methods of this protocol to make API calls.
 public protocol Services_Account_V1_AccountClientProtocol: GRPCClient {
-  var serviceName: String { get }
-  var interceptors: Services_Account_V1_AccountClientInterceptorFactoryProtocol? { get }
+    var serviceName: String { get }
+    var interceptors: Services_Account_V1_AccountClientInterceptorFactoryProtocol? { get }
 
-  func SignIn(
-    _ request: Services_Account_V1_SignInRequest,
-    callOptions: CallOptions?
-  ) -> UnaryCall<Services_Account_V1_SignInRequest, Services_Account_V1_SignInResponse>
+    func SignIn(
+        _ request: Services_Account_V1_SignInRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Account_V1_SignInRequest, Services_Account_V1_SignInResponse>
 
-  func Info(
-    _ request: Services_Account_V1_InfoRequest,
-    callOptions: CallOptions?
-  ) -> UnaryCall<Services_Account_V1_InfoRequest, Services_Account_V1_InfoResponse>
+    func Login(
+        _ request: Services_Account_V1_LoginRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Account_V1_LoginRequest, Services_Account_V1_LoginResponse>
 
-  func ListDevices(
-    _ request: Services_Account_V1_ListDevicesRequest,
-    callOptions: CallOptions?
-  ) -> UnaryCall<Services_Account_V1_ListDevicesRequest, Services_Account_V1_ListDevicesResponse>
+    func LoginConfirm(
+        _ request: Services_Account_V1_LoginConfirmRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Account_V1_LoginConfirmRequest, Services_Account_V1_LoginConfirmResponse>
 
-  func RevokeDevice(
-    _ request: Services_Account_V1_RevokeDeviceRequest,
-    callOptions: CallOptions?
-  ) -> UnaryCall<Services_Account_V1_RevokeDeviceRequest, Services_Account_V1_RevokeDeviceResponse>
+    func Info(
+        _ request: Services_Account_V1_AccountInfoRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Account_V1_AccountInfoRequest, Services_Account_V1_AccountInfoResponse>
+
+    func ListDevices(
+        _ request: Services_Account_V1_ListDevicesRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Account_V1_ListDevicesRequest, Services_Account_V1_ListDevicesResponse>
+
+    func RevokeDevice(
+        _ request: Services_Account_V1_RevokeDeviceRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Account_V1_RevokeDeviceRequest, Services_Account_V1_RevokeDeviceResponse>
+
+    func AuthorizeWebhook(
+        _ request: Services_Account_V1_AuthorizeWebhookRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Account_V1_AuthorizeWebhookRequest, Services_Account_V1_AuthorizeWebhookResponse>
 }
 
-extension Services_Account_V1_AccountClientProtocol {
-  public var serviceName: String {
-    return "services.account.v1.Account"
-  }
+public extension Services_Account_V1_AccountClientProtocol {
+    var serviceName: String {
+        return "services.account.v1.Account"
+    }
 
-  /// Sign in to an already existing account
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SignIn.
-  ///   - callOptions: Call options.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func SignIn(
-    _ request: Services_Account_V1_SignInRequest,
-    callOptions: CallOptions? = nil
-  ) -> UnaryCall<Services_Account_V1_SignInRequest, Services_Account_V1_SignInResponse> {
-    return self.makeUnaryCall(
-      path: "/services.account.v1.Account/SignIn",
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeSignInInterceptors() ?? []
-    )
-  }
+    /// Sign in to an already existing account
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to SignIn.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func SignIn(
+        _ request: Services_Account_V1_SignInRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Account_V1_SignInRequest, Services_Account_V1_SignInResponse> {
+        return makeUnaryCall(
+            path: "/services.account.v1.Account/SignIn",
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeSignInInterceptors() ?? []
+        )
+    }
 
-  /// Get account information
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to Info.
-  ///   - callOptions: Call options.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func Info(
-    _ request: Services_Account_V1_InfoRequest,
-    callOptions: CallOptions? = nil
-  ) -> UnaryCall<Services_Account_V1_InfoRequest, Services_Account_V1_InfoResponse> {
-    return self.makeUnaryCall(
-      path: "/services.account.v1.Account/Info",
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeInfoInterceptors() ?? []
-    )
-  }
+    /// Login to account. If account doesn't exist, new will be created
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to Login.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func Login(
+        _ request: Services_Account_V1_LoginRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Account_V1_LoginRequest, Services_Account_V1_LoginResponse> {
+        return makeUnaryCall(
+            path: "/services.account.v1.Account/Login",
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeLoginInterceptors() ?? []
+        )
+    }
 
-  /// List all connected devices
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to ListDevices.
-  ///   - callOptions: Call options.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func ListDevices(
-    _ request: Services_Account_V1_ListDevicesRequest,
-    callOptions: CallOptions? = nil
-  ) -> UnaryCall<Services_Account_V1_ListDevicesRequest, Services_Account_V1_ListDevicesResponse> {
-    return self.makeUnaryCall(
-      path: "/services.account.v1.Account/ListDevices",
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeListDevicesInterceptors() ?? []
-    )
-  }
+    /// Confirm login step by responding to the challenge request
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to LoginConfirm.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func LoginConfirm(
+        _ request: Services_Account_V1_LoginConfirmRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Account_V1_LoginConfirmRequest, Services_Account_V1_LoginConfirmResponse> {
+        return makeUnaryCall(
+            path: "/services.account.v1.Account/LoginConfirm",
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeLoginConfirmInterceptors() ?? []
+        )
+    }
 
-  /// Revoke device access to the account's cloud wallet
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to RevokeDevice.
-  ///   - callOptions: Call options.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func RevokeDevice(
-    _ request: Services_Account_V1_RevokeDeviceRequest,
-    callOptions: CallOptions? = nil
-  ) -> UnaryCall<Services_Account_V1_RevokeDeviceRequest, Services_Account_V1_RevokeDeviceResponse> {
-    return self.makeUnaryCall(
-      path: "/services.account.v1.Account/RevokeDevice",
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeRevokeDeviceInterceptors() ?? []
-    )
-  }
+    /// Get account information
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to Info.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func Info(
+        _ request: Services_Account_V1_AccountInfoRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Account_V1_AccountInfoRequest, Services_Account_V1_AccountInfoResponse> {
+        return makeUnaryCall(
+            path: "/services.account.v1.Account/Info",
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeInfoInterceptors() ?? []
+        )
+    }
+
+    /// List all connected devices
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to ListDevices.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func ListDevices(
+        _ request: Services_Account_V1_ListDevicesRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Account_V1_ListDevicesRequest, Services_Account_V1_ListDevicesResponse> {
+        return makeUnaryCall(
+            path: "/services.account.v1.Account/ListDevices",
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeListDevicesInterceptors() ?? []
+        )
+    }
+
+    /// Revoke device access to the account's cloud wallet
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to RevokeDevice.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func RevokeDevice(
+        _ request: Services_Account_V1_RevokeDeviceRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Account_V1_RevokeDeviceRequest, Services_Account_V1_RevokeDeviceResponse> {
+        return makeUnaryCall(
+            path: "/services.account.v1.Account/RevokeDevice",
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeRevokeDeviceInterceptors() ?? []
+        )
+    }
+
+    /// Authorize Ecosystem to receive webhook events
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to AuthorizeWebhook.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func AuthorizeWebhook(
+        _ request: Services_Account_V1_AuthorizeWebhookRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Account_V1_AuthorizeWebhookRequest, Services_Account_V1_AuthorizeWebhookResponse> {
+        return makeUnaryCall(
+            path: "/services.account.v1.Account/AuthorizeWebhook",
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeAuthorizeWebhookInterceptors() ?? []
+        )
+    }
 }
 
 public protocol Services_Account_V1_AccountClientInterceptorFactoryProtocol {
+    /// - Returns: Interceptors to use when invoking 'SignIn'.
+    func makeSignInInterceptors() -> [ClientInterceptor<Services_Account_V1_SignInRequest, Services_Account_V1_SignInResponse>]
 
-  /// - Returns: Interceptors to use when invoking 'SignIn'.
-  func makeSignInInterceptors() -> [ClientInterceptor<Services_Account_V1_SignInRequest, Services_Account_V1_SignInResponse>]
+    /// - Returns: Interceptors to use when invoking 'Login'.
+    func makeLoginInterceptors() -> [ClientInterceptor<Services_Account_V1_LoginRequest, Services_Account_V1_LoginResponse>]
 
-  /// - Returns: Interceptors to use when invoking 'Info'.
-  func makeInfoInterceptors() -> [ClientInterceptor<Services_Account_V1_InfoRequest, Services_Account_V1_InfoResponse>]
+    /// - Returns: Interceptors to use when invoking 'LoginConfirm'.
+    func makeLoginConfirmInterceptors() -> [ClientInterceptor<Services_Account_V1_LoginConfirmRequest, Services_Account_V1_LoginConfirmResponse>]
 
-  /// - Returns: Interceptors to use when invoking 'ListDevices'.
-  func makeListDevicesInterceptors() -> [ClientInterceptor<Services_Account_V1_ListDevicesRequest, Services_Account_V1_ListDevicesResponse>]
+    /// - Returns: Interceptors to use when invoking 'Info'.
+    func makeInfoInterceptors() -> [ClientInterceptor<Services_Account_V1_AccountInfoRequest, Services_Account_V1_AccountInfoResponse>]
 
-  /// - Returns: Interceptors to use when invoking 'RevokeDevice'.
-  func makeRevokeDeviceInterceptors() -> [ClientInterceptor<Services_Account_V1_RevokeDeviceRequest, Services_Account_V1_RevokeDeviceResponse>]
+    /// - Returns: Interceptors to use when invoking 'ListDevices'.
+    func makeListDevicesInterceptors() -> [ClientInterceptor<Services_Account_V1_ListDevicesRequest, Services_Account_V1_ListDevicesResponse>]
+
+    /// - Returns: Interceptors to use when invoking 'RevokeDevice'.
+    func makeRevokeDeviceInterceptors() -> [ClientInterceptor<Services_Account_V1_RevokeDeviceRequest, Services_Account_V1_RevokeDeviceResponse>]
+
+    /// - Returns: Interceptors to use when invoking 'AuthorizeWebhook'.
+    func makeAuthorizeWebhookInterceptors() -> [ClientInterceptor<Services_Account_V1_AuthorizeWebhookRequest, Services_Account_V1_AuthorizeWebhookResponse>]
 }
 
 public final class Services_Account_V1_AccountClient: Services_Account_V1_AccountClientProtocol {
-  public let channel: GRPCChannel
-  public var defaultCallOptions: CallOptions
-  public var interceptors: Services_Account_V1_AccountClientInterceptorFactoryProtocol?
+    public let channel: GRPCChannel
+    public var defaultCallOptions: CallOptions
+    public var interceptors: Services_Account_V1_AccountClientInterceptorFactoryProtocol?
 
-  /// Creates a client for the services.account.v1.Account service.
-  ///
-  /// - Parameters:
-  ///   - channel: `GRPCChannel` to the service host.
-  ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
-  ///   - interceptors: A factory providing interceptors for each RPC.
-  public init(
-    channel: GRPCChannel,
-    defaultCallOptions: CallOptions = CallOptions(),
-    interceptors: Services_Account_V1_AccountClientInterceptorFactoryProtocol? = nil
-  ) {
-    self.channel = channel
-    self.defaultCallOptions = defaultCallOptions
-    self.interceptors = interceptors
-  }
+    /// Creates a client for the services.account.v1.Account service.
+    ///
+    /// - Parameters:
+    ///   - channel: `GRPCChannel` to the service host.
+    ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
+    ///   - interceptors: A factory providing interceptors for each RPC.
+    public init(
+        channel: GRPCChannel,
+        defaultCallOptions: CallOptions = CallOptions(),
+        interceptors: Services_Account_V1_AccountClientInterceptorFactoryProtocol? = nil
+    ) {
+        self.channel = channel
+        self.defaultCallOptions = defaultCallOptions
+        self.interceptors = interceptors
+    }
 }
 
 /// To build a server, implement a class that conforms to this protocol.
 public protocol Services_Account_V1_AccountProvider: CallHandlerProvider {
-  var interceptors: Services_Account_V1_AccountServerInterceptorFactoryProtocol? { get }
+    var interceptors: Services_Account_V1_AccountServerInterceptorFactoryProtocol? { get }
 
-  /// Sign in to an already existing account
-  func SignIn(request: Services_Account_V1_SignInRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Account_V1_SignInResponse>
+    /// Sign in to an already existing account
+    func SignIn(request: Services_Account_V1_SignInRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Account_V1_SignInResponse>
 
-  /// Get account information
-  func Info(request: Services_Account_V1_InfoRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Account_V1_InfoResponse>
+    /// Login to account. If account doesn't exist, new will be created
+    func Login(request: Services_Account_V1_LoginRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Account_V1_LoginResponse>
 
-  /// List all connected devices
-  func ListDevices(request: Services_Account_V1_ListDevicesRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Account_V1_ListDevicesResponse>
+    /// Confirm login step by responding to the challenge request
+    func LoginConfirm(request: Services_Account_V1_LoginConfirmRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Account_V1_LoginConfirmResponse>
 
-  /// Revoke device access to the account's cloud wallet
-  func RevokeDevice(request: Services_Account_V1_RevokeDeviceRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Account_V1_RevokeDeviceResponse>
+    /// Get account information
+    func Info(request: Services_Account_V1_AccountInfoRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Account_V1_AccountInfoResponse>
+
+    /// List all connected devices
+    func ListDevices(request: Services_Account_V1_ListDevicesRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Account_V1_ListDevicesResponse>
+
+    /// Revoke device access to the account's cloud wallet
+    func RevokeDevice(request: Services_Account_V1_RevokeDeviceRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Account_V1_RevokeDeviceResponse>
+
+    /// Authorize Ecosystem to receive webhook events
+    func AuthorizeWebhook(request: Services_Account_V1_AuthorizeWebhookRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Account_V1_AuthorizeWebhookResponse>
 }
 
-extension Services_Account_V1_AccountProvider {
-  public var serviceName: Substring { return "services.account.v1.Account" }
+public extension Services_Account_V1_AccountProvider {
+    var serviceName: Substring { return "services.account.v1.Account" }
 
-  /// Determines, calls and returns the appropriate request handler, depending on the request's method.
-  /// Returns nil for methods not handled by this service.
-  public func handle(
-    method name: Substring,
-    context: CallHandlerContext
-  ) -> GRPCServerHandlerProtocol? {
-    switch name {
-    case "SignIn":
-      return UnaryServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<Services_Account_V1_SignInRequest>(),
-        responseSerializer: ProtobufSerializer<Services_Account_V1_SignInResponse>(),
-        interceptors: self.interceptors?.makeSignInInterceptors() ?? [],
-        userFunction: self.SignIn(request:context:)
-      )
+    /// Determines, calls and returns the appropriate request handler, depending on the request's method.
+    /// Returns nil for methods not handled by this service.
+    func handle(
+        method name: Substring,
+        context: CallHandlerContext
+    ) -> GRPCServerHandlerProtocol? {
+        switch name {
+        case "SignIn":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Account_V1_SignInRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Account_V1_SignInResponse>(),
+                interceptors: interceptors?.makeSignInInterceptors() ?? [],
+                userFunction: SignIn(request:context:)
+            )
 
-    case "Info":
-      return UnaryServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<Services_Account_V1_InfoRequest>(),
-        responseSerializer: ProtobufSerializer<Services_Account_V1_InfoResponse>(),
-        interceptors: self.interceptors?.makeInfoInterceptors() ?? [],
-        userFunction: self.Info(request:context:)
-      )
+        case "Login":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Account_V1_LoginRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Account_V1_LoginResponse>(),
+                interceptors: interceptors?.makeLoginInterceptors() ?? [],
+                userFunction: Login(request:context:)
+            )
 
-    case "ListDevices":
-      return UnaryServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<Services_Account_V1_ListDevicesRequest>(),
-        responseSerializer: ProtobufSerializer<Services_Account_V1_ListDevicesResponse>(),
-        interceptors: self.interceptors?.makeListDevicesInterceptors() ?? [],
-        userFunction: self.ListDevices(request:context:)
-      )
+        case "LoginConfirm":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Account_V1_LoginConfirmRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Account_V1_LoginConfirmResponse>(),
+                interceptors: interceptors?.makeLoginConfirmInterceptors() ?? [],
+                userFunction: LoginConfirm(request:context:)
+            )
 
-    case "RevokeDevice":
-      return UnaryServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<Services_Account_V1_RevokeDeviceRequest>(),
-        responseSerializer: ProtobufSerializer<Services_Account_V1_RevokeDeviceResponse>(),
-        interceptors: self.interceptors?.makeRevokeDeviceInterceptors() ?? [],
-        userFunction: self.RevokeDevice(request:context:)
-      )
+        case "Info":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Account_V1_AccountInfoRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Account_V1_AccountInfoResponse>(),
+                interceptors: interceptors?.makeInfoInterceptors() ?? [],
+                userFunction: Info(request:context:)
+            )
 
-    default:
-      return nil
+        case "ListDevices":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Account_V1_ListDevicesRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Account_V1_ListDevicesResponse>(),
+                interceptors: interceptors?.makeListDevicesInterceptors() ?? [],
+                userFunction: ListDevices(request:context:)
+            )
+
+        case "RevokeDevice":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Account_V1_RevokeDeviceRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Account_V1_RevokeDeviceResponse>(),
+                interceptors: interceptors?.makeRevokeDeviceInterceptors() ?? [],
+                userFunction: RevokeDevice(request:context:)
+            )
+
+        case "AuthorizeWebhook":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Account_V1_AuthorizeWebhookRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Account_V1_AuthorizeWebhookResponse>(),
+                interceptors: interceptors?.makeAuthorizeWebhookInterceptors() ?? [],
+                userFunction: AuthorizeWebhook(request:context:)
+            )
+
+        default:
+            return nil
+        }
     }
-  }
 }
 
 public protocol Services_Account_V1_AccountServerInterceptorFactoryProtocol {
+    /// - Returns: Interceptors to use when handling 'SignIn'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeSignInInterceptors() -> [ServerInterceptor<Services_Account_V1_SignInRequest, Services_Account_V1_SignInResponse>]
 
-  /// - Returns: Interceptors to use when handling 'SignIn'.
-  ///   Defaults to calling `self.makeInterceptors()`.
-  func makeSignInInterceptors() -> [ServerInterceptor<Services_Account_V1_SignInRequest, Services_Account_V1_SignInResponse>]
+    /// - Returns: Interceptors to use when handling 'Login'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeLoginInterceptors() -> [ServerInterceptor<Services_Account_V1_LoginRequest, Services_Account_V1_LoginResponse>]
 
-  /// - Returns: Interceptors to use when handling 'Info'.
-  ///   Defaults to calling `self.makeInterceptors()`.
-  func makeInfoInterceptors() -> [ServerInterceptor<Services_Account_V1_InfoRequest, Services_Account_V1_InfoResponse>]
+    /// - Returns: Interceptors to use when handling 'LoginConfirm'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeLoginConfirmInterceptors() -> [ServerInterceptor<Services_Account_V1_LoginConfirmRequest, Services_Account_V1_LoginConfirmResponse>]
 
-  /// - Returns: Interceptors to use when handling 'ListDevices'.
-  ///   Defaults to calling `self.makeInterceptors()`.
-  func makeListDevicesInterceptors() -> [ServerInterceptor<Services_Account_V1_ListDevicesRequest, Services_Account_V1_ListDevicesResponse>]
+    /// - Returns: Interceptors to use when handling 'Info'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeInfoInterceptors() -> [ServerInterceptor<Services_Account_V1_AccountInfoRequest, Services_Account_V1_AccountInfoResponse>]
 
-  /// - Returns: Interceptors to use when handling 'RevokeDevice'.
-  ///   Defaults to calling `self.makeInterceptors()`.
-  func makeRevokeDeviceInterceptors() -> [ServerInterceptor<Services_Account_V1_RevokeDeviceRequest, Services_Account_V1_RevokeDeviceResponse>]
+    /// - Returns: Interceptors to use when handling 'ListDevices'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeListDevicesInterceptors() -> [ServerInterceptor<Services_Account_V1_ListDevicesRequest, Services_Account_V1_ListDevicesResponse>]
+
+    /// - Returns: Interceptors to use when handling 'RevokeDevice'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeRevokeDeviceInterceptors() -> [ServerInterceptor<Services_Account_V1_RevokeDeviceRequest, Services_Account_V1_RevokeDeviceResponse>]
+
+    /// - Returns: Interceptors to use when handling 'AuthorizeWebhook'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeAuthorizeWebhookInterceptors() -> [ServerInterceptor<Services_Account_V1_AuthorizeWebhookRequest, Services_Account_V1_AuthorizeWebhookResponse>]
 }

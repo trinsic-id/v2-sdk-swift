@@ -24,276 +24,483 @@ import GRPC
 import NIO
 import SwiftProtobuf
 
-
 /// Usage: instantiate `Services_Provider_V1_ProviderClient`, then call methods of this protocol to make API calls.
 public protocol Services_Provider_V1_ProviderClientProtocol: GRPCClient {
-  var serviceName: String { get }
-  var interceptors: Services_Provider_V1_ProviderClientInterceptorFactoryProtocol? { get }
+    var serviceName: String { get }
+    var interceptors: Services_Provider_V1_ProviderClientInterceptorFactoryProtocol? { get }
 
-  func CreateEcosystem(
-    _ request: Services_Provider_V1_CreateEcosystemRequest,
-    callOptions: CallOptions?
-  ) -> UnaryCall<Services_Provider_V1_CreateEcosystemRequest, Services_Provider_V1_CreateEcosystemResponse>
+    func CreateEcosystem(
+        _ request: Services_Provider_V1_CreateEcosystemRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Provider_V1_CreateEcosystemRequest, Services_Provider_V1_CreateEcosystemResponse>
 
-  func GenerateToken(
-    _ request: Services_Provider_V1_GenerateTokenRequest,
-    callOptions: CallOptions?
-  ) -> UnaryCall<Services_Provider_V1_GenerateTokenRequest, Services_Provider_V1_GenerateTokenResponse>
+    func UpdateEcosystem(
+        _ request: Services_Provider_V1_UpdateEcosystemRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Provider_V1_UpdateEcosystemRequest, Services_Provider_V1_UpdateEcosystemResponse>
 
-  func Invite(
-    _ request: Services_Provider_V1_InviteRequest,
-    callOptions: CallOptions?
-  ) -> UnaryCall<Services_Provider_V1_InviteRequest, Services_Provider_V1_InviteResponse>
+    func AddWebhook(
+        _ request: Services_Provider_V1_AddWebhookRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Provider_V1_AddWebhookRequest, Services_Provider_V1_AddWebhookResponse>
 
-  func InvitationStatus(
-    _ request: Services_Provider_V1_InvitationStatusRequest,
-    callOptions: CallOptions?
-  ) -> UnaryCall<Services_Provider_V1_InvitationStatusRequest, Services_Provider_V1_InvitationStatusResponse>
+    func DeleteWebhook(
+        _ request: Services_Provider_V1_DeleteWebhookRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Provider_V1_DeleteWebhookRequest, Services_Provider_V1_DeleteWebhookResponse>
 
-  func GetOberonKey(
-    _ request: Services_Provider_V1_GetOberonKeyRequest,
-    callOptions: CallOptions?
-  ) -> UnaryCall<Services_Provider_V1_GetOberonKeyRequest, Services_Provider_V1_GetOberonKeyResponse>
+    func EcosystemInfo(
+        _ request: Services_Provider_V1_EcosystemInfoRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Provider_V1_EcosystemInfoRequest, Services_Provider_V1_EcosystemInfoResponse>
+
+    func GenerateToken(
+        _ request: Services_Provider_V1_GenerateTokenRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Provider_V1_GenerateTokenRequest, Services_Provider_V1_GenerateTokenResponse>
+
+    func Invite(
+        _ request: Services_Provider_V1_InviteRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Provider_V1_InviteRequest, Services_Provider_V1_InviteResponse>
+
+    func InvitationStatus(
+        _ request: Services_Provider_V1_InvitationStatusRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Provider_V1_InvitationStatusRequest, Services_Provider_V1_InvitationStatusResponse>
+
+    func GetOberonKey(
+        _ request: Services_Provider_V1_GetOberonKeyRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Provider_V1_GetOberonKeyRequest, Services_Provider_V1_GetOberonKeyResponse>
+
+    func GetEventToken(
+        _ request: Services_Provider_V1_GetEventTokenRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Provider_V1_GetEventTokenRequest, Services_Provider_V1_GetEventTokenResponse>
 }
 
-extension Services_Provider_V1_ProviderClientProtocol {
-  public var serviceName: String {
-    return "services.provider.v1.Provider"
-  }
+public extension Services_Provider_V1_ProviderClientProtocol {
+    var serviceName: String {
+        return "services.provider.v1.Provider"
+    }
 
-  /// Create new ecosystem and assign the authenticated user as owner
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to CreateEcosystem.
-  ///   - callOptions: Call options.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func CreateEcosystem(
-    _ request: Services_Provider_V1_CreateEcosystemRequest,
-    callOptions: CallOptions? = nil
-  ) -> UnaryCall<Services_Provider_V1_CreateEcosystemRequest, Services_Provider_V1_CreateEcosystemResponse> {
-    return self.makeUnaryCall(
-      path: "/services.provider.v1.Provider/CreateEcosystem",
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeCreateEcosystemInterceptors() ?? []
-    )
-  }
+    /// Create new ecosystem and assign the authenticated user as owner
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to CreateEcosystem.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func CreateEcosystem(
+        _ request: Services_Provider_V1_CreateEcosystemRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Provider_V1_CreateEcosystemRequest, Services_Provider_V1_CreateEcosystemResponse> {
+        return makeUnaryCall(
+            path: "/services.provider.v1.Provider/CreateEcosystem",
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeCreateEcosystemInterceptors() ?? []
+        )
+    }
 
-  /// Generates an unprotected authentication token that can be used to
-  /// configure server side applications
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to GenerateToken.
-  ///   - callOptions: Call options.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func GenerateToken(
-    _ request: Services_Provider_V1_GenerateTokenRequest,
-    callOptions: CallOptions? = nil
-  ) -> UnaryCall<Services_Provider_V1_GenerateTokenRequest, Services_Provider_V1_GenerateTokenResponse> {
-    return self.makeUnaryCall(
-      path: "/services.provider.v1.Provider/GenerateToken",
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeGenerateTokenInterceptors() ?? []
-    )
-  }
+    /// Update an existing ecosystem
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to UpdateEcosystem.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func UpdateEcosystem(
+        _ request: Services_Provider_V1_UpdateEcosystemRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Provider_V1_UpdateEcosystemRequest, Services_Provider_V1_UpdateEcosystemResponse> {
+        return makeUnaryCall(
+            path: "/services.provider.v1.Provider/UpdateEcosystem",
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeUpdateEcosystemInterceptors() ?? []
+        )
+    }
 
-  /// Invite a user to the ecosystem
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to Invite.
-  ///   - callOptions: Call options.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func Invite(
-    _ request: Services_Provider_V1_InviteRequest,
-    callOptions: CallOptions? = nil
-  ) -> UnaryCall<Services_Provider_V1_InviteRequest, Services_Provider_V1_InviteResponse> {
-    return self.makeUnaryCall(
-      path: "/services.provider.v1.Provider/Invite",
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeInviteInterceptors() ?? []
-    )
-  }
+    /// Add a webhook endpoint to the ecosystem
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to AddWebhook.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func AddWebhook(
+        _ request: Services_Provider_V1_AddWebhookRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Provider_V1_AddWebhookRequest, Services_Provider_V1_AddWebhookResponse> {
+        return makeUnaryCall(
+            path: "/services.provider.v1.Provider/AddWebhook",
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeAddWebhookInterceptors() ?? []
+        )
+    }
 
-  /// Check the invitation status
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to InvitationStatus.
-  ///   - callOptions: Call options.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func InvitationStatus(
-    _ request: Services_Provider_V1_InvitationStatusRequest,
-    callOptions: CallOptions? = nil
-  ) -> UnaryCall<Services_Provider_V1_InvitationStatusRequest, Services_Provider_V1_InvitationStatusResponse> {
-    return self.makeUnaryCall(
-      path: "/services.provider.v1.Provider/InvitationStatus",
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeInvitationStatusInterceptors() ?? []
-    )
-  }
+    /// Delete a webhook endpoint from the ecosystem
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to DeleteWebhook.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func DeleteWebhook(
+        _ request: Services_Provider_V1_DeleteWebhookRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Provider_V1_DeleteWebhookRequest, Services_Provider_V1_DeleteWebhookResponse> {
+        return makeUnaryCall(
+            path: "/services.provider.v1.Provider/DeleteWebhook",
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeDeleteWebhookInterceptors() ?? []
+        )
+    }
 
-  /// Returns the public key being used to create/verify oberon tokens
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to GetOberonKey.
-  ///   - callOptions: Call options.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func GetOberonKey(
-    _ request: Services_Provider_V1_GetOberonKeyRequest,
-    callOptions: CallOptions? = nil
-  ) -> UnaryCall<Services_Provider_V1_GetOberonKeyRequest, Services_Provider_V1_GetOberonKeyResponse> {
-    return self.makeUnaryCall(
-      path: "/services.provider.v1.Provider/GetOberonKey",
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeGetOberonKeyInterceptors() ?? []
-    )
-  }
+    /// Get ecosystem information
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to EcosystemInfo.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func EcosystemInfo(
+        _ request: Services_Provider_V1_EcosystemInfoRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Provider_V1_EcosystemInfoRequest, Services_Provider_V1_EcosystemInfoResponse> {
+        return makeUnaryCall(
+            path: "/services.provider.v1.Provider/EcosystemInfo",
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeEcosystemInfoInterceptors() ?? []
+        )
+    }
+
+    /// Generates an unprotected authentication token that can be used to
+    /// configure server side applications
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to GenerateToken.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func GenerateToken(
+        _ request: Services_Provider_V1_GenerateTokenRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Provider_V1_GenerateTokenRequest, Services_Provider_V1_GenerateTokenResponse> {
+        return makeUnaryCall(
+            path: "/services.provider.v1.Provider/GenerateToken",
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeGenerateTokenInterceptors() ?? []
+        )
+    }
+
+    /// Invite a user to the ecosystem
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to Invite.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func Invite(
+        _ request: Services_Provider_V1_InviteRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Provider_V1_InviteRequest, Services_Provider_V1_InviteResponse> {
+        return makeUnaryCall(
+            path: "/services.provider.v1.Provider/Invite",
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeInviteInterceptors() ?? []
+        )
+    }
+
+    /// Check the invitation status
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to InvitationStatus.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func InvitationStatus(
+        _ request: Services_Provider_V1_InvitationStatusRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Provider_V1_InvitationStatusRequest, Services_Provider_V1_InvitationStatusResponse> {
+        return makeUnaryCall(
+            path: "/services.provider.v1.Provider/InvitationStatus",
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeInvitationStatusInterceptors() ?? []
+        )
+    }
+
+    /// Returns the public key being used to create/verify oberon tokens
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to GetOberonKey.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func GetOberonKey(
+        _ request: Services_Provider_V1_GetOberonKeyRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Provider_V1_GetOberonKeyRequest, Services_Provider_V1_GetOberonKeyResponse> {
+        return makeUnaryCall(
+            path: "/services.provider.v1.Provider/GetOberonKey",
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeGetOberonKeyInterceptors() ?? []
+        )
+    }
+
+    /// Generate a signed token (JWT) that can be used to connect to the message bus
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to GetEventToken.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func GetEventToken(
+        _ request: Services_Provider_V1_GetEventTokenRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Provider_V1_GetEventTokenRequest, Services_Provider_V1_GetEventTokenResponse> {
+        return makeUnaryCall(
+            path: "/services.provider.v1.Provider/GetEventToken",
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeGetEventTokenInterceptors() ?? []
+        )
+    }
 }
 
 public protocol Services_Provider_V1_ProviderClientInterceptorFactoryProtocol {
+    /// - Returns: Interceptors to use when invoking 'CreateEcosystem'.
+    func makeCreateEcosystemInterceptors() -> [ClientInterceptor<Services_Provider_V1_CreateEcosystemRequest, Services_Provider_V1_CreateEcosystemResponse>]
 
-  /// - Returns: Interceptors to use when invoking 'CreateEcosystem'.
-  func makeCreateEcosystemInterceptors() -> [ClientInterceptor<Services_Provider_V1_CreateEcosystemRequest, Services_Provider_V1_CreateEcosystemResponse>]
+    /// - Returns: Interceptors to use when invoking 'UpdateEcosystem'.
+    func makeUpdateEcosystemInterceptors() -> [ClientInterceptor<Services_Provider_V1_UpdateEcosystemRequest, Services_Provider_V1_UpdateEcosystemResponse>]
 
-  /// - Returns: Interceptors to use when invoking 'GenerateToken'.
-  func makeGenerateTokenInterceptors() -> [ClientInterceptor<Services_Provider_V1_GenerateTokenRequest, Services_Provider_V1_GenerateTokenResponse>]
+    /// - Returns: Interceptors to use when invoking 'AddWebhook'.
+    func makeAddWebhookInterceptors() -> [ClientInterceptor<Services_Provider_V1_AddWebhookRequest, Services_Provider_V1_AddWebhookResponse>]
 
-  /// - Returns: Interceptors to use when invoking 'Invite'.
-  func makeInviteInterceptors() -> [ClientInterceptor<Services_Provider_V1_InviteRequest, Services_Provider_V1_InviteResponse>]
+    /// - Returns: Interceptors to use when invoking 'DeleteWebhook'.
+    func makeDeleteWebhookInterceptors() -> [ClientInterceptor<Services_Provider_V1_DeleteWebhookRequest, Services_Provider_V1_DeleteWebhookResponse>]
 
-  /// - Returns: Interceptors to use when invoking 'InvitationStatus'.
-  func makeInvitationStatusInterceptors() -> [ClientInterceptor<Services_Provider_V1_InvitationStatusRequest, Services_Provider_V1_InvitationStatusResponse>]
+    /// - Returns: Interceptors to use when invoking 'EcosystemInfo'.
+    func makeEcosystemInfoInterceptors() -> [ClientInterceptor<Services_Provider_V1_EcosystemInfoRequest, Services_Provider_V1_EcosystemInfoResponse>]
 
-  /// - Returns: Interceptors to use when invoking 'GetOberonKey'.
-  func makeGetOberonKeyInterceptors() -> [ClientInterceptor<Services_Provider_V1_GetOberonKeyRequest, Services_Provider_V1_GetOberonKeyResponse>]
+    /// - Returns: Interceptors to use when invoking 'GenerateToken'.
+    func makeGenerateTokenInterceptors() -> [ClientInterceptor<Services_Provider_V1_GenerateTokenRequest, Services_Provider_V1_GenerateTokenResponse>]
+
+    /// - Returns: Interceptors to use when invoking 'Invite'.
+    func makeInviteInterceptors() -> [ClientInterceptor<Services_Provider_V1_InviteRequest, Services_Provider_V1_InviteResponse>]
+
+    /// - Returns: Interceptors to use when invoking 'InvitationStatus'.
+    func makeInvitationStatusInterceptors() -> [ClientInterceptor<Services_Provider_V1_InvitationStatusRequest, Services_Provider_V1_InvitationStatusResponse>]
+
+    /// - Returns: Interceptors to use when invoking 'GetOberonKey'.
+    func makeGetOberonKeyInterceptors() -> [ClientInterceptor<Services_Provider_V1_GetOberonKeyRequest, Services_Provider_V1_GetOberonKeyResponse>]
+
+    /// - Returns: Interceptors to use when invoking 'GetEventToken'.
+    func makeGetEventTokenInterceptors() -> [ClientInterceptor<Services_Provider_V1_GetEventTokenRequest, Services_Provider_V1_GetEventTokenResponse>]
 }
 
 public final class Services_Provider_V1_ProviderClient: Services_Provider_V1_ProviderClientProtocol {
-  public let channel: GRPCChannel
-  public var defaultCallOptions: CallOptions
-  public var interceptors: Services_Provider_V1_ProviderClientInterceptorFactoryProtocol?
+    public let channel: GRPCChannel
+    public var defaultCallOptions: CallOptions
+    public var interceptors: Services_Provider_V1_ProviderClientInterceptorFactoryProtocol?
 
-  /// Creates a client for the services.provider.v1.Provider service.
-  ///
-  /// - Parameters:
-  ///   - channel: `GRPCChannel` to the service host.
-  ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
-  ///   - interceptors: A factory providing interceptors for each RPC.
-  public init(
-    channel: GRPCChannel,
-    defaultCallOptions: CallOptions = CallOptions(),
-    interceptors: Services_Provider_V1_ProviderClientInterceptorFactoryProtocol? = nil
-  ) {
-    self.channel = channel
-    self.defaultCallOptions = defaultCallOptions
-    self.interceptors = interceptors
-  }
+    /// Creates a client for the services.provider.v1.Provider service.
+    ///
+    /// - Parameters:
+    ///   - channel: `GRPCChannel` to the service host.
+    ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
+    ///   - interceptors: A factory providing interceptors for each RPC.
+    public init(
+        channel: GRPCChannel,
+        defaultCallOptions: CallOptions = CallOptions(),
+        interceptors: Services_Provider_V1_ProviderClientInterceptorFactoryProtocol? = nil
+    ) {
+        self.channel = channel
+        self.defaultCallOptions = defaultCallOptions
+        self.interceptors = interceptors
+    }
 }
 
 /// To build a server, implement a class that conforms to this protocol.
 public protocol Services_Provider_V1_ProviderProvider: CallHandlerProvider {
-  var interceptors: Services_Provider_V1_ProviderServerInterceptorFactoryProtocol? { get }
+    var interceptors: Services_Provider_V1_ProviderServerInterceptorFactoryProtocol? { get }
 
-  /// Create new ecosystem and assign the authenticated user as owner
-  func CreateEcosystem(request: Services_Provider_V1_CreateEcosystemRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_CreateEcosystemResponse>
+    /// Create new ecosystem and assign the authenticated user as owner
+    func CreateEcosystem(request: Services_Provider_V1_CreateEcosystemRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_CreateEcosystemResponse>
 
-  /// Generates an unprotected authentication token that can be used to
-  /// configure server side applications
-  func GenerateToken(request: Services_Provider_V1_GenerateTokenRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_GenerateTokenResponse>
+    /// Update an existing ecosystem
+    func UpdateEcosystem(request: Services_Provider_V1_UpdateEcosystemRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_UpdateEcosystemResponse>
 
-  /// Invite a user to the ecosystem
-  func Invite(request: Services_Provider_V1_InviteRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_InviteResponse>
+    /// Add a webhook endpoint to the ecosystem
+    func AddWebhook(request: Services_Provider_V1_AddWebhookRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_AddWebhookResponse>
 
-  /// Check the invitation status
-  func InvitationStatus(request: Services_Provider_V1_InvitationStatusRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_InvitationStatusResponse>
+    /// Delete a webhook endpoint from the ecosystem
+    func DeleteWebhook(request: Services_Provider_V1_DeleteWebhookRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_DeleteWebhookResponse>
 
-  /// Returns the public key being used to create/verify oberon tokens
-  func GetOberonKey(request: Services_Provider_V1_GetOberonKeyRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_GetOberonKeyResponse>
+    /// Get ecosystem information
+    func EcosystemInfo(request: Services_Provider_V1_EcosystemInfoRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_EcosystemInfoResponse>
+
+    /// Generates an unprotected authentication token that can be used to
+    /// configure server side applications
+    func GenerateToken(request: Services_Provider_V1_GenerateTokenRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_GenerateTokenResponse>
+
+    /// Invite a user to the ecosystem
+    func Invite(request: Services_Provider_V1_InviteRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_InviteResponse>
+
+    /// Check the invitation status
+    func InvitationStatus(request: Services_Provider_V1_InvitationStatusRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_InvitationStatusResponse>
+
+    /// Returns the public key being used to create/verify oberon tokens
+    func GetOberonKey(request: Services_Provider_V1_GetOberonKeyRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_GetOberonKeyResponse>
+
+    /// Generate a signed token (JWT) that can be used to connect to the message bus
+    func GetEventToken(request: Services_Provider_V1_GetEventTokenRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_GetEventTokenResponse>
 }
 
-extension Services_Provider_V1_ProviderProvider {
-  public var serviceName: Substring { return "services.provider.v1.Provider" }
+public extension Services_Provider_V1_ProviderProvider {
+    var serviceName: Substring { return "services.provider.v1.Provider" }
 
-  /// Determines, calls and returns the appropriate request handler, depending on the request's method.
-  /// Returns nil for methods not handled by this service.
-  public func handle(
-    method name: Substring,
-    context: CallHandlerContext
-  ) -> GRPCServerHandlerProtocol? {
-    switch name {
-    case "CreateEcosystem":
-      return UnaryServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<Services_Provider_V1_CreateEcosystemRequest>(),
-        responseSerializer: ProtobufSerializer<Services_Provider_V1_CreateEcosystemResponse>(),
-        interceptors: self.interceptors?.makeCreateEcosystemInterceptors() ?? [],
-        userFunction: self.CreateEcosystem(request:context:)
-      )
+    /// Determines, calls and returns the appropriate request handler, depending on the request's method.
+    /// Returns nil for methods not handled by this service.
+    func handle(
+        method name: Substring,
+        context: CallHandlerContext
+    ) -> GRPCServerHandlerProtocol? {
+        switch name {
+        case "CreateEcosystem":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Provider_V1_CreateEcosystemRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Provider_V1_CreateEcosystemResponse>(),
+                interceptors: interceptors?.makeCreateEcosystemInterceptors() ?? [],
+                userFunction: CreateEcosystem(request:context:)
+            )
 
-    case "GenerateToken":
-      return UnaryServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<Services_Provider_V1_GenerateTokenRequest>(),
-        responseSerializer: ProtobufSerializer<Services_Provider_V1_GenerateTokenResponse>(),
-        interceptors: self.interceptors?.makeGenerateTokenInterceptors() ?? [],
-        userFunction: self.GenerateToken(request:context:)
-      )
+        case "UpdateEcosystem":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Provider_V1_UpdateEcosystemRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Provider_V1_UpdateEcosystemResponse>(),
+                interceptors: interceptors?.makeUpdateEcosystemInterceptors() ?? [],
+                userFunction: UpdateEcosystem(request:context:)
+            )
 
-    case "Invite":
-      return UnaryServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<Services_Provider_V1_InviteRequest>(),
-        responseSerializer: ProtobufSerializer<Services_Provider_V1_InviteResponse>(),
-        interceptors: self.interceptors?.makeInviteInterceptors() ?? [],
-        userFunction: self.Invite(request:context:)
-      )
+        case "AddWebhook":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Provider_V1_AddWebhookRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Provider_V1_AddWebhookResponse>(),
+                interceptors: interceptors?.makeAddWebhookInterceptors() ?? [],
+                userFunction: AddWebhook(request:context:)
+            )
 
-    case "InvitationStatus":
-      return UnaryServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<Services_Provider_V1_InvitationStatusRequest>(),
-        responseSerializer: ProtobufSerializer<Services_Provider_V1_InvitationStatusResponse>(),
-        interceptors: self.interceptors?.makeInvitationStatusInterceptors() ?? [],
-        userFunction: self.InvitationStatus(request:context:)
-      )
+        case "DeleteWebhook":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Provider_V1_DeleteWebhookRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Provider_V1_DeleteWebhookResponse>(),
+                interceptors: interceptors?.makeDeleteWebhookInterceptors() ?? [],
+                userFunction: DeleteWebhook(request:context:)
+            )
 
-    case "GetOberonKey":
-      return UnaryServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<Services_Provider_V1_GetOberonKeyRequest>(),
-        responseSerializer: ProtobufSerializer<Services_Provider_V1_GetOberonKeyResponse>(),
-        interceptors: self.interceptors?.makeGetOberonKeyInterceptors() ?? [],
-        userFunction: self.GetOberonKey(request:context:)
-      )
+        case "EcosystemInfo":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Provider_V1_EcosystemInfoRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Provider_V1_EcosystemInfoResponse>(),
+                interceptors: interceptors?.makeEcosystemInfoInterceptors() ?? [],
+                userFunction: EcosystemInfo(request:context:)
+            )
 
-    default:
-      return nil
+        case "GenerateToken":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Provider_V1_GenerateTokenRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Provider_V1_GenerateTokenResponse>(),
+                interceptors: interceptors?.makeGenerateTokenInterceptors() ?? [],
+                userFunction: GenerateToken(request:context:)
+            )
+
+        case "Invite":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Provider_V1_InviteRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Provider_V1_InviteResponse>(),
+                interceptors: interceptors?.makeInviteInterceptors() ?? [],
+                userFunction: Invite(request:context:)
+            )
+
+        case "InvitationStatus":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Provider_V1_InvitationStatusRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Provider_V1_InvitationStatusResponse>(),
+                interceptors: interceptors?.makeInvitationStatusInterceptors() ?? [],
+                userFunction: InvitationStatus(request:context:)
+            )
+
+        case "GetOberonKey":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Provider_V1_GetOberonKeyRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Provider_V1_GetOberonKeyResponse>(),
+                interceptors: interceptors?.makeGetOberonKeyInterceptors() ?? [],
+                userFunction: GetOberonKey(request:context:)
+            )
+
+        case "GetEventToken":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Provider_V1_GetEventTokenRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Provider_V1_GetEventTokenResponse>(),
+                interceptors: interceptors?.makeGetEventTokenInterceptors() ?? [],
+                userFunction: GetEventToken(request:context:)
+            )
+
+        default:
+            return nil
+        }
     }
-  }
 }
 
 public protocol Services_Provider_V1_ProviderServerInterceptorFactoryProtocol {
+    /// - Returns: Interceptors to use when handling 'CreateEcosystem'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeCreateEcosystemInterceptors() -> [ServerInterceptor<Services_Provider_V1_CreateEcosystemRequest, Services_Provider_V1_CreateEcosystemResponse>]
 
-  /// - Returns: Interceptors to use when handling 'CreateEcosystem'.
-  ///   Defaults to calling `self.makeInterceptors()`.
-  func makeCreateEcosystemInterceptors() -> [ServerInterceptor<Services_Provider_V1_CreateEcosystemRequest, Services_Provider_V1_CreateEcosystemResponse>]
+    /// - Returns: Interceptors to use when handling 'UpdateEcosystem'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeUpdateEcosystemInterceptors() -> [ServerInterceptor<Services_Provider_V1_UpdateEcosystemRequest, Services_Provider_V1_UpdateEcosystemResponse>]
 
-  /// - Returns: Interceptors to use when handling 'GenerateToken'.
-  ///   Defaults to calling `self.makeInterceptors()`.
-  func makeGenerateTokenInterceptors() -> [ServerInterceptor<Services_Provider_V1_GenerateTokenRequest, Services_Provider_V1_GenerateTokenResponse>]
+    /// - Returns: Interceptors to use when handling 'AddWebhook'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeAddWebhookInterceptors() -> [ServerInterceptor<Services_Provider_V1_AddWebhookRequest, Services_Provider_V1_AddWebhookResponse>]
 
-  /// - Returns: Interceptors to use when handling 'Invite'.
-  ///   Defaults to calling `self.makeInterceptors()`.
-  func makeInviteInterceptors() -> [ServerInterceptor<Services_Provider_V1_InviteRequest, Services_Provider_V1_InviteResponse>]
+    /// - Returns: Interceptors to use when handling 'DeleteWebhook'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeDeleteWebhookInterceptors() -> [ServerInterceptor<Services_Provider_V1_DeleteWebhookRequest, Services_Provider_V1_DeleteWebhookResponse>]
 
-  /// - Returns: Interceptors to use when handling 'InvitationStatus'.
-  ///   Defaults to calling `self.makeInterceptors()`.
-  func makeInvitationStatusInterceptors() -> [ServerInterceptor<Services_Provider_V1_InvitationStatusRequest, Services_Provider_V1_InvitationStatusResponse>]
+    /// - Returns: Interceptors to use when handling 'EcosystemInfo'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeEcosystemInfoInterceptors() -> [ServerInterceptor<Services_Provider_V1_EcosystemInfoRequest, Services_Provider_V1_EcosystemInfoResponse>]
 
-  /// - Returns: Interceptors to use when handling 'GetOberonKey'.
-  ///   Defaults to calling `self.makeInterceptors()`.
-  func makeGetOberonKeyInterceptors() -> [ServerInterceptor<Services_Provider_V1_GetOberonKeyRequest, Services_Provider_V1_GetOberonKeyResponse>]
+    /// - Returns: Interceptors to use when handling 'GenerateToken'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeGenerateTokenInterceptors() -> [ServerInterceptor<Services_Provider_V1_GenerateTokenRequest, Services_Provider_V1_GenerateTokenResponse>]
+
+    /// - Returns: Interceptors to use when handling 'Invite'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeInviteInterceptors() -> [ServerInterceptor<Services_Provider_V1_InviteRequest, Services_Provider_V1_InviteResponse>]
+
+    /// - Returns: Interceptors to use when handling 'InvitationStatus'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeInvitationStatusInterceptors() -> [ServerInterceptor<Services_Provider_V1_InvitationStatusRequest, Services_Provider_V1_InvitationStatusResponse>]
+
+    /// - Returns: Interceptors to use when handling 'GetOberonKey'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeGetOberonKeyInterceptors() -> [ServerInterceptor<Services_Provider_V1_GetOberonKeyRequest, Services_Provider_V1_GetOberonKeyResponse>]
+
+    /// - Returns: Interceptors to use when handling 'GetEventToken'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeGetEventTokenInterceptors() -> [ServerInterceptor<Services_Provider_V1_GetEventTokenRequest, Services_Provider_V1_GetEventTokenResponse>]
 }
