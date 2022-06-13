@@ -6,22 +6,21 @@
 //
 
 import Foundation
-import XCTest
 @testable import Trinsic
+import XCTest
 
 final class CredentialTests: XCTestCase {
-    
     let testEndpoint = "dev-internal.trinsic.cloud"
-    
+
     let vaccinationCertificateFrame: [String: Any] = [
         "@context": [
             "https://www.w3.org/2018/credentials/v1",
             "https://w3id.org/vaccination/v1",
-            "https://w3id.org/security/bbs/v1"
-            ],
+            "https://w3id.org/security/bbs/v1",
+        ],
         "type": [
             "VerifiableCredential",
-            "VaccinationCertificate"
+            "VaccinationCertificate",
         ],
         "@explicit": true,
         "issuer": [],
@@ -29,20 +28,20 @@ final class CredentialTests: XCTestCase {
             "@explicit": true,
             "@type": "VaccinationEvent",
             "batchNumber": [],
-            "countryOfVaccination": []
-        ]
+            "countryOfVaccination": [],
+        ],
     ]
-    
+
     let vaccinationCertificateUnsigned: [String: Any] = [
         "@context": [
             "https://www.w3.org/2018/credentials/v1",
             "https://w3id.org/vaccination/v1",
-            "https://w3id.org/security/bbs/v1"
+            "https://w3id.org/security/bbs/v1",
         ],
         "id": "urn:uvci:af5vshde843jf831j128fj",
         "type": [
             "VaccinationCertificate",
-            "VerifiableCredential"
+            "VerifiableCredential",
         ],
         "description": "COVID-19 Vaccination Certificate",
         "name": "COVID-19 Vaccination Certificate",
@@ -53,21 +52,21 @@ final class CredentialTests: XCTestCase {
             "id": "urn:uuid:c53e70f8-ce9a-4576-8744-e5f85c20a743",
             "type": "VaccinationEvent",
             "batchNumber": "1183738569",
-            "countryOfVaccination": "US"
-        ]
+            "countryOfVaccination": "US",
+        ],
     ]
-    
+
     func testCredentialDemo() throws {
         var options = Sdk_Options_V1_ServiceOptions()
         options.serverEndpoint = testEndpoint
-        
+
         let accountService = AccountService(options: options)
         let credentialService = CredentialService(options: options)
         let walletService = WalletService(options: options)
-        
+
         let authToken = try accountService.signIn(request: Services_Account_V1_SignInRequest())
         options.authToken = authToken
-        
+
         // SETUP Actors
         // Create 3 different profiles for each participant in the scenario
         // setupActors() {
@@ -83,14 +82,16 @@ final class CredentialTests: XCTestCase {
         // issueCredential() {
         // Sign a credential as the clinic and send it to Allison
         credentialService.options.authToken = clinic
-        
+
         var issueRequest = Services_Verifiablecredentials_V1_IssueRequest()
         issueRequest.documentJson = String(
             decoding: try JSONSerialization.data(
                 withJSONObject: vaccinationCertificateUnsigned,
-                options: JSONSerialization.WritingOptions.prettyPrinted),
-            as: UTF8.self)
-        
+                options: JSONSerialization.WritingOptions.prettyPrinted
+            ),
+            as: UTF8.self
+        )
+
         let credential = try credentialService.issue(request: issueRequest)
         // }
         XCTAssertNotNil(credential)
@@ -100,10 +101,10 @@ final class CredentialTests: XCTestCase {
         // storeCredential() {
         // Alice stores the credential in her cloud wallet
         walletService.options.authToken = allison
-        
+
         var insertRequest = Services_Universalwallet_V1_InsertItemRequest()
         insertRequest.itemJson = credential.signedDocumentJson
-        
+
         let insertResponse = try walletService.insertItem(request: insertRequest)
         // }
         XCTAssertNotNil(insertResponse)
@@ -115,10 +116,10 @@ final class CredentialTests: XCTestCase {
         // that they require expressed as a Json-LD frame.
         // shareCredential() {
         credentialService.options.authToken = allison
-        
+
         var proofRequest = Services_Verifiablecredentials_V1_CreateProofRequest()
         proofRequest.itemID = insertResponse.itemID
-        
+
         let proofResponse = try credentialService.createProof(request: proofRequest)
         // }
         XCTAssertNotNil(proofResponse)
@@ -127,13 +128,13 @@ final class CredentialTests: XCTestCase {
         // The airline verifies the credential
         // verifyCredential() {
         credentialService.options.authToken = airline
-        
+
         var verifyRequest = Services_Verifiablecredentials_V1_VerifyProofRequest()
         verifyRequest.proofDocumentJson = proofResponse.proofDocumentJson
-        
-        let verifyResponse = try credentialService.verify(request: verifyRequest);
+
+        let verifyResponse = try credentialService.verify(request: verifyRequest)
         // }
         XCTAssertNotNil(verifyResponse)
-        XCTAssertTrue(verifyResponse.isValid, "Result should be valid");
+        XCTAssertTrue(verifyResponse.isValid, "Result should be valid")
     }
 }

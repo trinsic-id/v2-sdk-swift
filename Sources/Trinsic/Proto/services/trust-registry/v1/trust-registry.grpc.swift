@@ -24,358 +24,355 @@ import GRPC
 import NIO
 import SwiftProtobuf
 
-
 /// Usage: instantiate `Services_Trustregistry_V1_TrustRegistryClient`, then call methods of this protocol to make API calls.
 public protocol Services_Trustregistry_V1_TrustRegistryClientProtocol: GRPCClient {
-  var serviceName: String { get }
-  var interceptors: Services_Trustregistry_V1_TrustRegistryClientInterceptorFactoryProtocol? { get }
+    var serviceName: String { get }
+    var interceptors: Services_Trustregistry_V1_TrustRegistryClientInterceptorFactoryProtocol? { get }
 
-  func AddFramework(
-    _ request: Services_Trustregistry_V1_AddFrameworkRequest,
-    callOptions: CallOptions?
-  ) -> UnaryCall<Services_Trustregistry_V1_AddFrameworkRequest, Services_Trustregistry_V1_AddFrameworkResponse>
+    func AddFramework(
+        _ request: Services_Trustregistry_V1_AddFrameworkRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Trustregistry_V1_AddFrameworkRequest, Services_Trustregistry_V1_AddFrameworkResponse>
 
-  func RemoveFramework(
-    _ request: Services_Trustregistry_V1_RemoveFrameworkRequest,
-    callOptions: CallOptions?
-  ) -> UnaryCall<Services_Trustregistry_V1_RemoveFrameworkRequest, Services_Trustregistry_V1_RemoveFrameworkResponse>
+    func RemoveFramework(
+        _ request: Services_Trustregistry_V1_RemoveFrameworkRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Trustregistry_V1_RemoveFrameworkRequest, Services_Trustregistry_V1_RemoveFrameworkResponse>
 
-  func SearchRegistry(
-    _ request: Services_Trustregistry_V1_SearchRegistryRequest,
-    callOptions: CallOptions?
-  ) -> UnaryCall<Services_Trustregistry_V1_SearchRegistryRequest, Services_Trustregistry_V1_SearchRegistryResponse>
+    func SearchRegistry(
+        _ request: Services_Trustregistry_V1_SearchRegistryRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Trustregistry_V1_SearchRegistryRequest, Services_Trustregistry_V1_SearchRegistryResponse>
 
-  func RegisterMember(
-    _ request: Services_Trustregistry_V1_RegisterMemberRequest,
-    callOptions: CallOptions?
-  ) -> UnaryCall<Services_Trustregistry_V1_RegisterMemberRequest, Services_Trustregistry_V1_RegisterMemberResponse>
+    func RegisterMember(
+        _ request: Services_Trustregistry_V1_RegisterMemberRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Trustregistry_V1_RegisterMemberRequest, Services_Trustregistry_V1_RegisterMemberResponse>
 
-  func UnregisterMember(
-    _ request: Services_Trustregistry_V1_UnregisterMemberRequest,
-    callOptions: CallOptions?
-  ) -> UnaryCall<Services_Trustregistry_V1_UnregisterMemberRequest, Services_Trustregistry_V1_UnregisterMemberResponse>
+    func UnregisterMember(
+        _ request: Services_Trustregistry_V1_UnregisterMemberRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Trustregistry_V1_UnregisterMemberRequest, Services_Trustregistry_V1_UnregisterMemberResponse>
 
-  func GetMembershipStatus(
-    _ request: Services_Trustregistry_V1_GetMembershipStatusRequest,
-    callOptions: CallOptions?
-  ) -> UnaryCall<Services_Trustregistry_V1_GetMembershipStatusRequest, Services_Trustregistry_V1_GetMembershipStatusResponse>
+    func GetMembershipStatus(
+        _ request: Services_Trustregistry_V1_GetMembershipStatusRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Trustregistry_V1_GetMembershipStatusRequest, Services_Trustregistry_V1_GetMembershipStatusResponse>
 
-  func FetchData(
-    _ request: Services_Trustregistry_V1_FetchDataRequest,
-    callOptions: CallOptions?,
-    handler: @escaping (Services_Trustregistry_V1_FetchDataResponse) -> Void
-  ) -> ServerStreamingCall<Services_Trustregistry_V1_FetchDataRequest, Services_Trustregistry_V1_FetchDataResponse>
+    func FetchData(
+        _ request: Services_Trustregistry_V1_FetchDataRequest,
+        callOptions: CallOptions?,
+        handler: @escaping (Services_Trustregistry_V1_FetchDataResponse) -> Void
+    ) -> ServerStreamingCall<Services_Trustregistry_V1_FetchDataRequest, Services_Trustregistry_V1_FetchDataResponse>
 }
 
-extension Services_Trustregistry_V1_TrustRegistryClientProtocol {
-  public var serviceName: String {
-    return "services.trustregistry.v1.TrustRegistry"
-  }
+public extension Services_Trustregistry_V1_TrustRegistryClientProtocol {
+    var serviceName: String {
+        return "services.trustregistry.v1.TrustRegistry"
+    }
 
-  /// Adds a trust registry defintion to the ecosystem
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to AddFramework.
-  ///   - callOptions: Call options.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func AddFramework(
-    _ request: Services_Trustregistry_V1_AddFrameworkRequest,
-    callOptions: CallOptions? = nil
-  ) -> UnaryCall<Services_Trustregistry_V1_AddFrameworkRequest, Services_Trustregistry_V1_AddFrameworkResponse> {
-    return self.makeUnaryCall(
-      path: "/services.trustregistry.v1.TrustRegistry/AddFramework",
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeAddFrameworkInterceptors() ?? []
-    )
-  }
+    /// Adds a trust registry defintion to the ecosystem
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to AddFramework.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func AddFramework(
+        _ request: Services_Trustregistry_V1_AddFrameworkRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Trustregistry_V1_AddFrameworkRequest, Services_Trustregistry_V1_AddFrameworkResponse> {
+        return makeUnaryCall(
+            path: "/services.trustregistry.v1.TrustRegistry/AddFramework",
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeAddFrameworkInterceptors() ?? []
+        )
+    }
 
-  /// Unary call to RemoveFramework
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to RemoveFramework.
-  ///   - callOptions: Call options.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func RemoveFramework(
-    _ request: Services_Trustregistry_V1_RemoveFrameworkRequest,
-    callOptions: CallOptions? = nil
-  ) -> UnaryCall<Services_Trustregistry_V1_RemoveFrameworkRequest, Services_Trustregistry_V1_RemoveFrameworkResponse> {
-    return self.makeUnaryCall(
-      path: "/services.trustregistry.v1.TrustRegistry/RemoveFramework",
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeRemoveFrameworkInterceptors() ?? []
-    )
-  }
+    /// Unary call to RemoveFramework
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to RemoveFramework.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func RemoveFramework(
+        _ request: Services_Trustregistry_V1_RemoveFrameworkRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Trustregistry_V1_RemoveFrameworkRequest, Services_Trustregistry_V1_RemoveFrameworkResponse> {
+        return makeUnaryCall(
+            path: "/services.trustregistry.v1.TrustRegistry/RemoveFramework",
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeRemoveFrameworkInterceptors() ?? []
+        )
+    }
 
-  /// Unary call to SearchRegistry
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to SearchRegistry.
-  ///   - callOptions: Call options.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func SearchRegistry(
-    _ request: Services_Trustregistry_V1_SearchRegistryRequest,
-    callOptions: CallOptions? = nil
-  ) -> UnaryCall<Services_Trustregistry_V1_SearchRegistryRequest, Services_Trustregistry_V1_SearchRegistryResponse> {
-    return self.makeUnaryCall(
-      path: "/services.trustregistry.v1.TrustRegistry/SearchRegistry",
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeSearchRegistryInterceptors() ?? []
-    )
-  }
+    /// Unary call to SearchRegistry
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to SearchRegistry.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func SearchRegistry(
+        _ request: Services_Trustregistry_V1_SearchRegistryRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Trustregistry_V1_SearchRegistryRequest, Services_Trustregistry_V1_SearchRegistryResponse> {
+        return makeUnaryCall(
+            path: "/services.trustregistry.v1.TrustRegistry/SearchRegistry",
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeSearchRegistryInterceptors() ?? []
+        )
+    }
 
-  /// Registers an authoritative issuer with a credential template
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to RegisterMember.
-  ///   - callOptions: Call options.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func RegisterMember(
-    _ request: Services_Trustregistry_V1_RegisterMemberRequest,
-    callOptions: CallOptions? = nil
-  ) -> UnaryCall<Services_Trustregistry_V1_RegisterMemberRequest, Services_Trustregistry_V1_RegisterMemberResponse> {
-    return self.makeUnaryCall(
-      path: "/services.trustregistry.v1.TrustRegistry/RegisterMember",
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeRegisterMemberInterceptors() ?? []
-    )
-  }
+    /// Registers an authoritative issuer with a credential template
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to RegisterMember.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func RegisterMember(
+        _ request: Services_Trustregistry_V1_RegisterMemberRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Trustregistry_V1_RegisterMemberRequest, Services_Trustregistry_V1_RegisterMemberResponse> {
+        return makeUnaryCall(
+            path: "/services.trustregistry.v1.TrustRegistry/RegisterMember",
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeRegisterMemberInterceptors() ?? []
+        )
+    }
 
-  /// Removes an authoritative issuer with a credential template from the trust registry
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to UnregisterMember.
-  ///   - callOptions: Call options.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func UnregisterMember(
-    _ request: Services_Trustregistry_V1_UnregisterMemberRequest,
-    callOptions: CallOptions? = nil
-  ) -> UnaryCall<Services_Trustregistry_V1_UnregisterMemberRequest, Services_Trustregistry_V1_UnregisterMemberResponse> {
-    return self.makeUnaryCall(
-      path: "/services.trustregistry.v1.TrustRegistry/UnregisterMember",
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeUnregisterMemberInterceptors() ?? []
-    )
-  }
+    /// Removes an authoritative issuer with a credential template from the trust registry
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to UnregisterMember.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func UnregisterMember(
+        _ request: Services_Trustregistry_V1_UnregisterMemberRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Trustregistry_V1_UnregisterMemberRequest, Services_Trustregistry_V1_UnregisterMemberResponse> {
+        return makeUnaryCall(
+            path: "/services.trustregistry.v1.TrustRegistry/UnregisterMember",
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeUnregisterMemberInterceptors() ?? []
+        )
+    }
 
-  /// Unary call to GetMembershipStatus
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to GetMembershipStatus.
-  ///   - callOptions: Call options.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func GetMembershipStatus(
-    _ request: Services_Trustregistry_V1_GetMembershipStatusRequest,
-    callOptions: CallOptions? = nil
-  ) -> UnaryCall<Services_Trustregistry_V1_GetMembershipStatusRequest, Services_Trustregistry_V1_GetMembershipStatusResponse> {
-    return self.makeUnaryCall(
-      path: "/services.trustregistry.v1.TrustRegistry/GetMembershipStatus",
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeGetMembershipStatusInterceptors() ?? []
-    )
-  }
+    /// Unary call to GetMembershipStatus
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to GetMembershipStatus.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func GetMembershipStatus(
+        _ request: Services_Trustregistry_V1_GetMembershipStatusRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Trustregistry_V1_GetMembershipStatusRequest, Services_Trustregistry_V1_GetMembershipStatusResponse> {
+        return makeUnaryCall(
+            path: "/services.trustregistry.v1.TrustRegistry/GetMembershipStatus",
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeGetMembershipStatusInterceptors() ?? []
+        )
+    }
 
-  /// Server streaming call to FetchData
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to FetchData.
-  ///   - callOptions: Call options.
-  ///   - handler: A closure called when each response is received from the server.
-  /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
-  public func FetchData(
-    _ request: Services_Trustregistry_V1_FetchDataRequest,
-    callOptions: CallOptions? = nil,
-    handler: @escaping (Services_Trustregistry_V1_FetchDataResponse) -> Void
-  ) -> ServerStreamingCall<Services_Trustregistry_V1_FetchDataRequest, Services_Trustregistry_V1_FetchDataResponse> {
-    return self.makeServerStreamingCall(
-      path: "/services.trustregistry.v1.TrustRegistry/FetchData",
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeFetchDataInterceptors() ?? [],
-      handler: handler
-    )
-  }
+    /// Server streaming call to FetchData
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to FetchData.
+    ///   - callOptions: Call options.
+    ///   - handler: A closure called when each response is received from the server.
+    /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
+    func FetchData(
+        _ request: Services_Trustregistry_V1_FetchDataRequest,
+        callOptions: CallOptions? = nil,
+        handler: @escaping (Services_Trustregistry_V1_FetchDataResponse) -> Void
+    ) -> ServerStreamingCall<Services_Trustregistry_V1_FetchDataRequest, Services_Trustregistry_V1_FetchDataResponse> {
+        return makeServerStreamingCall(
+            path: "/services.trustregistry.v1.TrustRegistry/FetchData",
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeFetchDataInterceptors() ?? [],
+            handler: handler
+        )
+    }
 }
 
 public protocol Services_Trustregistry_V1_TrustRegistryClientInterceptorFactoryProtocol {
+    /// - Returns: Interceptors to use when invoking 'AddFramework'.
+    func makeAddFrameworkInterceptors() -> [ClientInterceptor<Services_Trustregistry_V1_AddFrameworkRequest, Services_Trustregistry_V1_AddFrameworkResponse>]
 
-  /// - Returns: Interceptors to use when invoking 'AddFramework'.
-  func makeAddFrameworkInterceptors() -> [ClientInterceptor<Services_Trustregistry_V1_AddFrameworkRequest, Services_Trustregistry_V1_AddFrameworkResponse>]
+    /// - Returns: Interceptors to use when invoking 'RemoveFramework'.
+    func makeRemoveFrameworkInterceptors() -> [ClientInterceptor<Services_Trustregistry_V1_RemoveFrameworkRequest, Services_Trustregistry_V1_RemoveFrameworkResponse>]
 
-  /// - Returns: Interceptors to use when invoking 'RemoveFramework'.
-  func makeRemoveFrameworkInterceptors() -> [ClientInterceptor<Services_Trustregistry_V1_RemoveFrameworkRequest, Services_Trustregistry_V1_RemoveFrameworkResponse>]
+    /// - Returns: Interceptors to use when invoking 'SearchRegistry'.
+    func makeSearchRegistryInterceptors() -> [ClientInterceptor<Services_Trustregistry_V1_SearchRegistryRequest, Services_Trustregistry_V1_SearchRegistryResponse>]
 
-  /// - Returns: Interceptors to use when invoking 'SearchRegistry'.
-  func makeSearchRegistryInterceptors() -> [ClientInterceptor<Services_Trustregistry_V1_SearchRegistryRequest, Services_Trustregistry_V1_SearchRegistryResponse>]
+    /// - Returns: Interceptors to use when invoking 'RegisterMember'.
+    func makeRegisterMemberInterceptors() -> [ClientInterceptor<Services_Trustregistry_V1_RegisterMemberRequest, Services_Trustregistry_V1_RegisterMemberResponse>]
 
-  /// - Returns: Interceptors to use when invoking 'RegisterMember'.
-  func makeRegisterMemberInterceptors() -> [ClientInterceptor<Services_Trustregistry_V1_RegisterMemberRequest, Services_Trustregistry_V1_RegisterMemberResponse>]
+    /// - Returns: Interceptors to use when invoking 'UnregisterMember'.
+    func makeUnregisterMemberInterceptors() -> [ClientInterceptor<Services_Trustregistry_V1_UnregisterMemberRequest, Services_Trustregistry_V1_UnregisterMemberResponse>]
 
-  /// - Returns: Interceptors to use when invoking 'UnregisterMember'.
-  func makeUnregisterMemberInterceptors() -> [ClientInterceptor<Services_Trustregistry_V1_UnregisterMemberRequest, Services_Trustregistry_V1_UnregisterMemberResponse>]
+    /// - Returns: Interceptors to use when invoking 'GetMembershipStatus'.
+    func makeGetMembershipStatusInterceptors() -> [ClientInterceptor<Services_Trustregistry_V1_GetMembershipStatusRequest, Services_Trustregistry_V1_GetMembershipStatusResponse>]
 
-  /// - Returns: Interceptors to use when invoking 'GetMembershipStatus'.
-  func makeGetMembershipStatusInterceptors() -> [ClientInterceptor<Services_Trustregistry_V1_GetMembershipStatusRequest, Services_Trustregistry_V1_GetMembershipStatusResponse>]
-
-  /// - Returns: Interceptors to use when invoking 'FetchData'.
-  func makeFetchDataInterceptors() -> [ClientInterceptor<Services_Trustregistry_V1_FetchDataRequest, Services_Trustregistry_V1_FetchDataResponse>]
+    /// - Returns: Interceptors to use when invoking 'FetchData'.
+    func makeFetchDataInterceptors() -> [ClientInterceptor<Services_Trustregistry_V1_FetchDataRequest, Services_Trustregistry_V1_FetchDataResponse>]
 }
 
 public final class Services_Trustregistry_V1_TrustRegistryClient: Services_Trustregistry_V1_TrustRegistryClientProtocol {
-  public let channel: GRPCChannel
-  public var defaultCallOptions: CallOptions
-  public var interceptors: Services_Trustregistry_V1_TrustRegistryClientInterceptorFactoryProtocol?
+    public let channel: GRPCChannel
+    public var defaultCallOptions: CallOptions
+    public var interceptors: Services_Trustregistry_V1_TrustRegistryClientInterceptorFactoryProtocol?
 
-  /// Creates a client for the services.trustregistry.v1.TrustRegistry service.
-  ///
-  /// - Parameters:
-  ///   - channel: `GRPCChannel` to the service host.
-  ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
-  ///   - interceptors: A factory providing interceptors for each RPC.
-  public init(
-    channel: GRPCChannel,
-    defaultCallOptions: CallOptions = CallOptions(),
-    interceptors: Services_Trustregistry_V1_TrustRegistryClientInterceptorFactoryProtocol? = nil
-  ) {
-    self.channel = channel
-    self.defaultCallOptions = defaultCallOptions
-    self.interceptors = interceptors
-  }
+    /// Creates a client for the services.trustregistry.v1.TrustRegistry service.
+    ///
+    /// - Parameters:
+    ///   - channel: `GRPCChannel` to the service host.
+    ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
+    ///   - interceptors: A factory providing interceptors for each RPC.
+    public init(
+        channel: GRPCChannel,
+        defaultCallOptions: CallOptions = CallOptions(),
+        interceptors: Services_Trustregistry_V1_TrustRegistryClientInterceptorFactoryProtocol? = nil
+    ) {
+        self.channel = channel
+        self.defaultCallOptions = defaultCallOptions
+        self.interceptors = interceptors
+    }
 }
 
 /// To build a server, implement a class that conforms to this protocol.
 public protocol Services_Trustregistry_V1_TrustRegistryProvider: CallHandlerProvider {
-  var interceptors: Services_Trustregistry_V1_TrustRegistryServerInterceptorFactoryProtocol? { get }
+    var interceptors: Services_Trustregistry_V1_TrustRegistryServerInterceptorFactoryProtocol? { get }
 
-  /// Adds a trust registry defintion to the ecosystem
-  func AddFramework(request: Services_Trustregistry_V1_AddFrameworkRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Trustregistry_V1_AddFrameworkResponse>
+    /// Adds a trust registry defintion to the ecosystem
+    func AddFramework(request: Services_Trustregistry_V1_AddFrameworkRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Trustregistry_V1_AddFrameworkResponse>
 
-  func RemoveFramework(request: Services_Trustregistry_V1_RemoveFrameworkRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Trustregistry_V1_RemoveFrameworkResponse>
+    func RemoveFramework(request: Services_Trustregistry_V1_RemoveFrameworkRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Trustregistry_V1_RemoveFrameworkResponse>
 
-  func SearchRegistry(request: Services_Trustregistry_V1_SearchRegistryRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Trustregistry_V1_SearchRegistryResponse>
+    func SearchRegistry(request: Services_Trustregistry_V1_SearchRegistryRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Trustregistry_V1_SearchRegistryResponse>
 
-  /// Registers an authoritative issuer with a credential template
-  func RegisterMember(request: Services_Trustregistry_V1_RegisterMemberRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Trustregistry_V1_RegisterMemberResponse>
+    /// Registers an authoritative issuer with a credential template
+    func RegisterMember(request: Services_Trustregistry_V1_RegisterMemberRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Trustregistry_V1_RegisterMemberResponse>
 
-  /// Removes an authoritative issuer with a credential template from the trust registry
-  func UnregisterMember(request: Services_Trustregistry_V1_UnregisterMemberRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Trustregistry_V1_UnregisterMemberResponse>
+    /// Removes an authoritative issuer with a credential template from the trust registry
+    func UnregisterMember(request: Services_Trustregistry_V1_UnregisterMemberRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Trustregistry_V1_UnregisterMemberResponse>
 
-  func GetMembershipStatus(request: Services_Trustregistry_V1_GetMembershipStatusRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Trustregistry_V1_GetMembershipStatusResponse>
+    func GetMembershipStatus(request: Services_Trustregistry_V1_GetMembershipStatusRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Trustregistry_V1_GetMembershipStatusResponse>
 
-  func FetchData(request: Services_Trustregistry_V1_FetchDataRequest, context: StreamingResponseCallContext<Services_Trustregistry_V1_FetchDataResponse>) -> EventLoopFuture<GRPCStatus>
+    func FetchData(request: Services_Trustregistry_V1_FetchDataRequest, context: StreamingResponseCallContext<Services_Trustregistry_V1_FetchDataResponse>) -> EventLoopFuture<GRPCStatus>
 }
 
-extension Services_Trustregistry_V1_TrustRegistryProvider {
-  public var serviceName: Substring { return "services.trustregistry.v1.TrustRegistry" }
+public extension Services_Trustregistry_V1_TrustRegistryProvider {
+    var serviceName: Substring { return "services.trustregistry.v1.TrustRegistry" }
 
-  /// Determines, calls and returns the appropriate request handler, depending on the request's method.
-  /// Returns nil for methods not handled by this service.
-  public func handle(
-    method name: Substring,
-    context: CallHandlerContext
-  ) -> GRPCServerHandlerProtocol? {
-    switch name {
-    case "AddFramework":
-      return UnaryServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<Services_Trustregistry_V1_AddFrameworkRequest>(),
-        responseSerializer: ProtobufSerializer<Services_Trustregistry_V1_AddFrameworkResponse>(),
-        interceptors: self.interceptors?.makeAddFrameworkInterceptors() ?? [],
-        userFunction: self.AddFramework(request:context:)
-      )
+    /// Determines, calls and returns the appropriate request handler, depending on the request's method.
+    /// Returns nil for methods not handled by this service.
+    func handle(
+        method name: Substring,
+        context: CallHandlerContext
+    ) -> GRPCServerHandlerProtocol? {
+        switch name {
+        case "AddFramework":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Trustregistry_V1_AddFrameworkRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Trustregistry_V1_AddFrameworkResponse>(),
+                interceptors: interceptors?.makeAddFrameworkInterceptors() ?? [],
+                userFunction: AddFramework(request:context:)
+            )
 
-    case "RemoveFramework":
-      return UnaryServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<Services_Trustregistry_V1_RemoveFrameworkRequest>(),
-        responseSerializer: ProtobufSerializer<Services_Trustregistry_V1_RemoveFrameworkResponse>(),
-        interceptors: self.interceptors?.makeRemoveFrameworkInterceptors() ?? [],
-        userFunction: self.RemoveFramework(request:context:)
-      )
+        case "RemoveFramework":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Trustregistry_V1_RemoveFrameworkRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Trustregistry_V1_RemoveFrameworkResponse>(),
+                interceptors: interceptors?.makeRemoveFrameworkInterceptors() ?? [],
+                userFunction: RemoveFramework(request:context:)
+            )
 
-    case "SearchRegistry":
-      return UnaryServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<Services_Trustregistry_V1_SearchRegistryRequest>(),
-        responseSerializer: ProtobufSerializer<Services_Trustregistry_V1_SearchRegistryResponse>(),
-        interceptors: self.interceptors?.makeSearchRegistryInterceptors() ?? [],
-        userFunction: self.SearchRegistry(request:context:)
-      )
+        case "SearchRegistry":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Trustregistry_V1_SearchRegistryRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Trustregistry_V1_SearchRegistryResponse>(),
+                interceptors: interceptors?.makeSearchRegistryInterceptors() ?? [],
+                userFunction: SearchRegistry(request:context:)
+            )
 
-    case "RegisterMember":
-      return UnaryServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<Services_Trustregistry_V1_RegisterMemberRequest>(),
-        responseSerializer: ProtobufSerializer<Services_Trustregistry_V1_RegisterMemberResponse>(),
-        interceptors: self.interceptors?.makeRegisterMemberInterceptors() ?? [],
-        userFunction: self.RegisterMember(request:context:)
-      )
+        case "RegisterMember":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Trustregistry_V1_RegisterMemberRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Trustregistry_V1_RegisterMemberResponse>(),
+                interceptors: interceptors?.makeRegisterMemberInterceptors() ?? [],
+                userFunction: RegisterMember(request:context:)
+            )
 
-    case "UnregisterMember":
-      return UnaryServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<Services_Trustregistry_V1_UnregisterMemberRequest>(),
-        responseSerializer: ProtobufSerializer<Services_Trustregistry_V1_UnregisterMemberResponse>(),
-        interceptors: self.interceptors?.makeUnregisterMemberInterceptors() ?? [],
-        userFunction: self.UnregisterMember(request:context:)
-      )
+        case "UnregisterMember":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Trustregistry_V1_UnregisterMemberRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Trustregistry_V1_UnregisterMemberResponse>(),
+                interceptors: interceptors?.makeUnregisterMemberInterceptors() ?? [],
+                userFunction: UnregisterMember(request:context:)
+            )
 
-    case "GetMembershipStatus":
-      return UnaryServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<Services_Trustregistry_V1_GetMembershipStatusRequest>(),
-        responseSerializer: ProtobufSerializer<Services_Trustregistry_V1_GetMembershipStatusResponse>(),
-        interceptors: self.interceptors?.makeGetMembershipStatusInterceptors() ?? [],
-        userFunction: self.GetMembershipStatus(request:context:)
-      )
+        case "GetMembershipStatus":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Trustregistry_V1_GetMembershipStatusRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Trustregistry_V1_GetMembershipStatusResponse>(),
+                interceptors: interceptors?.makeGetMembershipStatusInterceptors() ?? [],
+                userFunction: GetMembershipStatus(request:context:)
+            )
 
-    case "FetchData":
-      return ServerStreamingServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<Services_Trustregistry_V1_FetchDataRequest>(),
-        responseSerializer: ProtobufSerializer<Services_Trustregistry_V1_FetchDataResponse>(),
-        interceptors: self.interceptors?.makeFetchDataInterceptors() ?? [],
-        userFunction: self.FetchData(request:context:)
-      )
+        case "FetchData":
+            return ServerStreamingServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Trustregistry_V1_FetchDataRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Trustregistry_V1_FetchDataResponse>(),
+                interceptors: interceptors?.makeFetchDataInterceptors() ?? [],
+                userFunction: FetchData(request:context:)
+            )
 
-    default:
-      return nil
+        default:
+            return nil
+        }
     }
-  }
 }
 
 public protocol Services_Trustregistry_V1_TrustRegistryServerInterceptorFactoryProtocol {
+    /// - Returns: Interceptors to use when handling 'AddFramework'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeAddFrameworkInterceptors() -> [ServerInterceptor<Services_Trustregistry_V1_AddFrameworkRequest, Services_Trustregistry_V1_AddFrameworkResponse>]
 
-  /// - Returns: Interceptors to use when handling 'AddFramework'.
-  ///   Defaults to calling `self.makeInterceptors()`.
-  func makeAddFrameworkInterceptors() -> [ServerInterceptor<Services_Trustregistry_V1_AddFrameworkRequest, Services_Trustregistry_V1_AddFrameworkResponse>]
+    /// - Returns: Interceptors to use when handling 'RemoveFramework'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeRemoveFrameworkInterceptors() -> [ServerInterceptor<Services_Trustregistry_V1_RemoveFrameworkRequest, Services_Trustregistry_V1_RemoveFrameworkResponse>]
 
-  /// - Returns: Interceptors to use when handling 'RemoveFramework'.
-  ///   Defaults to calling `self.makeInterceptors()`.
-  func makeRemoveFrameworkInterceptors() -> [ServerInterceptor<Services_Trustregistry_V1_RemoveFrameworkRequest, Services_Trustregistry_V1_RemoveFrameworkResponse>]
+    /// - Returns: Interceptors to use when handling 'SearchRegistry'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeSearchRegistryInterceptors() -> [ServerInterceptor<Services_Trustregistry_V1_SearchRegistryRequest, Services_Trustregistry_V1_SearchRegistryResponse>]
 
-  /// - Returns: Interceptors to use when handling 'SearchRegistry'.
-  ///   Defaults to calling `self.makeInterceptors()`.
-  func makeSearchRegistryInterceptors() -> [ServerInterceptor<Services_Trustregistry_V1_SearchRegistryRequest, Services_Trustregistry_V1_SearchRegistryResponse>]
+    /// - Returns: Interceptors to use when handling 'RegisterMember'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeRegisterMemberInterceptors() -> [ServerInterceptor<Services_Trustregistry_V1_RegisterMemberRequest, Services_Trustregistry_V1_RegisterMemberResponse>]
 
-  /// - Returns: Interceptors to use when handling 'RegisterMember'.
-  ///   Defaults to calling `self.makeInterceptors()`.
-  func makeRegisterMemberInterceptors() -> [ServerInterceptor<Services_Trustregistry_V1_RegisterMemberRequest, Services_Trustregistry_V1_RegisterMemberResponse>]
+    /// - Returns: Interceptors to use when handling 'UnregisterMember'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeUnregisterMemberInterceptors() -> [ServerInterceptor<Services_Trustregistry_V1_UnregisterMemberRequest, Services_Trustregistry_V1_UnregisterMemberResponse>]
 
-  /// - Returns: Interceptors to use when handling 'UnregisterMember'.
-  ///   Defaults to calling `self.makeInterceptors()`.
-  func makeUnregisterMemberInterceptors() -> [ServerInterceptor<Services_Trustregistry_V1_UnregisterMemberRequest, Services_Trustregistry_V1_UnregisterMemberResponse>]
+    /// - Returns: Interceptors to use when handling 'GetMembershipStatus'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeGetMembershipStatusInterceptors() -> [ServerInterceptor<Services_Trustregistry_V1_GetMembershipStatusRequest, Services_Trustregistry_V1_GetMembershipStatusResponse>]
 
-  /// - Returns: Interceptors to use when handling 'GetMembershipStatus'.
-  ///   Defaults to calling `self.makeInterceptors()`.
-  func makeGetMembershipStatusInterceptors() -> [ServerInterceptor<Services_Trustregistry_V1_GetMembershipStatusRequest, Services_Trustregistry_V1_GetMembershipStatusResponse>]
-
-  /// - Returns: Interceptors to use when handling 'FetchData'.
-  ///   Defaults to calling `self.makeInterceptors()`.
-  func makeFetchDataInterceptors() -> [ServerInterceptor<Services_Trustregistry_V1_FetchDataRequest, Services_Trustregistry_V1_FetchDataResponse>]
+    /// - Returns: Interceptors to use when handling 'FetchData'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeFetchDataInterceptors() -> [ServerInterceptor<Services_Trustregistry_V1_FetchDataRequest, Services_Trustregistry_V1_FetchDataResponse>]
 }

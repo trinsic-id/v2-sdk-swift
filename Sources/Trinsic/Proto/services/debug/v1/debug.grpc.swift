@@ -24,146 +24,143 @@ import GRPC
 import NIO
 import SwiftProtobuf
 
-
 /// Usage: instantiate `Services_Debug_V1_DebuggingClient`, then call methods of this protocol to make API calls.
 public protocol Services_Debug_V1_DebuggingClientProtocol: GRPCClient {
-  var serviceName: String { get }
-  var interceptors: Services_Debug_V1_DebuggingClientInterceptorFactoryProtocol? { get }
+    var serviceName: String { get }
+    var interceptors: Services_Debug_V1_DebuggingClientInterceptorFactoryProtocol? { get }
 
-  func CallEmpty(
-    _ request: SwiftProtobuf.Google_Protobuf_Empty,
-    callOptions: CallOptions?
-  ) -> UnaryCall<SwiftProtobuf.Google_Protobuf_Empty, SwiftProtobuf.Google_Protobuf_Empty>
+    func CallEmpty(
+        _ request: SwiftProtobuf.Google_Protobuf_Empty,
+        callOptions: CallOptions?
+    ) -> UnaryCall<SwiftProtobuf.Google_Protobuf_Empty, SwiftProtobuf.Google_Protobuf_Empty>
 
-  func CallEmptyAuth(
-    _ request: SwiftProtobuf.Google_Protobuf_Empty,
-    callOptions: CallOptions?
-  ) -> UnaryCall<SwiftProtobuf.Google_Protobuf_Empty, SwiftProtobuf.Google_Protobuf_Empty>
+    func CallEmptyAuth(
+        _ request: SwiftProtobuf.Google_Protobuf_Empty,
+        callOptions: CallOptions?
+    ) -> UnaryCall<SwiftProtobuf.Google_Protobuf_Empty, SwiftProtobuf.Google_Protobuf_Empty>
 }
 
-extension Services_Debug_V1_DebuggingClientProtocol {
-  public var serviceName: String {
-    return "services.debug.v1.Debugging"
-  }
+public extension Services_Debug_V1_DebuggingClientProtocol {
+    var serviceName: String {
+        return "services.debug.v1.Debugging"
+    }
 
-  /// Unary call to CallEmpty
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to CallEmpty.
-  ///   - callOptions: Call options.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func CallEmpty(
-    _ request: SwiftProtobuf.Google_Protobuf_Empty,
-    callOptions: CallOptions? = nil
-  ) -> UnaryCall<SwiftProtobuf.Google_Protobuf_Empty, SwiftProtobuf.Google_Protobuf_Empty> {
-    return self.makeUnaryCall(
-      path: "/services.debug.v1.Debugging/CallEmpty",
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeCallEmptyInterceptors() ?? []
-    )
-  }
+    /// Unary call to CallEmpty
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to CallEmpty.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func CallEmpty(
+        _ request: SwiftProtobuf.Google_Protobuf_Empty,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<SwiftProtobuf.Google_Protobuf_Empty, SwiftProtobuf.Google_Protobuf_Empty> {
+        return makeUnaryCall(
+            path: "/services.debug.v1.Debugging/CallEmpty",
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeCallEmptyInterceptors() ?? []
+        )
+    }
 
-  /// Unary call to CallEmptyAuth
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to CallEmptyAuth.
-  ///   - callOptions: Call options.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  public func CallEmptyAuth(
-    _ request: SwiftProtobuf.Google_Protobuf_Empty,
-    callOptions: CallOptions? = nil
-  ) -> UnaryCall<SwiftProtobuf.Google_Protobuf_Empty, SwiftProtobuf.Google_Protobuf_Empty> {
-    return self.makeUnaryCall(
-      path: "/services.debug.v1.Debugging/CallEmptyAuth",
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeCallEmptyAuthInterceptors() ?? []
-    )
-  }
+    /// Unary call to CallEmptyAuth
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to CallEmptyAuth.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func CallEmptyAuth(
+        _ request: SwiftProtobuf.Google_Protobuf_Empty,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<SwiftProtobuf.Google_Protobuf_Empty, SwiftProtobuf.Google_Protobuf_Empty> {
+        return makeUnaryCall(
+            path: "/services.debug.v1.Debugging/CallEmptyAuth",
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeCallEmptyAuthInterceptors() ?? []
+        )
+    }
 }
 
 public protocol Services_Debug_V1_DebuggingClientInterceptorFactoryProtocol {
+    /// - Returns: Interceptors to use when invoking 'CallEmpty'.
+    func makeCallEmptyInterceptors() -> [ClientInterceptor<SwiftProtobuf.Google_Protobuf_Empty, SwiftProtobuf.Google_Protobuf_Empty>]
 
-  /// - Returns: Interceptors to use when invoking 'CallEmpty'.
-  func makeCallEmptyInterceptors() -> [ClientInterceptor<SwiftProtobuf.Google_Protobuf_Empty, SwiftProtobuf.Google_Protobuf_Empty>]
-
-  /// - Returns: Interceptors to use when invoking 'CallEmptyAuth'.
-  func makeCallEmptyAuthInterceptors() -> [ClientInterceptor<SwiftProtobuf.Google_Protobuf_Empty, SwiftProtobuf.Google_Protobuf_Empty>]
+    /// - Returns: Interceptors to use when invoking 'CallEmptyAuth'.
+    func makeCallEmptyAuthInterceptors() -> [ClientInterceptor<SwiftProtobuf.Google_Protobuf_Empty, SwiftProtobuf.Google_Protobuf_Empty>]
 }
 
 public final class Services_Debug_V1_DebuggingClient: Services_Debug_V1_DebuggingClientProtocol {
-  public let channel: GRPCChannel
-  public var defaultCallOptions: CallOptions
-  public var interceptors: Services_Debug_V1_DebuggingClientInterceptorFactoryProtocol?
+    public let channel: GRPCChannel
+    public var defaultCallOptions: CallOptions
+    public var interceptors: Services_Debug_V1_DebuggingClientInterceptorFactoryProtocol?
 
-  /// Creates a client for the services.debug.v1.Debugging service.
-  ///
-  /// - Parameters:
-  ///   - channel: `GRPCChannel` to the service host.
-  ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
-  ///   - interceptors: A factory providing interceptors for each RPC.
-  public init(
-    channel: GRPCChannel,
-    defaultCallOptions: CallOptions = CallOptions(),
-    interceptors: Services_Debug_V1_DebuggingClientInterceptorFactoryProtocol? = nil
-  ) {
-    self.channel = channel
-    self.defaultCallOptions = defaultCallOptions
-    self.interceptors = interceptors
-  }
+    /// Creates a client for the services.debug.v1.Debugging service.
+    ///
+    /// - Parameters:
+    ///   - channel: `GRPCChannel` to the service host.
+    ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
+    ///   - interceptors: A factory providing interceptors for each RPC.
+    public init(
+        channel: GRPCChannel,
+        defaultCallOptions: CallOptions = CallOptions(),
+        interceptors: Services_Debug_V1_DebuggingClientInterceptorFactoryProtocol? = nil
+    ) {
+        self.channel = channel
+        self.defaultCallOptions = defaultCallOptions
+        self.interceptors = interceptors
+    }
 }
 
 /// To build a server, implement a class that conforms to this protocol.
 public protocol Services_Debug_V1_DebuggingProvider: CallHandlerProvider {
-  var interceptors: Services_Debug_V1_DebuggingServerInterceptorFactoryProtocol? { get }
+    var interceptors: Services_Debug_V1_DebuggingServerInterceptorFactoryProtocol? { get }
 
-  func CallEmpty(request: SwiftProtobuf.Google_Protobuf_Empty, context: StatusOnlyCallContext) -> EventLoopFuture<SwiftProtobuf.Google_Protobuf_Empty>
+    func CallEmpty(request: SwiftProtobuf.Google_Protobuf_Empty, context: StatusOnlyCallContext) -> EventLoopFuture<SwiftProtobuf.Google_Protobuf_Empty>
 
-  func CallEmptyAuth(request: SwiftProtobuf.Google_Protobuf_Empty, context: StatusOnlyCallContext) -> EventLoopFuture<SwiftProtobuf.Google_Protobuf_Empty>
+    func CallEmptyAuth(request: SwiftProtobuf.Google_Protobuf_Empty, context: StatusOnlyCallContext) -> EventLoopFuture<SwiftProtobuf.Google_Protobuf_Empty>
 }
 
-extension Services_Debug_V1_DebuggingProvider {
-  public var serviceName: Substring { return "services.debug.v1.Debugging" }
+public extension Services_Debug_V1_DebuggingProvider {
+    var serviceName: Substring { return "services.debug.v1.Debugging" }
 
-  /// Determines, calls and returns the appropriate request handler, depending on the request's method.
-  /// Returns nil for methods not handled by this service.
-  public func handle(
-    method name: Substring,
-    context: CallHandlerContext
-  ) -> GRPCServerHandlerProtocol? {
-    switch name {
-    case "CallEmpty":
-      return UnaryServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<SwiftProtobuf.Google_Protobuf_Empty>(),
-        responseSerializer: ProtobufSerializer<SwiftProtobuf.Google_Protobuf_Empty>(),
-        interceptors: self.interceptors?.makeCallEmptyInterceptors() ?? [],
-        userFunction: self.CallEmpty(request:context:)
-      )
+    /// Determines, calls and returns the appropriate request handler, depending on the request's method.
+    /// Returns nil for methods not handled by this service.
+    func handle(
+        method name: Substring,
+        context: CallHandlerContext
+    ) -> GRPCServerHandlerProtocol? {
+        switch name {
+        case "CallEmpty":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<SwiftProtobuf.Google_Protobuf_Empty>(),
+                responseSerializer: ProtobufSerializer<SwiftProtobuf.Google_Protobuf_Empty>(),
+                interceptors: interceptors?.makeCallEmptyInterceptors() ?? [],
+                userFunction: CallEmpty(request:context:)
+            )
 
-    case "CallEmptyAuth":
-      return UnaryServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<SwiftProtobuf.Google_Protobuf_Empty>(),
-        responseSerializer: ProtobufSerializer<SwiftProtobuf.Google_Protobuf_Empty>(),
-        interceptors: self.interceptors?.makeCallEmptyAuthInterceptors() ?? [],
-        userFunction: self.CallEmptyAuth(request:context:)
-      )
+        case "CallEmptyAuth":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<SwiftProtobuf.Google_Protobuf_Empty>(),
+                responseSerializer: ProtobufSerializer<SwiftProtobuf.Google_Protobuf_Empty>(),
+                interceptors: interceptors?.makeCallEmptyAuthInterceptors() ?? [],
+                userFunction: CallEmptyAuth(request:context:)
+            )
 
-    default:
-      return nil
+        default:
+            return nil
+        }
     }
-  }
 }
 
 public protocol Services_Debug_V1_DebuggingServerInterceptorFactoryProtocol {
+    /// - Returns: Interceptors to use when handling 'CallEmpty'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeCallEmptyInterceptors() -> [ServerInterceptor<SwiftProtobuf.Google_Protobuf_Empty, SwiftProtobuf.Google_Protobuf_Empty>]
 
-  /// - Returns: Interceptors to use when handling 'CallEmpty'.
-  ///   Defaults to calling `self.makeInterceptors()`.
-  func makeCallEmptyInterceptors() -> [ServerInterceptor<SwiftProtobuf.Google_Protobuf_Empty, SwiftProtobuf.Google_Protobuf_Empty>]
-
-  /// - Returns: Interceptors to use when handling 'CallEmptyAuth'.
-  ///   Defaults to calling `self.makeInterceptors()`.
-  func makeCallEmptyAuthInterceptors() -> [ServerInterceptor<SwiftProtobuf.Google_Protobuf_Empty, SwiftProtobuf.Google_Protobuf_Empty>]
+    /// - Returns: Interceptors to use when handling 'CallEmptyAuth'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeCallEmptyAuthInterceptors() -> [ServerInterceptor<SwiftProtobuf.Google_Protobuf_Empty, SwiftProtobuf.Google_Protobuf_Empty>]
 }

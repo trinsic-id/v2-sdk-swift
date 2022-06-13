@@ -15,9 +15,9 @@ import SwiftProtobuf
 // incompatible with the version of SwiftProtobuf to which you are linking.
 // Please ensure that you are building against the same version of the API
 // that was used to generate this file.
-fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
-  struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
-  typealias Version = _2
+private struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVersionCheck {
+    struct _2: SwiftProtobuf.ProtobufAPIVersion_2 {}
+    typealias Version = _2
 }
 
 // MARK: - Extension support defined in field-options.proto.
@@ -29,26 +29,26 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
 // declaration. To avoid naming collisions, the names are prefixed with the name of
 // the scope where the extend directive occurs.
 
-extension SwiftProtobuf.Google_Protobuf_FieldOptions {
+public extension SwiftProtobuf.Google_Protobuf_FieldOptions {
+    /// Whether field is optional in Trinsic's backend.
+    /// This is not the same as an `optional` protobuf label;
+    /// it only impacts documentation generation for the field.
+    var Services_Options_optional: Bool {
+        get { return getExtensionValue(ext: Services_Options_Extensions_optional) ?? false }
+        set { setExtensionValue(ext: Services_Options_Extensions_optional, value: newValue) }
+    }
 
-  /// Whether field is optional in Trinsic's backend.
-  /// This is not the same as an `optional` protobuf label;
-  /// it only impacts documentation generation for the field.
-  public var Services_Options_optional: Bool {
-    get {return getExtensionValue(ext: Services_Options_Extensions_optional) ?? false}
-    set {setExtensionValue(ext: Services_Options_Extensions_optional, value: newValue)}
-  }
-  /// Returns true if extension `Services_Options_Extensions_optional`
-  /// has been explicitly set.
-  public var hasServices_Options_optional: Bool {
-    return hasExtensionValue(ext: Services_Options_Extensions_optional)
-  }
-  /// Clears the value of extension `Services_Options_Extensions_optional`.
-  /// Subsequent reads from it will return its default value.
-  public mutating func clearServices_Options_optional() {
-    clearExtensionValue(ext: Services_Options_Extensions_optional)
-  }
+    /// Returns true if extension `Services_Options_Extensions_optional`
+    /// has been explicitly set.
+    var hasServices_Options_optional: Bool {
+        return hasExtensionValue(ext: Services_Options_Extensions_optional)
+    }
 
+    /// Clears the value of extension `Services_Options_Extensions_optional`.
+    /// Subsequent reads from it will return its default value.
+    mutating func clearServices_Options_optional() {
+        clearExtensionValue(ext: Services_Options_Extensions_optional)
+    }
 }
 
 // MARK: - File's ExtensionMap: Services_Options_Field_u45Options_Extensions
@@ -58,7 +58,7 @@ extension SwiftProtobuf.Google_Protobuf_FieldOptions {
 /// in parsing, or it can be combined with other `SwiftProtobuf.SimpleExtensionMap`s to create
 /// a larger `SwiftProtobuf.SimpleExtensionMap`.
 public let Services_Options_Field_u45Options_Extensions: SwiftProtobuf.SimpleExtensionMap = [
-  Services_Options_Extensions_optional
+    Services_Options_Extensions_optional,
 ]
 
 // Extension Objects - The only reason these might be needed is when manually
@@ -69,6 +69,6 @@ public let Services_Options_Field_u45Options_Extensions: SwiftProtobuf.SimpleExt
 /// This is not the same as an `optional` protobuf label;
 /// it only impacts documentation generation for the field.
 public let Services_Options_Extensions_optional = SwiftProtobuf.MessageExtension<SwiftProtobuf.OptionalExtensionField<SwiftProtobuf.ProtobufBool>, SwiftProtobuf.Google_Protobuf_FieldOptions>(
-  _protobuf_fieldNumber: 60000,
-  fieldName: "services.options.optional"
+    _protobuf_fieldNumber: 60000,
+    fieldName: "services.options.optional"
 )
