@@ -146,9 +146,9 @@ extension Services_Common_V1_ServerConfig: SwiftProtobuf.Message, SwiftProtobuf.
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try { try decoder.decodeSingularStringField(value: &endpoint) }()
-            case 2: try { try decoder.decodeSingularInt32Field(value: &port) }()
-            case 3: try { try decoder.decodeSingularBoolField(value: &useTls) }()
+            case 1: try try decoder.decodeSingularStringField(value: &endpoint)
+            case 2: try try decoder.decodeSingularInt32Field(value: &port)
+            case 3: try try decoder.decodeSingularBoolField(value: &useTls)
             default: break
             }
         }
