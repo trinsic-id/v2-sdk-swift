@@ -90,4 +90,6 @@ public enum SdkError: Error {
     case authTokenNotSet
     case serverError(code: Int)
     case unknown
+    case noProfileReturned
+    case profileProtected
 }
