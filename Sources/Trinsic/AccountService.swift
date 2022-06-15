@@ -44,46 +44,46 @@ public class AccountService: ServiceBase {
 
         return authToken
     }
-    
+
     // Protect/Unprotect
     public static func protectProfile(profile: AccountProfile, securityCode: String) throws -> AccountProfile {
         let utf8code = securityCode.data(using: .utf8)!
-        var request = Okapi_Security_V1_BlindOberonTokenRequest();
+        var request = Okapi_Security_V1_BlindOberonTokenRequest()
         request.token = profile.authToken
         request.blinding.append(utf8code)
-        
-        let response = try Okapi.Oberon.blindToken(request: request);
+
+        let response = try Okapi.Oberon.blindToken(request: request)
         var profile = AccountProfile()
         profile.protection.enabled = true
         profile.protection.method = Services_Account_V1_ConfirmationMethod.other
         profile.authToken = response.token
-        
+
         return profile
     }
-    
+
     public static func unprotectProfile(profile: AccountProfile, securityCode: String) throws -> AccountProfile {
         let utf8code = securityCode.data(using: .utf8)!
-        var request = Okapi_Security_V1_UnBlindOberonTokenRequest();
+        var request = Okapi_Security_V1_UnBlindOberonTokenRequest()
         request.token = profile.authToken
         request.blinding.append(utf8code)
-        
-        let response = try Okapi.Oberon.unblindToken(request: request);
+
+        let response = try Okapi.Oberon.unblindToken(request: request)
         var profile = AccountProfile()
         profile.protection.enabled = false
         profile.protection.method = Services_Account_V1_ConfirmationMethod.none
         profile.authToken = response.token
-        
+
         return profile
     }
-    
+
     public static func protect(base64Profile: String, securityCode: String) throws -> String {
-        var profile = try AccountProfile(serializedData: Data.init(base64Encoded: base64Profile)!)
+        var profile = try AccountProfile(serializedData: Data(base64Encoded: base64Profile)!)
         profile = try protectProfile(profile: profile, securityCode: securityCode)
         return (try profile.serializedData()).base64EncodedString()
     }
-    
+
     public static func unprotect(base64Profile: String, securityCode: String) throws -> String {
-        var profile = try AccountProfile(serializedData: Data.init(base64Encoded: base64Profile)!)
+        var profile = try AccountProfile(serializedData: Data(base64Encoded: base64Profile)!)
         profile = try unprotectProfile(profile: profile, securityCode: securityCode)
         return (try profile.serializedData()).base64EncodedString()
     }
@@ -94,7 +94,7 @@ public class AccountService: ServiceBase {
 
         return response
     }
-    
+
     public func login(request: Services_Account_V1_LoginRequest) throws -> Services_Account_V1_LoginResponse {
         var requestCopy = request
 
@@ -106,7 +106,7 @@ public class AccountService: ServiceBase {
 
         return response
     }
-    
+
     public func loginConfirm(challenge: String, authCode: String) throws -> String {
         var hashRequest = Okapi_Hashing_V1_Blake3HashRequest()
         hashRequest.data = authCode.data(using: .utf8)!
@@ -116,26 +116,26 @@ public class AccountService: ServiceBase {
         confirmRequest.confirmationCodeHashed = hashed.digest
         let response = try client!.LoginConfirm(confirmRequest)
             .response.wait()
-        
+
         var token = (try response.profile.serializedData()).base64EncodedString()
 
         if !response.hasProfile {
             throw SdkError.noProfileReturned
         }
         if response.profile.hasProtection, response.profile.protection.enabled {
-            token = try AccountService.unprotect(base64Profile: token, securityCode: authCode) // TODO - Unprotect this the normal way
+            token = try AccountService.unprotect(base64Profile: token, securityCode: authCode) // TODO: - Unprotect this the normal way
         }
-        return token;
+        return token
     }
-    
+
     public func loginAnonymous() throws -> String {
-        let response = try self.login(request: Services_Account_V1_LoginRequest())
+        let response = try login(request: Services_Account_V1_LoginRequest())
         if response.profile.hasProtection, response.profile.protection.enabled {
             throw SdkError.profileProtected
         }
         return (try response.profile.serializedData()).base64EncodedString()
     }
-    
+
     public func authorizeWebhook(request: Services_Account_V1_AuthorizeWebhookRequest) throws -> Services_Account_V1_AuthorizeWebhookResponse {
         return try client!.AuthorizeWebhook(request, callOptions: try buildMetadata(request)).response.wait()
     }
