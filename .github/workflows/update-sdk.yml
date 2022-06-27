@@ -1,0 +1,33 @@
+name: Build Swift SDK
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  update_sdk_submodule:
+    name: Update SDK Submodule
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          repository: 'trinsic-id/sdk'
+          ref: 'main'
+          submodules: recursive
+      - name: Build, Test
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          if git diff --exit-code; then
+            exit 0;
+          fi
+          git checkout -b "update-sdk-swift"
+          git submodule update --remote
+          git add .
+          git commit -m "Updated SDK Swift Submodule"
+          git push --force --set-upstream origin "update-sdk-swift"
+          echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
+          gh pr create --base main --title "Update SDK Swift Submodule" --body "Update SDK Swift Submodule"
