@@ -64,15 +64,15 @@ final class CredentialTests: XCTestCase {
         let credentialService = CredentialService(options: options)
         let walletService = WalletService(options: options)
 
-        let authToken = try accountService.signIn(request: Services_Account_V1_SignInRequest())
+        let authToken = try accountService.loginAnonymous()
         options.authToken = authToken
 
         // SETUP Actors
         // Create 3 different profiles for each participant in the scenario
         // setupActors() {
-        let allison = try accountService.signIn(request: Services_Account_V1_SignInRequest())
-        let clinic = try accountService.signIn(request: Services_Account_V1_SignInRequest())
-        let airline = try accountService.signIn(request: Services_Account_V1_SignInRequest())
+        let allison = try accountService.loginAnonymous()
+        let clinic = try accountService.loginAnonymous()
+        let airline = try accountService.loginAnonymous()
         // }
 
         // Store profile for later use
@@ -135,6 +135,6 @@ final class CredentialTests: XCTestCase {
         let verifyResponse = try credentialService.verify(request: verifyRequest)
         // }
         XCTAssertNotNil(verifyResponse)
-        XCTAssertTrue(verifyResponse.isValid, "Result should be valid")
+        XCTAssertTrue(verifyResponse.validationResults["SignatureVerification"]?.isValid ?? false, "Result should be valid")
     }
 }

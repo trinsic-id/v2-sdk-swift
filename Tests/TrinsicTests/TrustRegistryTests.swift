@@ -18,7 +18,7 @@ final class TrustRegistryTests: XCTestCase {
         options.serverEndpoint = testEndpoint
         let accountService = AccountService(options: options)
 
-        options.authToken = try accountService.signIn(request: Services_Account_V1_SignInRequest())
+        options.authToken = try accountService.loginAnonymous()
         service = TrustRegistryService(options: options)
     }
 

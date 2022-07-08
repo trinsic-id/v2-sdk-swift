@@ -21,37 +21,37 @@ public class TrinsicService: ServiceBase {
 
     public func account() -> AccountService {
         _accountService = _accountService ?? AccountService(options: options)
-        _accountService.options = self.options
+        _accountService?.options = self.options
         return _accountService!
     }
 
     public func credential() -> CredentialService {
         _credentialService = _credentialService ?? CredentialService(options: options)
-        _credentialService.options = self.options
+        _credentialService?.options = self.options
         return _credentialService!
     }
 
     public func provider() -> ProviderService {
         _providerService = _providerService ?? ProviderService(options: options)
-        _providerService.options = self.options
+        _providerService?.options = self.options
         return _providerService!
     }
 
     public func template() -> TemplateService {
         _templateService = _templateService ?? TemplateService(options: options)
-        _templateService.options = self.options
+        _templateService?.options = self.options
         return _templateService!
     }
 
     public func trustRegistry() -> TrustRegistryService {
         _trustRegistryService = _trustRegistryService ?? TrustRegistryService(options: options)
-        _trustRegistryService.options = self.options
+        _trustRegistryService?.options = self.options
         return _trustRegistryService!
     }
 
     public func wallet() -> WalletService {
         _walletService = _walletService ?? WalletService(options: options)
-        _walletService.options = self.options
+        _walletService?.options = self.options
         return _walletService!
     }
 }
