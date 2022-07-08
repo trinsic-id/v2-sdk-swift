@@ -29,10 +29,10 @@ public class ServiceBase {
         if self.options.serverPort == 443 {
             self.options.serverUseTls = true
         }
-
-        if self.options.defaultEcosystem.isEmpty {
-            self.options.defaultEcosystem = "default"
-        }
+    }
+    
+    internal func setAuthToken(token: String) {
+        self.options.authToken = token;
     }
 
     internal func createChannel() -> GRPCChannel {
