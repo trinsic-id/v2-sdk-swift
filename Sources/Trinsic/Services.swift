@@ -44,14 +44,19 @@ public class ServiceBase {
         return builder.connect(host: options.serverEndpoint, port: Int(options.serverPort))
     }
 
-    internal func buildMetadata(_ request: Message) throws -> CallOptions {
+    internal func buildMetadata(_ request: Message?) throws -> CallOptions {
+        var metadataOptions = CallOptions()
+        metadataOptions.customMetadata.add(name: "TrinsicOkapiVersion", value: try Okapi.Metadata.getMetadata(request: Okapi_Metadata_MetadataRequest()).version)
+        metadataOptions.customMetadata.add(name: "TrinsicSDKLanguage", value: "swift")
+        // TODO - Embed swift version const somewhere, it isn't uniformly recorded
+        metadataOptions.customMetadata.add(name: "TrinsicSDKVersion", value: "unknown")
+        if request != nil {
         if options.authToken.isEmpty {
             throw SdkError.authTokenNotSet
         }
-
         let profile = try Services_Account_V1_AccountProfile(serializedData: Data(base64Encoded: self.options.authToken)!)
 
-        let requestBytes = try request.serializedData()
+        let requestBytes = try request!.serializedData()
         var requestHash = Data()
 
         if requestBytes.count > 0 {
@@ -72,17 +77,16 @@ public class ServiceBase {
         proofRequest.token = profile.authToken
 
         let proof = try Oberon.createProof(request: proofRequest)
-
-        var options = CallOptions()
-        options.customMetadata.add(
+        
+        metadataOptions.customMetadata.add(
             name: "Authorization",
             value: String(format: "Oberon ver=1,proof=%@,data=%@,nonce=%@",
                           proof.proof.toBase64URL(),
                           profile.authData.toBase64URL(),
                           try nonce.serializedData().toBase64URL())
         )
-
-        return options
+        }
+        return metadataOptions
     }
 }
 
