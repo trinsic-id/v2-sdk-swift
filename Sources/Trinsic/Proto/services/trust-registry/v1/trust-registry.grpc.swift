@@ -22,6 +22,7 @@
 //
 import GRPC
 import NIO
+import NIOConcurrencyHelpers
 import SwiftProtobuf
 
 /// Usage: instantiate `Services_Trustregistry_V1_TrustRegistryClient`, then call methods of this protocol to make API calls.
@@ -71,7 +72,7 @@ public extension Services_Trustregistry_V1_TrustRegistryClientProtocol {
         return "services.trustregistry.v1.TrustRegistry"
     }
 
-    /// Adds a trust registry defintion to the ecosystem
+    /// Add a governance framework to the ecosystem
     ///
     /// - Parameters:
     ///   - request: Request to send to AddFramework.
@@ -82,14 +83,14 @@ public extension Services_Trustregistry_V1_TrustRegistryClientProtocol {
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Trustregistry_V1_AddFrameworkRequest, Services_Trustregistry_V1_AddFrameworkResponse> {
         return makeUnaryCall(
-            path: "/services.trustregistry.v1.TrustRegistry/AddFramework",
+            path: Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.AddFramework.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
             interceptors: interceptors?.makeAddFrameworkInterceptors() ?? []
         )
     }
 
-    /// Unary call to RemoveFramework
+    /// Remove a governance framework from the ecosystem
     ///
     /// - Parameters:
     ///   - request: Request to send to RemoveFramework.
@@ -100,14 +101,14 @@ public extension Services_Trustregistry_V1_TrustRegistryClientProtocol {
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Trustregistry_V1_RemoveFrameworkRequest, Services_Trustregistry_V1_RemoveFrameworkResponse> {
         return makeUnaryCall(
-            path: "/services.trustregistry.v1.TrustRegistry/RemoveFramework",
+            path: Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.RemoveFramework.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
             interceptors: interceptors?.makeRemoveFrameworkInterceptors() ?? []
         )
     }
 
-    /// Unary call to SearchRegistry
+    /// Search the ecosystem's governance frameworks
     ///
     /// - Parameters:
     ///   - request: Request to send to SearchRegistry.
@@ -118,14 +119,14 @@ public extension Services_Trustregistry_V1_TrustRegistryClientProtocol {
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Trustregistry_V1_SearchRegistryRequest, Services_Trustregistry_V1_SearchRegistryResponse> {
         return makeUnaryCall(
-            path: "/services.trustregistry.v1.TrustRegistry/SearchRegistry",
+            path: Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.SearchRegistry.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
             interceptors: interceptors?.makeSearchRegistryInterceptors() ?? []
         )
     }
 
-    /// Registers an authoritative issuer with a credential template
+    /// Register an authoritative issuer for a credential schema
     ///
     /// - Parameters:
     ///   - request: Request to send to RegisterMember.
@@ -136,14 +137,14 @@ public extension Services_Trustregistry_V1_TrustRegistryClientProtocol {
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Trustregistry_V1_RegisterMemberRequest, Services_Trustregistry_V1_RegisterMemberResponse> {
         return makeUnaryCall(
-            path: "/services.trustregistry.v1.TrustRegistry/RegisterMember",
+            path: Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.RegisterMember.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
             interceptors: interceptors?.makeRegisterMemberInterceptors() ?? []
         )
     }
 
-    /// Removes an authoritative issuer with a credential template from the trust registry
+    /// Removes an authoritative issuer for a credential schema from the trust registry
     ///
     /// - Parameters:
     ///   - request: Request to send to UnregisterMember.
@@ -154,14 +155,14 @@ public extension Services_Trustregistry_V1_TrustRegistryClientProtocol {
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Trustregistry_V1_UnregisterMemberRequest, Services_Trustregistry_V1_UnregisterMemberResponse> {
         return makeUnaryCall(
-            path: "/services.trustregistry.v1.TrustRegistry/UnregisterMember",
+            path: Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.UnregisterMember.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
             interceptors: interceptors?.makeUnregisterMemberInterceptors() ?? []
         )
     }
 
-    /// Unary call to GetMembershipStatus
+    /// Fetch the membership status of an issuer for a given credential schema in a trust registry
     ///
     /// - Parameters:
     ///   - request: Request to send to GetMembershipStatus.
@@ -172,14 +173,14 @@ public extension Services_Trustregistry_V1_TrustRegistryClientProtocol {
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Trustregistry_V1_GetMembershipStatusRequest, Services_Trustregistry_V1_GetMembershipStatusResponse> {
         return makeUnaryCall(
-            path: "/services.trustregistry.v1.TrustRegistry/GetMembershipStatus",
+            path: Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.GetMembershipStatus.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
             interceptors: interceptors?.makeGetMembershipStatusInterceptors() ?? []
         )
     }
 
-    /// Server streaming call to FetchData
+    /// Not implemented.
     ///
     /// - Parameters:
     ///   - request: Request to send to FetchData.
@@ -192,7 +193,7 @@ public extension Services_Trustregistry_V1_TrustRegistryClientProtocol {
         handler: @escaping (Services_Trustregistry_V1_FetchDataResponse) -> Void
     ) -> ServerStreamingCall<Services_Trustregistry_V1_FetchDataRequest, Services_Trustregistry_V1_FetchDataResponse> {
         return makeServerStreamingCall(
-            path: "/services.trustregistry.v1.TrustRegistry/FetchData",
+            path: Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.FetchData.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
             interceptors: interceptors?.makeFetchDataInterceptors() ?? [],
@@ -201,7 +202,310 @@ public extension Services_Trustregistry_V1_TrustRegistryClientProtocol {
     }
 }
 
-public protocol Services_Trustregistry_V1_TrustRegistryClientInterceptorFactoryProtocol {
+#if compiler(>=5.6)
+    @available(*, deprecated)
+    extension Services_Trustregistry_V1_TrustRegistryClient: @unchecked Sendable {}
+#endif // compiler(>=5.6)
+
+@available(*, deprecated, renamed: "Services_Trustregistry_V1_TrustRegistryNIOClient")
+public final class Services_Trustregistry_V1_TrustRegistryClient: Services_Trustregistry_V1_TrustRegistryClientProtocol {
+    private let lock = Lock()
+    private var _defaultCallOptions: CallOptions
+    private var _interceptors: Services_Trustregistry_V1_TrustRegistryClientInterceptorFactoryProtocol?
+    public let channel: GRPCChannel
+    public var defaultCallOptions: CallOptions {
+        get { lock.withLock { self._defaultCallOptions } }
+        set { lock.withLockVoid { self._defaultCallOptions = newValue } }
+    }
+
+    public var interceptors: Services_Trustregistry_V1_TrustRegistryClientInterceptorFactoryProtocol? {
+        get { lock.withLock { self._interceptors } }
+        set { lock.withLockVoid { self._interceptors = newValue } }
+    }
+
+    /// Creates a client for the services.trustregistry.v1.TrustRegistry service.
+    ///
+    /// - Parameters:
+    ///   - channel: `GRPCChannel` to the service host.
+    ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
+    ///   - interceptors: A factory providing interceptors for each RPC.
+    public init(
+        channel: GRPCChannel,
+        defaultCallOptions: CallOptions = CallOptions(),
+        interceptors: Services_Trustregistry_V1_TrustRegistryClientInterceptorFactoryProtocol? = nil
+    ) {
+        self.channel = channel
+        _defaultCallOptions = defaultCallOptions
+        _interceptors = interceptors
+    }
+}
+
+public struct Services_Trustregistry_V1_TrustRegistryNIOClient: Services_Trustregistry_V1_TrustRegistryClientProtocol {
+    public var channel: GRPCChannel
+    public var defaultCallOptions: CallOptions
+    public var interceptors: Services_Trustregistry_V1_TrustRegistryClientInterceptorFactoryProtocol?
+
+    /// Creates a client for the services.trustregistry.v1.TrustRegistry service.
+    ///
+    /// - Parameters:
+    ///   - channel: `GRPCChannel` to the service host.
+    ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
+    ///   - interceptors: A factory providing interceptors for each RPC.
+    public init(
+        channel: GRPCChannel,
+        defaultCallOptions: CallOptions = CallOptions(),
+        interceptors: Services_Trustregistry_V1_TrustRegistryClientInterceptorFactoryProtocol? = nil
+    ) {
+        self.channel = channel
+        self.defaultCallOptions = defaultCallOptions
+        self.interceptors = interceptors
+    }
+}
+
+#if compiler(>=5.6)
+    @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+    public protocol Services_Trustregistry_V1_TrustRegistryAsyncClientProtocol: GRPCClient {
+        static var serviceDescriptor: GRPCServiceDescriptor { get }
+        var interceptors: Services_Trustregistry_V1_TrustRegistryClientInterceptorFactoryProtocol? { get }
+
+        func makeAddFrameworkCall(
+            _ request: Services_Trustregistry_V1_AddFrameworkRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Trustregistry_V1_AddFrameworkRequest, Services_Trustregistry_V1_AddFrameworkResponse>
+
+        func makeRemoveFrameworkCall(
+            _ request: Services_Trustregistry_V1_RemoveFrameworkRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Trustregistry_V1_RemoveFrameworkRequest, Services_Trustregistry_V1_RemoveFrameworkResponse>
+
+        func makeSearchRegistryCall(
+            _ request: Services_Trustregistry_V1_SearchRegistryRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Trustregistry_V1_SearchRegistryRequest, Services_Trustregistry_V1_SearchRegistryResponse>
+
+        func makeRegisterMemberCall(
+            _ request: Services_Trustregistry_V1_RegisterMemberRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Trustregistry_V1_RegisterMemberRequest, Services_Trustregistry_V1_RegisterMemberResponse>
+
+        func makeUnregisterMemberCall(
+            _ request: Services_Trustregistry_V1_UnregisterMemberRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Trustregistry_V1_UnregisterMemberRequest, Services_Trustregistry_V1_UnregisterMemberResponse>
+
+        func makeGetMembershipStatusCall(
+            _ request: Services_Trustregistry_V1_GetMembershipStatusRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Trustregistry_V1_GetMembershipStatusRequest, Services_Trustregistry_V1_GetMembershipStatusResponse>
+
+        func makeFetchDataCall(
+            _ request: Services_Trustregistry_V1_FetchDataRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncServerStreamingCall<Services_Trustregistry_V1_FetchDataRequest, Services_Trustregistry_V1_FetchDataResponse>
+    }
+
+    @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+    public extension Services_Trustregistry_V1_TrustRegistryAsyncClientProtocol {
+        static var serviceDescriptor: GRPCServiceDescriptor {
+            return Services_Trustregistry_V1_TrustRegistryClientMetadata.serviceDescriptor
+        }
+
+        var interceptors: Services_Trustregistry_V1_TrustRegistryClientInterceptorFactoryProtocol? {
+            return nil
+        }
+
+        func makeAddFrameworkCall(
+            _ request: Services_Trustregistry_V1_AddFrameworkRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Trustregistry_V1_AddFrameworkRequest, Services_Trustregistry_V1_AddFrameworkResponse> {
+            return makeAsyncUnaryCall(
+                path: Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.AddFramework.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeAddFrameworkInterceptors() ?? []
+            )
+        }
+
+        func makeRemoveFrameworkCall(
+            _ request: Services_Trustregistry_V1_RemoveFrameworkRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Trustregistry_V1_RemoveFrameworkRequest, Services_Trustregistry_V1_RemoveFrameworkResponse> {
+            return makeAsyncUnaryCall(
+                path: Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.RemoveFramework.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeRemoveFrameworkInterceptors() ?? []
+            )
+        }
+
+        func makeSearchRegistryCall(
+            _ request: Services_Trustregistry_V1_SearchRegistryRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Trustregistry_V1_SearchRegistryRequest, Services_Trustregistry_V1_SearchRegistryResponse> {
+            return makeAsyncUnaryCall(
+                path: Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.SearchRegistry.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeSearchRegistryInterceptors() ?? []
+            )
+        }
+
+        func makeRegisterMemberCall(
+            _ request: Services_Trustregistry_V1_RegisterMemberRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Trustregistry_V1_RegisterMemberRequest, Services_Trustregistry_V1_RegisterMemberResponse> {
+            return makeAsyncUnaryCall(
+                path: Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.RegisterMember.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeRegisterMemberInterceptors() ?? []
+            )
+        }
+
+        func makeUnregisterMemberCall(
+            _ request: Services_Trustregistry_V1_UnregisterMemberRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Trustregistry_V1_UnregisterMemberRequest, Services_Trustregistry_V1_UnregisterMemberResponse> {
+            return makeAsyncUnaryCall(
+                path: Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.UnregisterMember.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeUnregisterMemberInterceptors() ?? []
+            )
+        }
+
+        func makeGetMembershipStatusCall(
+            _ request: Services_Trustregistry_V1_GetMembershipStatusRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Trustregistry_V1_GetMembershipStatusRequest, Services_Trustregistry_V1_GetMembershipStatusResponse> {
+            return makeAsyncUnaryCall(
+                path: Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.GetMembershipStatus.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeGetMembershipStatusInterceptors() ?? []
+            )
+        }
+
+        func makeFetchDataCall(
+            _ request: Services_Trustregistry_V1_FetchDataRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncServerStreamingCall<Services_Trustregistry_V1_FetchDataRequest, Services_Trustregistry_V1_FetchDataResponse> {
+            return makeAsyncServerStreamingCall(
+                path: Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.FetchData.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeFetchDataInterceptors() ?? []
+            )
+        }
+    }
+
+    @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+    public extension Services_Trustregistry_V1_TrustRegistryAsyncClientProtocol {
+        func AddFramework(
+            _ request: Services_Trustregistry_V1_AddFrameworkRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Trustregistry_V1_AddFrameworkResponse {
+            return try await performAsyncUnaryCall(
+                path: Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.AddFramework.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeAddFrameworkInterceptors() ?? []
+            )
+        }
+
+        func RemoveFramework(
+            _ request: Services_Trustregistry_V1_RemoveFrameworkRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Trustregistry_V1_RemoveFrameworkResponse {
+            return try await performAsyncUnaryCall(
+                path: Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.RemoveFramework.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeRemoveFrameworkInterceptors() ?? []
+            )
+        }
+
+        func SearchRegistry(
+            _ request: Services_Trustregistry_V1_SearchRegistryRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Trustregistry_V1_SearchRegistryResponse {
+            return try await performAsyncUnaryCall(
+                path: Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.SearchRegistry.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeSearchRegistryInterceptors() ?? []
+            )
+        }
+
+        func RegisterMember(
+            _ request: Services_Trustregistry_V1_RegisterMemberRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Trustregistry_V1_RegisterMemberResponse {
+            return try await performAsyncUnaryCall(
+                path: Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.RegisterMember.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeRegisterMemberInterceptors() ?? []
+            )
+        }
+
+        func UnregisterMember(
+            _ request: Services_Trustregistry_V1_UnregisterMemberRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Trustregistry_V1_UnregisterMemberResponse {
+            return try await performAsyncUnaryCall(
+                path: Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.UnregisterMember.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeUnregisterMemberInterceptors() ?? []
+            )
+        }
+
+        func GetMembershipStatus(
+            _ request: Services_Trustregistry_V1_GetMembershipStatusRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Trustregistry_V1_GetMembershipStatusResponse {
+            return try await performAsyncUnaryCall(
+                path: Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.GetMembershipStatus.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeGetMembershipStatusInterceptors() ?? []
+            )
+        }
+
+        func FetchData(
+            _ request: Services_Trustregistry_V1_FetchDataRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncResponseStream<Services_Trustregistry_V1_FetchDataResponse> {
+            return performAsyncServerStreamingCall(
+                path: Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.FetchData.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeFetchDataInterceptors() ?? []
+            )
+        }
+    }
+
+    @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+    public struct Services_Trustregistry_V1_TrustRegistryAsyncClient: Services_Trustregistry_V1_TrustRegistryAsyncClientProtocol {
+        public var channel: GRPCChannel
+        public var defaultCallOptions: CallOptions
+        public var interceptors: Services_Trustregistry_V1_TrustRegistryClientInterceptorFactoryProtocol?
+
+        public init(
+            channel: GRPCChannel,
+            defaultCallOptions: CallOptions = CallOptions(),
+            interceptors: Services_Trustregistry_V1_TrustRegistryClientInterceptorFactoryProtocol? = nil
+        ) {
+            self.channel = channel
+            self.defaultCallOptions = defaultCallOptions
+            self.interceptors = interceptors
+        }
+    }
+
+#endif // compiler(>=5.6)
+
+public protocol Services_Trustregistry_V1_TrustRegistryClientInterceptorFactoryProtocol: GRPCSendable {
     /// - Returns: Interceptors to use when invoking 'AddFramework'.
     func makeAddFrameworkInterceptors() -> [ClientInterceptor<Services_Trustregistry_V1_AddFrameworkRequest, Services_Trustregistry_V1_AddFrameworkResponse>]
 
@@ -224,25 +528,63 @@ public protocol Services_Trustregistry_V1_TrustRegistryClientInterceptorFactoryP
     func makeFetchDataInterceptors() -> [ClientInterceptor<Services_Trustregistry_V1_FetchDataRequest, Services_Trustregistry_V1_FetchDataResponse>]
 }
 
-public final class Services_Trustregistry_V1_TrustRegistryClient: Services_Trustregistry_V1_TrustRegistryClientProtocol {
-    public let channel: GRPCChannel
-    public var defaultCallOptions: CallOptions
-    public var interceptors: Services_Trustregistry_V1_TrustRegistryClientInterceptorFactoryProtocol?
+public enum Services_Trustregistry_V1_TrustRegistryClientMetadata {
+    public static let serviceDescriptor = GRPCServiceDescriptor(
+        name: "TrustRegistry",
+        fullName: "services.trustregistry.v1.TrustRegistry",
+        methods: [
+            Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.AddFramework,
+            Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.RemoveFramework,
+            Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.SearchRegistry,
+            Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.RegisterMember,
+            Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.UnregisterMember,
+            Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.GetMembershipStatus,
+            Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.FetchData,
+        ]
+    )
 
-    /// Creates a client for the services.trustregistry.v1.TrustRegistry service.
-    ///
-    /// - Parameters:
-    ///   - channel: `GRPCChannel` to the service host.
-    ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
-    ///   - interceptors: A factory providing interceptors for each RPC.
-    public init(
-        channel: GRPCChannel,
-        defaultCallOptions: CallOptions = CallOptions(),
-        interceptors: Services_Trustregistry_V1_TrustRegistryClientInterceptorFactoryProtocol? = nil
-    ) {
-        self.channel = channel
-        self.defaultCallOptions = defaultCallOptions
-        self.interceptors = interceptors
+    public enum Methods {
+        public static let AddFramework = GRPCMethodDescriptor(
+            name: "AddFramework",
+            path: "/services.trustregistry.v1.TrustRegistry/AddFramework",
+            type: GRPCCallType.unary
+        )
+
+        public static let RemoveFramework = GRPCMethodDescriptor(
+            name: "RemoveFramework",
+            path: "/services.trustregistry.v1.TrustRegistry/RemoveFramework",
+            type: GRPCCallType.unary
+        )
+
+        public static let SearchRegistry = GRPCMethodDescriptor(
+            name: "SearchRegistry",
+            path: "/services.trustregistry.v1.TrustRegistry/SearchRegistry",
+            type: GRPCCallType.unary
+        )
+
+        public static let RegisterMember = GRPCMethodDescriptor(
+            name: "RegisterMember",
+            path: "/services.trustregistry.v1.TrustRegistry/RegisterMember",
+            type: GRPCCallType.unary
+        )
+
+        public static let UnregisterMember = GRPCMethodDescriptor(
+            name: "UnregisterMember",
+            path: "/services.trustregistry.v1.TrustRegistry/UnregisterMember",
+            type: GRPCCallType.unary
+        )
+
+        public static let GetMembershipStatus = GRPCMethodDescriptor(
+            name: "GetMembershipStatus",
+            path: "/services.trustregistry.v1.TrustRegistry/GetMembershipStatus",
+            type: GRPCCallType.unary
+        )
+
+        public static let FetchData = GRPCMethodDescriptor(
+            name: "FetchData",
+            path: "/services.trustregistry.v1.TrustRegistry/FetchData",
+            type: GRPCCallType.serverStreaming
+        )
     }
 }
 
@@ -250,26 +592,32 @@ public final class Services_Trustregistry_V1_TrustRegistryClient: Services_Trust
 public protocol Services_Trustregistry_V1_TrustRegistryProvider: CallHandlerProvider {
     var interceptors: Services_Trustregistry_V1_TrustRegistryServerInterceptorFactoryProtocol? { get }
 
-    /// Adds a trust registry defintion to the ecosystem
+    /// Add a governance framework to the ecosystem
     func AddFramework(request: Services_Trustregistry_V1_AddFrameworkRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Trustregistry_V1_AddFrameworkResponse>
 
+    /// Remove a governance framework from the ecosystem
     func RemoveFramework(request: Services_Trustregistry_V1_RemoveFrameworkRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Trustregistry_V1_RemoveFrameworkResponse>
 
+    /// Search the ecosystem's governance frameworks
     func SearchRegistry(request: Services_Trustregistry_V1_SearchRegistryRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Trustregistry_V1_SearchRegistryResponse>
 
-    /// Registers an authoritative issuer with a credential template
+    /// Register an authoritative issuer for a credential schema
     func RegisterMember(request: Services_Trustregistry_V1_RegisterMemberRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Trustregistry_V1_RegisterMemberResponse>
 
-    /// Removes an authoritative issuer with a credential template from the trust registry
+    /// Removes an authoritative issuer for a credential schema from the trust registry
     func UnregisterMember(request: Services_Trustregistry_V1_UnregisterMemberRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Trustregistry_V1_UnregisterMemberResponse>
 
+    /// Fetch the membership status of an issuer for a given credential schema in a trust registry
     func GetMembershipStatus(request: Services_Trustregistry_V1_GetMembershipStatusRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Trustregistry_V1_GetMembershipStatusResponse>
 
+    /// Not implemented.
     func FetchData(request: Services_Trustregistry_V1_FetchDataRequest, context: StreamingResponseCallContext<Services_Trustregistry_V1_FetchDataResponse>) -> EventLoopFuture<GRPCStatus>
 }
 
 public extension Services_Trustregistry_V1_TrustRegistryProvider {
-    var serviceName: Substring { return "services.trustregistry.v1.TrustRegistry" }
+    var serviceName: Substring {
+        return Services_Trustregistry_V1_TrustRegistryServerMetadata.serviceDescriptor.fullName[...]
+    }
 
     /// Determines, calls and returns the appropriate request handler, depending on the request's method.
     /// Returns nil for methods not handled by this service.
@@ -347,6 +695,148 @@ public extension Services_Trustregistry_V1_TrustRegistryProvider {
     }
 }
 
+#if compiler(>=5.6)
+
+    /// To implement a server, implement an object which conforms to this protocol.
+    @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+    public protocol Services_Trustregistry_V1_TrustRegistryAsyncProvider: CallHandlerProvider {
+        static var serviceDescriptor: GRPCServiceDescriptor { get }
+        var interceptors: Services_Trustregistry_V1_TrustRegistryServerInterceptorFactoryProtocol? { get }
+
+        /// Add a governance framework to the ecosystem
+        @Sendable func AddFramework(
+            request: Services_Trustregistry_V1_AddFrameworkRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Trustregistry_V1_AddFrameworkResponse
+
+        /// Remove a governance framework from the ecosystem
+        @Sendable func RemoveFramework(
+            request: Services_Trustregistry_V1_RemoveFrameworkRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Trustregistry_V1_RemoveFrameworkResponse
+
+        /// Search the ecosystem's governance frameworks
+        @Sendable func SearchRegistry(
+            request: Services_Trustregistry_V1_SearchRegistryRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Trustregistry_V1_SearchRegistryResponse
+
+        /// Register an authoritative issuer for a credential schema
+        @Sendable func RegisterMember(
+            request: Services_Trustregistry_V1_RegisterMemberRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Trustregistry_V1_RegisterMemberResponse
+
+        /// Removes an authoritative issuer for a credential schema from the trust registry
+        @Sendable func UnregisterMember(
+            request: Services_Trustregistry_V1_UnregisterMemberRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Trustregistry_V1_UnregisterMemberResponse
+
+        /// Fetch the membership status of an issuer for a given credential schema in a trust registry
+        @Sendable func GetMembershipStatus(
+            request: Services_Trustregistry_V1_GetMembershipStatusRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Trustregistry_V1_GetMembershipStatusResponse
+
+        /// Not implemented.
+        @Sendable func FetchData(
+            request: Services_Trustregistry_V1_FetchDataRequest,
+            responseStream: GRPCAsyncResponseStreamWriter<Services_Trustregistry_V1_FetchDataResponse>,
+            context: GRPCAsyncServerCallContext
+        ) async throws
+    }
+
+    @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+    public extension Services_Trustregistry_V1_TrustRegistryAsyncProvider {
+        static var serviceDescriptor: GRPCServiceDescriptor {
+            return Services_Trustregistry_V1_TrustRegistryServerMetadata.serviceDescriptor
+        }
+
+        var serviceName: Substring {
+            return Services_Trustregistry_V1_TrustRegistryServerMetadata.serviceDescriptor.fullName[...]
+        }
+
+        var interceptors: Services_Trustregistry_V1_TrustRegistryServerInterceptorFactoryProtocol? {
+            return nil
+        }
+
+        func handle(
+            method name: Substring,
+            context: CallHandlerContext
+        ) -> GRPCServerHandlerProtocol? {
+            switch name {
+            case "AddFramework":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Trustregistry_V1_AddFrameworkRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Trustregistry_V1_AddFrameworkResponse>(),
+                    interceptors: interceptors?.makeAddFrameworkInterceptors() ?? [],
+                    wrapping: AddFramework(request:context:)
+                )
+
+            case "RemoveFramework":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Trustregistry_V1_RemoveFrameworkRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Trustregistry_V1_RemoveFrameworkResponse>(),
+                    interceptors: interceptors?.makeRemoveFrameworkInterceptors() ?? [],
+                    wrapping: RemoveFramework(request:context:)
+                )
+
+            case "SearchRegistry":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Trustregistry_V1_SearchRegistryRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Trustregistry_V1_SearchRegistryResponse>(),
+                    interceptors: interceptors?.makeSearchRegistryInterceptors() ?? [],
+                    wrapping: SearchRegistry(request:context:)
+                )
+
+            case "RegisterMember":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Trustregistry_V1_RegisterMemberRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Trustregistry_V1_RegisterMemberResponse>(),
+                    interceptors: interceptors?.makeRegisterMemberInterceptors() ?? [],
+                    wrapping: RegisterMember(request:context:)
+                )
+
+            case "UnregisterMember":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Trustregistry_V1_UnregisterMemberRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Trustregistry_V1_UnregisterMemberResponse>(),
+                    interceptors: interceptors?.makeUnregisterMemberInterceptors() ?? [],
+                    wrapping: UnregisterMember(request:context:)
+                )
+
+            case "GetMembershipStatus":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Trustregistry_V1_GetMembershipStatusRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Trustregistry_V1_GetMembershipStatusResponse>(),
+                    interceptors: interceptors?.makeGetMembershipStatusInterceptors() ?? [],
+                    wrapping: GetMembershipStatus(request:context:)
+                )
+
+            case "FetchData":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Trustregistry_V1_FetchDataRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Trustregistry_V1_FetchDataResponse>(),
+                    interceptors: interceptors?.makeFetchDataInterceptors() ?? [],
+                    wrapping: FetchData(request:responseStream:context:)
+                )
+
+            default:
+                return nil
+            }
+        }
+    }
+
+#endif // compiler(>=5.6)
+
 public protocol Services_Trustregistry_V1_TrustRegistryServerInterceptorFactoryProtocol {
     /// - Returns: Interceptors to use when handling 'AddFramework'.
     ///   Defaults to calling `self.makeInterceptors()`.
@@ -375,4 +865,64 @@ public protocol Services_Trustregistry_V1_TrustRegistryServerInterceptorFactoryP
     /// - Returns: Interceptors to use when handling 'FetchData'.
     ///   Defaults to calling `self.makeInterceptors()`.
     func makeFetchDataInterceptors() -> [ServerInterceptor<Services_Trustregistry_V1_FetchDataRequest, Services_Trustregistry_V1_FetchDataResponse>]
+}
+
+public enum Services_Trustregistry_V1_TrustRegistryServerMetadata {
+    public static let serviceDescriptor = GRPCServiceDescriptor(
+        name: "TrustRegistry",
+        fullName: "services.trustregistry.v1.TrustRegistry",
+        methods: [
+            Services_Trustregistry_V1_TrustRegistryServerMetadata.Methods.AddFramework,
+            Services_Trustregistry_V1_TrustRegistryServerMetadata.Methods.RemoveFramework,
+            Services_Trustregistry_V1_TrustRegistryServerMetadata.Methods.SearchRegistry,
+            Services_Trustregistry_V1_TrustRegistryServerMetadata.Methods.RegisterMember,
+            Services_Trustregistry_V1_TrustRegistryServerMetadata.Methods.UnregisterMember,
+            Services_Trustregistry_V1_TrustRegistryServerMetadata.Methods.GetMembershipStatus,
+            Services_Trustregistry_V1_TrustRegistryServerMetadata.Methods.FetchData,
+        ]
+    )
+
+    public enum Methods {
+        public static let AddFramework = GRPCMethodDescriptor(
+            name: "AddFramework",
+            path: "/services.trustregistry.v1.TrustRegistry/AddFramework",
+            type: GRPCCallType.unary
+        )
+
+        public static let RemoveFramework = GRPCMethodDescriptor(
+            name: "RemoveFramework",
+            path: "/services.trustregistry.v1.TrustRegistry/RemoveFramework",
+            type: GRPCCallType.unary
+        )
+
+        public static let SearchRegistry = GRPCMethodDescriptor(
+            name: "SearchRegistry",
+            path: "/services.trustregistry.v1.TrustRegistry/SearchRegistry",
+            type: GRPCCallType.unary
+        )
+
+        public static let RegisterMember = GRPCMethodDescriptor(
+            name: "RegisterMember",
+            path: "/services.trustregistry.v1.TrustRegistry/RegisterMember",
+            type: GRPCCallType.unary
+        )
+
+        public static let UnregisterMember = GRPCMethodDescriptor(
+            name: "UnregisterMember",
+            path: "/services.trustregistry.v1.TrustRegistry/UnregisterMember",
+            type: GRPCCallType.unary
+        )
+
+        public static let GetMembershipStatus = GRPCMethodDescriptor(
+            name: "GetMembershipStatus",
+            path: "/services.trustregistry.v1.TrustRegistry/GetMembershipStatus",
+            type: GRPCCallType.unary
+        )
+
+        public static let FetchData = GRPCMethodDescriptor(
+            name: "FetchData",
+            path: "/services.trustregistry.v1.TrustRegistry/FetchData",
+            type: GRPCCallType.serverStreaming
+        )
+    }
 }

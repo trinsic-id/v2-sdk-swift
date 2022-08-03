@@ -36,7 +36,7 @@ public enum Services_Account_V1_ConfirmationMethod: SwiftProtobuf.Enum {
     /// Confirmation from a connected device is required
     case connectedDevice // = 3
 
-    /// Indicates third-party method of confirmation is required
+    /// Third-party method of confirmation is required
     case other // = 10
     case UNRECOGNIZED(Int)
 
@@ -122,7 +122,7 @@ public struct Services_Account_V1_AccountDetails {
     /// Account name
     public var name: String = .init()
 
-    /// Email account
+    /// Email address of account
     public var email: String = .init()
 
     /// SMS number including country code
@@ -143,7 +143,6 @@ public struct Services_Account_V1_SignInResponse {
     // methods supported on all messages.
 
     /// Indicates if confirmation of account is required.
-    /// This settings is configured globally by the server administrator.
     public var confirmationMethod: Services_Account_V1_ConfirmationMethod = .none
 
     /// Contains authentication data for use with the current device.
@@ -265,10 +264,10 @@ public struct Services_Account_V1_AccountInfoResponse {
     public var ecosystemID: String = .init()
 
     /// The public DID associated with this account.
-    /// This DID is used as "issuer" when signing verifiable credentials
+    /// This DID is used as the `issuer` when signing verifiable credentials
     public var publicDid: String = .init()
 
-    /// Webhook events if any this wallet has authorized
+    /// Webhook events, if any, this wallet has authorized
     public var authorizedWebhooks: [String] = []
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -318,6 +317,7 @@ public struct Services_Account_V1_RevokeDeviceResponse {
     public init() {}
 }
 
+/// Deprecated
 public struct Services_Account_V1_AccountEcosystem {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -336,19 +336,20 @@ public struct Services_Account_V1_AccountEcosystem {
     public init() {}
 }
 
+/// Request to begin login flow
 public struct Services_Account_V1_LoginRequest {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
 
-    /// Email account to associate with the login request
+    /// Email address of account. If unspecified, an anonymous account will be created.
     public var email: String = .init()
 
     /// Invitation code associated with this registration
     public var invitationCode: String = .init()
 
     /// ID of Ecosystem to sign into.
-    /// Ignored if `invitation_code` is passed
+    /// Ignored if `invitation_code` is passed.
     public var ecosystemID: String = .init()
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -356,6 +357,7 @@ public struct Services_Account_V1_LoginRequest {
     public init() {}
 }
 
+/// Response to `LoginRequest`
 public struct Services_Account_V1_LoginResponse {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -363,8 +365,9 @@ public struct Services_Account_V1_LoginResponse {
 
     public var response: Services_Account_V1_LoginResponse.OneOf_Response?
 
-    /// Challenge response. Random byte sequence unique
-    /// for this login request
+    /// Random byte sequence unique to this login request.
+    /// If present, two-factor confirmation of login is required.
+    /// Must be sent back, unaltered, in `LoginConfirm`.
     public var challenge: Data {
         get {
             if case let .challenge(v)? = response { return v }
@@ -373,9 +376,7 @@ public struct Services_Account_V1_LoginResponse {
         set { response = .challenge(newValue) }
     }
 
-    /// Profile response. The login isn't challenged and
-    /// the token is returned in this call. Does not require
-    /// confirmation step
+    /// Account profile response. If present, no confirmation of login is required.
     public var profile: Services_Account_V1_AccountProfile {
         get {
             if case let .profile(v)? = response { return v }
@@ -387,12 +388,11 @@ public struct Services_Account_V1_LoginResponse {
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public enum OneOf_Response: Equatable {
-        /// Challenge response. Random byte sequence unique
-        /// for this login request
+        /// Random byte sequence unique to this login request.
+        /// If present, two-factor confirmation of login is required.
+        /// Must be sent back, unaltered, in `LoginConfirm`.
         case challenge(Data)
-        /// Profile response. The login isn't challenged and
-        /// the token is returned in this call. Does not require
-        /// confirmation step
+        /// Account profile response. If present, no confirmation of login is required.
         case profile(Services_Account_V1_AccountProfile)
 
         #if !swift(>=4.1)
@@ -418,16 +418,17 @@ public struct Services_Account_V1_LoginResponse {
     public init() {}
 }
 
+/// Request to finalize login flow
 public struct Services_Account_V1_LoginConfirmRequest {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
 
-    /// Login challenge received during the Login call
+    /// Challenge received from `Login`
     public var challenge: Data = .init()
 
-    /// Confirmation code received in email or SMS
-    /// hashed using Blake3
+    /// Two-factor confirmation code sent to account email or phone,
+    /// hashed using Blake3. Our SDKs will handle this hashing process for you.
     public var confirmationCodeHashed: Data = .init()
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -435,13 +436,14 @@ public struct Services_Account_V1_LoginConfirmRequest {
     public init() {}
 }
 
+/// Response to `LoginConfirmRequest`
 public struct Services_Account_V1_LoginConfirmResponse {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
 
-    /// Profile response. This profile may be protected and
-    /// require unblinding/unprotection using the raw hashed code
+    /// Profile response; must be unprotected using unhashed confirmation code.
+    /// Our SDKs will handle this process for you, and return to you an authentication token string.
     public var profile: Services_Account_V1_AccountProfile {
         get { return _profile ?? Services_Account_V1_AccountProfile() }
         set { _profile = newValue }
@@ -459,7 +461,8 @@ public struct Services_Account_V1_LoginConfirmResponse {
     fileprivate var _profile: Services_Account_V1_AccountProfile?
 }
 
-/// Authorize ecosystem to receive wallet events
+/// Request to authorize Ecosystem provider to receive webhooks for events
+/// which occur on this wallet.
 public struct Services_Account_V1_AuthorizeWebhookRequest {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -973,9 +976,9 @@ extension Services_Account_V1_LoginRequest: SwiftProtobuf.Message, SwiftProtobuf
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try decoder.decodeSingularStringField(value: &email)
-            case 2: try decoder.decodeSingularStringField(value: &invitationCode)
-            case 3: try decoder.decodeSingularStringField(value: &ecosystemID)
+            case 1: try try decoder.decodeSingularStringField(value: &email)
+            case 2: try try decoder.decodeSingularStringField(value: &invitationCode)
+            case 3: try try decoder.decodeSingularStringField(value: &ecosystemID)
             default: break
             }
         }

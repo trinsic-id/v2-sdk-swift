@@ -22,6 +22,7 @@
 //
 import GRPC
 import NIO
+import NIOConcurrencyHelpers
 import SwiftProtobuf
 
 /// Usage: instantiate `Services_Account_V1_AccountClient`, then call methods of this protocol to make API calls.
@@ -81,14 +82,14 @@ public extension Services_Account_V1_AccountClientProtocol {
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Account_V1_SignInRequest, Services_Account_V1_SignInResponse> {
         return makeUnaryCall(
-            path: "/services.account.v1.Account/SignIn",
+            path: Services_Account_V1_AccountClientMetadata.Methods.SignIn.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
             interceptors: interceptors?.makeSignInInterceptors() ?? []
         )
     }
 
-    /// Login to account. If account doesn't exist, new will be created
+    /// Begin login flow for specified account, creating one if it does not already exist
     ///
     /// - Parameters:
     ///   - request: Request to send to Login.
@@ -99,14 +100,14 @@ public extension Services_Account_V1_AccountClientProtocol {
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Account_V1_LoginRequest, Services_Account_V1_LoginResponse> {
         return makeUnaryCall(
-            path: "/services.account.v1.Account/Login",
+            path: Services_Account_V1_AccountClientMetadata.Methods.Login.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
             interceptors: interceptors?.makeLoginInterceptors() ?? []
         )
     }
 
-    /// Confirm login step by responding to the challenge request
+    /// Finalize login flow with two-factor confirmation code
     ///
     /// - Parameters:
     ///   - request: Request to send to LoginConfirm.
@@ -117,7 +118,7 @@ public extension Services_Account_V1_AccountClientProtocol {
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Account_V1_LoginConfirmRequest, Services_Account_V1_LoginConfirmResponse> {
         return makeUnaryCall(
-            path: "/services.account.v1.Account/LoginConfirm",
+            path: Services_Account_V1_AccountClientMetadata.Methods.LoginConfirm.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
             interceptors: interceptors?.makeLoginConfirmInterceptors() ?? []
@@ -135,7 +136,7 @@ public extension Services_Account_V1_AccountClientProtocol {
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Account_V1_AccountInfoRequest, Services_Account_V1_AccountInfoResponse> {
         return makeUnaryCall(
-            path: "/services.account.v1.Account/Info",
+            path: Services_Account_V1_AccountClientMetadata.Methods.Info.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
             interceptors: interceptors?.makeInfoInterceptors() ?? []
@@ -153,7 +154,7 @@ public extension Services_Account_V1_AccountClientProtocol {
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Account_V1_ListDevicesRequest, Services_Account_V1_ListDevicesResponse> {
         return makeUnaryCall(
-            path: "/services.account.v1.Account/ListDevices",
+            path: Services_Account_V1_AccountClientMetadata.Methods.ListDevices.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
             interceptors: interceptors?.makeListDevicesInterceptors() ?? []
@@ -171,7 +172,7 @@ public extension Services_Account_V1_AccountClientProtocol {
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Account_V1_RevokeDeviceRequest, Services_Account_V1_RevokeDeviceResponse> {
         return makeUnaryCall(
-            path: "/services.account.v1.Account/RevokeDevice",
+            path: Services_Account_V1_AccountClientMetadata.Methods.RevokeDevice.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
             interceptors: interceptors?.makeRevokeDeviceInterceptors() ?? []
@@ -189,7 +190,7 @@ public extension Services_Account_V1_AccountClientProtocol {
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Account_V1_AuthorizeWebhookRequest, Services_Account_V1_AuthorizeWebhookResponse> {
         return makeUnaryCall(
-            path: "/services.account.v1.Account/AuthorizeWebhook",
+            path: Services_Account_V1_AccountClientMetadata.Methods.AuthorizeWebhook.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
             interceptors: interceptors?.makeAuthorizeWebhookInterceptors() ?? []
@@ -197,7 +198,310 @@ public extension Services_Account_V1_AccountClientProtocol {
     }
 }
 
-public protocol Services_Account_V1_AccountClientInterceptorFactoryProtocol {
+#if compiler(>=5.6)
+    @available(*, deprecated)
+    extension Services_Account_V1_AccountClient: @unchecked Sendable {}
+#endif // compiler(>=5.6)
+
+@available(*, deprecated, renamed: "Services_Account_V1_AccountNIOClient")
+public final class Services_Account_V1_AccountClient: Services_Account_V1_AccountClientProtocol {
+    private let lock = Lock()
+    private var _defaultCallOptions: CallOptions
+    private var _interceptors: Services_Account_V1_AccountClientInterceptorFactoryProtocol?
+    public let channel: GRPCChannel
+    public var defaultCallOptions: CallOptions {
+        get { lock.withLock { self._defaultCallOptions } }
+        set { lock.withLockVoid { self._defaultCallOptions = newValue } }
+    }
+
+    public var interceptors: Services_Account_V1_AccountClientInterceptorFactoryProtocol? {
+        get { lock.withLock { self._interceptors } }
+        set { lock.withLockVoid { self._interceptors = newValue } }
+    }
+
+    /// Creates a client for the services.account.v1.Account service.
+    ///
+    /// - Parameters:
+    ///   - channel: `GRPCChannel` to the service host.
+    ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
+    ///   - interceptors: A factory providing interceptors for each RPC.
+    public init(
+        channel: GRPCChannel,
+        defaultCallOptions: CallOptions = CallOptions(),
+        interceptors: Services_Account_V1_AccountClientInterceptorFactoryProtocol? = nil
+    ) {
+        self.channel = channel
+        _defaultCallOptions = defaultCallOptions
+        _interceptors = interceptors
+    }
+}
+
+public struct Services_Account_V1_AccountNIOClient: Services_Account_V1_AccountClientProtocol {
+    public var channel: GRPCChannel
+    public var defaultCallOptions: CallOptions
+    public var interceptors: Services_Account_V1_AccountClientInterceptorFactoryProtocol?
+
+    /// Creates a client for the services.account.v1.Account service.
+    ///
+    /// - Parameters:
+    ///   - channel: `GRPCChannel` to the service host.
+    ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
+    ///   - interceptors: A factory providing interceptors for each RPC.
+    public init(
+        channel: GRPCChannel,
+        defaultCallOptions: CallOptions = CallOptions(),
+        interceptors: Services_Account_V1_AccountClientInterceptorFactoryProtocol? = nil
+    ) {
+        self.channel = channel
+        self.defaultCallOptions = defaultCallOptions
+        self.interceptors = interceptors
+    }
+}
+
+#if compiler(>=5.6)
+    @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+    public protocol Services_Account_V1_AccountAsyncClientProtocol: GRPCClient {
+        static var serviceDescriptor: GRPCServiceDescriptor { get }
+        var interceptors: Services_Account_V1_AccountClientInterceptorFactoryProtocol? { get }
+
+        func makeSignInCall(
+            _ request: Services_Account_V1_SignInRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Account_V1_SignInRequest, Services_Account_V1_SignInResponse>
+
+        func makeLoginCall(
+            _ request: Services_Account_V1_LoginRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Account_V1_LoginRequest, Services_Account_V1_LoginResponse>
+
+        func makeLoginConfirmCall(
+            _ request: Services_Account_V1_LoginConfirmRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Account_V1_LoginConfirmRequest, Services_Account_V1_LoginConfirmResponse>
+
+        func makeInfoCall(
+            _ request: Services_Account_V1_AccountInfoRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Account_V1_AccountInfoRequest, Services_Account_V1_AccountInfoResponse>
+
+        func makeListDevicesCall(
+            _ request: Services_Account_V1_ListDevicesRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Account_V1_ListDevicesRequest, Services_Account_V1_ListDevicesResponse>
+
+        func makeRevokeDeviceCall(
+            _ request: Services_Account_V1_RevokeDeviceRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Account_V1_RevokeDeviceRequest, Services_Account_V1_RevokeDeviceResponse>
+
+        func makeAuthorizeWebhookCall(
+            _ request: Services_Account_V1_AuthorizeWebhookRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Account_V1_AuthorizeWebhookRequest, Services_Account_V1_AuthorizeWebhookResponse>
+    }
+
+    @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+    public extension Services_Account_V1_AccountAsyncClientProtocol {
+        static var serviceDescriptor: GRPCServiceDescriptor {
+            return Services_Account_V1_AccountClientMetadata.serviceDescriptor
+        }
+
+        var interceptors: Services_Account_V1_AccountClientInterceptorFactoryProtocol? {
+            return nil
+        }
+
+        func makeSignInCall(
+            _ request: Services_Account_V1_SignInRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Account_V1_SignInRequest, Services_Account_V1_SignInResponse> {
+            return makeAsyncUnaryCall(
+                path: Services_Account_V1_AccountClientMetadata.Methods.SignIn.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeSignInInterceptors() ?? []
+            )
+        }
+
+        func makeLoginCall(
+            _ request: Services_Account_V1_LoginRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Account_V1_LoginRequest, Services_Account_V1_LoginResponse> {
+            return makeAsyncUnaryCall(
+                path: Services_Account_V1_AccountClientMetadata.Methods.Login.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeLoginInterceptors() ?? []
+            )
+        }
+
+        func makeLoginConfirmCall(
+            _ request: Services_Account_V1_LoginConfirmRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Account_V1_LoginConfirmRequest, Services_Account_V1_LoginConfirmResponse> {
+            return makeAsyncUnaryCall(
+                path: Services_Account_V1_AccountClientMetadata.Methods.LoginConfirm.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeLoginConfirmInterceptors() ?? []
+            )
+        }
+
+        func makeInfoCall(
+            _ request: Services_Account_V1_AccountInfoRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Account_V1_AccountInfoRequest, Services_Account_V1_AccountInfoResponse> {
+            return makeAsyncUnaryCall(
+                path: Services_Account_V1_AccountClientMetadata.Methods.Info.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeInfoInterceptors() ?? []
+            )
+        }
+
+        func makeListDevicesCall(
+            _ request: Services_Account_V1_ListDevicesRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Account_V1_ListDevicesRequest, Services_Account_V1_ListDevicesResponse> {
+            return makeAsyncUnaryCall(
+                path: Services_Account_V1_AccountClientMetadata.Methods.ListDevices.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeListDevicesInterceptors() ?? []
+            )
+        }
+
+        func makeRevokeDeviceCall(
+            _ request: Services_Account_V1_RevokeDeviceRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Account_V1_RevokeDeviceRequest, Services_Account_V1_RevokeDeviceResponse> {
+            return makeAsyncUnaryCall(
+                path: Services_Account_V1_AccountClientMetadata.Methods.RevokeDevice.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeRevokeDeviceInterceptors() ?? []
+            )
+        }
+
+        func makeAuthorizeWebhookCall(
+            _ request: Services_Account_V1_AuthorizeWebhookRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Account_V1_AuthorizeWebhookRequest, Services_Account_V1_AuthorizeWebhookResponse> {
+            return makeAsyncUnaryCall(
+                path: Services_Account_V1_AccountClientMetadata.Methods.AuthorizeWebhook.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeAuthorizeWebhookInterceptors() ?? []
+            )
+        }
+    }
+
+    @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+    public extension Services_Account_V1_AccountAsyncClientProtocol {
+        func SignIn(
+            _ request: Services_Account_V1_SignInRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Account_V1_SignInResponse {
+            return try await performAsyncUnaryCall(
+                path: Services_Account_V1_AccountClientMetadata.Methods.SignIn.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeSignInInterceptors() ?? []
+            )
+        }
+
+        func Login(
+            _ request: Services_Account_V1_LoginRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Account_V1_LoginResponse {
+            return try await performAsyncUnaryCall(
+                path: Services_Account_V1_AccountClientMetadata.Methods.Login.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeLoginInterceptors() ?? []
+            )
+        }
+
+        func LoginConfirm(
+            _ request: Services_Account_V1_LoginConfirmRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Account_V1_LoginConfirmResponse {
+            return try await performAsyncUnaryCall(
+                path: Services_Account_V1_AccountClientMetadata.Methods.LoginConfirm.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeLoginConfirmInterceptors() ?? []
+            )
+        }
+
+        func Info(
+            _ request: Services_Account_V1_AccountInfoRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Account_V1_AccountInfoResponse {
+            return try await performAsyncUnaryCall(
+                path: Services_Account_V1_AccountClientMetadata.Methods.Info.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeInfoInterceptors() ?? []
+            )
+        }
+
+        func ListDevices(
+            _ request: Services_Account_V1_ListDevicesRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Account_V1_ListDevicesResponse {
+            return try await performAsyncUnaryCall(
+                path: Services_Account_V1_AccountClientMetadata.Methods.ListDevices.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeListDevicesInterceptors() ?? []
+            )
+        }
+
+        func RevokeDevice(
+            _ request: Services_Account_V1_RevokeDeviceRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Account_V1_RevokeDeviceResponse {
+            return try await performAsyncUnaryCall(
+                path: Services_Account_V1_AccountClientMetadata.Methods.RevokeDevice.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeRevokeDeviceInterceptors() ?? []
+            )
+        }
+
+        func AuthorizeWebhook(
+            _ request: Services_Account_V1_AuthorizeWebhookRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Account_V1_AuthorizeWebhookResponse {
+            return try await performAsyncUnaryCall(
+                path: Services_Account_V1_AccountClientMetadata.Methods.AuthorizeWebhook.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeAuthorizeWebhookInterceptors() ?? []
+            )
+        }
+    }
+
+    @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+    public struct Services_Account_V1_AccountAsyncClient: Services_Account_V1_AccountAsyncClientProtocol {
+        public var channel: GRPCChannel
+        public var defaultCallOptions: CallOptions
+        public var interceptors: Services_Account_V1_AccountClientInterceptorFactoryProtocol?
+
+        public init(
+            channel: GRPCChannel,
+            defaultCallOptions: CallOptions = CallOptions(),
+            interceptors: Services_Account_V1_AccountClientInterceptorFactoryProtocol? = nil
+        ) {
+            self.channel = channel
+            self.defaultCallOptions = defaultCallOptions
+            self.interceptors = interceptors
+        }
+    }
+
+#endif // compiler(>=5.6)
+
+public protocol Services_Account_V1_AccountClientInterceptorFactoryProtocol: GRPCSendable {
     /// - Returns: Interceptors to use when invoking 'SignIn'.
     func makeSignInInterceptors() -> [ClientInterceptor<Services_Account_V1_SignInRequest, Services_Account_V1_SignInResponse>]
 
@@ -220,25 +524,63 @@ public protocol Services_Account_V1_AccountClientInterceptorFactoryProtocol {
     func makeAuthorizeWebhookInterceptors() -> [ClientInterceptor<Services_Account_V1_AuthorizeWebhookRequest, Services_Account_V1_AuthorizeWebhookResponse>]
 }
 
-public final class Services_Account_V1_AccountClient: Services_Account_V1_AccountClientProtocol {
-    public let channel: GRPCChannel
-    public var defaultCallOptions: CallOptions
-    public var interceptors: Services_Account_V1_AccountClientInterceptorFactoryProtocol?
+public enum Services_Account_V1_AccountClientMetadata {
+    public static let serviceDescriptor = GRPCServiceDescriptor(
+        name: "Account",
+        fullName: "services.account.v1.Account",
+        methods: [
+            Services_Account_V1_AccountClientMetadata.Methods.SignIn,
+            Services_Account_V1_AccountClientMetadata.Methods.Login,
+            Services_Account_V1_AccountClientMetadata.Methods.LoginConfirm,
+            Services_Account_V1_AccountClientMetadata.Methods.Info,
+            Services_Account_V1_AccountClientMetadata.Methods.ListDevices,
+            Services_Account_V1_AccountClientMetadata.Methods.RevokeDevice,
+            Services_Account_V1_AccountClientMetadata.Methods.AuthorizeWebhook,
+        ]
+    )
 
-    /// Creates a client for the services.account.v1.Account service.
-    ///
-    /// - Parameters:
-    ///   - channel: `GRPCChannel` to the service host.
-    ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
-    ///   - interceptors: A factory providing interceptors for each RPC.
-    public init(
-        channel: GRPCChannel,
-        defaultCallOptions: CallOptions = CallOptions(),
-        interceptors: Services_Account_V1_AccountClientInterceptorFactoryProtocol? = nil
-    ) {
-        self.channel = channel
-        self.defaultCallOptions = defaultCallOptions
-        self.interceptors = interceptors
+    public enum Methods {
+        public static let SignIn = GRPCMethodDescriptor(
+            name: "SignIn",
+            path: "/services.account.v1.Account/SignIn",
+            type: GRPCCallType.unary
+        )
+
+        public static let Login = GRPCMethodDescriptor(
+            name: "Login",
+            path: "/services.account.v1.Account/Login",
+            type: GRPCCallType.unary
+        )
+
+        public static let LoginConfirm = GRPCMethodDescriptor(
+            name: "LoginConfirm",
+            path: "/services.account.v1.Account/LoginConfirm",
+            type: GRPCCallType.unary
+        )
+
+        public static let Info = GRPCMethodDescriptor(
+            name: "Info",
+            path: "/services.account.v1.Account/Info",
+            type: GRPCCallType.unary
+        )
+
+        public static let ListDevices = GRPCMethodDescriptor(
+            name: "ListDevices",
+            path: "/services.account.v1.Account/ListDevices",
+            type: GRPCCallType.unary
+        )
+
+        public static let RevokeDevice = GRPCMethodDescriptor(
+            name: "RevokeDevice",
+            path: "/services.account.v1.Account/RevokeDevice",
+            type: GRPCCallType.unary
+        )
+
+        public static let AuthorizeWebhook = GRPCMethodDescriptor(
+            name: "AuthorizeWebhook",
+            path: "/services.account.v1.Account/AuthorizeWebhook",
+            type: GRPCCallType.unary
+        )
     }
 }
 
@@ -249,10 +591,10 @@ public protocol Services_Account_V1_AccountProvider: CallHandlerProvider {
     /// Sign in to an already existing account
     func SignIn(request: Services_Account_V1_SignInRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Account_V1_SignInResponse>
 
-    /// Login to account. If account doesn't exist, new will be created
+    /// Begin login flow for specified account, creating one if it does not already exist
     func Login(request: Services_Account_V1_LoginRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Account_V1_LoginResponse>
 
-    /// Confirm login step by responding to the challenge request
+    /// Finalize login flow with two-factor confirmation code
     func LoginConfirm(request: Services_Account_V1_LoginConfirmRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Account_V1_LoginConfirmResponse>
 
     /// Get account information
@@ -269,7 +611,9 @@ public protocol Services_Account_V1_AccountProvider: CallHandlerProvider {
 }
 
 public extension Services_Account_V1_AccountProvider {
-    var serviceName: Substring { return "services.account.v1.Account" }
+    var serviceName: Substring {
+        return Services_Account_V1_AccountServerMetadata.serviceDescriptor.fullName[...]
+    }
 
     /// Determines, calls and returns the appropriate request handler, depending on the request's method.
     /// Returns nil for methods not handled by this service.
@@ -347,6 +691,147 @@ public extension Services_Account_V1_AccountProvider {
     }
 }
 
+#if compiler(>=5.6)
+
+    /// To implement a server, implement an object which conforms to this protocol.
+    @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+    public protocol Services_Account_V1_AccountAsyncProvider: CallHandlerProvider {
+        static var serviceDescriptor: GRPCServiceDescriptor { get }
+        var interceptors: Services_Account_V1_AccountServerInterceptorFactoryProtocol? { get }
+
+        /// Sign in to an already existing account
+        @Sendable func SignIn(
+            request: Services_Account_V1_SignInRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Account_V1_SignInResponse
+
+        /// Begin login flow for specified account, creating one if it does not already exist
+        @Sendable func Login(
+            request: Services_Account_V1_LoginRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Account_V1_LoginResponse
+
+        /// Finalize login flow with two-factor confirmation code
+        @Sendable func LoginConfirm(
+            request: Services_Account_V1_LoginConfirmRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Account_V1_LoginConfirmResponse
+
+        /// Get account information
+        @Sendable func Info(
+            request: Services_Account_V1_AccountInfoRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Account_V1_AccountInfoResponse
+
+        /// List all connected devices
+        @Sendable func ListDevices(
+            request: Services_Account_V1_ListDevicesRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Account_V1_ListDevicesResponse
+
+        /// Revoke device access to the account's cloud wallet
+        @Sendable func RevokeDevice(
+            request: Services_Account_V1_RevokeDeviceRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Account_V1_RevokeDeviceResponse
+
+        /// Authorize Ecosystem to receive webhook events
+        @Sendable func AuthorizeWebhook(
+            request: Services_Account_V1_AuthorizeWebhookRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Account_V1_AuthorizeWebhookResponse
+    }
+
+    @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+    public extension Services_Account_V1_AccountAsyncProvider {
+        static var serviceDescriptor: GRPCServiceDescriptor {
+            return Services_Account_V1_AccountServerMetadata.serviceDescriptor
+        }
+
+        var serviceName: Substring {
+            return Services_Account_V1_AccountServerMetadata.serviceDescriptor.fullName[...]
+        }
+
+        var interceptors: Services_Account_V1_AccountServerInterceptorFactoryProtocol? {
+            return nil
+        }
+
+        func handle(
+            method name: Substring,
+            context: CallHandlerContext
+        ) -> GRPCServerHandlerProtocol? {
+            switch name {
+            case "SignIn":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Account_V1_SignInRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Account_V1_SignInResponse>(),
+                    interceptors: interceptors?.makeSignInInterceptors() ?? [],
+                    wrapping: SignIn(request:context:)
+                )
+
+            case "Login":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Account_V1_LoginRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Account_V1_LoginResponse>(),
+                    interceptors: interceptors?.makeLoginInterceptors() ?? [],
+                    wrapping: Login(request:context:)
+                )
+
+            case "LoginConfirm":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Account_V1_LoginConfirmRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Account_V1_LoginConfirmResponse>(),
+                    interceptors: interceptors?.makeLoginConfirmInterceptors() ?? [],
+                    wrapping: LoginConfirm(request:context:)
+                )
+
+            case "Info":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Account_V1_AccountInfoRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Account_V1_AccountInfoResponse>(),
+                    interceptors: interceptors?.makeInfoInterceptors() ?? [],
+                    wrapping: Info(request:context:)
+                )
+
+            case "ListDevices":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Account_V1_ListDevicesRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Account_V1_ListDevicesResponse>(),
+                    interceptors: interceptors?.makeListDevicesInterceptors() ?? [],
+                    wrapping: ListDevices(request:context:)
+                )
+
+            case "RevokeDevice":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Account_V1_RevokeDeviceRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Account_V1_RevokeDeviceResponse>(),
+                    interceptors: interceptors?.makeRevokeDeviceInterceptors() ?? [],
+                    wrapping: RevokeDevice(request:context:)
+                )
+
+            case "AuthorizeWebhook":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Account_V1_AuthorizeWebhookRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Account_V1_AuthorizeWebhookResponse>(),
+                    interceptors: interceptors?.makeAuthorizeWebhookInterceptors() ?? [],
+                    wrapping: AuthorizeWebhook(request:context:)
+                )
+
+            default:
+                return nil
+            }
+        }
+    }
+
+#endif // compiler(>=5.6)
+
 public protocol Services_Account_V1_AccountServerInterceptorFactoryProtocol {
     /// - Returns: Interceptors to use when handling 'SignIn'.
     ///   Defaults to calling `self.makeInterceptors()`.
@@ -375,4 +860,64 @@ public protocol Services_Account_V1_AccountServerInterceptorFactoryProtocol {
     /// - Returns: Interceptors to use when handling 'AuthorizeWebhook'.
     ///   Defaults to calling `self.makeInterceptors()`.
     func makeAuthorizeWebhookInterceptors() -> [ServerInterceptor<Services_Account_V1_AuthorizeWebhookRequest, Services_Account_V1_AuthorizeWebhookResponse>]
+}
+
+public enum Services_Account_V1_AccountServerMetadata {
+    public static let serviceDescriptor = GRPCServiceDescriptor(
+        name: "Account",
+        fullName: "services.account.v1.Account",
+        methods: [
+            Services_Account_V1_AccountServerMetadata.Methods.SignIn,
+            Services_Account_V1_AccountServerMetadata.Methods.Login,
+            Services_Account_V1_AccountServerMetadata.Methods.LoginConfirm,
+            Services_Account_V1_AccountServerMetadata.Methods.Info,
+            Services_Account_V1_AccountServerMetadata.Methods.ListDevices,
+            Services_Account_V1_AccountServerMetadata.Methods.RevokeDevice,
+            Services_Account_V1_AccountServerMetadata.Methods.AuthorizeWebhook,
+        ]
+    )
+
+    public enum Methods {
+        public static let SignIn = GRPCMethodDescriptor(
+            name: "SignIn",
+            path: "/services.account.v1.Account/SignIn",
+            type: GRPCCallType.unary
+        )
+
+        public static let Login = GRPCMethodDescriptor(
+            name: "Login",
+            path: "/services.account.v1.Account/Login",
+            type: GRPCCallType.unary
+        )
+
+        public static let LoginConfirm = GRPCMethodDescriptor(
+            name: "LoginConfirm",
+            path: "/services.account.v1.Account/LoginConfirm",
+            type: GRPCCallType.unary
+        )
+
+        public static let Info = GRPCMethodDescriptor(
+            name: "Info",
+            path: "/services.account.v1.Account/Info",
+            type: GRPCCallType.unary
+        )
+
+        public static let ListDevices = GRPCMethodDescriptor(
+            name: "ListDevices",
+            path: "/services.account.v1.Account/ListDevices",
+            type: GRPCCallType.unary
+        )
+
+        public static let RevokeDevice = GRPCMethodDescriptor(
+            name: "RevokeDevice",
+            path: "/services.account.v1.Account/RevokeDevice",
+            type: GRPCCallType.unary
+        )
+
+        public static let AuthorizeWebhook = GRPCMethodDescriptor(
+            name: "AuthorizeWebhook",
+            path: "/services.account.v1.Account/AuthorizeWebhook",
+            type: GRPCCallType.unary
+        )
+    }
 }
