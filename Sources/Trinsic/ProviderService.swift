@@ -23,9 +23,9 @@ public class ProviderService: ServiceBase {
 
     public func createEcosystem(request: Services_Provider_V1_CreateEcosystemRequest) throws -> Services_Provider_V1_CreateEcosystemResponse {
         if !request.name.isEmpty || (request.hasDetails && !request.details.email.isEmpty) {
-        return try client!.CreateEcosystem(request, callOptions: try buildMetadata(request))
-            .response
-            .wait()
+            return try client!.CreateEcosystem(request, callOptions: try buildMetadata(request))
+                .response
+                .wait()
         } else {
             return try client!.CreateEcosystem(request).response.wait()
         }

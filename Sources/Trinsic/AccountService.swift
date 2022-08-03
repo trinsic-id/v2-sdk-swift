@@ -30,9 +30,6 @@ public class AccountService: ServiceBase {
         requestCopy.details = request.details
         requestCopy.invitationCode = request.invitationCode
 
-        if requestCopy.ecosystemID.isEmpty {
-            requestCopy.ecosystemID = options.defaultEcosystem
-        }
         let response = try client!.SignIn(requestCopy)
             .response
             .wait()
@@ -96,12 +93,7 @@ public class AccountService: ServiceBase {
     }
 
     public func login(request: Services_Account_V1_LoginRequest) throws -> Services_Account_V1_LoginResponse {
-        var requestCopy = request
-
-        if requestCopy.ecosystemID.isEmpty {
-            requestCopy.ecosystemID = options.defaultEcosystem
-        }
-        let response = try client!.Login(requestCopy)
+        let response = try client!.Login(request)
             .response.wait()
 
         return response

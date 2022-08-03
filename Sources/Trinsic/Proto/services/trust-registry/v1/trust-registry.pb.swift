@@ -23,17 +23,19 @@ private struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVer
 public enum Services_Trustregistry_V1_RegistrationStatus: SwiftProtobuf.Enum {
     public typealias RawValue = Int
 
-    /// - the entity is currently authorized, as of time of the query.
+    /// Member is currently authorized, as of the time of the query
     case current // = 0
 
-    /// - entity rights have expired.
+    /// Member's authorization has expired
     case expired // = 1
 
-    /// - entity has voluntarily ceased Issuer role under the specific EGF.
+    /// Member has voluntarily ceased Issuer role under the specific EGF
     case terminated // = 2
 
-    /// - entity authority under specific EGF was terminated by the governing authority.
+    /// Member authority under specific EGF was terminated by the governing authority
     case revoked // = 3
+
+    /// Member is not associated with given credential schema in the EGF
     case notFound // = 10
     case UNRECOGNIZED(Int)
 
@@ -79,16 +81,19 @@ public enum Services_Trustregistry_V1_RegistrationStatus: SwiftProtobuf.Enum {
 
 #endif // swift(>=4.2)
 
-/// Register new ecosystem governance framework
+/// Request to register a new ecosystem governance framework in the current ecosystem
 public struct Services_Trustregistry_V1_AddFrameworkRequest {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
 
+    /// URI of governance framework organization
     public var governanceFrameworkUri: String = .init()
 
+    /// Name of governance framework organization
     public var name: String = .init()
 
+    /// Description of governance framework
     public var description_p: String = .init()
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -96,6 +101,7 @@ public struct Services_Trustregistry_V1_AddFrameworkRequest {
     public init() {}
 }
 
+/// Response to `AddFrameworkRequest`
 public struct Services_Trustregistry_V1_AddFrameworkResponse {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -104,8 +110,10 @@ public struct Services_Trustregistry_V1_AddFrameworkResponse {
     /// Unique framework identifier
     public var id: String = .init()
 
+    /// DID URI of Trinsic account which created the governance framework
     public var governingAuthority: String = .init()
 
+    /// URN of trust registry for governance framework
     public var trustRegistry: String = .init()
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -113,11 +121,13 @@ public struct Services_Trustregistry_V1_AddFrameworkResponse {
     public init() {}
 }
 
+/// Request to remove a governance framework from the current ecosystem
 public struct Services_Trustregistry_V1_RemoveFrameworkRequest {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
 
+    /// ID of governance framework to remove
     public var id: String = .init()
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -125,6 +135,7 @@ public struct Services_Trustregistry_V1_RemoveFrameworkRequest {
     public init() {}
 }
 
+/// Response to `RemoveFrameworkRequest`
 public struct Services_Trustregistry_V1_RemoveFrameworkResponse {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -135,14 +146,16 @@ public struct Services_Trustregistry_V1_RemoveFrameworkResponse {
     public init() {}
 }
 
+/// Request to search all governance frameworks within ecosystem
 public struct Services_Trustregistry_V1_SearchRegistryRequest {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
 
-    /// SELECT c from c where c.type == 'GovernanceFramework'
+    /// SQL query to execute against frameworks. Example: `SELECT c from c where c.type == 'GovernanceFramework'`
     public var query: String = .init()
 
+    /// Token to fetch next set of results, from previous `SearchRegistryResponse`
     public var continuationToken: String = .init()
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -150,15 +163,19 @@ public struct Services_Trustregistry_V1_SearchRegistryRequest {
     public init() {}
 }
 
+/// Response to `SearchRegistryRequest`
 public struct Services_Trustregistry_V1_SearchRegistryResponse {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
 
+    /// JSON string containing array of resultant objects
     public var itemsJson: String = .init()
 
+    /// Whether more data is available to fetch for query
     public var hasMore_p: Bool = false
 
+    /// Token to fetch next set of results via `SearchRegistryRequest`
     public var continuationToken: String = .init()
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -166,15 +183,19 @@ public struct Services_Trustregistry_V1_SearchRegistryResponse {
     public init() {}
 }
 
+/// Ecosystem Governance Framework
 public struct Services_Trustregistry_V1_GovernanceFramework {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
 
+    /// URI of governance framework organization
     public var governanceFrameworkUri: String = .init()
 
+    /// URI of trust registry associated with governance framework
     public var trustRegistryUri: String = .init()
 
+    /// Description of governance framework
     public var description_p: String = .init()
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -182,6 +203,8 @@ public struct Services_Trustregistry_V1_GovernanceFramework {
     public init() {}
 }
 
+/// Request to register a member as a valid issuer of a specific credential schema.
+/// Only one of `did_uri`, `wallet_id`, or `email` may be specified.
 public struct Services_Trustregistry_V1_RegisterMemberRequest {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -189,6 +212,7 @@ public struct Services_Trustregistry_V1_RegisterMemberRequest {
 
     public var member: Services_Trustregistry_V1_RegisterMemberRequest.OneOf_Member?
 
+    /// DID URI of member to register
     public var didUri: String {
         get {
             if case let .didUri(v)? = member { return v }
@@ -197,6 +221,7 @@ public struct Services_Trustregistry_V1_RegisterMemberRequest {
         set { member = .didUri(newValue) }
     }
 
+    /// Trinsic Wallet ID of member to register
     public var walletID: String {
         get {
             if case let .walletID(v)? = member { return v }
@@ -205,6 +230,7 @@ public struct Services_Trustregistry_V1_RegisterMemberRequest {
         set { member = .walletID(newValue) }
     }
 
+    /// Email address of member to register. Must be associated with an existing Trinsic account.
     public var email: String {
         get {
             if case let .email(v)? = member { return v }
@@ -213,20 +239,26 @@ public struct Services_Trustregistry_V1_RegisterMemberRequest {
         set { member = .email(newValue) }
     }
 
+    /// URI of credential schema to register member as authorized issuer of
     public var schemaUri: String = .init()
 
+    /// Unix Timestamp member is valid from. Member will not be considered valid before this timestamp.
     public var validFromUtc: UInt64 = 0
 
+    /// Unix Timestamp member is valid until. Member will not be considered valid after this timestamp.
     public var validUntilUtc: UInt64 = 0
 
-    /// the id of the governance framework
+    /// ID of the governance framework that member is being added to
     public var frameworkID: String = .init()
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public enum OneOf_Member: Equatable {
+        /// DID URI of member to register
         case didUri(String)
+        /// Trinsic Wallet ID of member to register
         case walletID(String)
+        /// Email address of member to register. Must be associated with an existing Trinsic account.
         case email(String)
 
         #if !swift(>=4.1)
@@ -256,6 +288,7 @@ public struct Services_Trustregistry_V1_RegisterMemberRequest {
     public init() {}
 }
 
+/// Response to `RegisterMemberRequest`
 public struct Services_Trustregistry_V1_RegisterMemberResponse {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -266,6 +299,8 @@ public struct Services_Trustregistry_V1_RegisterMemberResponse {
     public init() {}
 }
 
+/// Request to unregister a member as a valid issuer of a specific credential schema.
+/// Only one of `did_uri`, `wallet_id`, or `email` may be specified.
 public struct Services_Trustregistry_V1_UnregisterMemberRequest {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -273,6 +308,7 @@ public struct Services_Trustregistry_V1_UnregisterMemberRequest {
 
     public var member: Services_Trustregistry_V1_UnregisterMemberRequest.OneOf_Member?
 
+    /// DID URI of member to unregister
     public var didUri: String {
         get {
             if case let .didUri(v)? = member { return v }
@@ -281,6 +317,7 @@ public struct Services_Trustregistry_V1_UnregisterMemberRequest {
         set { member = .didUri(newValue) }
     }
 
+    /// Trinsic Wallet ID of member to unregister
     public var walletID: String {
         get {
             if case let .walletID(v)? = member { return v }
@@ -289,6 +326,7 @@ public struct Services_Trustregistry_V1_UnregisterMemberRequest {
         set { member = .walletID(newValue) }
     }
 
+    /// Email address of member to unregister. Must be associated with an existing Trinsic account.
     public var email: String {
         get {
             if case let .email(v)? = member { return v }
@@ -297,15 +335,20 @@ public struct Services_Trustregistry_V1_UnregisterMemberRequest {
         set { member = .email(newValue) }
     }
 
+    /// URI of credential schema to unregister member as authorized issuer of
     public var schemaUri: String = .init()
 
+    /// ID of the governance framework that member is being removed from
     public var frameworkID: String = .init()
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public enum OneOf_Member: Equatable {
+        /// DID URI of member to unregister
         case didUri(String)
+        /// Trinsic Wallet ID of member to unregister
         case walletID(String)
+        /// Email address of member to unregister. Must be associated with an existing Trinsic account.
         case email(String)
 
         #if !swift(>=4.1)
@@ -335,6 +378,7 @@ public struct Services_Trustregistry_V1_UnregisterMemberRequest {
     public init() {}
 }
 
+/// Response to `UnregisterMemberRequest`
 public struct Services_Trustregistry_V1_UnregisterMemberResponse {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -345,15 +389,19 @@ public struct Services_Trustregistry_V1_UnregisterMemberResponse {
     public init() {}
 }
 
+/// Request to fetch membership status in governance framework for a specific credential schema.
+/// Only one of `did_uri`, `x509_cert` may be specified.
 public struct Services_Trustregistry_V1_GetMembershipStatusRequest {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
 
+    /// URI of governance framework
     public var governanceFrameworkUri: String = .init()
 
     public var member: Services_Trustregistry_V1_GetMembershipStatusRequest.OneOf_Member?
 
+    /// DID URI of member
     public var didUri: String {
         get {
             if case let .didUri(v)? = member { return v }
@@ -362,6 +410,7 @@ public struct Services_Trustregistry_V1_GetMembershipStatusRequest {
         set { member = .didUri(newValue) }
     }
 
+    /// X.509 certificate of member
     public var x509Cert: String {
         get {
             if case let .x509Cert(v)? = member { return v }
@@ -370,12 +419,15 @@ public struct Services_Trustregistry_V1_GetMembershipStatusRequest {
         set { member = .x509Cert(newValue) }
     }
 
+    /// URI of credential schema associated with membership
     public var schemaUri: String = .init()
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public enum OneOf_Member: Equatable {
+        /// DID URI of member
         case didUri(String)
+        /// X.509 certificate of member
         case x509Cert(String)
 
         #if !swift(>=4.1)
@@ -401,11 +453,13 @@ public struct Services_Trustregistry_V1_GetMembershipStatusRequest {
     public init() {}
 }
 
+/// Response to `GetMembershipStatusRequest`
 public struct Services_Trustregistry_V1_GetMembershipStatusResponse {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
 
+    /// Status of member for given credential schema
     public var status: Services_Trustregistry_V1_RegistrationStatus = .current
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -413,6 +467,7 @@ public struct Services_Trustregistry_V1_GetMembershipStatusResponse {
     public init() {}
 }
 
+/// Not implemented.
 public struct Services_Trustregistry_V1_FetchDataRequest {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -427,6 +482,7 @@ public struct Services_Trustregistry_V1_FetchDataRequest {
     public init() {}
 }
 
+/// Not implemented.
 public struct Services_Trustregistry_V1_FetchDataResponse {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for

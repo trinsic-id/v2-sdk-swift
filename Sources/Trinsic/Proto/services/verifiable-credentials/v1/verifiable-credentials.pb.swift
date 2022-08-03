@@ -193,7 +193,7 @@ public struct Services_Verifiablecredentials_V1_VerifyProofResponse {
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
 
-    /// Whether or not all validations in `validation_results` passed
+    /// Whether all validations in `validation_results` passed
     public var isValid: Bool = false
 
     /// Use `validation_results` instead
@@ -318,7 +318,7 @@ public struct Services_Verifiablecredentials_V1_UpdateStatusRequest {
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
 
-    /// Credential Status ID to update
+    /// Credential Status ID to update. This is not the same as the credential's ID.
     public var credentialStatusID: String = .init()
 
     /// New revocation status of credential
@@ -346,7 +346,7 @@ public struct Services_Verifiablecredentials_V1_CheckStatusRequest {
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
 
-    /// Credential Status ID to check
+    /// Credential Status ID to check. This is not the same as the credential's ID.
     public var credentialStatusID: String = .init()
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()

@@ -44,3 +44,4 @@ swiftformat .
 
 git submodule deinit -f sdk
 rm -rf .git/modules/sdk
+rm -fr sdk
