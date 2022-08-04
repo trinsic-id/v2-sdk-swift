@@ -1,4 +1,4 @@
-name: Build Swift SDK
+name: Update SDK Submodule (swift)
 
 on:
   workflow_call:
