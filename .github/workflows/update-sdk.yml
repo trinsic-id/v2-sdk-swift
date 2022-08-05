@@ -22,9 +22,6 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          if git diff --exit-code; then
-            exit 0;
-          fi
           git checkout -b "update-sdk-swift"
           git submodule update --remote
           git add .
