@@ -68,7 +68,7 @@ public class ProviderService: ServiceBase {
     }
 
     public func getOberonKey(request: Services_Provider_V1_GetOberonKeyRequest) throws -> Services_Provider_V1_GetOberonKeyResponse {
-        return try client!.GetOberonKey(request, callOptions: try buildMetadata(request))
+        return try client!.GetOberonKey(request, callOptions: try buildMetadata(nil))
             .response
             .wait()
     }

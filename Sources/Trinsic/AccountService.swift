@@ -30,7 +30,7 @@ public class AccountService: ServiceBase {
         requestCopy.details = request.details
         requestCopy.invitationCode = request.invitationCode
 
-        let response = try client!.SignIn(requestCopy)
+        let response = try client!.SignIn(requestCopy, callOptions: try buildMetadata(nil))
             .response
             .wait()
 
@@ -93,7 +93,7 @@ public class AccountService: ServiceBase {
     }
 
     public func login(request: Services_Account_V1_LoginRequest) throws -> Services_Account_V1_LoginResponse {
-        let response = try client!.Login(request)
+        let response = try client!.Login(request, callOptions: try buildMetadata(nil))
             .response.wait()
 
         return response
@@ -106,7 +106,7 @@ public class AccountService: ServiceBase {
         var confirmRequest = Services_Account_V1_LoginConfirmRequest()
         confirmRequest.challenge = challenge.data(using: .utf8)!
         confirmRequest.confirmationCodeHashed = hashed.digest
-        let response = try client!.LoginConfirm(confirmRequest)
+        let response = try client!.LoginConfirm(confirmRequest, callOptions: try buildMetadata(nil))
             .response.wait()
 
         var token = (try response.profile.serializedData()).base64EncodedString()
