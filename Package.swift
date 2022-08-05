@@ -1,4 +1,4 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.5
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -16,8 +16,8 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(name: "grpc-swift", url: "https://github.com/grpc/grpc-swift.git", from: "1.3.0"),
-        .package(name: "SwiftProtobuf", url: "https://github.com/apple/swift-protobuf.git", from: "1.18.0"),
+        .package(name: "grpc-swift", url: "https://github.com/grpc/grpc-swift.git", from: "1.9.0"),
+        .package(name: "SwiftProtobuf", url: "https://github.com/apple/swift-protobuf.git", from: "1.19.1"),
         .package(name: "Okapi", url: "https://github.com/trinsic-id/okapi-swift.git", from: "1.6.0"),
     ],
     targets: [

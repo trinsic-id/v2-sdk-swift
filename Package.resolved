@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/grpc/grpc-swift.git",
         "state": {
           "branch": null,
-          "revision": "14e1ea3350892a864386517c037e11fb68baf818",
-          "version": "1.3.0"
+          "revision": "d114c5ec34015bab663b3b7afaa7d6197656e47e",
+          "version": "1.9.0"
         }
       },
       {
@@ -17,6 +17,15 @@
           "branch": null,
           "revision": "11a69b8178a75e276ee38cc68f3cad0559a4254f",
           "version": "1.6.0"
+        }
+      },
+      {
+        "package": "swift-atomics",
+        "repositoryURL": "https://github.com/apple/swift-atomics.git",
+        "state": {
+          "branch": null,
+          "revision": "919eb1d83e02121cdb434c7bfc1f0c66ef17febe",
+          "version": "1.0.2"
         }
       },
       {
@@ -33,8 +42,8 @@
         "repositoryURL": "https://github.com/apple/swift-nio.git",
         "state": {
           "branch": null,
-          "revision": "f2705f9655ede35399b12040e892cf653126de98",
-          "version": "2.32.2"
+          "revision": "ece5057615d1bee848341eceafdf04ca54d60177",
+          "version": "2.41.0"
         }
       },
       {
@@ -51,8 +60,8 @@
         "repositoryURL": "https://github.com/apple/swift-nio-http2.git",
         "state": {
           "branch": null,
-          "revision": "42bdcae4ac4913507a5ee7af963c559deb60d1fc",
-          "version": "1.18.2"
+          "revision": "f9ab1c94c80d568efd762d2a638f25162691d766",
+          "version": "1.22.1"
         }
       },
       {
@@ -78,8 +87,8 @@
         "repositoryURL": "https://github.com/apple/swift-protobuf.git",
         "state": {
           "branch": null,
-          "revision": "7e2c5f3cbbeea68e004915e3a8961e20bd11d824",
-          "version": "1.18.0"
+          "revision": "fa0fcd43f272a260e7f734f23e6dc55e16fcae0a",
+          "version": "1.19.1"
         }
       }
     ]

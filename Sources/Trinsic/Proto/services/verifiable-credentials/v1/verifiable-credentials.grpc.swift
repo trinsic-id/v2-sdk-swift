@@ -22,6 +22,7 @@
 //
 import GRPC
 import NIO
+import NIOConcurrencyHelpers
 import SwiftProtobuf
 
 /// Usage: instantiate `Services_Verifiablecredentials_V1_VerifiableCredentialClient`, then call methods of this protocol to make API calls.
@@ -82,7 +83,7 @@ public extension Services_Verifiablecredentials_V1_VerifiableCredentialClientPro
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Verifiablecredentials_V1_IssueRequest, Services_Verifiablecredentials_V1_IssueResponse> {
         return makeUnaryCall(
-            path: "/services.verifiablecredentials.v1.VerifiableCredential/Issue",
+            path: Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.Issue.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
             interceptors: interceptors?.makeIssueInterceptors() ?? []
@@ -91,7 +92,7 @@ public extension Services_Verifiablecredentials_V1_VerifiableCredentialClientPro
 
     /// Sign and issue a verifiable credential from a pre-defined template.
     /// This process will also add schema validation and
-    /// revocation registry entry in the credential.
+    /// revocation registry values to the credential.
     ///
     /// - Parameters:
     ///   - request: Request to send to IssueFromTemplate.
@@ -102,7 +103,7 @@ public extension Services_Verifiablecredentials_V1_VerifiableCredentialClientPro
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Verifiablecredentials_V1_IssueFromTemplateRequest, Services_Verifiablecredentials_V1_IssueFromTemplateResponse> {
         return makeUnaryCall(
-            path: "/services.verifiablecredentials.v1.VerifiableCredential/IssueFromTemplate",
+            path: Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.IssueFromTemplate.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
             interceptors: interceptors?.makeIssueFromTemplateInterceptors() ?? []
@@ -120,7 +121,7 @@ public extension Services_Verifiablecredentials_V1_VerifiableCredentialClientPro
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Verifiablecredentials_V1_CheckStatusRequest, Services_Verifiablecredentials_V1_CheckStatusResponse> {
         return makeUnaryCall(
-            path: "/services.verifiablecredentials.v1.VerifiableCredential/CheckStatus",
+            path: Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.CheckStatus.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
             interceptors: interceptors?.makeCheckStatusInterceptors() ?? []
@@ -138,7 +139,7 @@ public extension Services_Verifiablecredentials_V1_VerifiableCredentialClientPro
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Verifiablecredentials_V1_UpdateStatusRequest, Services_Verifiablecredentials_V1_UpdateStatusResponse> {
         return makeUnaryCall(
-            path: "/services.verifiablecredentials.v1.VerifiableCredential/UpdateStatus",
+            path: Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.UpdateStatus.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
             interceptors: interceptors?.makeUpdateStatusInterceptors() ?? []
@@ -157,7 +158,7 @@ public extension Services_Verifiablecredentials_V1_VerifiableCredentialClientPro
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Verifiablecredentials_V1_CreateProofRequest, Services_Verifiablecredentials_V1_CreateProofResponse> {
         return makeUnaryCall(
-            path: "/services.verifiablecredentials.v1.VerifiableCredential/CreateProof",
+            path: Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.CreateProof.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
             interceptors: interceptors?.makeCreateProofInterceptors() ?? []
@@ -176,7 +177,7 @@ public extension Services_Verifiablecredentials_V1_VerifiableCredentialClientPro
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Verifiablecredentials_V1_VerifyProofRequest, Services_Verifiablecredentials_V1_VerifyProofResponse> {
         return makeUnaryCall(
-            path: "/services.verifiablecredentials.v1.VerifiableCredential/VerifyProof",
+            path: Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.VerifyProof.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
             interceptors: interceptors?.makeVerifyProofInterceptors() ?? []
@@ -194,7 +195,7 @@ public extension Services_Verifiablecredentials_V1_VerifiableCredentialClientPro
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Verifiablecredentials_V1_SendRequest, Services_Verifiablecredentials_V1_SendResponse> {
         return makeUnaryCall(
-            path: "/services.verifiablecredentials.v1.VerifiableCredential/Send",
+            path: Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.Send.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
             interceptors: interceptors?.makeSendInterceptors() ?? []
@@ -202,7 +203,310 @@ public extension Services_Verifiablecredentials_V1_VerifiableCredentialClientPro
     }
 }
 
-public protocol Services_Verifiablecredentials_V1_VerifiableCredentialClientInterceptorFactoryProtocol {
+#if compiler(>=5.6)
+    @available(*, deprecated)
+    extension Services_Verifiablecredentials_V1_VerifiableCredentialClient: @unchecked Sendable {}
+#endif // compiler(>=5.6)
+
+@available(*, deprecated, renamed: "Services_Verifiablecredentials_V1_VerifiableCredentialNIOClient")
+public final class Services_Verifiablecredentials_V1_VerifiableCredentialClient: Services_Verifiablecredentials_V1_VerifiableCredentialClientProtocol {
+    private let lock = Lock()
+    private var _defaultCallOptions: CallOptions
+    private var _interceptors: Services_Verifiablecredentials_V1_VerifiableCredentialClientInterceptorFactoryProtocol?
+    public let channel: GRPCChannel
+    public var defaultCallOptions: CallOptions {
+        get { lock.withLock { self._defaultCallOptions } }
+        set { lock.withLockVoid { self._defaultCallOptions = newValue } }
+    }
+
+    public var interceptors: Services_Verifiablecredentials_V1_VerifiableCredentialClientInterceptorFactoryProtocol? {
+        get { lock.withLock { self._interceptors } }
+        set { lock.withLockVoid { self._interceptors = newValue } }
+    }
+
+    /// Creates a client for the services.verifiablecredentials.v1.VerifiableCredential service.
+    ///
+    /// - Parameters:
+    ///   - channel: `GRPCChannel` to the service host.
+    ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
+    ///   - interceptors: A factory providing interceptors for each RPC.
+    public init(
+        channel: GRPCChannel,
+        defaultCallOptions: CallOptions = CallOptions(),
+        interceptors: Services_Verifiablecredentials_V1_VerifiableCredentialClientInterceptorFactoryProtocol? = nil
+    ) {
+        self.channel = channel
+        _defaultCallOptions = defaultCallOptions
+        _interceptors = interceptors
+    }
+}
+
+public struct Services_Verifiablecredentials_V1_VerifiableCredentialNIOClient: Services_Verifiablecredentials_V1_VerifiableCredentialClientProtocol {
+    public var channel: GRPCChannel
+    public var defaultCallOptions: CallOptions
+    public var interceptors: Services_Verifiablecredentials_V1_VerifiableCredentialClientInterceptorFactoryProtocol?
+
+    /// Creates a client for the services.verifiablecredentials.v1.VerifiableCredential service.
+    ///
+    /// - Parameters:
+    ///   - channel: `GRPCChannel` to the service host.
+    ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
+    ///   - interceptors: A factory providing interceptors for each RPC.
+    public init(
+        channel: GRPCChannel,
+        defaultCallOptions: CallOptions = CallOptions(),
+        interceptors: Services_Verifiablecredentials_V1_VerifiableCredentialClientInterceptorFactoryProtocol? = nil
+    ) {
+        self.channel = channel
+        self.defaultCallOptions = defaultCallOptions
+        self.interceptors = interceptors
+    }
+}
+
+#if compiler(>=5.6)
+    @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+    public protocol Services_Verifiablecredentials_V1_VerifiableCredentialAsyncClientProtocol: GRPCClient {
+        static var serviceDescriptor: GRPCServiceDescriptor { get }
+        var interceptors: Services_Verifiablecredentials_V1_VerifiableCredentialClientInterceptorFactoryProtocol? { get }
+
+        func makeIssueCall(
+            _ request: Services_Verifiablecredentials_V1_IssueRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Verifiablecredentials_V1_IssueRequest, Services_Verifiablecredentials_V1_IssueResponse>
+
+        func makeIssueFromTemplateCall(
+            _ request: Services_Verifiablecredentials_V1_IssueFromTemplateRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Verifiablecredentials_V1_IssueFromTemplateRequest, Services_Verifiablecredentials_V1_IssueFromTemplateResponse>
+
+        func makeCheckStatusCall(
+            _ request: Services_Verifiablecredentials_V1_CheckStatusRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Verifiablecredentials_V1_CheckStatusRequest, Services_Verifiablecredentials_V1_CheckStatusResponse>
+
+        func makeUpdateStatusCall(
+            _ request: Services_Verifiablecredentials_V1_UpdateStatusRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Verifiablecredentials_V1_UpdateStatusRequest, Services_Verifiablecredentials_V1_UpdateStatusResponse>
+
+        func makeCreateProofCall(
+            _ request: Services_Verifiablecredentials_V1_CreateProofRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Verifiablecredentials_V1_CreateProofRequest, Services_Verifiablecredentials_V1_CreateProofResponse>
+
+        func makeVerifyProofCall(
+            _ request: Services_Verifiablecredentials_V1_VerifyProofRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Verifiablecredentials_V1_VerifyProofRequest, Services_Verifiablecredentials_V1_VerifyProofResponse>
+
+        func makeSendCall(
+            _ request: Services_Verifiablecredentials_V1_SendRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Verifiablecredentials_V1_SendRequest, Services_Verifiablecredentials_V1_SendResponse>
+    }
+
+    @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+    public extension Services_Verifiablecredentials_V1_VerifiableCredentialAsyncClientProtocol {
+        static var serviceDescriptor: GRPCServiceDescriptor {
+            return Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.serviceDescriptor
+        }
+
+        var interceptors: Services_Verifiablecredentials_V1_VerifiableCredentialClientInterceptorFactoryProtocol? {
+            return nil
+        }
+
+        func makeIssueCall(
+            _ request: Services_Verifiablecredentials_V1_IssueRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Verifiablecredentials_V1_IssueRequest, Services_Verifiablecredentials_V1_IssueResponse> {
+            return makeAsyncUnaryCall(
+                path: Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.Issue.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeIssueInterceptors() ?? []
+            )
+        }
+
+        func makeIssueFromTemplateCall(
+            _ request: Services_Verifiablecredentials_V1_IssueFromTemplateRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Verifiablecredentials_V1_IssueFromTemplateRequest, Services_Verifiablecredentials_V1_IssueFromTemplateResponse> {
+            return makeAsyncUnaryCall(
+                path: Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.IssueFromTemplate.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeIssueFromTemplateInterceptors() ?? []
+            )
+        }
+
+        func makeCheckStatusCall(
+            _ request: Services_Verifiablecredentials_V1_CheckStatusRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Verifiablecredentials_V1_CheckStatusRequest, Services_Verifiablecredentials_V1_CheckStatusResponse> {
+            return makeAsyncUnaryCall(
+                path: Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.CheckStatus.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeCheckStatusInterceptors() ?? []
+            )
+        }
+
+        func makeUpdateStatusCall(
+            _ request: Services_Verifiablecredentials_V1_UpdateStatusRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Verifiablecredentials_V1_UpdateStatusRequest, Services_Verifiablecredentials_V1_UpdateStatusResponse> {
+            return makeAsyncUnaryCall(
+                path: Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.UpdateStatus.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeUpdateStatusInterceptors() ?? []
+            )
+        }
+
+        func makeCreateProofCall(
+            _ request: Services_Verifiablecredentials_V1_CreateProofRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Verifiablecredentials_V1_CreateProofRequest, Services_Verifiablecredentials_V1_CreateProofResponse> {
+            return makeAsyncUnaryCall(
+                path: Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.CreateProof.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeCreateProofInterceptors() ?? []
+            )
+        }
+
+        func makeVerifyProofCall(
+            _ request: Services_Verifiablecredentials_V1_VerifyProofRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Verifiablecredentials_V1_VerifyProofRequest, Services_Verifiablecredentials_V1_VerifyProofResponse> {
+            return makeAsyncUnaryCall(
+                path: Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.VerifyProof.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeVerifyProofInterceptors() ?? []
+            )
+        }
+
+        func makeSendCall(
+            _ request: Services_Verifiablecredentials_V1_SendRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Verifiablecredentials_V1_SendRequest, Services_Verifiablecredentials_V1_SendResponse> {
+            return makeAsyncUnaryCall(
+                path: Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.Send.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeSendInterceptors() ?? []
+            )
+        }
+    }
+
+    @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+    public extension Services_Verifiablecredentials_V1_VerifiableCredentialAsyncClientProtocol {
+        func Issue(
+            _ request: Services_Verifiablecredentials_V1_IssueRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Verifiablecredentials_V1_IssueResponse {
+            return try await performAsyncUnaryCall(
+                path: Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.Issue.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeIssueInterceptors() ?? []
+            )
+        }
+
+        func IssueFromTemplate(
+            _ request: Services_Verifiablecredentials_V1_IssueFromTemplateRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Verifiablecredentials_V1_IssueFromTemplateResponse {
+            return try await performAsyncUnaryCall(
+                path: Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.IssueFromTemplate.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeIssueFromTemplateInterceptors() ?? []
+            )
+        }
+
+        func CheckStatus(
+            _ request: Services_Verifiablecredentials_V1_CheckStatusRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Verifiablecredentials_V1_CheckStatusResponse {
+            return try await performAsyncUnaryCall(
+                path: Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.CheckStatus.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeCheckStatusInterceptors() ?? []
+            )
+        }
+
+        func UpdateStatus(
+            _ request: Services_Verifiablecredentials_V1_UpdateStatusRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Verifiablecredentials_V1_UpdateStatusResponse {
+            return try await performAsyncUnaryCall(
+                path: Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.UpdateStatus.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeUpdateStatusInterceptors() ?? []
+            )
+        }
+
+        func CreateProof(
+            _ request: Services_Verifiablecredentials_V1_CreateProofRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Verifiablecredentials_V1_CreateProofResponse {
+            return try await performAsyncUnaryCall(
+                path: Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.CreateProof.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeCreateProofInterceptors() ?? []
+            )
+        }
+
+        func VerifyProof(
+            _ request: Services_Verifiablecredentials_V1_VerifyProofRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Verifiablecredentials_V1_VerifyProofResponse {
+            return try await performAsyncUnaryCall(
+                path: Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.VerifyProof.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeVerifyProofInterceptors() ?? []
+            )
+        }
+
+        func Send(
+            _ request: Services_Verifiablecredentials_V1_SendRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Verifiablecredentials_V1_SendResponse {
+            return try await performAsyncUnaryCall(
+                path: Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.Send.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeSendInterceptors() ?? []
+            )
+        }
+    }
+
+    @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+    public struct Services_Verifiablecredentials_V1_VerifiableCredentialAsyncClient: Services_Verifiablecredentials_V1_VerifiableCredentialAsyncClientProtocol {
+        public var channel: GRPCChannel
+        public var defaultCallOptions: CallOptions
+        public var interceptors: Services_Verifiablecredentials_V1_VerifiableCredentialClientInterceptorFactoryProtocol?
+
+        public init(
+            channel: GRPCChannel,
+            defaultCallOptions: CallOptions = CallOptions(),
+            interceptors: Services_Verifiablecredentials_V1_VerifiableCredentialClientInterceptorFactoryProtocol? = nil
+        ) {
+            self.channel = channel
+            self.defaultCallOptions = defaultCallOptions
+            self.interceptors = interceptors
+        }
+    }
+
+#endif // compiler(>=5.6)
+
+public protocol Services_Verifiablecredentials_V1_VerifiableCredentialClientInterceptorFactoryProtocol: GRPCSendable {
     /// - Returns: Interceptors to use when invoking 'Issue'.
     func makeIssueInterceptors() -> [ClientInterceptor<Services_Verifiablecredentials_V1_IssueRequest, Services_Verifiablecredentials_V1_IssueResponse>]
 
@@ -225,25 +529,63 @@ public protocol Services_Verifiablecredentials_V1_VerifiableCredentialClientInte
     func makeSendInterceptors() -> [ClientInterceptor<Services_Verifiablecredentials_V1_SendRequest, Services_Verifiablecredentials_V1_SendResponse>]
 }
 
-public final class Services_Verifiablecredentials_V1_VerifiableCredentialClient: Services_Verifiablecredentials_V1_VerifiableCredentialClientProtocol {
-    public let channel: GRPCChannel
-    public var defaultCallOptions: CallOptions
-    public var interceptors: Services_Verifiablecredentials_V1_VerifiableCredentialClientInterceptorFactoryProtocol?
+public enum Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata {
+    public static let serviceDescriptor = GRPCServiceDescriptor(
+        name: "VerifiableCredential",
+        fullName: "services.verifiablecredentials.v1.VerifiableCredential",
+        methods: [
+            Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.Issue,
+            Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.IssueFromTemplate,
+            Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.CheckStatus,
+            Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.UpdateStatus,
+            Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.CreateProof,
+            Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.VerifyProof,
+            Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.Send,
+        ]
+    )
 
-    /// Creates a client for the services.verifiablecredentials.v1.VerifiableCredential service.
-    ///
-    /// - Parameters:
-    ///   - channel: `GRPCChannel` to the service host.
-    ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
-    ///   - interceptors: A factory providing interceptors for each RPC.
-    public init(
-        channel: GRPCChannel,
-        defaultCallOptions: CallOptions = CallOptions(),
-        interceptors: Services_Verifiablecredentials_V1_VerifiableCredentialClientInterceptorFactoryProtocol? = nil
-    ) {
-        self.channel = channel
-        self.defaultCallOptions = defaultCallOptions
-        self.interceptors = interceptors
+    public enum Methods {
+        public static let Issue = GRPCMethodDescriptor(
+            name: "Issue",
+            path: "/services.verifiablecredentials.v1.VerifiableCredential/Issue",
+            type: GRPCCallType.unary
+        )
+
+        public static let IssueFromTemplate = GRPCMethodDescriptor(
+            name: "IssueFromTemplate",
+            path: "/services.verifiablecredentials.v1.VerifiableCredential/IssueFromTemplate",
+            type: GRPCCallType.unary
+        )
+
+        public static let CheckStatus = GRPCMethodDescriptor(
+            name: "CheckStatus",
+            path: "/services.verifiablecredentials.v1.VerifiableCredential/CheckStatus",
+            type: GRPCCallType.unary
+        )
+
+        public static let UpdateStatus = GRPCMethodDescriptor(
+            name: "UpdateStatus",
+            path: "/services.verifiablecredentials.v1.VerifiableCredential/UpdateStatus",
+            type: GRPCCallType.unary
+        )
+
+        public static let CreateProof = GRPCMethodDescriptor(
+            name: "CreateProof",
+            path: "/services.verifiablecredentials.v1.VerifiableCredential/CreateProof",
+            type: GRPCCallType.unary
+        )
+
+        public static let VerifyProof = GRPCMethodDescriptor(
+            name: "VerifyProof",
+            path: "/services.verifiablecredentials.v1.VerifiableCredential/VerifyProof",
+            type: GRPCCallType.unary
+        )
+
+        public static let Send = GRPCMethodDescriptor(
+            name: "Send",
+            path: "/services.verifiablecredentials.v1.VerifiableCredential/Send",
+            type: GRPCCallType.unary
+        )
     }
 }
 
@@ -257,7 +599,7 @@ public protocol Services_Verifiablecredentials_V1_VerifiableCredentialProvider: 
 
     /// Sign and issue a verifiable credential from a pre-defined template.
     /// This process will also add schema validation and
-    /// revocation registry entry in the credential.
+    /// revocation registry values to the credential.
     func IssueFromTemplate(request: Services_Verifiablecredentials_V1_IssueFromTemplateRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Verifiablecredentials_V1_IssueFromTemplateResponse>
 
     /// Check credential status in the revocation registry
@@ -279,7 +621,9 @@ public protocol Services_Verifiablecredentials_V1_VerifiableCredentialProvider: 
 }
 
 public extension Services_Verifiablecredentials_V1_VerifiableCredentialProvider {
-    var serviceName: Substring { return "services.verifiablecredentials.v1.VerifiableCredential" }
+    var serviceName: Substring {
+        return Services_Verifiablecredentials_V1_VerifiableCredentialServerMetadata.serviceDescriptor.fullName[...]
+    }
 
     /// Determines, calls and returns the appropriate request handler, depending on the request's method.
     /// Returns nil for methods not handled by this service.
@@ -357,6 +701,152 @@ public extension Services_Verifiablecredentials_V1_VerifiableCredentialProvider 
     }
 }
 
+#if compiler(>=5.6)
+
+    /// To implement a server, implement an object which conforms to this protocol.
+    @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+    public protocol Services_Verifiablecredentials_V1_VerifiableCredentialAsyncProvider: CallHandlerProvider {
+        static var serviceDescriptor: GRPCServiceDescriptor { get }
+        var interceptors: Services_Verifiablecredentials_V1_VerifiableCredentialServerInterceptorFactoryProtocol? { get }
+
+        /// Sign and issue a verifiable credential from a submitted document.
+        /// The document must be a valid JSON-LD document.
+        @Sendable func Issue(
+            request: Services_Verifiablecredentials_V1_IssueRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Verifiablecredentials_V1_IssueResponse
+
+        /// Sign and issue a verifiable credential from a pre-defined template.
+        /// This process will also add schema validation and
+        /// revocation registry values to the credential.
+        @Sendable func IssueFromTemplate(
+            request: Services_Verifiablecredentials_V1_IssueFromTemplateRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Verifiablecredentials_V1_IssueFromTemplateResponse
+
+        /// Check credential status in the revocation registry
+        @Sendable func CheckStatus(
+            request: Services_Verifiablecredentials_V1_CheckStatusRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Verifiablecredentials_V1_CheckStatusResponse
+
+        /// Update credential status by setting the revocation value
+        @Sendable func UpdateStatus(
+            request: Services_Verifiablecredentials_V1_UpdateStatusRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Verifiablecredentials_V1_UpdateStatusResponse
+
+        /// Create a proof from a signed document that is a valid
+        /// verifiable credential and contains a signature from which a proof can be derived.
+        @Sendable func CreateProof(
+            request: Services_Verifiablecredentials_V1_CreateProofRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Verifiablecredentials_V1_CreateProofResponse
+
+        /// Verifies a proof by checking the signature value, and if possible schema validation,
+        /// revocation status, and issuer status against a trust registry
+        @Sendable func VerifyProof(
+            request: Services_Verifiablecredentials_V1_VerifyProofRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Verifiablecredentials_V1_VerifyProofResponse
+
+        /// Sends a document directly to a user's email within the given ecosystem
+        @Sendable func Send(
+            request: Services_Verifiablecredentials_V1_SendRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Verifiablecredentials_V1_SendResponse
+    }
+
+    @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+    public extension Services_Verifiablecredentials_V1_VerifiableCredentialAsyncProvider {
+        static var serviceDescriptor: GRPCServiceDescriptor {
+            return Services_Verifiablecredentials_V1_VerifiableCredentialServerMetadata.serviceDescriptor
+        }
+
+        var serviceName: Substring {
+            return Services_Verifiablecredentials_V1_VerifiableCredentialServerMetadata.serviceDescriptor.fullName[...]
+        }
+
+        var interceptors: Services_Verifiablecredentials_V1_VerifiableCredentialServerInterceptorFactoryProtocol? {
+            return nil
+        }
+
+        func handle(
+            method name: Substring,
+            context: CallHandlerContext
+        ) -> GRPCServerHandlerProtocol? {
+            switch name {
+            case "Issue":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Verifiablecredentials_V1_IssueRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Verifiablecredentials_V1_IssueResponse>(),
+                    interceptors: interceptors?.makeIssueInterceptors() ?? [],
+                    wrapping: Issue(request:context:)
+                )
+
+            case "IssueFromTemplate":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Verifiablecredentials_V1_IssueFromTemplateRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Verifiablecredentials_V1_IssueFromTemplateResponse>(),
+                    interceptors: interceptors?.makeIssueFromTemplateInterceptors() ?? [],
+                    wrapping: IssueFromTemplate(request:context:)
+                )
+
+            case "CheckStatus":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Verifiablecredentials_V1_CheckStatusRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Verifiablecredentials_V1_CheckStatusResponse>(),
+                    interceptors: interceptors?.makeCheckStatusInterceptors() ?? [],
+                    wrapping: CheckStatus(request:context:)
+                )
+
+            case "UpdateStatus":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Verifiablecredentials_V1_UpdateStatusRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Verifiablecredentials_V1_UpdateStatusResponse>(),
+                    interceptors: interceptors?.makeUpdateStatusInterceptors() ?? [],
+                    wrapping: UpdateStatus(request:context:)
+                )
+
+            case "CreateProof":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Verifiablecredentials_V1_CreateProofRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Verifiablecredentials_V1_CreateProofResponse>(),
+                    interceptors: interceptors?.makeCreateProofInterceptors() ?? [],
+                    wrapping: CreateProof(request:context:)
+                )
+
+            case "VerifyProof":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Verifiablecredentials_V1_VerifyProofRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Verifiablecredentials_V1_VerifyProofResponse>(),
+                    interceptors: interceptors?.makeVerifyProofInterceptors() ?? [],
+                    wrapping: VerifyProof(request:context:)
+                )
+
+            case "Send":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Verifiablecredentials_V1_SendRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Verifiablecredentials_V1_SendResponse>(),
+                    interceptors: interceptors?.makeSendInterceptors() ?? [],
+                    wrapping: Send(request:context:)
+                )
+
+            default:
+                return nil
+            }
+        }
+    }
+
+#endif // compiler(>=5.6)
+
 public protocol Services_Verifiablecredentials_V1_VerifiableCredentialServerInterceptorFactoryProtocol {
     /// - Returns: Interceptors to use when handling 'Issue'.
     ///   Defaults to calling `self.makeInterceptors()`.
@@ -385,4 +875,64 @@ public protocol Services_Verifiablecredentials_V1_VerifiableCredentialServerInte
     /// - Returns: Interceptors to use when handling 'Send'.
     ///   Defaults to calling `self.makeInterceptors()`.
     func makeSendInterceptors() -> [ServerInterceptor<Services_Verifiablecredentials_V1_SendRequest, Services_Verifiablecredentials_V1_SendResponse>]
+}
+
+public enum Services_Verifiablecredentials_V1_VerifiableCredentialServerMetadata {
+    public static let serviceDescriptor = GRPCServiceDescriptor(
+        name: "VerifiableCredential",
+        fullName: "services.verifiablecredentials.v1.VerifiableCredential",
+        methods: [
+            Services_Verifiablecredentials_V1_VerifiableCredentialServerMetadata.Methods.Issue,
+            Services_Verifiablecredentials_V1_VerifiableCredentialServerMetadata.Methods.IssueFromTemplate,
+            Services_Verifiablecredentials_V1_VerifiableCredentialServerMetadata.Methods.CheckStatus,
+            Services_Verifiablecredentials_V1_VerifiableCredentialServerMetadata.Methods.UpdateStatus,
+            Services_Verifiablecredentials_V1_VerifiableCredentialServerMetadata.Methods.CreateProof,
+            Services_Verifiablecredentials_V1_VerifiableCredentialServerMetadata.Methods.VerifyProof,
+            Services_Verifiablecredentials_V1_VerifiableCredentialServerMetadata.Methods.Send,
+        ]
+    )
+
+    public enum Methods {
+        public static let Issue = GRPCMethodDescriptor(
+            name: "Issue",
+            path: "/services.verifiablecredentials.v1.VerifiableCredential/Issue",
+            type: GRPCCallType.unary
+        )
+
+        public static let IssueFromTemplate = GRPCMethodDescriptor(
+            name: "IssueFromTemplate",
+            path: "/services.verifiablecredentials.v1.VerifiableCredential/IssueFromTemplate",
+            type: GRPCCallType.unary
+        )
+
+        public static let CheckStatus = GRPCMethodDescriptor(
+            name: "CheckStatus",
+            path: "/services.verifiablecredentials.v1.VerifiableCredential/CheckStatus",
+            type: GRPCCallType.unary
+        )
+
+        public static let UpdateStatus = GRPCMethodDescriptor(
+            name: "UpdateStatus",
+            path: "/services.verifiablecredentials.v1.VerifiableCredential/UpdateStatus",
+            type: GRPCCallType.unary
+        )
+
+        public static let CreateProof = GRPCMethodDescriptor(
+            name: "CreateProof",
+            path: "/services.verifiablecredentials.v1.VerifiableCredential/CreateProof",
+            type: GRPCCallType.unary
+        )
+
+        public static let VerifyProof = GRPCMethodDescriptor(
+            name: "VerifyProof",
+            path: "/services.verifiablecredentials.v1.VerifiableCredential/VerifyProof",
+            type: GRPCCallType.unary
+        )
+
+        public static let Send = GRPCMethodDescriptor(
+            name: "Send",
+            path: "/services.verifiablecredentials.v1.VerifiableCredential/Send",
+            type: GRPCCallType.unary
+        )
+    }
 }

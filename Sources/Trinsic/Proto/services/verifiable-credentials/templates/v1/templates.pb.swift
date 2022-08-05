@@ -136,8 +136,6 @@ public struct Services_Verifiablecredentials_Templates_V1_SearchCredentialTempla
     /// Whether more results are available for this query via `continuation_token`
     public var hasMore_p: Bool = false
 
-    /// Count of items in `items_json`
-    /// int32 count = 3; unpopulated and unused
     /// Token to fetch next set of results via `SearchCredentialTemplatesRequest`
     public var continuationToken: String = .init()
 

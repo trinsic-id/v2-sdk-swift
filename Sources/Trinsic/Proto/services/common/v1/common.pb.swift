@@ -75,25 +75,6 @@ public enum Services_Common_V1_ResponseStatus: SwiftProtobuf.Enum {
 
 #endif // swift(>=4.2)
 
-public struct Services_Common_V1_ServerConfig {
-    // SwiftProtobuf.Message conformance is added in an extension below. See the
-    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-    // methods supported on all messages.
-
-    /// service endpoint
-    public var endpoint: String = .init()
-
-    /// service port
-    public var port: Int32 = 0
-
-    /// indicates if tls is used
-    public var useTls: Bool = false
-
-    public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-    public init() {}
-}
-
 /// Nonce used to generate an oberon proof
 public struct Services_Common_V1_Nonce {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -113,7 +94,6 @@ public struct Services_Common_V1_Nonce {
 
 #if swift(>=5.5) && canImport(_Concurrency)
     extension Services_Common_V1_ResponseStatus: @unchecked Sendable {}
-    extension Services_Common_V1_ServerConfig: @unchecked Sendable {}
     extension Services_Common_V1_Nonce: @unchecked Sendable {}
 #endif // swift(>=5.5) && canImport(_Concurrency)
 
@@ -130,50 +110,6 @@ extension Services_Common_V1_ResponseStatus: SwiftProtobuf._ProtoNameProviding {
         100: .same(proto: "UNKNOWN_ERROR"),
         200: .same(proto: "SERIALIZATION_ERROR"),
     ]
-}
-
-extension Services_Common_V1_ServerConfig: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-    public static let protoMessageName: String = _protobuf_package + ".ServerConfig"
-    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-        1: .same(proto: "endpoint"),
-        2: .same(proto: "port"),
-        3: .standard(proto: "use_tls"),
-    ]
-
-    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-        while let fieldNumber = try decoder.nextFieldNumber() {
-            // The use of inline closures is to circumvent an issue where the compiler
-            // allocates stack space for every case branch when no optimizations are
-            // enabled. https://github.com/apple/swift-protobuf/issues/1034
-            switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &endpoint)
-            case 2: try try decoder.decodeSingularInt32Field(value: &port)
-            case 3: try try decoder.decodeSingularBoolField(value: &useTls)
-            default: break
-            }
-        }
-    }
-
-    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-        if !endpoint.isEmpty {
-            try visitor.visitSingularStringField(value: endpoint, fieldNumber: 1)
-        }
-        if port != 0 {
-            try visitor.visitSingularInt32Field(value: port, fieldNumber: 2)
-        }
-        if useTls != false {
-            try visitor.visitSingularBoolField(value: useTls, fieldNumber: 3)
-        }
-        try unknownFields.traverse(visitor: &visitor)
-    }
-
-    public static func == (lhs: Services_Common_V1_ServerConfig, rhs: Services_Common_V1_ServerConfig) -> Bool {
-        if lhs.endpoint != rhs.endpoint { return false }
-        if lhs.port != rhs.port { return false }
-        if lhs.useTls != rhs.useTls { return false }
-        if lhs.unknownFields != rhs.unknownFields { return false }
-        return true
-    }
 }
 
 extension Services_Common_V1_Nonce: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

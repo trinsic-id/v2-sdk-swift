@@ -22,6 +22,7 @@
 //
 import GRPC
 import NIO
+import NIOConcurrencyHelpers
 import SwiftProtobuf
 
 /// Usage: instantiate `Services_Provider_V1_ProviderClient`, then call methods of this protocol to make API calls.
@@ -38,6 +39,21 @@ public protocol Services_Provider_V1_ProviderClientProtocol: GRPCClient {
         _ request: Services_Provider_V1_UpdateEcosystemRequest,
         callOptions: CallOptions?
     ) -> UnaryCall<Services_Provider_V1_UpdateEcosystemRequest, Services_Provider_V1_UpdateEcosystemResponse>
+
+    func GrantAuthorization(
+        _ request: Services_Provider_V1_GrantAuthorizationRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Provider_V1_GrantAuthorizationRequest, Services_Provider_V1_GrantAuthorizationResponse>
+
+    func RevokeAuthorization(
+        _ request: Services_Provider_V1_RevokeAuthorizationRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Provider_V1_RevokeAuthorizationRequest, Services_Provider_V1_RevokeAuthorizationResponse>
+
+    func GetAuthorizations(
+        _ request: Services_Provider_V1_GetAuthorizationsRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Provider_V1_GetAuthorizationsRequest, Services_Provider_V1_GetAuthorizationsResponse>
 
     func AddWebhook(
         _ request: Services_Provider_V1_AddWebhookRequest,
@@ -96,7 +112,7 @@ public extension Services_Provider_V1_ProviderClientProtocol {
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Provider_V1_CreateEcosystemRequest, Services_Provider_V1_CreateEcosystemResponse> {
         return makeUnaryCall(
-            path: "/services.provider.v1.Provider/CreateEcosystem",
+            path: Services_Provider_V1_ProviderClientMetadata.Methods.CreateEcosystem.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
             interceptors: interceptors?.makeCreateEcosystemInterceptors() ?? []
@@ -114,10 +130,64 @@ public extension Services_Provider_V1_ProviderClientProtocol {
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Provider_V1_UpdateEcosystemRequest, Services_Provider_V1_UpdateEcosystemResponse> {
         return makeUnaryCall(
-            path: "/services.provider.v1.Provider/UpdateEcosystem",
+            path: Services_Provider_V1_ProviderClientMetadata.Methods.UpdateEcosystem.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
             interceptors: interceptors?.makeUpdateEcosystemInterceptors() ?? []
+        )
+    }
+
+    /// Grant user authorization to ecosystem resources
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to GrantAuthorization.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func GrantAuthorization(
+        _ request: Services_Provider_V1_GrantAuthorizationRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Provider_V1_GrantAuthorizationRequest, Services_Provider_V1_GrantAuthorizationResponse> {
+        return makeUnaryCall(
+            path: Services_Provider_V1_ProviderClientMetadata.Methods.GrantAuthorization.path,
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeGrantAuthorizationInterceptors() ?? []
+        )
+    }
+
+    /// Revoke user authorization to ecosystem resources
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to RevokeAuthorization.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func RevokeAuthorization(
+        _ request: Services_Provider_V1_RevokeAuthorizationRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Provider_V1_RevokeAuthorizationRequest, Services_Provider_V1_RevokeAuthorizationResponse> {
+        return makeUnaryCall(
+            path: Services_Provider_V1_ProviderClientMetadata.Methods.RevokeAuthorization.path,
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeRevokeAuthorizationInterceptors() ?? []
+        )
+    }
+
+    /// Retreive the list of permissions for this particular account/ecosystem
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to GetAuthorizations.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func GetAuthorizations(
+        _ request: Services_Provider_V1_GetAuthorizationsRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Provider_V1_GetAuthorizationsRequest, Services_Provider_V1_GetAuthorizationsResponse> {
+        return makeUnaryCall(
+            path: Services_Provider_V1_ProviderClientMetadata.Methods.GetAuthorizations.path,
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeGetAuthorizationsInterceptors() ?? []
         )
     }
 
@@ -132,7 +202,7 @@ public extension Services_Provider_V1_ProviderClientProtocol {
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Provider_V1_AddWebhookRequest, Services_Provider_V1_AddWebhookResponse> {
         return makeUnaryCall(
-            path: "/services.provider.v1.Provider/AddWebhook",
+            path: Services_Provider_V1_ProviderClientMetadata.Methods.AddWebhook.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
             interceptors: interceptors?.makeAddWebhookInterceptors() ?? []
@@ -150,7 +220,7 @@ public extension Services_Provider_V1_ProviderClientProtocol {
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Provider_V1_DeleteWebhookRequest, Services_Provider_V1_DeleteWebhookResponse> {
         return makeUnaryCall(
-            path: "/services.provider.v1.Provider/DeleteWebhook",
+            path: Services_Provider_V1_ProviderClientMetadata.Methods.DeleteWebhook.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
             interceptors: interceptors?.makeDeleteWebhookInterceptors() ?? []
@@ -168,7 +238,7 @@ public extension Services_Provider_V1_ProviderClientProtocol {
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Provider_V1_EcosystemInfoRequest, Services_Provider_V1_EcosystemInfoResponse> {
         return makeUnaryCall(
-            path: "/services.provider.v1.Provider/EcosystemInfo",
+            path: Services_Provider_V1_ProviderClientMetadata.Methods.EcosystemInfo.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
             interceptors: interceptors?.makeEcosystemInfoInterceptors() ?? []
@@ -187,7 +257,7 @@ public extension Services_Provider_V1_ProviderClientProtocol {
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Provider_V1_GenerateTokenRequest, Services_Provider_V1_GenerateTokenResponse> {
         return makeUnaryCall(
-            path: "/services.provider.v1.Provider/GenerateToken",
+            path: Services_Provider_V1_ProviderClientMetadata.Methods.GenerateToken.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
             interceptors: interceptors?.makeGenerateTokenInterceptors() ?? []
@@ -205,14 +275,14 @@ public extension Services_Provider_V1_ProviderClientProtocol {
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Provider_V1_InviteRequest, Services_Provider_V1_InviteResponse> {
         return makeUnaryCall(
-            path: "/services.provider.v1.Provider/Invite",
+            path: Services_Provider_V1_ProviderClientMetadata.Methods.Invite.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
             interceptors: interceptors?.makeInviteInterceptors() ?? []
         )
     }
 
-    /// Check the invitation status
+    /// Check the status of an invitation
     ///
     /// - Parameters:
     ///   - request: Request to send to InvitationStatus.
@@ -223,7 +293,7 @@ public extension Services_Provider_V1_ProviderClientProtocol {
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Provider_V1_InvitationStatusRequest, Services_Provider_V1_InvitationStatusResponse> {
         return makeUnaryCall(
-            path: "/services.provider.v1.Provider/InvitationStatus",
+            path: Services_Provider_V1_ProviderClientMetadata.Methods.InvitationStatus.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
             interceptors: interceptors?.makeInvitationStatusInterceptors() ?? []
@@ -241,7 +311,7 @@ public extension Services_Provider_V1_ProviderClientProtocol {
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Provider_V1_GetOberonKeyRequest, Services_Provider_V1_GetOberonKeyResponse> {
         return makeUnaryCall(
-            path: "/services.provider.v1.Provider/GetOberonKey",
+            path: Services_Provider_V1_ProviderClientMetadata.Methods.GetOberonKey.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
             interceptors: interceptors?.makeGetOberonKeyInterceptors() ?? []
@@ -259,7 +329,7 @@ public extension Services_Provider_V1_ProviderClientProtocol {
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Provider_V1_GetEventTokenRequest, Services_Provider_V1_GetEventTokenResponse> {
         return makeUnaryCall(
-            path: "/services.provider.v1.Provider/GetEventToken",
+            path: Services_Provider_V1_ProviderClientMetadata.Methods.GetEventToken.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
             interceptors: interceptors?.makeGetEventTokenInterceptors() ?? []
@@ -267,12 +337,498 @@ public extension Services_Provider_V1_ProviderClientProtocol {
     }
 }
 
-public protocol Services_Provider_V1_ProviderClientInterceptorFactoryProtocol {
+#if compiler(>=5.6)
+    @available(*, deprecated)
+    extension Services_Provider_V1_ProviderClient: @unchecked Sendable {}
+#endif // compiler(>=5.6)
+
+@available(*, deprecated, renamed: "Services_Provider_V1_ProviderNIOClient")
+public final class Services_Provider_V1_ProviderClient: Services_Provider_V1_ProviderClientProtocol {
+    private let lock = Lock()
+    private var _defaultCallOptions: CallOptions
+    private var _interceptors: Services_Provider_V1_ProviderClientInterceptorFactoryProtocol?
+    public let channel: GRPCChannel
+    public var defaultCallOptions: CallOptions {
+        get { lock.withLock { self._defaultCallOptions } }
+        set { lock.withLockVoid { self._defaultCallOptions = newValue } }
+    }
+
+    public var interceptors: Services_Provider_V1_ProviderClientInterceptorFactoryProtocol? {
+        get { lock.withLock { self._interceptors } }
+        set { lock.withLockVoid { self._interceptors = newValue } }
+    }
+
+    /// Creates a client for the services.provider.v1.Provider service.
+    ///
+    /// - Parameters:
+    ///   - channel: `GRPCChannel` to the service host.
+    ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
+    ///   - interceptors: A factory providing interceptors for each RPC.
+    public init(
+        channel: GRPCChannel,
+        defaultCallOptions: CallOptions = CallOptions(),
+        interceptors: Services_Provider_V1_ProviderClientInterceptorFactoryProtocol? = nil
+    ) {
+        self.channel = channel
+        _defaultCallOptions = defaultCallOptions
+        _interceptors = interceptors
+    }
+}
+
+public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_ProviderClientProtocol {
+    public var channel: GRPCChannel
+    public var defaultCallOptions: CallOptions
+    public var interceptors: Services_Provider_V1_ProviderClientInterceptorFactoryProtocol?
+
+    /// Creates a client for the services.provider.v1.Provider service.
+    ///
+    /// - Parameters:
+    ///   - channel: `GRPCChannel` to the service host.
+    ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
+    ///   - interceptors: A factory providing interceptors for each RPC.
+    public init(
+        channel: GRPCChannel,
+        defaultCallOptions: CallOptions = CallOptions(),
+        interceptors: Services_Provider_V1_ProviderClientInterceptorFactoryProtocol? = nil
+    ) {
+        self.channel = channel
+        self.defaultCallOptions = defaultCallOptions
+        self.interceptors = interceptors
+    }
+}
+
+#if compiler(>=5.6)
+    @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+    public protocol Services_Provider_V1_ProviderAsyncClientProtocol: GRPCClient {
+        static var serviceDescriptor: GRPCServiceDescriptor { get }
+        var interceptors: Services_Provider_V1_ProviderClientInterceptorFactoryProtocol? { get }
+
+        func makeCreateEcosystemCall(
+            _ request: Services_Provider_V1_CreateEcosystemRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Provider_V1_CreateEcosystemRequest, Services_Provider_V1_CreateEcosystemResponse>
+
+        func makeUpdateEcosystemCall(
+            _ request: Services_Provider_V1_UpdateEcosystemRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Provider_V1_UpdateEcosystemRequest, Services_Provider_V1_UpdateEcosystemResponse>
+
+        func makeGrantAuthorizationCall(
+            _ request: Services_Provider_V1_GrantAuthorizationRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Provider_V1_GrantAuthorizationRequest, Services_Provider_V1_GrantAuthorizationResponse>
+
+        func makeRevokeAuthorizationCall(
+            _ request: Services_Provider_V1_RevokeAuthorizationRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Provider_V1_RevokeAuthorizationRequest, Services_Provider_V1_RevokeAuthorizationResponse>
+
+        func makeGetAuthorizationsCall(
+            _ request: Services_Provider_V1_GetAuthorizationsRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Provider_V1_GetAuthorizationsRequest, Services_Provider_V1_GetAuthorizationsResponse>
+
+        func makeAddWebhookCall(
+            _ request: Services_Provider_V1_AddWebhookRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Provider_V1_AddWebhookRequest, Services_Provider_V1_AddWebhookResponse>
+
+        func makeDeleteWebhookCall(
+            _ request: Services_Provider_V1_DeleteWebhookRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Provider_V1_DeleteWebhookRequest, Services_Provider_V1_DeleteWebhookResponse>
+
+        func makeEcosystemInfoCall(
+            _ request: Services_Provider_V1_EcosystemInfoRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Provider_V1_EcosystemInfoRequest, Services_Provider_V1_EcosystemInfoResponse>
+
+        func makeGenerateTokenCall(
+            _ request: Services_Provider_V1_GenerateTokenRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Provider_V1_GenerateTokenRequest, Services_Provider_V1_GenerateTokenResponse>
+
+        func makeInviteCall(
+            _ request: Services_Provider_V1_InviteRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Provider_V1_InviteRequest, Services_Provider_V1_InviteResponse>
+
+        func makeInvitationStatusCall(
+            _ request: Services_Provider_V1_InvitationStatusRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Provider_V1_InvitationStatusRequest, Services_Provider_V1_InvitationStatusResponse>
+
+        func makeGetOberonKeyCall(
+            _ request: Services_Provider_V1_GetOberonKeyRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Provider_V1_GetOberonKeyRequest, Services_Provider_V1_GetOberonKeyResponse>
+
+        func makeGetEventTokenCall(
+            _ request: Services_Provider_V1_GetEventTokenRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Provider_V1_GetEventTokenRequest, Services_Provider_V1_GetEventTokenResponse>
+    }
+
+    @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+    public extension Services_Provider_V1_ProviderAsyncClientProtocol {
+        static var serviceDescriptor: GRPCServiceDescriptor {
+            return Services_Provider_V1_ProviderClientMetadata.serviceDescriptor
+        }
+
+        var interceptors: Services_Provider_V1_ProviderClientInterceptorFactoryProtocol? {
+            return nil
+        }
+
+        func makeCreateEcosystemCall(
+            _ request: Services_Provider_V1_CreateEcosystemRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Provider_V1_CreateEcosystemRequest, Services_Provider_V1_CreateEcosystemResponse> {
+            return makeAsyncUnaryCall(
+                path: Services_Provider_V1_ProviderClientMetadata.Methods.CreateEcosystem.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeCreateEcosystemInterceptors() ?? []
+            )
+        }
+
+        func makeUpdateEcosystemCall(
+            _ request: Services_Provider_V1_UpdateEcosystemRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Provider_V1_UpdateEcosystemRequest, Services_Provider_V1_UpdateEcosystemResponse> {
+            return makeAsyncUnaryCall(
+                path: Services_Provider_V1_ProviderClientMetadata.Methods.UpdateEcosystem.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeUpdateEcosystemInterceptors() ?? []
+            )
+        }
+
+        func makeGrantAuthorizationCall(
+            _ request: Services_Provider_V1_GrantAuthorizationRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Provider_V1_GrantAuthorizationRequest, Services_Provider_V1_GrantAuthorizationResponse> {
+            return makeAsyncUnaryCall(
+                path: Services_Provider_V1_ProviderClientMetadata.Methods.GrantAuthorization.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeGrantAuthorizationInterceptors() ?? []
+            )
+        }
+
+        func makeRevokeAuthorizationCall(
+            _ request: Services_Provider_V1_RevokeAuthorizationRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Provider_V1_RevokeAuthorizationRequest, Services_Provider_V1_RevokeAuthorizationResponse> {
+            return makeAsyncUnaryCall(
+                path: Services_Provider_V1_ProviderClientMetadata.Methods.RevokeAuthorization.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeRevokeAuthorizationInterceptors() ?? []
+            )
+        }
+
+        func makeGetAuthorizationsCall(
+            _ request: Services_Provider_V1_GetAuthorizationsRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Provider_V1_GetAuthorizationsRequest, Services_Provider_V1_GetAuthorizationsResponse> {
+            return makeAsyncUnaryCall(
+                path: Services_Provider_V1_ProviderClientMetadata.Methods.GetAuthorizations.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeGetAuthorizationsInterceptors() ?? []
+            )
+        }
+
+        func makeAddWebhookCall(
+            _ request: Services_Provider_V1_AddWebhookRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Provider_V1_AddWebhookRequest, Services_Provider_V1_AddWebhookResponse> {
+            return makeAsyncUnaryCall(
+                path: Services_Provider_V1_ProviderClientMetadata.Methods.AddWebhook.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeAddWebhookInterceptors() ?? []
+            )
+        }
+
+        func makeDeleteWebhookCall(
+            _ request: Services_Provider_V1_DeleteWebhookRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Provider_V1_DeleteWebhookRequest, Services_Provider_V1_DeleteWebhookResponse> {
+            return makeAsyncUnaryCall(
+                path: Services_Provider_V1_ProviderClientMetadata.Methods.DeleteWebhook.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeDeleteWebhookInterceptors() ?? []
+            )
+        }
+
+        func makeEcosystemInfoCall(
+            _ request: Services_Provider_V1_EcosystemInfoRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Provider_V1_EcosystemInfoRequest, Services_Provider_V1_EcosystemInfoResponse> {
+            return makeAsyncUnaryCall(
+                path: Services_Provider_V1_ProviderClientMetadata.Methods.EcosystemInfo.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeEcosystemInfoInterceptors() ?? []
+            )
+        }
+
+        func makeGenerateTokenCall(
+            _ request: Services_Provider_V1_GenerateTokenRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Provider_V1_GenerateTokenRequest, Services_Provider_V1_GenerateTokenResponse> {
+            return makeAsyncUnaryCall(
+                path: Services_Provider_V1_ProviderClientMetadata.Methods.GenerateToken.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeGenerateTokenInterceptors() ?? []
+            )
+        }
+
+        func makeInviteCall(
+            _ request: Services_Provider_V1_InviteRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Provider_V1_InviteRequest, Services_Provider_V1_InviteResponse> {
+            return makeAsyncUnaryCall(
+                path: Services_Provider_V1_ProviderClientMetadata.Methods.Invite.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeInviteInterceptors() ?? []
+            )
+        }
+
+        func makeInvitationStatusCall(
+            _ request: Services_Provider_V1_InvitationStatusRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Provider_V1_InvitationStatusRequest, Services_Provider_V1_InvitationStatusResponse> {
+            return makeAsyncUnaryCall(
+                path: Services_Provider_V1_ProviderClientMetadata.Methods.InvitationStatus.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeInvitationStatusInterceptors() ?? []
+            )
+        }
+
+        func makeGetOberonKeyCall(
+            _ request: Services_Provider_V1_GetOberonKeyRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Provider_V1_GetOberonKeyRequest, Services_Provider_V1_GetOberonKeyResponse> {
+            return makeAsyncUnaryCall(
+                path: Services_Provider_V1_ProviderClientMetadata.Methods.GetOberonKey.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeGetOberonKeyInterceptors() ?? []
+            )
+        }
+
+        func makeGetEventTokenCall(
+            _ request: Services_Provider_V1_GetEventTokenRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Provider_V1_GetEventTokenRequest, Services_Provider_V1_GetEventTokenResponse> {
+            return makeAsyncUnaryCall(
+                path: Services_Provider_V1_ProviderClientMetadata.Methods.GetEventToken.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeGetEventTokenInterceptors() ?? []
+            )
+        }
+    }
+
+    @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+    public extension Services_Provider_V1_ProviderAsyncClientProtocol {
+        func CreateEcosystem(
+            _ request: Services_Provider_V1_CreateEcosystemRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Provider_V1_CreateEcosystemResponse {
+            return try await performAsyncUnaryCall(
+                path: Services_Provider_V1_ProviderClientMetadata.Methods.CreateEcosystem.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeCreateEcosystemInterceptors() ?? []
+            )
+        }
+
+        func UpdateEcosystem(
+            _ request: Services_Provider_V1_UpdateEcosystemRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Provider_V1_UpdateEcosystemResponse {
+            return try await performAsyncUnaryCall(
+                path: Services_Provider_V1_ProviderClientMetadata.Methods.UpdateEcosystem.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeUpdateEcosystemInterceptors() ?? []
+            )
+        }
+
+        func GrantAuthorization(
+            _ request: Services_Provider_V1_GrantAuthorizationRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Provider_V1_GrantAuthorizationResponse {
+            return try await performAsyncUnaryCall(
+                path: Services_Provider_V1_ProviderClientMetadata.Methods.GrantAuthorization.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeGrantAuthorizationInterceptors() ?? []
+            )
+        }
+
+        func RevokeAuthorization(
+            _ request: Services_Provider_V1_RevokeAuthorizationRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Provider_V1_RevokeAuthorizationResponse {
+            return try await performAsyncUnaryCall(
+                path: Services_Provider_V1_ProviderClientMetadata.Methods.RevokeAuthorization.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeRevokeAuthorizationInterceptors() ?? []
+            )
+        }
+
+        func GetAuthorizations(
+            _ request: Services_Provider_V1_GetAuthorizationsRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Provider_V1_GetAuthorizationsResponse {
+            return try await performAsyncUnaryCall(
+                path: Services_Provider_V1_ProviderClientMetadata.Methods.GetAuthorizations.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeGetAuthorizationsInterceptors() ?? []
+            )
+        }
+
+        func AddWebhook(
+            _ request: Services_Provider_V1_AddWebhookRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Provider_V1_AddWebhookResponse {
+            return try await performAsyncUnaryCall(
+                path: Services_Provider_V1_ProviderClientMetadata.Methods.AddWebhook.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeAddWebhookInterceptors() ?? []
+            )
+        }
+
+        func DeleteWebhook(
+            _ request: Services_Provider_V1_DeleteWebhookRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Provider_V1_DeleteWebhookResponse {
+            return try await performAsyncUnaryCall(
+                path: Services_Provider_V1_ProviderClientMetadata.Methods.DeleteWebhook.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeDeleteWebhookInterceptors() ?? []
+            )
+        }
+
+        func EcosystemInfo(
+            _ request: Services_Provider_V1_EcosystemInfoRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Provider_V1_EcosystemInfoResponse {
+            return try await performAsyncUnaryCall(
+                path: Services_Provider_V1_ProviderClientMetadata.Methods.EcosystemInfo.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeEcosystemInfoInterceptors() ?? []
+            )
+        }
+
+        func GenerateToken(
+            _ request: Services_Provider_V1_GenerateTokenRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Provider_V1_GenerateTokenResponse {
+            return try await performAsyncUnaryCall(
+                path: Services_Provider_V1_ProviderClientMetadata.Methods.GenerateToken.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeGenerateTokenInterceptors() ?? []
+            )
+        }
+
+        func Invite(
+            _ request: Services_Provider_V1_InviteRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Provider_V1_InviteResponse {
+            return try await performAsyncUnaryCall(
+                path: Services_Provider_V1_ProviderClientMetadata.Methods.Invite.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeInviteInterceptors() ?? []
+            )
+        }
+
+        func InvitationStatus(
+            _ request: Services_Provider_V1_InvitationStatusRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Provider_V1_InvitationStatusResponse {
+            return try await performAsyncUnaryCall(
+                path: Services_Provider_V1_ProviderClientMetadata.Methods.InvitationStatus.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeInvitationStatusInterceptors() ?? []
+            )
+        }
+
+        func GetOberonKey(
+            _ request: Services_Provider_V1_GetOberonKeyRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Provider_V1_GetOberonKeyResponse {
+            return try await performAsyncUnaryCall(
+                path: Services_Provider_V1_ProviderClientMetadata.Methods.GetOberonKey.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeGetOberonKeyInterceptors() ?? []
+            )
+        }
+
+        func GetEventToken(
+            _ request: Services_Provider_V1_GetEventTokenRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Provider_V1_GetEventTokenResponse {
+            return try await performAsyncUnaryCall(
+                path: Services_Provider_V1_ProviderClientMetadata.Methods.GetEventToken.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeGetEventTokenInterceptors() ?? []
+            )
+        }
+    }
+
+    @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+    public struct Services_Provider_V1_ProviderAsyncClient: Services_Provider_V1_ProviderAsyncClientProtocol {
+        public var channel: GRPCChannel
+        public var defaultCallOptions: CallOptions
+        public var interceptors: Services_Provider_V1_ProviderClientInterceptorFactoryProtocol?
+
+        public init(
+            channel: GRPCChannel,
+            defaultCallOptions: CallOptions = CallOptions(),
+            interceptors: Services_Provider_V1_ProviderClientInterceptorFactoryProtocol? = nil
+        ) {
+            self.channel = channel
+            self.defaultCallOptions = defaultCallOptions
+            self.interceptors = interceptors
+        }
+    }
+
+#endif // compiler(>=5.6)
+
+public protocol Services_Provider_V1_ProviderClientInterceptorFactoryProtocol: GRPCSendable {
     /// - Returns: Interceptors to use when invoking 'CreateEcosystem'.
     func makeCreateEcosystemInterceptors() -> [ClientInterceptor<Services_Provider_V1_CreateEcosystemRequest, Services_Provider_V1_CreateEcosystemResponse>]
 
     /// - Returns: Interceptors to use when invoking 'UpdateEcosystem'.
     func makeUpdateEcosystemInterceptors() -> [ClientInterceptor<Services_Provider_V1_UpdateEcosystemRequest, Services_Provider_V1_UpdateEcosystemResponse>]
+
+    /// - Returns: Interceptors to use when invoking 'GrantAuthorization'.
+    func makeGrantAuthorizationInterceptors() -> [ClientInterceptor<Services_Provider_V1_GrantAuthorizationRequest, Services_Provider_V1_GrantAuthorizationResponse>]
+
+    /// - Returns: Interceptors to use when invoking 'RevokeAuthorization'.
+    func makeRevokeAuthorizationInterceptors() -> [ClientInterceptor<Services_Provider_V1_RevokeAuthorizationRequest, Services_Provider_V1_RevokeAuthorizationResponse>]
+
+    /// - Returns: Interceptors to use when invoking 'GetAuthorizations'.
+    func makeGetAuthorizationsInterceptors() -> [ClientInterceptor<Services_Provider_V1_GetAuthorizationsRequest, Services_Provider_V1_GetAuthorizationsResponse>]
 
     /// - Returns: Interceptors to use when invoking 'AddWebhook'.
     func makeAddWebhookInterceptors() -> [ClientInterceptor<Services_Provider_V1_AddWebhookRequest, Services_Provider_V1_AddWebhookResponse>]
@@ -299,25 +855,105 @@ public protocol Services_Provider_V1_ProviderClientInterceptorFactoryProtocol {
     func makeGetEventTokenInterceptors() -> [ClientInterceptor<Services_Provider_V1_GetEventTokenRequest, Services_Provider_V1_GetEventTokenResponse>]
 }
 
-public final class Services_Provider_V1_ProviderClient: Services_Provider_V1_ProviderClientProtocol {
-    public let channel: GRPCChannel
-    public var defaultCallOptions: CallOptions
-    public var interceptors: Services_Provider_V1_ProviderClientInterceptorFactoryProtocol?
+public enum Services_Provider_V1_ProviderClientMetadata {
+    public static let serviceDescriptor = GRPCServiceDescriptor(
+        name: "Provider",
+        fullName: "services.provider.v1.Provider",
+        methods: [
+            Services_Provider_V1_ProviderClientMetadata.Methods.CreateEcosystem,
+            Services_Provider_V1_ProviderClientMetadata.Methods.UpdateEcosystem,
+            Services_Provider_V1_ProviderClientMetadata.Methods.GrantAuthorization,
+            Services_Provider_V1_ProviderClientMetadata.Methods.RevokeAuthorization,
+            Services_Provider_V1_ProviderClientMetadata.Methods.GetAuthorizations,
+            Services_Provider_V1_ProviderClientMetadata.Methods.AddWebhook,
+            Services_Provider_V1_ProviderClientMetadata.Methods.DeleteWebhook,
+            Services_Provider_V1_ProviderClientMetadata.Methods.EcosystemInfo,
+            Services_Provider_V1_ProviderClientMetadata.Methods.GenerateToken,
+            Services_Provider_V1_ProviderClientMetadata.Methods.Invite,
+            Services_Provider_V1_ProviderClientMetadata.Methods.InvitationStatus,
+            Services_Provider_V1_ProviderClientMetadata.Methods.GetOberonKey,
+            Services_Provider_V1_ProviderClientMetadata.Methods.GetEventToken,
+        ]
+    )
 
-    /// Creates a client for the services.provider.v1.Provider service.
-    ///
-    /// - Parameters:
-    ///   - channel: `GRPCChannel` to the service host.
-    ///   - defaultCallOptions: Options to use for each service call if the user doesn't provide them.
-    ///   - interceptors: A factory providing interceptors for each RPC.
-    public init(
-        channel: GRPCChannel,
-        defaultCallOptions: CallOptions = CallOptions(),
-        interceptors: Services_Provider_V1_ProviderClientInterceptorFactoryProtocol? = nil
-    ) {
-        self.channel = channel
-        self.defaultCallOptions = defaultCallOptions
-        self.interceptors = interceptors
+    public enum Methods {
+        public static let CreateEcosystem = GRPCMethodDescriptor(
+            name: "CreateEcosystem",
+            path: "/services.provider.v1.Provider/CreateEcosystem",
+            type: GRPCCallType.unary
+        )
+
+        public static let UpdateEcosystem = GRPCMethodDescriptor(
+            name: "UpdateEcosystem",
+            path: "/services.provider.v1.Provider/UpdateEcosystem",
+            type: GRPCCallType.unary
+        )
+
+        public static let GrantAuthorization = GRPCMethodDescriptor(
+            name: "GrantAuthorization",
+            path: "/services.provider.v1.Provider/GrantAuthorization",
+            type: GRPCCallType.unary
+        )
+
+        public static let RevokeAuthorization = GRPCMethodDescriptor(
+            name: "RevokeAuthorization",
+            path: "/services.provider.v1.Provider/RevokeAuthorization",
+            type: GRPCCallType.unary
+        )
+
+        public static let GetAuthorizations = GRPCMethodDescriptor(
+            name: "GetAuthorizations",
+            path: "/services.provider.v1.Provider/GetAuthorizations",
+            type: GRPCCallType.unary
+        )
+
+        public static let AddWebhook = GRPCMethodDescriptor(
+            name: "AddWebhook",
+            path: "/services.provider.v1.Provider/AddWebhook",
+            type: GRPCCallType.unary
+        )
+
+        public static let DeleteWebhook = GRPCMethodDescriptor(
+            name: "DeleteWebhook",
+            path: "/services.provider.v1.Provider/DeleteWebhook",
+            type: GRPCCallType.unary
+        )
+
+        public static let EcosystemInfo = GRPCMethodDescriptor(
+            name: "EcosystemInfo",
+            path: "/services.provider.v1.Provider/EcosystemInfo",
+            type: GRPCCallType.unary
+        )
+
+        public static let GenerateToken = GRPCMethodDescriptor(
+            name: "GenerateToken",
+            path: "/services.provider.v1.Provider/GenerateToken",
+            type: GRPCCallType.unary
+        )
+
+        public static let Invite = GRPCMethodDescriptor(
+            name: "Invite",
+            path: "/services.provider.v1.Provider/Invite",
+            type: GRPCCallType.unary
+        )
+
+        public static let InvitationStatus = GRPCMethodDescriptor(
+            name: "InvitationStatus",
+            path: "/services.provider.v1.Provider/InvitationStatus",
+            type: GRPCCallType.unary
+        )
+
+        public static let GetOberonKey = GRPCMethodDescriptor(
+            name: "GetOberonKey",
+            path: "/services.provider.v1.Provider/GetOberonKey",
+            type: GRPCCallType.unary
+        )
+
+        public static let GetEventToken = GRPCMethodDescriptor(
+            name: "GetEventToken",
+            path: "/services.provider.v1.Provider/GetEventToken",
+            type: GRPCCallType.unary
+        )
     }
 }
 
@@ -330,6 +966,15 @@ public protocol Services_Provider_V1_ProviderProvider: CallHandlerProvider {
 
     /// Update an existing ecosystem
     func UpdateEcosystem(request: Services_Provider_V1_UpdateEcosystemRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_UpdateEcosystemResponse>
+
+    /// Grant user authorization to ecosystem resources
+    func GrantAuthorization(request: Services_Provider_V1_GrantAuthorizationRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_GrantAuthorizationResponse>
+
+    /// Revoke user authorization to ecosystem resources
+    func RevokeAuthorization(request: Services_Provider_V1_RevokeAuthorizationRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_RevokeAuthorizationResponse>
+
+    /// Retreive the list of permissions for this particular account/ecosystem
+    func GetAuthorizations(request: Services_Provider_V1_GetAuthorizationsRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_GetAuthorizationsResponse>
 
     /// Add a webhook endpoint to the ecosystem
     func AddWebhook(request: Services_Provider_V1_AddWebhookRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_AddWebhookResponse>
@@ -347,7 +992,7 @@ public protocol Services_Provider_V1_ProviderProvider: CallHandlerProvider {
     /// Invite a user to the ecosystem
     func Invite(request: Services_Provider_V1_InviteRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_InviteResponse>
 
-    /// Check the invitation status
+    /// Check the status of an invitation
     func InvitationStatus(request: Services_Provider_V1_InvitationStatusRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_InvitationStatusResponse>
 
     /// Returns the public key being used to create/verify oberon tokens
@@ -358,7 +1003,9 @@ public protocol Services_Provider_V1_ProviderProvider: CallHandlerProvider {
 }
 
 public extension Services_Provider_V1_ProviderProvider {
-    var serviceName: Substring { return "services.provider.v1.Provider" }
+    var serviceName: Substring {
+        return Services_Provider_V1_ProviderServerMetadata.serviceDescriptor.fullName[...]
+    }
 
     /// Determines, calls and returns the appropriate request handler, depending on the request's method.
     /// Returns nil for methods not handled by this service.
@@ -383,6 +1030,33 @@ public extension Services_Provider_V1_ProviderProvider {
                 responseSerializer: ProtobufSerializer<Services_Provider_V1_UpdateEcosystemResponse>(),
                 interceptors: interceptors?.makeUpdateEcosystemInterceptors() ?? [],
                 userFunction: UpdateEcosystem(request:context:)
+            )
+
+        case "GrantAuthorization":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Provider_V1_GrantAuthorizationRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Provider_V1_GrantAuthorizationResponse>(),
+                interceptors: interceptors?.makeGrantAuthorizationInterceptors() ?? [],
+                userFunction: GrantAuthorization(request:context:)
+            )
+
+        case "RevokeAuthorization":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Provider_V1_RevokeAuthorizationRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Provider_V1_RevokeAuthorizationResponse>(),
+                interceptors: interceptors?.makeRevokeAuthorizationInterceptors() ?? [],
+                userFunction: RevokeAuthorization(request:context:)
+            )
+
+        case "GetAuthorizations":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Provider_V1_GetAuthorizationsRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Provider_V1_GetAuthorizationsResponse>(),
+                interceptors: interceptors?.makeGetAuthorizationsInterceptors() ?? [],
+                userFunction: GetAuthorizations(request:context:)
             )
 
         case "AddWebhook":
@@ -463,6 +1137,238 @@ public extension Services_Provider_V1_ProviderProvider {
     }
 }
 
+#if compiler(>=5.6)
+
+    /// To implement a server, implement an object which conforms to this protocol.
+    @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+    public protocol Services_Provider_V1_ProviderAsyncProvider: CallHandlerProvider {
+        static var serviceDescriptor: GRPCServiceDescriptor { get }
+        var interceptors: Services_Provider_V1_ProviderServerInterceptorFactoryProtocol? { get }
+
+        /// Create new ecosystem and assign the authenticated user as owner
+        @Sendable func CreateEcosystem(
+            request: Services_Provider_V1_CreateEcosystemRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Provider_V1_CreateEcosystemResponse
+
+        /// Update an existing ecosystem
+        @Sendable func UpdateEcosystem(
+            request: Services_Provider_V1_UpdateEcosystemRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Provider_V1_UpdateEcosystemResponse
+
+        /// Grant user authorization to ecosystem resources
+        @Sendable func GrantAuthorization(
+            request: Services_Provider_V1_GrantAuthorizationRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Provider_V1_GrantAuthorizationResponse
+
+        /// Revoke user authorization to ecosystem resources
+        @Sendable func RevokeAuthorization(
+            request: Services_Provider_V1_RevokeAuthorizationRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Provider_V1_RevokeAuthorizationResponse
+
+        /// Retreive the list of permissions for this particular account/ecosystem
+        @Sendable func GetAuthorizations(
+            request: Services_Provider_V1_GetAuthorizationsRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Provider_V1_GetAuthorizationsResponse
+
+        /// Add a webhook endpoint to the ecosystem
+        @Sendable func AddWebhook(
+            request: Services_Provider_V1_AddWebhookRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Provider_V1_AddWebhookResponse
+
+        /// Delete a webhook endpoint from the ecosystem
+        @Sendable func DeleteWebhook(
+            request: Services_Provider_V1_DeleteWebhookRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Provider_V1_DeleteWebhookResponse
+
+        /// Get ecosystem information
+        @Sendable func EcosystemInfo(
+            request: Services_Provider_V1_EcosystemInfoRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Provider_V1_EcosystemInfoResponse
+
+        /// Generates an unprotected authentication token that can be used to
+        /// configure server side applications
+        @Sendable func GenerateToken(
+            request: Services_Provider_V1_GenerateTokenRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Provider_V1_GenerateTokenResponse
+
+        /// Invite a user to the ecosystem
+        @Sendable func Invite(
+            request: Services_Provider_V1_InviteRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Provider_V1_InviteResponse
+
+        /// Check the status of an invitation
+        @Sendable func InvitationStatus(
+            request: Services_Provider_V1_InvitationStatusRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Provider_V1_InvitationStatusResponse
+
+        /// Returns the public key being used to create/verify oberon tokens
+        @Sendable func GetOberonKey(
+            request: Services_Provider_V1_GetOberonKeyRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Provider_V1_GetOberonKeyResponse
+
+        /// Generate a signed token (JWT) that can be used to connect to the message bus
+        @Sendable func GetEventToken(
+            request: Services_Provider_V1_GetEventTokenRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Provider_V1_GetEventTokenResponse
+    }
+
+    @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+    public extension Services_Provider_V1_ProviderAsyncProvider {
+        static var serviceDescriptor: GRPCServiceDescriptor {
+            return Services_Provider_V1_ProviderServerMetadata.serviceDescriptor
+        }
+
+        var serviceName: Substring {
+            return Services_Provider_V1_ProviderServerMetadata.serviceDescriptor.fullName[...]
+        }
+
+        var interceptors: Services_Provider_V1_ProviderServerInterceptorFactoryProtocol? {
+            return nil
+        }
+
+        func handle(
+            method name: Substring,
+            context: CallHandlerContext
+        ) -> GRPCServerHandlerProtocol? {
+            switch name {
+            case "CreateEcosystem":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Provider_V1_CreateEcosystemRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Provider_V1_CreateEcosystemResponse>(),
+                    interceptors: interceptors?.makeCreateEcosystemInterceptors() ?? [],
+                    wrapping: CreateEcosystem(request:context:)
+                )
+
+            case "UpdateEcosystem":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Provider_V1_UpdateEcosystemRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Provider_V1_UpdateEcosystemResponse>(),
+                    interceptors: interceptors?.makeUpdateEcosystemInterceptors() ?? [],
+                    wrapping: UpdateEcosystem(request:context:)
+                )
+
+            case "GrantAuthorization":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Provider_V1_GrantAuthorizationRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Provider_V1_GrantAuthorizationResponse>(),
+                    interceptors: interceptors?.makeGrantAuthorizationInterceptors() ?? [],
+                    wrapping: GrantAuthorization(request:context:)
+                )
+
+            case "RevokeAuthorization":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Provider_V1_RevokeAuthorizationRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Provider_V1_RevokeAuthorizationResponse>(),
+                    interceptors: interceptors?.makeRevokeAuthorizationInterceptors() ?? [],
+                    wrapping: RevokeAuthorization(request:context:)
+                )
+
+            case "GetAuthorizations":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Provider_V1_GetAuthorizationsRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Provider_V1_GetAuthorizationsResponse>(),
+                    interceptors: interceptors?.makeGetAuthorizationsInterceptors() ?? [],
+                    wrapping: GetAuthorizations(request:context:)
+                )
+
+            case "AddWebhook":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Provider_V1_AddWebhookRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Provider_V1_AddWebhookResponse>(),
+                    interceptors: interceptors?.makeAddWebhookInterceptors() ?? [],
+                    wrapping: AddWebhook(request:context:)
+                )
+
+            case "DeleteWebhook":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Provider_V1_DeleteWebhookRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Provider_V1_DeleteWebhookResponse>(),
+                    interceptors: interceptors?.makeDeleteWebhookInterceptors() ?? [],
+                    wrapping: DeleteWebhook(request:context:)
+                )
+
+            case "EcosystemInfo":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Provider_V1_EcosystemInfoRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Provider_V1_EcosystemInfoResponse>(),
+                    interceptors: interceptors?.makeEcosystemInfoInterceptors() ?? [],
+                    wrapping: EcosystemInfo(request:context:)
+                )
+
+            case "GenerateToken":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Provider_V1_GenerateTokenRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Provider_V1_GenerateTokenResponse>(),
+                    interceptors: interceptors?.makeGenerateTokenInterceptors() ?? [],
+                    wrapping: GenerateToken(request:context:)
+                )
+
+            case "Invite":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Provider_V1_InviteRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Provider_V1_InviteResponse>(),
+                    interceptors: interceptors?.makeInviteInterceptors() ?? [],
+                    wrapping: Invite(request:context:)
+                )
+
+            case "InvitationStatus":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Provider_V1_InvitationStatusRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Provider_V1_InvitationStatusResponse>(),
+                    interceptors: interceptors?.makeInvitationStatusInterceptors() ?? [],
+                    wrapping: InvitationStatus(request:context:)
+                )
+
+            case "GetOberonKey":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Provider_V1_GetOberonKeyRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Provider_V1_GetOberonKeyResponse>(),
+                    interceptors: interceptors?.makeGetOberonKeyInterceptors() ?? [],
+                    wrapping: GetOberonKey(request:context:)
+                )
+
+            case "GetEventToken":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Provider_V1_GetEventTokenRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Provider_V1_GetEventTokenResponse>(),
+                    interceptors: interceptors?.makeGetEventTokenInterceptors() ?? [],
+                    wrapping: GetEventToken(request:context:)
+                )
+
+            default:
+                return nil
+            }
+        }
+    }
+
+#endif // compiler(>=5.6)
+
 public protocol Services_Provider_V1_ProviderServerInterceptorFactoryProtocol {
     /// - Returns: Interceptors to use when handling 'CreateEcosystem'.
     ///   Defaults to calling `self.makeInterceptors()`.
@@ -471,6 +1377,18 @@ public protocol Services_Provider_V1_ProviderServerInterceptorFactoryProtocol {
     /// - Returns: Interceptors to use when handling 'UpdateEcosystem'.
     ///   Defaults to calling `self.makeInterceptors()`.
     func makeUpdateEcosystemInterceptors() -> [ServerInterceptor<Services_Provider_V1_UpdateEcosystemRequest, Services_Provider_V1_UpdateEcosystemResponse>]
+
+    /// - Returns: Interceptors to use when handling 'GrantAuthorization'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeGrantAuthorizationInterceptors() -> [ServerInterceptor<Services_Provider_V1_GrantAuthorizationRequest, Services_Provider_V1_GrantAuthorizationResponse>]
+
+    /// - Returns: Interceptors to use when handling 'RevokeAuthorization'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeRevokeAuthorizationInterceptors() -> [ServerInterceptor<Services_Provider_V1_RevokeAuthorizationRequest, Services_Provider_V1_RevokeAuthorizationResponse>]
+
+    /// - Returns: Interceptors to use when handling 'GetAuthorizations'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeGetAuthorizationsInterceptors() -> [ServerInterceptor<Services_Provider_V1_GetAuthorizationsRequest, Services_Provider_V1_GetAuthorizationsResponse>]
 
     /// - Returns: Interceptors to use when handling 'AddWebhook'.
     ///   Defaults to calling `self.makeInterceptors()`.
@@ -503,4 +1421,106 @@ public protocol Services_Provider_V1_ProviderServerInterceptorFactoryProtocol {
     /// - Returns: Interceptors to use when handling 'GetEventToken'.
     ///   Defaults to calling `self.makeInterceptors()`.
     func makeGetEventTokenInterceptors() -> [ServerInterceptor<Services_Provider_V1_GetEventTokenRequest, Services_Provider_V1_GetEventTokenResponse>]
+}
+
+public enum Services_Provider_V1_ProviderServerMetadata {
+    public static let serviceDescriptor = GRPCServiceDescriptor(
+        name: "Provider",
+        fullName: "services.provider.v1.Provider",
+        methods: [
+            Services_Provider_V1_ProviderServerMetadata.Methods.CreateEcosystem,
+            Services_Provider_V1_ProviderServerMetadata.Methods.UpdateEcosystem,
+            Services_Provider_V1_ProviderServerMetadata.Methods.GrantAuthorization,
+            Services_Provider_V1_ProviderServerMetadata.Methods.RevokeAuthorization,
+            Services_Provider_V1_ProviderServerMetadata.Methods.GetAuthorizations,
+            Services_Provider_V1_ProviderServerMetadata.Methods.AddWebhook,
+            Services_Provider_V1_ProviderServerMetadata.Methods.DeleteWebhook,
+            Services_Provider_V1_ProviderServerMetadata.Methods.EcosystemInfo,
+            Services_Provider_V1_ProviderServerMetadata.Methods.GenerateToken,
+            Services_Provider_V1_ProviderServerMetadata.Methods.Invite,
+            Services_Provider_V1_ProviderServerMetadata.Methods.InvitationStatus,
+            Services_Provider_V1_ProviderServerMetadata.Methods.GetOberonKey,
+            Services_Provider_V1_ProviderServerMetadata.Methods.GetEventToken,
+        ]
+    )
+
+    public enum Methods {
+        public static let CreateEcosystem = GRPCMethodDescriptor(
+            name: "CreateEcosystem",
+            path: "/services.provider.v1.Provider/CreateEcosystem",
+            type: GRPCCallType.unary
+        )
+
+        public static let UpdateEcosystem = GRPCMethodDescriptor(
+            name: "UpdateEcosystem",
+            path: "/services.provider.v1.Provider/UpdateEcosystem",
+            type: GRPCCallType.unary
+        )
+
+        public static let GrantAuthorization = GRPCMethodDescriptor(
+            name: "GrantAuthorization",
+            path: "/services.provider.v1.Provider/GrantAuthorization",
+            type: GRPCCallType.unary
+        )
+
+        public static let RevokeAuthorization = GRPCMethodDescriptor(
+            name: "RevokeAuthorization",
+            path: "/services.provider.v1.Provider/RevokeAuthorization",
+            type: GRPCCallType.unary
+        )
+
+        public static let GetAuthorizations = GRPCMethodDescriptor(
+            name: "GetAuthorizations",
+            path: "/services.provider.v1.Provider/GetAuthorizations",
+            type: GRPCCallType.unary
+        )
+
+        public static let AddWebhook = GRPCMethodDescriptor(
+            name: "AddWebhook",
+            path: "/services.provider.v1.Provider/AddWebhook",
+            type: GRPCCallType.unary
+        )
+
+        public static let DeleteWebhook = GRPCMethodDescriptor(
+            name: "DeleteWebhook",
+            path: "/services.provider.v1.Provider/DeleteWebhook",
+            type: GRPCCallType.unary
+        )
+
+        public static let EcosystemInfo = GRPCMethodDescriptor(
+            name: "EcosystemInfo",
+            path: "/services.provider.v1.Provider/EcosystemInfo",
+            type: GRPCCallType.unary
+        )
+
+        public static let GenerateToken = GRPCMethodDescriptor(
+            name: "GenerateToken",
+            path: "/services.provider.v1.Provider/GenerateToken",
+            type: GRPCCallType.unary
+        )
+
+        public static let Invite = GRPCMethodDescriptor(
+            name: "Invite",
+            path: "/services.provider.v1.Provider/Invite",
+            type: GRPCCallType.unary
+        )
+
+        public static let InvitationStatus = GRPCMethodDescriptor(
+            name: "InvitationStatus",
+            path: "/services.provider.v1.Provider/InvitationStatus",
+            type: GRPCCallType.unary
+        )
+
+        public static let GetOberonKey = GRPCMethodDescriptor(
+            name: "GetOberonKey",
+            path: "/services.provider.v1.Provider/GetOberonKey",
+            type: GRPCCallType.unary
+        )
+
+        public static let GetEventToken = GRPCMethodDescriptor(
+            name: "GetEventToken",
+            path: "/services.provider.v1.Provider/GetEventToken",
+            type: GRPCCallType.unary
+        )
+    }
 }

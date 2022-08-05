@@ -20,6 +20,47 @@ private struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVer
     typealias Version = _2
 }
 
+public struct Services_Options_SdkTemplateOption {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    /// Whether the service endpoint allows anonymous (no auth token necessary) authentication
+    /// This is used by the `protoc-gen-trinsic-sdk` plugin for metadata.
+    public var anonymous: Bool {
+        get { return _anonymous ?? false }
+        set { _anonymous = newValue }
+    }
+
+    /// Returns true if `anonymous` has been explicitly set.
+    public var hasAnonymous: Bool { return _anonymous != nil }
+    /// Clears the value of `anonymous`. Subsequent reads from it will return its default value.
+    public mutating func clearAnonymous() { _anonymous = nil }
+
+    /// Whether the SDK template generator should ignore this method. This method will
+    /// be wrapped manually.
+    public var ignore: Bool {
+        get { return _ignore ?? false }
+        set { _ignore = newValue }
+    }
+
+    /// Returns true if `ignore` has been explicitly set.
+    public var hasIgnore: Bool { return _ignore != nil }
+    /// Clears the value of `ignore`. Subsequent reads from it will return its default value.
+    public mutating func clearIgnore() { _ignore = nil }
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+
+    fileprivate var _anonymous: Bool?
+    fileprivate var _ignore: Bool?
+}
+
+#if swift(>=5.5) && canImport(_Concurrency)
+    extension Services_Options_SdkTemplateOption: @unchecked Sendable {}
+#endif // swift(>=5.5) && canImport(_Concurrency)
+
 // MARK: - Extension support defined in field-options.proto.
 
 // MARK: - Extension Properties
@@ -51,6 +92,25 @@ public extension SwiftProtobuf.Google_Protobuf_FieldOptions {
     }
 }
 
+public extension SwiftProtobuf.Google_Protobuf_MethodOptions {
+    var Services_Options_sdkTemplateOption: Services_Options_SdkTemplateOption {
+        get { return getExtensionValue(ext: Services_Options_Extensions_sdk_template_option) ?? Services_Options_SdkTemplateOption() }
+        set { setExtensionValue(ext: Services_Options_Extensions_sdk_template_option, value: newValue) }
+    }
+
+    /// Returns true if extension `Services_Options_Extensions_sdk_template_option`
+    /// has been explicitly set.
+    var hasServices_Options_sdkTemplateOption: Bool {
+        return hasExtensionValue(ext: Services_Options_Extensions_sdk_template_option)
+    }
+
+    /// Clears the value of extension `Services_Options_Extensions_sdk_template_option`.
+    /// Subsequent reads from it will return its default value.
+    mutating func clearServices_Options_sdkTemplateOption() {
+        clearExtensionValue(ext: Services_Options_Extensions_sdk_template_option)
+    }
+}
+
 // MARK: - File's ExtensionMap: Services_Options_Field_u45Options_Extensions
 
 /// A `SwiftProtobuf.SimpleExtensionMap` that includes all of the extensions defined by
@@ -59,6 +119,7 @@ public extension SwiftProtobuf.Google_Protobuf_FieldOptions {
 /// a larger `SwiftProtobuf.SimpleExtensionMap`.
 public let Services_Options_Field_u45Options_Extensions: SwiftProtobuf.SimpleExtensionMap = [
     Services_Options_Extensions_optional,
+    Services_Options_Extensions_sdk_template_option,
 ]
 
 // Extension Objects - The only reason these might be needed is when manually
@@ -72,3 +133,54 @@ public let Services_Options_Extensions_optional = SwiftProtobuf.MessageExtension
     _protobuf_fieldNumber: 60000,
     fieldName: "services.options.optional"
 )
+
+public let Services_Options_Extensions_sdk_template_option = SwiftProtobuf.MessageExtension<SwiftProtobuf.OptionalMessageExtensionField<Services_Options_SdkTemplateOption>, SwiftProtobuf.Google_Protobuf_MethodOptions>(
+    _protobuf_fieldNumber: 60001,
+    fieldName: "services.options.sdk_template_option"
+)
+
+// MARK: - Code below here is support for the SwiftProtobuf runtime.
+
+private let _protobuf_package = "services.options"
+
+extension Services_Options_SdkTemplateOption: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".SdkTemplateOption"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .same(proto: "anonymous"),
+        2: .same(proto: "ignore"),
+    ]
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 1: try try decoder.decodeSingularBoolField(value: &_anonymous)
+            case 2: try try decoder.decodeSingularBoolField(value: &_ignore)
+            default: break
+            }
+        }
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every if/case branch local when no optimizations
+        // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+        // https://github.com/apple/swift-protobuf/issues/1182
+        try { if let v = self._anonymous {
+            try visitor.visitSingularBoolField(value: v, fieldNumber: 1)
+        } }()
+        try { if let v = self._ignore {
+            try visitor.visitSingularBoolField(value: v, fieldNumber: 2)
+        } }()
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Options_SdkTemplateOption, rhs: Services_Options_SdkTemplateOption) -> Bool {
+        if lhs._anonymous != rhs._anonymous { return false }
+        if lhs._ignore != rhs._ignore { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}

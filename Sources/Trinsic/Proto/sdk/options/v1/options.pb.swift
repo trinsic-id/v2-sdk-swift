@@ -38,9 +38,6 @@ public struct Sdk_Options_V1_ServiceOptions {
     /// Authentication token for SDK calls; defaults to empty string (unauthenticated)
     public var authToken: String = .init()
 
-    /// Default ecosystem ID to use for various SDK calls; defaults to `default`
-    public var defaultEcosystem: String = .init()
-
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
@@ -61,7 +58,6 @@ extension Sdk_Options_V1_ServiceOptions: SwiftProtobuf.Message, SwiftProtobuf._M
         2: .standard(proto: "server_port"),
         3: .standard(proto: "server_use_tls"),
         4: .standard(proto: "auth_token"),
-        5: .standard(proto: "default_ecosystem"),
     ]
 
     public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -74,7 +70,6 @@ extension Sdk_Options_V1_ServiceOptions: SwiftProtobuf.Message, SwiftProtobuf._M
             case 2: try try decoder.decodeSingularInt32Field(value: &serverPort)
             case 3: try try decoder.decodeSingularBoolField(value: &serverUseTls)
             case 4: try try decoder.decodeSingularStringField(value: &authToken)
-            case 5: try try decoder.decodeSingularStringField(value: &defaultEcosystem)
             default: break
             }
         }
@@ -93,9 +88,6 @@ extension Sdk_Options_V1_ServiceOptions: SwiftProtobuf.Message, SwiftProtobuf._M
         if !authToken.isEmpty {
             try visitor.visitSingularStringField(value: authToken, fieldNumber: 4)
         }
-        if !defaultEcosystem.isEmpty {
-            try visitor.visitSingularStringField(value: defaultEcosystem, fieldNumber: 5)
-        }
         try unknownFields.traverse(visitor: &visitor)
     }
 
@@ -104,7 +96,6 @@ extension Sdk_Options_V1_ServiceOptions: SwiftProtobuf.Message, SwiftProtobuf._M
         if lhs.serverPort != rhs.serverPort { return false }
         if lhs.serverUseTls != rhs.serverUseTls { return false }
         if lhs.authToken != rhs.authToken { return false }
-        if lhs.defaultEcosystem != rhs.defaultEcosystem { return false }
         if lhs.unknownFields != rhs.unknownFields { return false }
         return true
     }
