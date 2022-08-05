@@ -20,7 +20,9 @@ jobs:
           fetch-depth: 0
           repository: 'trinsic-id/sdk'
           ref: 'main'
+          path: 'sdk'
           submodules: recursive
+          token: ${{ secrets.TRINSIC_SDK_REPO_TOKEN }}
       - name: Update the submodule
         run: |
           git config user.name github-actions
@@ -32,3 +34,4 @@ jobs:
           git push --force --set-upstream origin "update-sdk-swift"
           echo ${{ secrets.TRINSIC_SDK_REPO_TOKEN }} | gh auth login --with-token
           gh pr create --base main --title "Update SDK Swift Submodule" --body "Update SDK Swift Submodule"
+        working-directory: ./sdk
