@@ -19,6 +19,7 @@ jobs:
         with:
           fetch-depth: 0
           repository: 'trinsic-id/sdk'
+          path: 'sdk'
           ref: 'main'
           submodules: recursive
       - name: Configure git credentials
