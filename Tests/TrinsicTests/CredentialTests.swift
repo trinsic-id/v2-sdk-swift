@@ -132,7 +132,7 @@ final class CredentialTests: XCTestCase {
         var verifyRequest = Services_Verifiablecredentials_V1_VerifyProofRequest()
         verifyRequest.proofDocumentJson = proofResponse.proofDocumentJson
 
-        let verifyResponse = try credentialService.verify(request: verifyRequest)
+        let verifyResponse = try credentialService.verifyProof(request: verifyRequest)
         // }
         XCTAssertNotNil(verifyResponse)
         XCTAssertTrue(verifyResponse.validationResults["SignatureVerification"]?.isValid ?? false, "Result should be valid")
