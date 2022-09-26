@@ -369,6 +369,9 @@ public struct Services_Verifiablecredentials_Templates_V1_TemplateData {
     /// ID of template creator
     public var createdBy: String = .init()
 
+    /// Date when template was created as ISO 8601 utc string
+    public var dateCreated: String = .init()
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
@@ -944,6 +947,7 @@ extension Services_Verifiablecredentials_Templates_V1_TemplateData: SwiftProtobu
         8: .standard(proto: "ecosystem_id"),
         9: .same(proto: "type"),
         10: .standard(proto: "created_by"),
+        11: .standard(proto: "date_created"),
     ]
 
     public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -962,6 +966,7 @@ extension Services_Verifiablecredentials_Templates_V1_TemplateData: SwiftProtobu
             case 8: try try decoder.decodeSingularStringField(value: &ecosystemID)
             case 9: try try decoder.decodeSingularStringField(value: &type)
             case 10: try try decoder.decodeSingularStringField(value: &createdBy)
+            case 11: try try decoder.decodeSingularStringField(value: &dateCreated)
             default: break
             }
         }
@@ -998,6 +1003,9 @@ extension Services_Verifiablecredentials_Templates_V1_TemplateData: SwiftProtobu
         if !createdBy.isEmpty {
             try visitor.visitSingularStringField(value: createdBy, fieldNumber: 10)
         }
+        if !dateCreated.isEmpty {
+            try visitor.visitSingularStringField(value: dateCreated, fieldNumber: 11)
+        }
         try unknownFields.traverse(visitor: &visitor)
     }
 
@@ -1012,6 +1020,7 @@ extension Services_Verifiablecredentials_Templates_V1_TemplateData: SwiftProtobu
         if lhs.ecosystemID != rhs.ecosystemID { return false }
         if lhs.type != rhs.type { return false }
         if lhs.createdBy != rhs.createdBy { return false }
+        if lhs.dateCreated != rhs.dateCreated { return false }
         if lhs.unknownFields != rhs.unknownFields { return false }
         return true
     }

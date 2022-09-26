@@ -70,6 +70,11 @@ public protocol Services_Provider_V1_ProviderClientProtocol: GRPCClient {
         callOptions: CallOptions?
     ) -> UnaryCall<Services_Provider_V1_EcosystemInfoRequest, Services_Provider_V1_EcosystemInfoResponse>
 
+    func GetPublicEcosystemInfo(
+        _ request: Services_Provider_V1_GetPublicEcosystemInfoRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Provider_V1_GetPublicEcosystemInfoRequest, Services_Provider_V1_GetPublicEcosystemInfoResponse>
+
     func GenerateToken(
         _ request: Services_Provider_V1_GenerateTokenRequest,
         callOptions: CallOptions?
@@ -94,6 +99,26 @@ public protocol Services_Provider_V1_ProviderClientProtocol: GRPCClient {
         _ request: Services_Provider_V1_GetEventTokenRequest,
         callOptions: CallOptions?
     ) -> UnaryCall<Services_Provider_V1_GetEventTokenRequest, Services_Provider_V1_GetEventTokenResponse>
+
+    func UpgradeDID(
+        _ request: Services_Provider_V1_UpgradeDidRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Provider_V1_UpgradeDidRequest, Services_Provider_V1_UpgradeDidResponse>
+
+    func RetrieveDomainVerificationRecord(
+        _ request: Services_Provider_V1_RetrieveDomainVerificationRecordRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Provider_V1_RetrieveDomainVerificationRecordRequest, Services_Provider_V1_RetrieveDomainVerificationRecordResponse>
+
+    func RefreshDomainVerificationStatus(
+        _ request: Services_Provider_V1_RefreshDomainVerificationStatusRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Provider_V1_RefreshDomainVerificationStatusRequest, Services_Provider_V1_RefreshDomainVerificationStatusResponse>
+
+    func SearchWalletConfigurations(
+        _ request: Services_Provider_V1_SearchWalletConfigurationsRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Provider_V1_SearchWalletConfigurationsRequest, Services_Provider_V1_SearchWalletConfigurationResponse>
 }
 
 public extension Services_Provider_V1_ProviderClientProtocol {
@@ -173,7 +198,7 @@ public extension Services_Provider_V1_ProviderClientProtocol {
         )
     }
 
-    /// Retreive the list of permissions for this particular account/ecosystem
+    /// Retrieve the list of permissions for this particular account/ecosystem
     ///
     /// - Parameters:
     ///   - request: Request to send to GetAuthorizations.
@@ -242,6 +267,24 @@ public extension Services_Provider_V1_ProviderClientProtocol {
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
             interceptors: interceptors?.makeEcosystemInfoInterceptors() ?? []
+        )
+    }
+
+    /// Get public ecosystem information about *any* ecosystem
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to GetPublicEcosystemInfo.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func GetPublicEcosystemInfo(
+        _ request: Services_Provider_V1_GetPublicEcosystemInfoRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Provider_V1_GetPublicEcosystemInfoRequest, Services_Provider_V1_GetPublicEcosystemInfoResponse> {
+        return makeUnaryCall(
+            path: Services_Provider_V1_ProviderClientMetadata.Methods.GetPublicEcosystemInfo.path,
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeGetPublicEcosystemInfoInterceptors() ?? []
         )
     }
 
@@ -333,6 +376,78 @@ public extension Services_Provider_V1_ProviderClientProtocol {
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
             interceptors: interceptors?.makeGetEventTokenInterceptors() ?? []
+        )
+    }
+
+    /// Upgrade a wallet's DID from `did:key` to another method
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to UpgradeDID.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func UpgradeDID(
+        _ request: Services_Provider_V1_UpgradeDidRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Provider_V1_UpgradeDidRequest, Services_Provider_V1_UpgradeDidResponse> {
+        return makeUnaryCall(
+            path: Services_Provider_V1_ProviderClientMetadata.Methods.UpgradeDID.path,
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeUpgradeDIDInterceptors() ?? []
+        )
+    }
+
+    /// Retrieve a random hash TXT that can be used to verify domain ownership
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to RetrieveDomainVerificationRecord.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func RetrieveDomainVerificationRecord(
+        _ request: Services_Provider_V1_RetrieveDomainVerificationRecordRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Provider_V1_RetrieveDomainVerificationRecordRequest, Services_Provider_V1_RetrieveDomainVerificationRecordResponse> {
+        return makeUnaryCall(
+            path: Services_Provider_V1_ProviderClientMetadata.Methods.RetrieveDomainVerificationRecord.path,
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeRetrieveDomainVerificationRecordInterceptors() ?? []
+        )
+    }
+
+    /// Call to verify domain
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to RefreshDomainVerificationStatus.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func RefreshDomainVerificationStatus(
+        _ request: Services_Provider_V1_RefreshDomainVerificationStatusRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Provider_V1_RefreshDomainVerificationStatusRequest, Services_Provider_V1_RefreshDomainVerificationStatusResponse> {
+        return makeUnaryCall(
+            path: Services_Provider_V1_ProviderClientMetadata.Methods.RefreshDomainVerificationStatus.path,
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeRefreshDomainVerificationStatusInterceptors() ?? []
+        )
+    }
+
+    /// Search for issuers/providers/verifiers in the current ecosystem
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to SearchWalletConfigurations.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func SearchWalletConfigurations(
+        _ request: Services_Provider_V1_SearchWalletConfigurationsRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Provider_V1_SearchWalletConfigurationsRequest, Services_Provider_V1_SearchWalletConfigurationResponse> {
+        return makeUnaryCall(
+            path: Services_Provider_V1_ProviderClientMetadata.Methods.SearchWalletConfigurations.path,
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeSearchWalletConfigurationsInterceptors() ?? []
         )
     }
 }
@@ -443,6 +558,11 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
             callOptions: CallOptions?
         ) -> GRPCAsyncUnaryCall<Services_Provider_V1_EcosystemInfoRequest, Services_Provider_V1_EcosystemInfoResponse>
 
+        func makeGetPublicEcosystemInfoCall(
+            _ request: Services_Provider_V1_GetPublicEcosystemInfoRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Provider_V1_GetPublicEcosystemInfoRequest, Services_Provider_V1_GetPublicEcosystemInfoResponse>
+
         func makeGenerateTokenCall(
             _ request: Services_Provider_V1_GenerateTokenRequest,
             callOptions: CallOptions?
@@ -467,6 +587,26 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
             _ request: Services_Provider_V1_GetEventTokenRequest,
             callOptions: CallOptions?
         ) -> GRPCAsyncUnaryCall<Services_Provider_V1_GetEventTokenRequest, Services_Provider_V1_GetEventTokenResponse>
+
+        func makeUpgradeDIDCall(
+            _ request: Services_Provider_V1_UpgradeDidRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Provider_V1_UpgradeDidRequest, Services_Provider_V1_UpgradeDidResponse>
+
+        func makeRetrieveDomainVerificationRecordCall(
+            _ request: Services_Provider_V1_RetrieveDomainVerificationRecordRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Provider_V1_RetrieveDomainVerificationRecordRequest, Services_Provider_V1_RetrieveDomainVerificationRecordResponse>
+
+        func makeRefreshDomainVerificationStatusCall(
+            _ request: Services_Provider_V1_RefreshDomainVerificationStatusRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Provider_V1_RefreshDomainVerificationStatusRequest, Services_Provider_V1_RefreshDomainVerificationStatusResponse>
+
+        func makeSearchWalletConfigurationsCall(
+            _ request: Services_Provider_V1_SearchWalletConfigurationsRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Provider_V1_SearchWalletConfigurationsRequest, Services_Provider_V1_SearchWalletConfigurationResponse>
     }
 
     @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -575,6 +715,18 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
             )
         }
 
+        func makeGetPublicEcosystemInfoCall(
+            _ request: Services_Provider_V1_GetPublicEcosystemInfoRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Provider_V1_GetPublicEcosystemInfoRequest, Services_Provider_V1_GetPublicEcosystemInfoResponse> {
+            return makeAsyncUnaryCall(
+                path: Services_Provider_V1_ProviderClientMetadata.Methods.GetPublicEcosystemInfo.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeGetPublicEcosystemInfoInterceptors() ?? []
+            )
+        }
+
         func makeGenerateTokenCall(
             _ request: Services_Provider_V1_GenerateTokenRequest,
             callOptions: CallOptions? = nil
@@ -632,6 +784,54 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
                 interceptors: interceptors?.makeGetEventTokenInterceptors() ?? []
+            )
+        }
+
+        func makeUpgradeDIDCall(
+            _ request: Services_Provider_V1_UpgradeDidRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Provider_V1_UpgradeDidRequest, Services_Provider_V1_UpgradeDidResponse> {
+            return makeAsyncUnaryCall(
+                path: Services_Provider_V1_ProviderClientMetadata.Methods.UpgradeDID.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeUpgradeDIDInterceptors() ?? []
+            )
+        }
+
+        func makeRetrieveDomainVerificationRecordCall(
+            _ request: Services_Provider_V1_RetrieveDomainVerificationRecordRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Provider_V1_RetrieveDomainVerificationRecordRequest, Services_Provider_V1_RetrieveDomainVerificationRecordResponse> {
+            return makeAsyncUnaryCall(
+                path: Services_Provider_V1_ProviderClientMetadata.Methods.RetrieveDomainVerificationRecord.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeRetrieveDomainVerificationRecordInterceptors() ?? []
+            )
+        }
+
+        func makeRefreshDomainVerificationStatusCall(
+            _ request: Services_Provider_V1_RefreshDomainVerificationStatusRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Provider_V1_RefreshDomainVerificationStatusRequest, Services_Provider_V1_RefreshDomainVerificationStatusResponse> {
+            return makeAsyncUnaryCall(
+                path: Services_Provider_V1_ProviderClientMetadata.Methods.RefreshDomainVerificationStatus.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeRefreshDomainVerificationStatusInterceptors() ?? []
+            )
+        }
+
+        func makeSearchWalletConfigurationsCall(
+            _ request: Services_Provider_V1_SearchWalletConfigurationsRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Provider_V1_SearchWalletConfigurationsRequest, Services_Provider_V1_SearchWalletConfigurationResponse> {
+            return makeAsyncUnaryCall(
+                path: Services_Provider_V1_ProviderClientMetadata.Methods.SearchWalletConfigurations.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeSearchWalletConfigurationsInterceptors() ?? []
             )
         }
     }
@@ -734,6 +934,18 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
             )
         }
 
+        func GetPublicEcosystemInfo(
+            _ request: Services_Provider_V1_GetPublicEcosystemInfoRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Provider_V1_GetPublicEcosystemInfoResponse {
+            return try await performAsyncUnaryCall(
+                path: Services_Provider_V1_ProviderClientMetadata.Methods.GetPublicEcosystemInfo.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeGetPublicEcosystemInfoInterceptors() ?? []
+            )
+        }
+
         func GenerateToken(
             _ request: Services_Provider_V1_GenerateTokenRequest,
             callOptions: CallOptions? = nil
@@ -793,6 +1005,54 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
                 interceptors: interceptors?.makeGetEventTokenInterceptors() ?? []
             )
         }
+
+        func UpgradeDID(
+            _ request: Services_Provider_V1_UpgradeDidRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Provider_V1_UpgradeDidResponse {
+            return try await performAsyncUnaryCall(
+                path: Services_Provider_V1_ProviderClientMetadata.Methods.UpgradeDID.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeUpgradeDIDInterceptors() ?? []
+            )
+        }
+
+        func RetrieveDomainVerificationRecord(
+            _ request: Services_Provider_V1_RetrieveDomainVerificationRecordRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Provider_V1_RetrieveDomainVerificationRecordResponse {
+            return try await performAsyncUnaryCall(
+                path: Services_Provider_V1_ProviderClientMetadata.Methods.RetrieveDomainVerificationRecord.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeRetrieveDomainVerificationRecordInterceptors() ?? []
+            )
+        }
+
+        func RefreshDomainVerificationStatus(
+            _ request: Services_Provider_V1_RefreshDomainVerificationStatusRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Provider_V1_RefreshDomainVerificationStatusResponse {
+            return try await performAsyncUnaryCall(
+                path: Services_Provider_V1_ProviderClientMetadata.Methods.RefreshDomainVerificationStatus.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeRefreshDomainVerificationStatusInterceptors() ?? []
+            )
+        }
+
+        func SearchWalletConfigurations(
+            _ request: Services_Provider_V1_SearchWalletConfigurationsRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Provider_V1_SearchWalletConfigurationResponse {
+            return try await performAsyncUnaryCall(
+                path: Services_Provider_V1_ProviderClientMetadata.Methods.SearchWalletConfigurations.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeSearchWalletConfigurationsInterceptors() ?? []
+            )
+        }
     }
 
     @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -839,6 +1099,9 @@ public protocol Services_Provider_V1_ProviderClientInterceptorFactoryProtocol: G
     /// - Returns: Interceptors to use when invoking 'EcosystemInfo'.
     func makeEcosystemInfoInterceptors() -> [ClientInterceptor<Services_Provider_V1_EcosystemInfoRequest, Services_Provider_V1_EcosystemInfoResponse>]
 
+    /// - Returns: Interceptors to use when invoking 'GetPublicEcosystemInfo'.
+    func makeGetPublicEcosystemInfoInterceptors() -> [ClientInterceptor<Services_Provider_V1_GetPublicEcosystemInfoRequest, Services_Provider_V1_GetPublicEcosystemInfoResponse>]
+
     /// - Returns: Interceptors to use when invoking 'GenerateToken'.
     func makeGenerateTokenInterceptors() -> [ClientInterceptor<Services_Provider_V1_GenerateTokenRequest, Services_Provider_V1_GenerateTokenResponse>]
 
@@ -853,6 +1116,18 @@ public protocol Services_Provider_V1_ProviderClientInterceptorFactoryProtocol: G
 
     /// - Returns: Interceptors to use when invoking 'GetEventToken'.
     func makeGetEventTokenInterceptors() -> [ClientInterceptor<Services_Provider_V1_GetEventTokenRequest, Services_Provider_V1_GetEventTokenResponse>]
+
+    /// - Returns: Interceptors to use when invoking 'UpgradeDID'.
+    func makeUpgradeDIDInterceptors() -> [ClientInterceptor<Services_Provider_V1_UpgradeDidRequest, Services_Provider_V1_UpgradeDidResponse>]
+
+    /// - Returns: Interceptors to use when invoking 'RetrieveDomainVerificationRecord'.
+    func makeRetrieveDomainVerificationRecordInterceptors() -> [ClientInterceptor<Services_Provider_V1_RetrieveDomainVerificationRecordRequest, Services_Provider_V1_RetrieveDomainVerificationRecordResponse>]
+
+    /// - Returns: Interceptors to use when invoking 'RefreshDomainVerificationStatus'.
+    func makeRefreshDomainVerificationStatusInterceptors() -> [ClientInterceptor<Services_Provider_V1_RefreshDomainVerificationStatusRequest, Services_Provider_V1_RefreshDomainVerificationStatusResponse>]
+
+    /// - Returns: Interceptors to use when invoking 'SearchWalletConfigurations'.
+    func makeSearchWalletConfigurationsInterceptors() -> [ClientInterceptor<Services_Provider_V1_SearchWalletConfigurationsRequest, Services_Provider_V1_SearchWalletConfigurationResponse>]
 }
 
 public enum Services_Provider_V1_ProviderClientMetadata {
@@ -868,11 +1143,16 @@ public enum Services_Provider_V1_ProviderClientMetadata {
             Services_Provider_V1_ProviderClientMetadata.Methods.AddWebhook,
             Services_Provider_V1_ProviderClientMetadata.Methods.DeleteWebhook,
             Services_Provider_V1_ProviderClientMetadata.Methods.EcosystemInfo,
+            Services_Provider_V1_ProviderClientMetadata.Methods.GetPublicEcosystemInfo,
             Services_Provider_V1_ProviderClientMetadata.Methods.GenerateToken,
             Services_Provider_V1_ProviderClientMetadata.Methods.Invite,
             Services_Provider_V1_ProviderClientMetadata.Methods.InvitationStatus,
             Services_Provider_V1_ProviderClientMetadata.Methods.GetOberonKey,
             Services_Provider_V1_ProviderClientMetadata.Methods.GetEventToken,
+            Services_Provider_V1_ProviderClientMetadata.Methods.UpgradeDID,
+            Services_Provider_V1_ProviderClientMetadata.Methods.RetrieveDomainVerificationRecord,
+            Services_Provider_V1_ProviderClientMetadata.Methods.RefreshDomainVerificationStatus,
+            Services_Provider_V1_ProviderClientMetadata.Methods.SearchWalletConfigurations,
         ]
     )
 
@@ -925,6 +1205,12 @@ public enum Services_Provider_V1_ProviderClientMetadata {
             type: GRPCCallType.unary
         )
 
+        public static let GetPublicEcosystemInfo = GRPCMethodDescriptor(
+            name: "GetPublicEcosystemInfo",
+            path: "/services.provider.v1.Provider/GetPublicEcosystemInfo",
+            type: GRPCCallType.unary
+        )
+
         public static let GenerateToken = GRPCMethodDescriptor(
             name: "GenerateToken",
             path: "/services.provider.v1.Provider/GenerateToken",
@@ -954,6 +1240,30 @@ public enum Services_Provider_V1_ProviderClientMetadata {
             path: "/services.provider.v1.Provider/GetEventToken",
             type: GRPCCallType.unary
         )
+
+        public static let UpgradeDID = GRPCMethodDescriptor(
+            name: "UpgradeDID",
+            path: "/services.provider.v1.Provider/UpgradeDID",
+            type: GRPCCallType.unary
+        )
+
+        public static let RetrieveDomainVerificationRecord = GRPCMethodDescriptor(
+            name: "RetrieveDomainVerificationRecord",
+            path: "/services.provider.v1.Provider/RetrieveDomainVerificationRecord",
+            type: GRPCCallType.unary
+        )
+
+        public static let RefreshDomainVerificationStatus = GRPCMethodDescriptor(
+            name: "RefreshDomainVerificationStatus",
+            path: "/services.provider.v1.Provider/RefreshDomainVerificationStatus",
+            type: GRPCCallType.unary
+        )
+
+        public static let SearchWalletConfigurations = GRPCMethodDescriptor(
+            name: "SearchWalletConfigurations",
+            path: "/services.provider.v1.Provider/SearchWalletConfigurations",
+            type: GRPCCallType.unary
+        )
     }
 }
 
@@ -973,7 +1283,7 @@ public protocol Services_Provider_V1_ProviderProvider: CallHandlerProvider {
     /// Revoke user authorization to ecosystem resources
     func RevokeAuthorization(request: Services_Provider_V1_RevokeAuthorizationRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_RevokeAuthorizationResponse>
 
-    /// Retreive the list of permissions for this particular account/ecosystem
+    /// Retrieve the list of permissions for this particular account/ecosystem
     func GetAuthorizations(request: Services_Provider_V1_GetAuthorizationsRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_GetAuthorizationsResponse>
 
     /// Add a webhook endpoint to the ecosystem
@@ -984,6 +1294,9 @@ public protocol Services_Provider_V1_ProviderProvider: CallHandlerProvider {
 
     /// Get ecosystem information
     func EcosystemInfo(request: Services_Provider_V1_EcosystemInfoRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_EcosystemInfoResponse>
+
+    /// Get public ecosystem information about *any* ecosystem
+    func GetPublicEcosystemInfo(request: Services_Provider_V1_GetPublicEcosystemInfoRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_GetPublicEcosystemInfoResponse>
 
     /// Generates an unprotected authentication token that can be used to
     /// configure server side applications
@@ -1000,6 +1313,18 @@ public protocol Services_Provider_V1_ProviderProvider: CallHandlerProvider {
 
     /// Generate a signed token (JWT) that can be used to connect to the message bus
     func GetEventToken(request: Services_Provider_V1_GetEventTokenRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_GetEventTokenResponse>
+
+    /// Upgrade a wallet's DID from `did:key` to another method
+    func UpgradeDID(request: Services_Provider_V1_UpgradeDidRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_UpgradeDidResponse>
+
+    /// Retrieve a random hash TXT that can be used to verify domain ownership
+    func RetrieveDomainVerificationRecord(request: Services_Provider_V1_RetrieveDomainVerificationRecordRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_RetrieveDomainVerificationRecordResponse>
+
+    /// Call to verify domain
+    func RefreshDomainVerificationStatus(request: Services_Provider_V1_RefreshDomainVerificationStatusRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_RefreshDomainVerificationStatusResponse>
+
+    /// Search for issuers/providers/verifiers in the current ecosystem
+    func SearchWalletConfigurations(request: Services_Provider_V1_SearchWalletConfigurationsRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_SearchWalletConfigurationResponse>
 }
 
 public extension Services_Provider_V1_ProviderProvider {
@@ -1086,6 +1411,15 @@ public extension Services_Provider_V1_ProviderProvider {
                 userFunction: EcosystemInfo(request:context:)
             )
 
+        case "GetPublicEcosystemInfo":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Provider_V1_GetPublicEcosystemInfoRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Provider_V1_GetPublicEcosystemInfoResponse>(),
+                interceptors: interceptors?.makeGetPublicEcosystemInfoInterceptors() ?? [],
+                userFunction: GetPublicEcosystemInfo(request:context:)
+            )
+
         case "GenerateToken":
             return UnaryServerHandler(
                 context: context,
@@ -1131,6 +1465,42 @@ public extension Services_Provider_V1_ProviderProvider {
                 userFunction: GetEventToken(request:context:)
             )
 
+        case "UpgradeDID":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Provider_V1_UpgradeDidRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Provider_V1_UpgradeDidResponse>(),
+                interceptors: interceptors?.makeUpgradeDIDInterceptors() ?? [],
+                userFunction: UpgradeDID(request:context:)
+            )
+
+        case "RetrieveDomainVerificationRecord":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Provider_V1_RetrieveDomainVerificationRecordRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Provider_V1_RetrieveDomainVerificationRecordResponse>(),
+                interceptors: interceptors?.makeRetrieveDomainVerificationRecordInterceptors() ?? [],
+                userFunction: RetrieveDomainVerificationRecord(request:context:)
+            )
+
+        case "RefreshDomainVerificationStatus":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Provider_V1_RefreshDomainVerificationStatusRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Provider_V1_RefreshDomainVerificationStatusResponse>(),
+                interceptors: interceptors?.makeRefreshDomainVerificationStatusInterceptors() ?? [],
+                userFunction: RefreshDomainVerificationStatus(request:context:)
+            )
+
+        case "SearchWalletConfigurations":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Provider_V1_SearchWalletConfigurationsRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Provider_V1_SearchWalletConfigurationResponse>(),
+                interceptors: interceptors?.makeSearchWalletConfigurationsInterceptors() ?? [],
+                userFunction: SearchWalletConfigurations(request:context:)
+            )
+
         default:
             return nil
         }
@@ -1169,7 +1539,7 @@ public extension Services_Provider_V1_ProviderProvider {
             context: GRPCAsyncServerCallContext
         ) async throws -> Services_Provider_V1_RevokeAuthorizationResponse
 
-        /// Retreive the list of permissions for this particular account/ecosystem
+        /// Retrieve the list of permissions for this particular account/ecosystem
         @Sendable func GetAuthorizations(
             request: Services_Provider_V1_GetAuthorizationsRequest,
             context: GRPCAsyncServerCallContext
@@ -1192,6 +1562,12 @@ public extension Services_Provider_V1_ProviderProvider {
             request: Services_Provider_V1_EcosystemInfoRequest,
             context: GRPCAsyncServerCallContext
         ) async throws -> Services_Provider_V1_EcosystemInfoResponse
+
+        /// Get public ecosystem information about *any* ecosystem
+        @Sendable func GetPublicEcosystemInfo(
+            request: Services_Provider_V1_GetPublicEcosystemInfoRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Provider_V1_GetPublicEcosystemInfoResponse
 
         /// Generates an unprotected authentication token that can be used to
         /// configure server side applications
@@ -1223,6 +1599,30 @@ public extension Services_Provider_V1_ProviderProvider {
             request: Services_Provider_V1_GetEventTokenRequest,
             context: GRPCAsyncServerCallContext
         ) async throws -> Services_Provider_V1_GetEventTokenResponse
+
+        /// Upgrade a wallet's DID from `did:key` to another method
+        @Sendable func UpgradeDID(
+            request: Services_Provider_V1_UpgradeDidRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Provider_V1_UpgradeDidResponse
+
+        /// Retrieve a random hash TXT that can be used to verify domain ownership
+        @Sendable func RetrieveDomainVerificationRecord(
+            request: Services_Provider_V1_RetrieveDomainVerificationRecordRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Provider_V1_RetrieveDomainVerificationRecordResponse
+
+        /// Call to verify domain
+        @Sendable func RefreshDomainVerificationStatus(
+            request: Services_Provider_V1_RefreshDomainVerificationStatusRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Provider_V1_RefreshDomainVerificationStatusResponse
+
+        /// Search for issuers/providers/verifiers in the current ecosystem
+        @Sendable func SearchWalletConfigurations(
+            request: Services_Provider_V1_SearchWalletConfigurationsRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Provider_V1_SearchWalletConfigurationResponse
     }
 
     @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -1316,6 +1716,15 @@ public extension Services_Provider_V1_ProviderProvider {
                     wrapping: EcosystemInfo(request:context:)
                 )
 
+            case "GetPublicEcosystemInfo":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Provider_V1_GetPublicEcosystemInfoRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Provider_V1_GetPublicEcosystemInfoResponse>(),
+                    interceptors: interceptors?.makeGetPublicEcosystemInfoInterceptors() ?? [],
+                    wrapping: GetPublicEcosystemInfo(request:context:)
+                )
+
             case "GenerateToken":
                 return GRPCAsyncServerHandler(
                     context: context,
@@ -1361,6 +1770,42 @@ public extension Services_Provider_V1_ProviderProvider {
                     wrapping: GetEventToken(request:context:)
                 )
 
+            case "UpgradeDID":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Provider_V1_UpgradeDidRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Provider_V1_UpgradeDidResponse>(),
+                    interceptors: interceptors?.makeUpgradeDIDInterceptors() ?? [],
+                    wrapping: UpgradeDID(request:context:)
+                )
+
+            case "RetrieveDomainVerificationRecord":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Provider_V1_RetrieveDomainVerificationRecordRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Provider_V1_RetrieveDomainVerificationRecordResponse>(),
+                    interceptors: interceptors?.makeRetrieveDomainVerificationRecordInterceptors() ?? [],
+                    wrapping: RetrieveDomainVerificationRecord(request:context:)
+                )
+
+            case "RefreshDomainVerificationStatus":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Provider_V1_RefreshDomainVerificationStatusRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Provider_V1_RefreshDomainVerificationStatusResponse>(),
+                    interceptors: interceptors?.makeRefreshDomainVerificationStatusInterceptors() ?? [],
+                    wrapping: RefreshDomainVerificationStatus(request:context:)
+                )
+
+            case "SearchWalletConfigurations":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Provider_V1_SearchWalletConfigurationsRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Provider_V1_SearchWalletConfigurationResponse>(),
+                    interceptors: interceptors?.makeSearchWalletConfigurationsInterceptors() ?? [],
+                    wrapping: SearchWalletConfigurations(request:context:)
+                )
+
             default:
                 return nil
             }
@@ -1402,6 +1847,10 @@ public protocol Services_Provider_V1_ProviderServerInterceptorFactoryProtocol {
     ///   Defaults to calling `self.makeInterceptors()`.
     func makeEcosystemInfoInterceptors() -> [ServerInterceptor<Services_Provider_V1_EcosystemInfoRequest, Services_Provider_V1_EcosystemInfoResponse>]
 
+    /// - Returns: Interceptors to use when handling 'GetPublicEcosystemInfo'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeGetPublicEcosystemInfoInterceptors() -> [ServerInterceptor<Services_Provider_V1_GetPublicEcosystemInfoRequest, Services_Provider_V1_GetPublicEcosystemInfoResponse>]
+
     /// - Returns: Interceptors to use when handling 'GenerateToken'.
     ///   Defaults to calling `self.makeInterceptors()`.
     func makeGenerateTokenInterceptors() -> [ServerInterceptor<Services_Provider_V1_GenerateTokenRequest, Services_Provider_V1_GenerateTokenResponse>]
@@ -1421,6 +1870,22 @@ public protocol Services_Provider_V1_ProviderServerInterceptorFactoryProtocol {
     /// - Returns: Interceptors to use when handling 'GetEventToken'.
     ///   Defaults to calling `self.makeInterceptors()`.
     func makeGetEventTokenInterceptors() -> [ServerInterceptor<Services_Provider_V1_GetEventTokenRequest, Services_Provider_V1_GetEventTokenResponse>]
+
+    /// - Returns: Interceptors to use when handling 'UpgradeDID'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeUpgradeDIDInterceptors() -> [ServerInterceptor<Services_Provider_V1_UpgradeDidRequest, Services_Provider_V1_UpgradeDidResponse>]
+
+    /// - Returns: Interceptors to use when handling 'RetrieveDomainVerificationRecord'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeRetrieveDomainVerificationRecordInterceptors() -> [ServerInterceptor<Services_Provider_V1_RetrieveDomainVerificationRecordRequest, Services_Provider_V1_RetrieveDomainVerificationRecordResponse>]
+
+    /// - Returns: Interceptors to use when handling 'RefreshDomainVerificationStatus'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeRefreshDomainVerificationStatusInterceptors() -> [ServerInterceptor<Services_Provider_V1_RefreshDomainVerificationStatusRequest, Services_Provider_V1_RefreshDomainVerificationStatusResponse>]
+
+    /// - Returns: Interceptors to use when handling 'SearchWalletConfigurations'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeSearchWalletConfigurationsInterceptors() -> [ServerInterceptor<Services_Provider_V1_SearchWalletConfigurationsRequest, Services_Provider_V1_SearchWalletConfigurationResponse>]
 }
 
 public enum Services_Provider_V1_ProviderServerMetadata {
@@ -1436,11 +1901,16 @@ public enum Services_Provider_V1_ProviderServerMetadata {
             Services_Provider_V1_ProviderServerMetadata.Methods.AddWebhook,
             Services_Provider_V1_ProviderServerMetadata.Methods.DeleteWebhook,
             Services_Provider_V1_ProviderServerMetadata.Methods.EcosystemInfo,
+            Services_Provider_V1_ProviderServerMetadata.Methods.GetPublicEcosystemInfo,
             Services_Provider_V1_ProviderServerMetadata.Methods.GenerateToken,
             Services_Provider_V1_ProviderServerMetadata.Methods.Invite,
             Services_Provider_V1_ProviderServerMetadata.Methods.InvitationStatus,
             Services_Provider_V1_ProviderServerMetadata.Methods.GetOberonKey,
             Services_Provider_V1_ProviderServerMetadata.Methods.GetEventToken,
+            Services_Provider_V1_ProviderServerMetadata.Methods.UpgradeDID,
+            Services_Provider_V1_ProviderServerMetadata.Methods.RetrieveDomainVerificationRecord,
+            Services_Provider_V1_ProviderServerMetadata.Methods.RefreshDomainVerificationStatus,
+            Services_Provider_V1_ProviderServerMetadata.Methods.SearchWalletConfigurations,
         ]
     )
 
@@ -1493,6 +1963,12 @@ public enum Services_Provider_V1_ProviderServerMetadata {
             type: GRPCCallType.unary
         )
 
+        public static let GetPublicEcosystemInfo = GRPCMethodDescriptor(
+            name: "GetPublicEcosystemInfo",
+            path: "/services.provider.v1.Provider/GetPublicEcosystemInfo",
+            type: GRPCCallType.unary
+        )
+
         public static let GenerateToken = GRPCMethodDescriptor(
             name: "GenerateToken",
             path: "/services.provider.v1.Provider/GenerateToken",
@@ -1520,6 +1996,30 @@ public enum Services_Provider_V1_ProviderServerMetadata {
         public static let GetEventToken = GRPCMethodDescriptor(
             name: "GetEventToken",
             path: "/services.provider.v1.Provider/GetEventToken",
+            type: GRPCCallType.unary
+        )
+
+        public static let UpgradeDID = GRPCMethodDescriptor(
+            name: "UpgradeDID",
+            path: "/services.provider.v1.Provider/UpgradeDID",
+            type: GRPCCallType.unary
+        )
+
+        public static let RetrieveDomainVerificationRecord = GRPCMethodDescriptor(
+            name: "RetrieveDomainVerificationRecord",
+            path: "/services.provider.v1.Provider/RetrieveDomainVerificationRecord",
+            type: GRPCCallType.unary
+        )
+
+        public static let RefreshDomainVerificationStatus = GRPCMethodDescriptor(
+            name: "RefreshDomainVerificationStatus",
+            path: "/services.provider.v1.Provider/RefreshDomainVerificationStatus",
+            type: GRPCCallType.unary
+        )
+
+        public static let SearchWalletConfigurations = GRPCMethodDescriptor(
+            name: "SearchWalletConfigurations",
+            path: "/services.provider.v1.Provider/SearchWalletConfigurations",
             type: GRPCCallType.unary
         )
     }

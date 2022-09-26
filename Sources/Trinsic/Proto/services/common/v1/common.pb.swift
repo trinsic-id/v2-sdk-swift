@@ -75,6 +75,50 @@ public enum Services_Common_V1_ResponseStatus: SwiftProtobuf.Enum {
 
 #endif // swift(>=4.2)
 
+/// Enum of all supported DID Methods
+public enum Services_Common_V1_SupportedDidMethod: SwiftProtobuf.Enum {
+    public typealias RawValue = Int
+
+    /// The did:key method -- all wallets use this by default
+    case key // = 0
+
+    /// The did:ion method
+    case ion // = 1
+    case UNRECOGNIZED(Int)
+
+    public init() {
+        self = .key
+    }
+
+    public init?(rawValue: Int) {
+        switch rawValue {
+        case 0: self = .key
+        case 1: self = .ion
+        default: self = .UNRECOGNIZED(rawValue)
+        }
+    }
+
+    public var rawValue: Int {
+        switch self {
+        case .key: return 0
+        case .ion: return 1
+        case let .UNRECOGNIZED(i): return i
+        }
+    }
+}
+
+#if swift(>=4.2)
+
+    extension Services_Common_V1_SupportedDidMethod: CaseIterable {
+        // The compiler won't synthesize support with the UNRECOGNIZED case.
+        public static var allCases: [Services_Common_V1_SupportedDidMethod] = [
+            .key,
+            .ion,
+        ]
+    }
+
+#endif // swift(>=4.2)
+
 /// Nonce used to generate an oberon proof
 public struct Services_Common_V1_Nonce {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -94,6 +138,7 @@ public struct Services_Common_V1_Nonce {
 
 #if swift(>=5.5) && canImport(_Concurrency)
     extension Services_Common_V1_ResponseStatus: @unchecked Sendable {}
+    extension Services_Common_V1_SupportedDidMethod: @unchecked Sendable {}
     extension Services_Common_V1_Nonce: @unchecked Sendable {}
 #endif // swift(>=5.5) && canImport(_Concurrency)
 
@@ -109,6 +154,13 @@ extension Services_Common_V1_ResponseStatus: SwiftProtobuf._ProtoNameProviding {
         20: .same(proto: "ITEM_NOT_FOUND"),
         100: .same(proto: "UNKNOWN_ERROR"),
         200: .same(proto: "SERIALIZATION_ERROR"),
+    ]
+}
+
+extension Services_Common_V1_SupportedDidMethod: SwiftProtobuf._ProtoNameProviding {
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        0: .same(proto: "KEY"),
+        1: .same(proto: "ION"),
     ]
 }
 
