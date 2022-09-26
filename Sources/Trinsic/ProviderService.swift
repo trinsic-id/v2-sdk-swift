@@ -9,16 +9,16 @@ import Foundation
 import GRPC
 
 public class ProviderService: ServiceBase {
-    var client: Services_Provider_V1_ProviderClient?
+    var client: Services_Provider_V1_ProviderNIOClient?
 
     public init() {
         super.init(options: Sdk_Options_V1_ServiceOptions())
-        client = Services_Provider_V1_ProviderClient(channel: createChannel())
+        client = Services_Provider_V1_ProviderNIOClient(channel: createChannel())
     }
 
     override public init(options: Sdk_Options_V1_ServiceOptions) {
         super.init(options: options)
-        client = Services_Provider_V1_ProviderClient(channel: createChannel())
+        client = Services_Provider_V1_ProviderNIOClient(channel: createChannel())
     }
 
     public func createEcosystem(request: Services_Provider_V1_CreateEcosystemRequest) throws -> Services_Provider_V1_CreateEcosystemResponse {

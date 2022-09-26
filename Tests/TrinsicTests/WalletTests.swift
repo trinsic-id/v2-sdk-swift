@@ -23,7 +23,7 @@ final class WalletTests: XCTestCase {
     }
 
     func testSearch() throws {
-        let response = try service!.search()
+        let response = try service!.searchWallet()
 
         XCTAssertNotNil(response)
     }

@@ -9,16 +9,16 @@ import Foundation
 import GRPC
 
 public class TemplateService: ServiceBase {
-    var client: Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClient?
+    var client: Services_Verifiablecredentials_Templates_V1_CredentialTemplatesNIOClient?
 
     public init() {
         super.init(options: Sdk_Options_V1_ServiceOptions())
-        client = Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClient(channel: createChannel())
+        client = Services_Verifiablecredentials_Templates_V1_CredentialTemplatesNIOClient(channel: createChannel())
     }
 
     override public init(options: Sdk_Options_V1_ServiceOptions) {
         super.init(options: options)
-        client = Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClient(channel: createChannel())
+        client = Services_Verifiablecredentials_Templates_V1_CredentialTemplatesNIOClient(channel: createChannel())
     }
 
     public func list(request: inout Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesRequest) throws -> Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesResponse {

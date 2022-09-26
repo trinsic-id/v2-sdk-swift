@@ -9,23 +9,23 @@ import Foundation
 import GRPC
 
 public class WalletService: ServiceBase {
-    var client: Services_Universalwallet_V1_UniversalWalletClient?
+    var client: Services_Universalwallet_V1_UniversalWalletNIOClient?
 
     public init() {
         super.init(options: Sdk_Options_V1_ServiceOptions())
-        client = Services_Universalwallet_V1_UniversalWalletClient(channel: createChannel())
+        client = Services_Universalwallet_V1_UniversalWalletNIOClient(channel: createChannel())
     }
 
     override public init(options: Sdk_Options_V1_ServiceOptions) {
         super.init(options: options)
-        client = Services_Universalwallet_V1_UniversalWalletClient(channel: createChannel())
+        client = Services_Universalwallet_V1_UniversalWalletNIOClient(channel: createChannel())
     }
 
     public func search() throws -> Services_Universalwallet_V1_SearchResponse {
         return try search(request: Services_Universalwallet_V1_SearchRequest())
     }
 
-    public func search(request: Services_Universalwallet_V1_SearchRequest) throws -> Services_Universalwallet_V1_SearchResponse {
+    public func searchWallet(request: Services_Universalwallet_V1_SearchRequest = Services_Universalwallet_V1_SearchRequest()) throws -> Services_Universalwallet_V1_SearchResponse {
         var request = request
         if request.query.isEmpty {
             request.query = "SELECT c.id, c.type, c.data FROM c OFFSET 0 LIMIT 100"

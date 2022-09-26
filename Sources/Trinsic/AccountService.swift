@@ -12,16 +12,16 @@ import Okapi
 public typealias AccountProfile = Services_Account_V1_AccountProfile
 
 public class AccountService: ServiceBase {
-    var client: Services_Account_V1_AccountClient?
+    var client: Services_Account_V1_AccountNIOClient?
 
     public init() {
         super.init(options: Sdk_Options_V1_ServiceOptions())
-        client = Services_Account_V1_AccountClient(channel: createChannel())
+        client = Services_Account_V1_AccountNIOClient(channel: createChannel())
     }
 
     override public init(options: Sdk_Options_V1_ServiceOptions) {
         super.init(options: options)
-        client = Services_Account_V1_AccountClient(channel: createChannel())
+        client = Services_Account_V1_AccountNIOClient(channel: createChannel())
     }
 
     public func signIn(request: Services_Account_V1_SignInRequest) throws -> String {
