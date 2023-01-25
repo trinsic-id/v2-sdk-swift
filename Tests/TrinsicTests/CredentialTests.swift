@@ -64,15 +64,15 @@ final class CredentialTests: XCTestCase {
         let credentialService = CredentialService(options: options)
         let walletService = WalletService(options: options)
 
-        let authToken = try accountService.loginAnonymous()
+        let authToken = try accountService.loginAnonymous(ecosystemId: "default")
         options.authToken = authToken
 
         // SETUP Actors
         // Create 3 different profiles for each participant in the scenario
         // setupActors() {
-        let allison = try accountService.loginAnonymous()
-        let clinic = try accountService.loginAnonymous()
-        let airline = try accountService.loginAnonymous()
+        let allison = try accountService.loginAnonymous(ecosystemId: "default")
+        let clinic = try accountService.loginAnonymous(ecosystemId: "default")
+        let airline = try accountService.loginAnonymous(ecosystemId: "default")
         // }
 
         // Store profile for later use

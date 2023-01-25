@@ -18,7 +18,7 @@ final class TemplateTests: XCTestCase {
         options.serverEndpoint = testEndpoint
         let accountService = AccountService(options: options)
 
-        options.authToken = try accountService.loginAnonymous()
+        options.authToken = try accountService.loginAnonymous(ecosystemId: "default")
         service = TemplateService(options: options)
     }
 

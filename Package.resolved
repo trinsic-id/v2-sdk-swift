@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/grpc/grpc-swift.git",
         "state": {
           "branch": null,
-          "revision": "d114c5ec34015bab663b3b7afaa7d6197656e47e",
-          "version": "1.9.0"
+          "revision": "1629de188c25682adc4cb47a80adca1ac90b494d",
+          "version": "1.13.2"
         }
       },
       {
@@ -29,12 +29,21 @@
         }
       },
       {
+        "package": "swift-collections",
+        "repositoryURL": "https://github.com/apple/swift-collections.git",
+        "state": {
+          "branch": null,
+          "revision": "937e904258d22af6e447a0b72c0bc67583ef64a2",
+          "version": "1.0.4"
+        }
+      },
+      {
         "package": "swift-log",
         "repositoryURL": "https://github.com/apple/swift-log.git",
         "state": {
           "branch": null,
-          "revision": "5d66f7ba25daf4f94100e7022febf3c75e37a6c7",
-          "version": "1.4.2"
+          "revision": "32e8d724467f8fe623624570367e3d50c5638e46",
+          "version": "1.5.2"
         }
       },
       {
@@ -42,8 +51,8 @@
         "repositoryURL": "https://github.com/apple/swift-nio.git",
         "state": {
           "branch": null,
-          "revision": "ece5057615d1bee848341eceafdf04ca54d60177",
-          "version": "2.41.0"
+          "revision": "4ad2c3733845abd9ee8892a323b0fa0d80f37e34",
+          "version": "2.47.0"
         }
       },
       {
@@ -69,8 +78,8 @@
         "repositoryURL": "https://github.com/apple/swift-nio-ssl.git",
         "state": {
           "branch": null,
-          "revision": "2e74773972bd6254c41ceeda827f229bccbf1c0f",
-          "version": "2.15.0"
+          "revision": "4fb7ead803e38949eb1d6fabb849206a72c580f3",
+          "version": "2.23.0"
         }
       },
       {
@@ -78,8 +87,8 @@
         "repositoryURL": "https://github.com/apple/swift-nio-transport-services.git",
         "state": {
           "branch": null,
-          "revision": "9571a61d236c5253b6a255a2d13fac536a1e2625",
-          "version": "1.11.2"
+          "revision": "c0d9a144cfaec8d3d596aadde3039286a266c15c",
+          "version": "1.15.0"
         }
       },
       {
