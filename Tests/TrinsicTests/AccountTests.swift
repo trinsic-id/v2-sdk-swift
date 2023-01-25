@@ -15,7 +15,7 @@ final class AccountTests: XCTestCase {
         options.serverEndpoint = "dev-internal.trinsic.cloud"
         let service = AccountService(options: options)
 
-        let authToken = try service.loginAnonymous()
+        let authToken = try service.loginAnonymous(ecosystemId: "default")
         service.options.authToken = authToken
 
         XCTAssertNotNil(authToken)
