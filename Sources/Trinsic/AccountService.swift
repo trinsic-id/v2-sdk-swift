@@ -115,7 +115,7 @@ public class AccountService: ServiceBase {
 
     public func loginAnonymous(ecosystemId: String) throws -> String {
         var loginRequest = Services_Account_V1_LoginRequest()
-        loginRequest.ecosystemID = ecosystemId;
+        loginRequest.ecosystemID = ecosystemId
         let response = try login(request: loginRequest)
         if response.profile.hasProtection, response.profile.protection.enabled {
             throw SdkError.profileProtected
