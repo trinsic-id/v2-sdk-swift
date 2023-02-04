@@ -24,11 +24,6 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.head_ref }}
           submodules: recursive
-      - name: Set up Python 3.9
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.9
-          cache: pip
       - name: Install Protoc
         uses: arduino/setup-protoc@v1
         with:
@@ -41,13 +36,11 @@ jobs:
       - uses: trinsic-id/protoc-gen-sdk@main
         id: buildsdkwrappers
       - name: Install protobuf plugins
-        # TODO - Get `generate_proto_files.py` as an action?
         run: |
-          pip install -r ./devops/requirements.txt
-          python ./devops/generate_proto_files.py --download-plugins --language=none
+          brew install swift-protobuf grpc-swift
       - name: Compile proto files
-        run: |
-          python ./devops/generate_proto_files.py --language=swift
+        run: ./generate.ps1
+        shell: pwsh
 
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
