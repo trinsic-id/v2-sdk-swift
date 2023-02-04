@@ -28,4 +28,4 @@ do
     --grpc-swift_out=${OUT_DIR} $f
 done
 
-swiftformat .
+swiftformat . --swiftversion 5.6
