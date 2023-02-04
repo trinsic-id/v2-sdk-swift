@@ -25,7 +25,7 @@ do
     --plugin=${PROTOC_GEN_GRPC_SWIFT} \
     --grpc-swift_opt=Visibility=Public \
     --grpc-swift_opt=KeepMethodCasing=true \
-    --grpc-swift_out=${OUT_DIR} $f
+    --grpc-swift_out=${OUT_DIR} "$f"
 done
 
 swiftformat . --swiftversion 5.6
