@@ -12,10 +12,6 @@ fi
 # install protoc and required plugins
 brew install protobuf swift-protobuf grpc-swift swiftformat
 
-# add 'trinsic-id/sdk' repository as submodule
-# to use the proto files for code generation
-git submodule add https://github.com/trinsic-id/sdk
-
 PROTO_ROOT=./proto/
 OUT_DIR=./Sources/Trinsic/Proto
 
