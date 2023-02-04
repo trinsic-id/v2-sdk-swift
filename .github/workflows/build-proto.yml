@@ -7,16 +7,13 @@ on:
       - main
     paths:
       - "proto/**"
-      - "devops/*"
   pull_request:
     paths:
       - "proto/**"
-      - "devops/**"
       - ".github/workflows/build-proto.yml"
 
 jobs:
   compile_proto:
-    # TODO - Make this a composite action with the same one in `sdk` repo?
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
@@ -39,8 +36,8 @@ jobs:
         run: |
           brew install swift-protobuf grpc-swift
       - name: Compile proto files
-        run: ./generate.ps1
-        shell: pwsh
+        run: ./generate.bash
+        shell: bash
 
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
