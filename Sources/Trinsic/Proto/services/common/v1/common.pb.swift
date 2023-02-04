@@ -76,14 +76,18 @@ public enum Services_Common_V1_ResponseStatus: SwiftProtobuf.Enum {
 #endif // swift(>=4.2)
 
 /// Enum of all supported DID Methods
+/// https://docs.godiddy.com/en/supported-methods
 public enum Services_Common_V1_SupportedDidMethod: SwiftProtobuf.Enum {
     public typealias RawValue = Int
 
     /// The did:key method -- all wallets use this by default
     case key // = 0
 
-    /// The did:ion method
+    /// The did:ion method -- Sidetree implementation on top of Bitcoin by Microsoft
     case ion // = 1
+
+    /// The did:sov method -- Hyperledger Indy based by Sovrin Foundation
+    case indy // = 2
     case UNRECOGNIZED(Int)
 
     public init() {
@@ -94,6 +98,7 @@ public enum Services_Common_V1_SupportedDidMethod: SwiftProtobuf.Enum {
         switch rawValue {
         case 0: self = .key
         case 1: self = .ion
+        case 2: self = .indy
         default: self = .UNRECOGNIZED(rawValue)
         }
     }
@@ -102,6 +107,7 @@ public enum Services_Common_V1_SupportedDidMethod: SwiftProtobuf.Enum {
         switch self {
         case .key: return 0
         case .ion: return 1
+        case .indy: return 2
         case let .UNRECOGNIZED(i): return i
         }
     }
@@ -114,6 +120,7 @@ public enum Services_Common_V1_SupportedDidMethod: SwiftProtobuf.Enum {
         public static var allCases: [Services_Common_V1_SupportedDidMethod] = [
             .key,
             .ion,
+            .indy,
         ]
     }
 
@@ -161,6 +168,7 @@ extension Services_Common_V1_SupportedDidMethod: SwiftProtobuf._ProtoNameProvidi
     public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
         0: .same(proto: "KEY"),
         1: .same(proto: "ION"),
+        2: .same(proto: "INDY"),
     ]
 }
 

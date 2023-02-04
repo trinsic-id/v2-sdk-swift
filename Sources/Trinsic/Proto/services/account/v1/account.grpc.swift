@@ -50,16 +50,6 @@ public protocol Services_Account_V1_AccountClientProtocol: GRPCClient {
         callOptions: CallOptions?
     ) -> UnaryCall<Services_Account_V1_AccountInfoRequest, Services_Account_V1_AccountInfoResponse>
 
-    func ListDevices(
-        _ request: Services_Account_V1_ListDevicesRequest,
-        callOptions: CallOptions?
-    ) -> UnaryCall<Services_Account_V1_ListDevicesRequest, Services_Account_V1_ListDevicesResponse>
-
-    func RevokeDevice(
-        _ request: Services_Account_V1_RevokeDeviceRequest,
-        callOptions: CallOptions?
-    ) -> UnaryCall<Services_Account_V1_RevokeDeviceRequest, Services_Account_V1_RevokeDeviceResponse>
-
     func AuthorizeWebhook(
         _ request: Services_Account_V1_AuthorizeWebhookRequest,
         callOptions: CallOptions?
@@ -140,42 +130,6 @@ public extension Services_Account_V1_AccountClientProtocol {
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
             interceptors: interceptors?.makeInfoInterceptors() ?? []
-        )
-    }
-
-    /// List all connected devices
-    ///
-    /// - Parameters:
-    ///   - request: Request to send to ListDevices.
-    ///   - callOptions: Call options.
-    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-    func ListDevices(
-        _ request: Services_Account_V1_ListDevicesRequest,
-        callOptions: CallOptions? = nil
-    ) -> UnaryCall<Services_Account_V1_ListDevicesRequest, Services_Account_V1_ListDevicesResponse> {
-        makeUnaryCall(
-            path: Services_Account_V1_AccountClientMetadata.Methods.ListDevices.path,
-            request: request,
-            callOptions: callOptions ?? defaultCallOptions,
-            interceptors: interceptors?.makeListDevicesInterceptors() ?? []
-        )
-    }
-
-    /// Revoke device access to the account's cloud wallet
-    ///
-    /// - Parameters:
-    ///   - request: Request to send to RevokeDevice.
-    ///   - callOptions: Call options.
-    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-    func RevokeDevice(
-        _ request: Services_Account_V1_RevokeDeviceRequest,
-        callOptions: CallOptions? = nil
-    ) -> UnaryCall<Services_Account_V1_RevokeDeviceRequest, Services_Account_V1_RevokeDeviceResponse> {
-        makeUnaryCall(
-            path: Services_Account_V1_AccountClientMetadata.Methods.RevokeDevice.path,
-            request: request,
-            callOptions: callOptions ?? defaultCallOptions,
-            interceptors: interceptors?.makeRevokeDeviceInterceptors() ?? []
         )
     }
 
@@ -284,16 +238,6 @@ public struct Services_Account_V1_AccountNIOClient: Services_Account_V1_AccountC
             callOptions: CallOptions?
         ) -> GRPCAsyncUnaryCall<Services_Account_V1_AccountInfoRequest, Services_Account_V1_AccountInfoResponse>
 
-        func makeListDevicesCall(
-            _ request: Services_Account_V1_ListDevicesRequest,
-            callOptions: CallOptions?
-        ) -> GRPCAsyncUnaryCall<Services_Account_V1_ListDevicesRequest, Services_Account_V1_ListDevicesResponse>
-
-        func makeRevokeDeviceCall(
-            _ request: Services_Account_V1_RevokeDeviceRequest,
-            callOptions: CallOptions?
-        ) -> GRPCAsyncUnaryCall<Services_Account_V1_RevokeDeviceRequest, Services_Account_V1_RevokeDeviceResponse>
-
         func makeAuthorizeWebhookCall(
             _ request: Services_Account_V1_AuthorizeWebhookRequest,
             callOptions: CallOptions?
@@ -355,30 +299,6 @@ public struct Services_Account_V1_AccountNIOClient: Services_Account_V1_AccountC
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
                 interceptors: interceptors?.makeInfoInterceptors() ?? []
-            )
-        }
-
-        func makeListDevicesCall(
-            _ request: Services_Account_V1_ListDevicesRequest,
-            callOptions: CallOptions? = nil
-        ) -> GRPCAsyncUnaryCall<Services_Account_V1_ListDevicesRequest, Services_Account_V1_ListDevicesResponse> {
-            makeAsyncUnaryCall(
-                path: Services_Account_V1_AccountClientMetadata.Methods.ListDevices.path,
-                request: request,
-                callOptions: callOptions ?? defaultCallOptions,
-                interceptors: interceptors?.makeListDevicesInterceptors() ?? []
-            )
-        }
-
-        func makeRevokeDeviceCall(
-            _ request: Services_Account_V1_RevokeDeviceRequest,
-            callOptions: CallOptions? = nil
-        ) -> GRPCAsyncUnaryCall<Services_Account_V1_RevokeDeviceRequest, Services_Account_V1_RevokeDeviceResponse> {
-            makeAsyncUnaryCall(
-                path: Services_Account_V1_AccountClientMetadata.Methods.RevokeDevice.path,
-                request: request,
-                callOptions: callOptions ?? defaultCallOptions,
-                interceptors: interceptors?.makeRevokeDeviceInterceptors() ?? []
             )
         }
 
@@ -445,30 +365,6 @@ public struct Services_Account_V1_AccountNIOClient: Services_Account_V1_AccountC
             )
         }
 
-        func ListDevices(
-            _ request: Services_Account_V1_ListDevicesRequest,
-            callOptions: CallOptions? = nil
-        ) async throws -> Services_Account_V1_ListDevicesResponse {
-            try await performAsyncUnaryCall(
-                path: Services_Account_V1_AccountClientMetadata.Methods.ListDevices.path,
-                request: request,
-                callOptions: callOptions ?? defaultCallOptions,
-                interceptors: interceptors?.makeListDevicesInterceptors() ?? []
-            )
-        }
-
-        func RevokeDevice(
-            _ request: Services_Account_V1_RevokeDeviceRequest,
-            callOptions: CallOptions? = nil
-        ) async throws -> Services_Account_V1_RevokeDeviceResponse {
-            try await performAsyncUnaryCall(
-                path: Services_Account_V1_AccountClientMetadata.Methods.RevokeDevice.path,
-                request: request,
-                callOptions: callOptions ?? defaultCallOptions,
-                interceptors: interceptors?.makeRevokeDeviceInterceptors() ?? []
-            )
-        }
-
         func AuthorizeWebhook(
             _ request: Services_Account_V1_AuthorizeWebhookRequest,
             callOptions: CallOptions? = nil
@@ -514,12 +410,6 @@ public protocol Services_Account_V1_AccountClientInterceptorFactoryProtocol: GRP
     /// - Returns: Interceptors to use when invoking 'Info'.
     func makeInfoInterceptors() -> [ClientInterceptor<Services_Account_V1_AccountInfoRequest, Services_Account_V1_AccountInfoResponse>]
 
-    /// - Returns: Interceptors to use when invoking 'ListDevices'.
-    func makeListDevicesInterceptors() -> [ClientInterceptor<Services_Account_V1_ListDevicesRequest, Services_Account_V1_ListDevicesResponse>]
-
-    /// - Returns: Interceptors to use when invoking 'RevokeDevice'.
-    func makeRevokeDeviceInterceptors() -> [ClientInterceptor<Services_Account_V1_RevokeDeviceRequest, Services_Account_V1_RevokeDeviceResponse>]
-
     /// - Returns: Interceptors to use when invoking 'AuthorizeWebhook'.
     func makeAuthorizeWebhookInterceptors() -> [ClientInterceptor<Services_Account_V1_AuthorizeWebhookRequest, Services_Account_V1_AuthorizeWebhookResponse>]
 }
@@ -533,8 +423,6 @@ public enum Services_Account_V1_AccountClientMetadata {
             Services_Account_V1_AccountClientMetadata.Methods.Login,
             Services_Account_V1_AccountClientMetadata.Methods.LoginConfirm,
             Services_Account_V1_AccountClientMetadata.Methods.Info,
-            Services_Account_V1_AccountClientMetadata.Methods.ListDevices,
-            Services_Account_V1_AccountClientMetadata.Methods.RevokeDevice,
             Services_Account_V1_AccountClientMetadata.Methods.AuthorizeWebhook,
         ]
     )
@@ -564,18 +452,6 @@ public enum Services_Account_V1_AccountClientMetadata {
             type: GRPCCallType.unary
         )
 
-        public static let ListDevices = GRPCMethodDescriptor(
-            name: "ListDevices",
-            path: "/services.account.v1.Account/ListDevices",
-            type: GRPCCallType.unary
-        )
-
-        public static let RevokeDevice = GRPCMethodDescriptor(
-            name: "RevokeDevice",
-            path: "/services.account.v1.Account/RevokeDevice",
-            type: GRPCCallType.unary
-        )
-
         public static let AuthorizeWebhook = GRPCMethodDescriptor(
             name: "AuthorizeWebhook",
             path: "/services.account.v1.Account/AuthorizeWebhook",
@@ -599,12 +475,6 @@ public protocol Services_Account_V1_AccountProvider: CallHandlerProvider {
 
     /// Get account information
     func Info(request: Services_Account_V1_AccountInfoRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Account_V1_AccountInfoResponse>
-
-    /// List all connected devices
-    func ListDevices(request: Services_Account_V1_ListDevicesRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Account_V1_ListDevicesResponse>
-
-    /// Revoke device access to the account's cloud wallet
-    func RevokeDevice(request: Services_Account_V1_RevokeDeviceRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Account_V1_RevokeDeviceResponse>
 
     /// Authorize Ecosystem to receive webhook events
     func AuthorizeWebhook(request: Services_Account_V1_AuthorizeWebhookRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Account_V1_AuthorizeWebhookResponse>
@@ -658,24 +528,6 @@ public extension Services_Account_V1_AccountProvider {
                 userFunction: Info(request:context:)
             )
 
-        case "ListDevices":
-            return UnaryServerHandler(
-                context: context,
-                requestDeserializer: ProtobufDeserializer<Services_Account_V1_ListDevicesRequest>(),
-                responseSerializer: ProtobufSerializer<Services_Account_V1_ListDevicesResponse>(),
-                interceptors: interceptors?.makeListDevicesInterceptors() ?? [],
-                userFunction: ListDevices(request:context:)
-            )
-
-        case "RevokeDevice":
-            return UnaryServerHandler(
-                context: context,
-                requestDeserializer: ProtobufDeserializer<Services_Account_V1_RevokeDeviceRequest>(),
-                responseSerializer: ProtobufSerializer<Services_Account_V1_RevokeDeviceResponse>(),
-                interceptors: interceptors?.makeRevokeDeviceInterceptors() ?? [],
-                userFunction: RevokeDevice(request:context:)
-            )
-
         case "AuthorizeWebhook":
             return UnaryServerHandler(
                 context: context,
@@ -722,18 +574,6 @@ public extension Services_Account_V1_AccountProvider {
             request: Services_Account_V1_AccountInfoRequest,
             context: GRPCAsyncServerCallContext
         ) async throws -> Services_Account_V1_AccountInfoResponse
-
-        /// List all connected devices
-        @Sendable func ListDevices(
-            request: Services_Account_V1_ListDevicesRequest,
-            context: GRPCAsyncServerCallContext
-        ) async throws -> Services_Account_V1_ListDevicesResponse
-
-        /// Revoke device access to the account's cloud wallet
-        @Sendable func RevokeDevice(
-            request: Services_Account_V1_RevokeDeviceRequest,
-            context: GRPCAsyncServerCallContext
-        ) async throws -> Services_Account_V1_RevokeDeviceResponse
 
         /// Authorize Ecosystem to receive webhook events
         @Sendable func AuthorizeWebhook(
@@ -797,24 +637,6 @@ public extension Services_Account_V1_AccountProvider {
                     wrapping: Info(request:context:)
                 )
 
-            case "ListDevices":
-                return GRPCAsyncServerHandler(
-                    context: context,
-                    requestDeserializer: ProtobufDeserializer<Services_Account_V1_ListDevicesRequest>(),
-                    responseSerializer: ProtobufSerializer<Services_Account_V1_ListDevicesResponse>(),
-                    interceptors: interceptors?.makeListDevicesInterceptors() ?? [],
-                    wrapping: ListDevices(request:context:)
-                )
-
-            case "RevokeDevice":
-                return GRPCAsyncServerHandler(
-                    context: context,
-                    requestDeserializer: ProtobufDeserializer<Services_Account_V1_RevokeDeviceRequest>(),
-                    responseSerializer: ProtobufSerializer<Services_Account_V1_RevokeDeviceResponse>(),
-                    interceptors: interceptors?.makeRevokeDeviceInterceptors() ?? [],
-                    wrapping: RevokeDevice(request:context:)
-                )
-
             case "AuthorizeWebhook":
                 return GRPCAsyncServerHandler(
                     context: context,
@@ -849,14 +671,6 @@ public protocol Services_Account_V1_AccountServerInterceptorFactoryProtocol {
     ///   Defaults to calling `self.makeInterceptors()`.
     func makeInfoInterceptors() -> [ServerInterceptor<Services_Account_V1_AccountInfoRequest, Services_Account_V1_AccountInfoResponse>]
 
-    /// - Returns: Interceptors to use when handling 'ListDevices'.
-    ///   Defaults to calling `self.makeInterceptors()`.
-    func makeListDevicesInterceptors() -> [ServerInterceptor<Services_Account_V1_ListDevicesRequest, Services_Account_V1_ListDevicesResponse>]
-
-    /// - Returns: Interceptors to use when handling 'RevokeDevice'.
-    ///   Defaults to calling `self.makeInterceptors()`.
-    func makeRevokeDeviceInterceptors() -> [ServerInterceptor<Services_Account_V1_RevokeDeviceRequest, Services_Account_V1_RevokeDeviceResponse>]
-
     /// - Returns: Interceptors to use when handling 'AuthorizeWebhook'.
     ///   Defaults to calling `self.makeInterceptors()`.
     func makeAuthorizeWebhookInterceptors() -> [ServerInterceptor<Services_Account_V1_AuthorizeWebhookRequest, Services_Account_V1_AuthorizeWebhookResponse>]
@@ -871,8 +685,6 @@ public enum Services_Account_V1_AccountServerMetadata {
             Services_Account_V1_AccountServerMetadata.Methods.Login,
             Services_Account_V1_AccountServerMetadata.Methods.LoginConfirm,
             Services_Account_V1_AccountServerMetadata.Methods.Info,
-            Services_Account_V1_AccountServerMetadata.Methods.ListDevices,
-            Services_Account_V1_AccountServerMetadata.Methods.RevokeDevice,
             Services_Account_V1_AccountServerMetadata.Methods.AuthorizeWebhook,
         ]
     )
@@ -899,18 +711,6 @@ public enum Services_Account_V1_AccountServerMetadata {
         public static let Info = GRPCMethodDescriptor(
             name: "Info",
             path: "/services.account.v1.Account/Info",
-            type: GRPCCallType.unary
-        )
-
-        public static let ListDevices = GRPCMethodDescriptor(
-            name: "ListDevices",
-            path: "/services.account.v1.Account/ListDevices",
-            type: GRPCCallType.unary
-        )
-
-        public static let RevokeDevice = GRPCMethodDescriptor(
-            name: "RevokeDevice",
-            path: "/services.account.v1.Account/RevokeDevice",
             type: GRPCCallType.unary
         )
 

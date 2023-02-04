@@ -54,6 +54,11 @@ public protocol Services_Universalwallet_V1_UniversalWalletClientProtocol: GRPCC
         _ request: Services_Universalwallet_V1_DeleteItemRequest,
         callOptions: CallOptions?
     ) -> UnaryCall<Services_Universalwallet_V1_DeleteItemRequest, Services_Universalwallet_V1_DeleteItemResponse>
+
+    func DeleteWallet(
+        _ request: Services_Universalwallet_V1_DeleteWalletRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Universalwallet_V1_DeleteWalletRequest, Services_Universalwallet_V1_DeleteWalletResponse>
 }
 
 public extension Services_Universalwallet_V1_UniversalWalletClientProtocol {
@@ -150,6 +155,24 @@ public extension Services_Universalwallet_V1_UniversalWalletClientProtocol {
             interceptors: interceptors?.makeDeleteItemInterceptors() ?? []
         )
     }
+
+    /// Delete a wallet and its credentials
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to DeleteWallet.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func DeleteWallet(
+        _ request: Services_Universalwallet_V1_DeleteWalletRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Universalwallet_V1_DeleteWalletRequest, Services_Universalwallet_V1_DeleteWalletResponse> {
+        makeUnaryCall(
+            path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.DeleteWallet.path,
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeDeleteWalletInterceptors() ?? []
+        )
+    }
 }
 
 #if compiler(>=5.6)
@@ -242,6 +265,11 @@ public struct Services_Universalwallet_V1_UniversalWalletNIOClient: Services_Uni
             _ request: Services_Universalwallet_V1_DeleteItemRequest,
             callOptions: CallOptions?
         ) -> GRPCAsyncUnaryCall<Services_Universalwallet_V1_DeleteItemRequest, Services_Universalwallet_V1_DeleteItemResponse>
+
+        func makeDeleteWalletCall(
+            _ request: Services_Universalwallet_V1_DeleteWalletRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Universalwallet_V1_DeleteWalletRequest, Services_Universalwallet_V1_DeleteWalletResponse>
     }
 
     @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -313,6 +341,18 @@ public struct Services_Universalwallet_V1_UniversalWalletNIOClient: Services_Uni
                 interceptors: interceptors?.makeDeleteItemInterceptors() ?? []
             )
         }
+
+        func makeDeleteWalletCall(
+            _ request: Services_Universalwallet_V1_DeleteWalletRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Universalwallet_V1_DeleteWalletRequest, Services_Universalwallet_V1_DeleteWalletResponse> {
+            makeAsyncUnaryCall(
+                path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.DeleteWallet.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeDeleteWalletInterceptors() ?? []
+            )
+        }
     }
 
     @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -376,6 +416,18 @@ public struct Services_Universalwallet_V1_UniversalWalletNIOClient: Services_Uni
                 interceptors: interceptors?.makeDeleteItemInterceptors() ?? []
             )
         }
+
+        func DeleteWallet(
+            _ request: Services_Universalwallet_V1_DeleteWalletRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Universalwallet_V1_DeleteWalletResponse {
+            try await performAsyncUnaryCall(
+                path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.DeleteWallet.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeDeleteWalletInterceptors() ?? []
+            )
+        }
     }
 
     @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -412,6 +464,9 @@ public protocol Services_Universalwallet_V1_UniversalWalletClientInterceptorFact
 
     /// - Returns: Interceptors to use when invoking 'DeleteItem'.
     func makeDeleteItemInterceptors() -> [ClientInterceptor<Services_Universalwallet_V1_DeleteItemRequest, Services_Universalwallet_V1_DeleteItemResponse>]
+
+    /// - Returns: Interceptors to use when invoking 'DeleteWallet'.
+    func makeDeleteWalletInterceptors() -> [ClientInterceptor<Services_Universalwallet_V1_DeleteWalletRequest, Services_Universalwallet_V1_DeleteWalletResponse>]
 }
 
 public enum Services_Universalwallet_V1_UniversalWalletClientMetadata {
@@ -424,6 +479,7 @@ public enum Services_Universalwallet_V1_UniversalWalletClientMetadata {
             Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.InsertItem,
             Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.UpdateItem,
             Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.DeleteItem,
+            Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.DeleteWallet,
         ]
     )
 
@@ -457,6 +513,12 @@ public enum Services_Universalwallet_V1_UniversalWalletClientMetadata {
             path: "/services.universalwallet.v1.UniversalWallet/DeleteItem",
             type: GRPCCallType.unary
         )
+
+        public static let DeleteWallet = GRPCMethodDescriptor(
+            name: "DeleteWallet",
+            path: "/services.universalwallet.v1.UniversalWallet/DeleteWallet",
+            type: GRPCCallType.unary
+        )
     }
 }
 
@@ -478,6 +540,9 @@ public protocol Services_Universalwallet_V1_UniversalWalletProvider: CallHandler
 
     /// Delete an item from the wallet permanently
     func DeleteItem(request: Services_Universalwallet_V1_DeleteItemRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Universalwallet_V1_DeleteItemResponse>
+
+    /// Delete a wallet and its credentials
+    func DeleteWallet(request: Services_Universalwallet_V1_DeleteWalletRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Universalwallet_V1_DeleteWalletResponse>
 }
 
 public extension Services_Universalwallet_V1_UniversalWalletProvider {
@@ -537,6 +602,15 @@ public extension Services_Universalwallet_V1_UniversalWalletProvider {
                 userFunction: DeleteItem(request:context:)
             )
 
+        case "DeleteWallet":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Universalwallet_V1_DeleteWalletRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Universalwallet_V1_DeleteWalletResponse>(),
+                interceptors: interceptors?.makeDeleteWalletInterceptors() ?? [],
+                userFunction: DeleteWallet(request:context:)
+            )
+
         default:
             return nil
         }
@@ -580,6 +654,12 @@ public extension Services_Universalwallet_V1_UniversalWalletProvider {
             request: Services_Universalwallet_V1_DeleteItemRequest,
             context: GRPCAsyncServerCallContext
         ) async throws -> Services_Universalwallet_V1_DeleteItemResponse
+
+        /// Delete a wallet and its credentials
+        @Sendable func DeleteWallet(
+            request: Services_Universalwallet_V1_DeleteWalletRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Universalwallet_V1_DeleteWalletResponse
     }
 
     @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -646,6 +726,15 @@ public extension Services_Universalwallet_V1_UniversalWalletProvider {
                     wrapping: DeleteItem(request:context:)
                 )
 
+            case "DeleteWallet":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Universalwallet_V1_DeleteWalletRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Universalwallet_V1_DeleteWalletResponse>(),
+                    interceptors: interceptors?.makeDeleteWalletInterceptors() ?? [],
+                    wrapping: DeleteWallet(request:context:)
+                )
+
             default:
                 return nil
             }
@@ -674,6 +763,10 @@ public protocol Services_Universalwallet_V1_UniversalWalletServerInterceptorFact
     /// - Returns: Interceptors to use when handling 'DeleteItem'.
     ///   Defaults to calling `self.makeInterceptors()`.
     func makeDeleteItemInterceptors() -> [ServerInterceptor<Services_Universalwallet_V1_DeleteItemRequest, Services_Universalwallet_V1_DeleteItemResponse>]
+
+    /// - Returns: Interceptors to use when handling 'DeleteWallet'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeDeleteWalletInterceptors() -> [ServerInterceptor<Services_Universalwallet_V1_DeleteWalletRequest, Services_Universalwallet_V1_DeleteWalletResponse>]
 }
 
 public enum Services_Universalwallet_V1_UniversalWalletServerMetadata {
@@ -686,6 +779,7 @@ public enum Services_Universalwallet_V1_UniversalWalletServerMetadata {
             Services_Universalwallet_V1_UniversalWalletServerMetadata.Methods.InsertItem,
             Services_Universalwallet_V1_UniversalWalletServerMetadata.Methods.UpdateItem,
             Services_Universalwallet_V1_UniversalWalletServerMetadata.Methods.DeleteItem,
+            Services_Universalwallet_V1_UniversalWalletServerMetadata.Methods.DeleteWallet,
         ]
     )
 
@@ -717,6 +811,12 @@ public enum Services_Universalwallet_V1_UniversalWalletServerMetadata {
         public static let DeleteItem = GRPCMethodDescriptor(
             name: "DeleteItem",
             path: "/services.universalwallet.v1.UniversalWallet/DeleteItem",
+            type: GRPCCallType.unary
+        )
+
+        public static let DeleteWallet = GRPCMethodDescriptor(
+            name: "DeleteWallet",
+            path: "/services.universalwallet.v1.UniversalWallet/DeleteWallet",
             type: GRPCCallType.unary
         )
     }

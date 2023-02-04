@@ -25,13 +25,14 @@ public enum Trinsic_Services_Event_EventType: SwiftProtobuf.Enum {
     public typealias RawValue = Int
     case ping // = 0
     case log // = 1
-    case egfCreated // = 5
-    case egfMemberRegistered // = 6
-    case egfMemberUnregistered // = 7
+    case governanceFrameworkCreated // = 5
+    case governanceFrameworkMemberRegistered // = 6
+    case governanceFrameworkMemberUnregistered // = 7
     case templateCreated // = 10
     case templateDeleted // = 11
     case walletCreated // = 15
     case itemReceived // = 16
+    case credentialIssued // = 17
     case UNRECOGNIZED(Int)
 
     public init() {
@@ -42,13 +43,14 @@ public enum Trinsic_Services_Event_EventType: SwiftProtobuf.Enum {
         switch rawValue {
         case 0: self = .ping
         case 1: self = .log
-        case 5: self = .egfCreated
-        case 6: self = .egfMemberRegistered
-        case 7: self = .egfMemberUnregistered
+        case 5: self = .governanceFrameworkCreated
+        case 6: self = .governanceFrameworkMemberRegistered
+        case 7: self = .governanceFrameworkMemberUnregistered
         case 10: self = .templateCreated
         case 11: self = .templateDeleted
         case 15: self = .walletCreated
         case 16: self = .itemReceived
+        case 17: self = .credentialIssued
         default: self = .UNRECOGNIZED(rawValue)
         }
     }
@@ -57,13 +59,14 @@ public enum Trinsic_Services_Event_EventType: SwiftProtobuf.Enum {
         switch self {
         case .ping: return 0
         case .log: return 1
-        case .egfCreated: return 5
-        case .egfMemberRegistered: return 6
-        case .egfMemberUnregistered: return 7
+        case .governanceFrameworkCreated: return 5
+        case .governanceFrameworkMemberRegistered: return 6
+        case .governanceFrameworkMemberUnregistered: return 7
         case .templateCreated: return 10
         case .templateDeleted: return 11
         case .walletCreated: return 15
         case .itemReceived: return 16
+        case .credentialIssued: return 17
         case let .UNRECOGNIZED(i): return i
         }
     }
@@ -76,40 +79,18 @@ public enum Trinsic_Services_Event_EventType: SwiftProtobuf.Enum {
         public static var allCases: [Trinsic_Services_Event_EventType] = [
             .ping,
             .log,
-            .egfCreated,
-            .egfMemberRegistered,
-            .egfMemberUnregistered,
+            .governanceFrameworkCreated,
+            .governanceFrameworkMemberRegistered,
+            .governanceFrameworkMemberUnregistered,
             .templateCreated,
             .templateDeleted,
             .walletCreated,
             .itemReceived,
+            .credentialIssued,
         ]
     }
 
 #endif // swift(>=4.2)
-
-/// Event
-public struct Trinsic_Services_Event_Event {
-    // SwiftProtobuf.Message conformance is added in an extension below. See the
-    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-    // methods supported on all messages.
-
-    /// UUID of event
-    public var id: String = .init()
-
-    /// Type of event
-    public var type: Trinsic_Services_Event_EventType = .ping
-
-    /// Timestamp event occurred, in ISO 8601 format (ex. `2022-07-07T08:09:10.11Z`)
-    public var timestamp: String = .init()
-
-    /// Event-specific payload, as an encoded protobuf message
-    public var data: Data = .init()
-
-    public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-    public init() {}
-}
 
 public struct Trinsic_Services_Event_APICall {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -128,7 +109,7 @@ public struct Trinsic_Services_Event_APICall {
 }
 
 /// Webhook test event
-public struct Trinsic_Services_Event_Ping {
+public struct Trinsic_Services_Event_PingV1 {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
@@ -145,13 +126,16 @@ public struct Trinsic_Services_Event_Ping {
     /// Arbitrary message specified when ping was requested
     public var message: String = .init()
 
+    /// Ecosystem where this event originated, if any.
+    public var ecosystemID: String = .init()
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
 }
 
 /// Entity Governance Framework created and attached to ecosystem
-public struct Trinsic_Services_Event_EGFCreated {
+public struct Trinsic_Services_Event_GovernanceFrameworkCreatedV1 {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
@@ -180,13 +164,16 @@ public struct Trinsic_Services_Event_EGFCreated {
     /// URI for the EGF
     public var governanceFramework: String = .init()
 
+    /// Timestamp event occurred, in ISO 8601 format (ex. `2022-07-07T08:09:10.11Z`)
+    public var timestamp: String = .init()
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
 }
 
 /// Template created in ecosystem
-public struct Trinsic_Services_Event_TemplateCreated {
+public struct Trinsic_Services_Event_TemplateCreatedV1 {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
@@ -206,13 +193,16 @@ public struct Trinsic_Services_Event_TemplateCreated {
     /// WalletID that created the template
     public var createdBy: String = .init()
 
+    /// Timestamp event occurred, in ISO 8601 format (ex. `2022-07-07T08:09:10.11Z`)
+    public var timestamp: String = .init()
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
 }
 
 /// Item inserted into wallet
-public struct Trinsic_Services_Event_ItemReceived {
+public struct Trinsic_Services_Event_ItemReceivedV1 {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
@@ -223,6 +213,12 @@ public struct Trinsic_Services_Event_ItemReceived {
     /// Timestamp when the item was received, in ISO 8601 format (ex. `2022-07-07T08:09:10.11Z`)
     public var received: String = .init()
 
+    /// ID of wallet
+    public var walletID: String = .init()
+
+    /// Ecosystem where this event originated, if any.
+    public var ecosystemID: String = .init()
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
@@ -230,12 +226,11 @@ public struct Trinsic_Services_Event_ItemReceived {
 
 #if swift(>=5.5) && canImport(_Concurrency)
     extension Trinsic_Services_Event_EventType: @unchecked Sendable {}
-    extension Trinsic_Services_Event_Event: @unchecked Sendable {}
     extension Trinsic_Services_Event_APICall: @unchecked Sendable {}
-    extension Trinsic_Services_Event_Ping: @unchecked Sendable {}
-    extension Trinsic_Services_Event_EGFCreated: @unchecked Sendable {}
-    extension Trinsic_Services_Event_TemplateCreated: @unchecked Sendable {}
-    extension Trinsic_Services_Event_ItemReceived: @unchecked Sendable {}
+    extension Trinsic_Services_Event_PingV1: @unchecked Sendable {}
+    extension Trinsic_Services_Event_GovernanceFrameworkCreatedV1: @unchecked Sendable {}
+    extension Trinsic_Services_Event_TemplateCreatedV1: @unchecked Sendable {}
+    extension Trinsic_Services_Event_ItemReceivedV1: @unchecked Sendable {}
 #endif // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Extension support defined in event.proto.
@@ -295,64 +290,15 @@ extension Trinsic_Services_Event_EventType: SwiftProtobuf._ProtoNameProviding {
     public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
         0: .same(proto: "PING"),
         1: .same(proto: "LOG"),
-        5: .same(proto: "EGF_CREATED"),
-        6: .same(proto: "EGF_MEMBER_REGISTERED"),
-        7: .same(proto: "EGF_MEMBER_UNREGISTERED"),
+        5: .same(proto: "GOVERNANCE_FRAMEWORK_CREATED"),
+        6: .same(proto: "GOVERNANCE_FRAMEWORK_MEMBER_REGISTERED"),
+        7: .same(proto: "GOVERNANCE_FRAMEWORK_MEMBER_UNREGISTERED"),
         10: .same(proto: "TEMPLATE_CREATED"),
         11: .same(proto: "TEMPLATE_DELETED"),
         15: .same(proto: "WALLET_CREATED"),
         16: .same(proto: "ITEM_RECEIVED"),
+        17: .same(proto: "CREDENTIAL_ISSUED"),
     ]
-}
-
-extension Trinsic_Services_Event_Event: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-    public static let protoMessageName: String = _protobuf_package + ".Event"
-    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-        1: .same(proto: "id"),
-        2: .same(proto: "type"),
-        3: .same(proto: "timestamp"),
-        4: .same(proto: "data"),
-    ]
-
-    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-        while let fieldNumber = try decoder.nextFieldNumber() {
-            // The use of inline closures is to circumvent an issue where the compiler
-            // allocates stack space for every case branch when no optimizations are
-            // enabled. https://github.com/apple/swift-protobuf/issues/1034
-            switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &id)
-            case 2: try try decoder.decodeSingularEnumField(value: &type)
-            case 3: try try decoder.decodeSingularStringField(value: &timestamp)
-            case 4: try try decoder.decodeSingularBytesField(value: &data)
-            default: break
-            }
-        }
-    }
-
-    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-        if !id.isEmpty {
-            try visitor.visitSingularStringField(value: id, fieldNumber: 1)
-        }
-        if type != .ping {
-            try visitor.visitSingularEnumField(value: type, fieldNumber: 2)
-        }
-        if !timestamp.isEmpty {
-            try visitor.visitSingularStringField(value: timestamp, fieldNumber: 3)
-        }
-        if !data.isEmpty {
-            try visitor.visitSingularBytesField(value: data, fieldNumber: 4)
-        }
-        try unknownFields.traverse(visitor: &visitor)
-    }
-
-    public static func == (lhs: Trinsic_Services_Event_Event, rhs: Trinsic_Services_Event_Event) -> Bool {
-        if lhs.id != rhs.id { return false }
-        if lhs.type != rhs.type { return false }
-        if lhs.timestamp != rhs.timestamp { return false }
-        if lhs.data != rhs.data { return false }
-        if lhs.unknownFields != rhs.unknownFields { return false }
-        return true
-    }
 }
 
 extension Trinsic_Services_Event_APICall: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
@@ -399,13 +345,14 @@ extension Trinsic_Services_Event_APICall: SwiftProtobuf.Message, SwiftProtobuf._
     }
 }
 
-extension Trinsic_Services_Event_Ping: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-    public static let protoMessageName: String = _protobuf_package + ".Ping"
+extension Trinsic_Services_Event_PingV1: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".PingV1"
     public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
         1: .same(proto: "id"),
         2: .standard(proto: "webhook_id"),
         3: .same(proto: "timestamp"),
         4: .same(proto: "message"),
+        5: .standard(proto: "ecosystem_id"),
     ]
 
     public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -418,6 +365,7 @@ extension Trinsic_Services_Event_Ping: SwiftProtobuf.Message, SwiftProtobuf._Mes
             case 2: try try decoder.decodeSingularStringField(value: &webhookID)
             case 3: try try decoder.decodeSingularStringField(value: &timestamp)
             case 4: try try decoder.decodeSingularStringField(value: &message)
+            case 5: try try decoder.decodeSingularStringField(value: &ecosystemID)
             default: break
             }
         }
@@ -436,21 +384,25 @@ extension Trinsic_Services_Event_Ping: SwiftProtobuf.Message, SwiftProtobuf._Mes
         if !message.isEmpty {
             try visitor.visitSingularStringField(value: message, fieldNumber: 4)
         }
+        if !ecosystemID.isEmpty {
+            try visitor.visitSingularStringField(value: ecosystemID, fieldNumber: 5)
+        }
         try unknownFields.traverse(visitor: &visitor)
     }
 
-    public static func == (lhs: Trinsic_Services_Event_Ping, rhs: Trinsic_Services_Event_Ping) -> Bool {
+    public static func == (lhs: Trinsic_Services_Event_PingV1, rhs: Trinsic_Services_Event_PingV1) -> Bool {
         if lhs.id != rhs.id { return false }
         if lhs.webhookID != rhs.webhookID { return false }
         if lhs.timestamp != rhs.timestamp { return false }
         if lhs.message != rhs.message { return false }
+        if lhs.ecosystemID != rhs.ecosystemID { return false }
         if lhs.unknownFields != rhs.unknownFields { return false }
         return true
     }
 }
 
-extension Trinsic_Services_Event_EGFCreated: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-    public static let protoMessageName: String = _protobuf_package + ".EGFCreated"
+extension Trinsic_Services_Event_GovernanceFrameworkCreatedV1: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".GovernanceFrameworkCreatedV1"
     public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
         1: .same(proto: "id"),
         2: .standard(proto: "ecosystem_id"),
@@ -460,6 +412,7 @@ extension Trinsic_Services_Event_EGFCreated: SwiftProtobuf.Message, SwiftProtobu
         6: .same(proto: "name"),
         7: .same(proto: "description"),
         8: .standard(proto: "governance_framework"),
+        9: .same(proto: "timestamp"),
     ]
 
     public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -476,6 +429,7 @@ extension Trinsic_Services_Event_EGFCreated: SwiftProtobuf.Message, SwiftProtobu
             case 6: try try decoder.decodeSingularStringField(value: &name)
             case 7: try try decoder.decodeSingularStringField(value: &description_p)
             case 8: try try decoder.decodeSingularStringField(value: &governanceFramework)
+            case 9: try try decoder.decodeSingularStringField(value: &timestamp)
             default: break
             }
         }
@@ -506,10 +460,13 @@ extension Trinsic_Services_Event_EGFCreated: SwiftProtobuf.Message, SwiftProtobu
         if !governanceFramework.isEmpty {
             try visitor.visitSingularStringField(value: governanceFramework, fieldNumber: 8)
         }
+        if !timestamp.isEmpty {
+            try visitor.visitSingularStringField(value: timestamp, fieldNumber: 9)
+        }
         try unknownFields.traverse(visitor: &visitor)
     }
 
-    public static func == (lhs: Trinsic_Services_Event_EGFCreated, rhs: Trinsic_Services_Event_EGFCreated) -> Bool {
+    public static func == (lhs: Trinsic_Services_Event_GovernanceFrameworkCreatedV1, rhs: Trinsic_Services_Event_GovernanceFrameworkCreatedV1) -> Bool {
         if lhs.id != rhs.id { return false }
         if lhs.ecosystemID != rhs.ecosystemID { return false }
         if lhs.trustRegistry != rhs.trustRegistry { return false }
@@ -518,19 +475,21 @@ extension Trinsic_Services_Event_EGFCreated: SwiftProtobuf.Message, SwiftProtobu
         if lhs.name != rhs.name { return false }
         if lhs.description_p != rhs.description_p { return false }
         if lhs.governanceFramework != rhs.governanceFramework { return false }
+        if lhs.timestamp != rhs.timestamp { return false }
         if lhs.unknownFields != rhs.unknownFields { return false }
         return true
     }
 }
 
-extension Trinsic_Services_Event_TemplateCreated: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-    public static let protoMessageName: String = _protobuf_package + ".TemplateCreated"
+extension Trinsic_Services_Event_TemplateCreatedV1: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".TemplateCreatedV1"
     public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
         1: .same(proto: "id"),
         2: .standard(proto: "ecosystem_id"),
         3: .same(proto: "name"),
         4: .same(proto: "type"),
         5: .standard(proto: "created_by"),
+        6: .same(proto: "timestamp"),
     ]
 
     public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -544,6 +503,7 @@ extension Trinsic_Services_Event_TemplateCreated: SwiftProtobuf.Message, SwiftPr
             case 3: try try decoder.decodeSingularStringField(value: &name)
             case 4: try try decoder.decodeSingularStringField(value: &type)
             case 5: try try decoder.decodeSingularStringField(value: &createdBy)
+            case 6: try try decoder.decodeSingularStringField(value: &timestamp)
             default: break
             }
         }
@@ -565,25 +525,31 @@ extension Trinsic_Services_Event_TemplateCreated: SwiftProtobuf.Message, SwiftPr
         if !createdBy.isEmpty {
             try visitor.visitSingularStringField(value: createdBy, fieldNumber: 5)
         }
+        if !timestamp.isEmpty {
+            try visitor.visitSingularStringField(value: timestamp, fieldNumber: 6)
+        }
         try unknownFields.traverse(visitor: &visitor)
     }
 
-    public static func == (lhs: Trinsic_Services_Event_TemplateCreated, rhs: Trinsic_Services_Event_TemplateCreated) -> Bool {
+    public static func == (lhs: Trinsic_Services_Event_TemplateCreatedV1, rhs: Trinsic_Services_Event_TemplateCreatedV1) -> Bool {
         if lhs.id != rhs.id { return false }
         if lhs.ecosystemID != rhs.ecosystemID { return false }
         if lhs.name != rhs.name { return false }
         if lhs.type != rhs.type { return false }
         if lhs.createdBy != rhs.createdBy { return false }
+        if lhs.timestamp != rhs.timestamp { return false }
         if lhs.unknownFields != rhs.unknownFields { return false }
         return true
     }
 }
 
-extension Trinsic_Services_Event_ItemReceived: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-    public static let protoMessageName: String = _protobuf_package + ".ItemReceived"
+extension Trinsic_Services_Event_ItemReceivedV1: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".ItemReceivedV1"
     public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
         1: .same(proto: "id"),
         2: .same(proto: "received"),
+        3: .standard(proto: "wallet_id"),
+        4: .standard(proto: "ecosystem_id"),
     ]
 
     public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -594,6 +560,8 @@ extension Trinsic_Services_Event_ItemReceived: SwiftProtobuf.Message, SwiftProto
             switch fieldNumber {
             case 1: try try decoder.decodeSingularStringField(value: &id)
             case 2: try try decoder.decodeSingularStringField(value: &received)
+            case 3: try try decoder.decodeSingularStringField(value: &walletID)
+            case 4: try try decoder.decodeSingularStringField(value: &ecosystemID)
             default: break
             }
         }
@@ -606,12 +574,20 @@ extension Trinsic_Services_Event_ItemReceived: SwiftProtobuf.Message, SwiftProto
         if !received.isEmpty {
             try visitor.visitSingularStringField(value: received, fieldNumber: 2)
         }
+        if !walletID.isEmpty {
+            try visitor.visitSingularStringField(value: walletID, fieldNumber: 3)
+        }
+        if !ecosystemID.isEmpty {
+            try visitor.visitSingularStringField(value: ecosystemID, fieldNumber: 4)
+        }
         try unknownFields.traverse(visitor: &visitor)
     }
 
-    public static func == (lhs: Trinsic_Services_Event_ItemReceived, rhs: Trinsic_Services_Event_ItemReceived) -> Bool {
+    public static func == (lhs: Trinsic_Services_Event_ItemReceivedV1, rhs: Trinsic_Services_Event_ItemReceivedV1) -> Bool {
         if lhs.id != rhs.id { return false }
         if lhs.received != rhs.received { return false }
+        if lhs.walletID != rhs.walletID { return false }
+        if lhs.ecosystemID != rhs.ecosystemID { return false }
         if lhs.unknownFields != rhs.unknownFields { return false }
         return true
     }

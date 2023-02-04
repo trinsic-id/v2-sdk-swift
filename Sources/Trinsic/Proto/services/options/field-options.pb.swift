@@ -20,6 +20,22 @@ private struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVer
     typealias Version = _2
 }
 
+public struct Services_Options_AnnotationOption {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    /// Is this annotation active
+    public var active: Bool = false
+
+    /// Custom annotation message to provide
+    public var message: String = .init()
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+}
+
 public struct Services_Options_SdkTemplateOption {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -37,12 +53,38 @@ public struct Services_Options_SdkTemplateOption {
     /// ProviderService.GetEcosystemInfo() where the request object is empty
     public var noArguments: Bool = false
 
+    /// This endpoint is experimental. Consider it in beta, so documentation may be incomplete or incorrect.
+    public var experimental: Services_Options_AnnotationOption {
+        get { _experimental ?? Services_Options_AnnotationOption() }
+        set { _experimental = newValue }
+    }
+
+    /// Returns true if `experimental` has been explicitly set.
+    public var hasExperimental: Bool { _experimental != nil }
+    /// Clears the value of `experimental`. Subsequent reads from it will return its default value.
+    public mutating func clearExperimental() { _experimental = nil }
+
+    /// This endpoint is deprecated. It will be removed in the future.
+    public var deprecated: Services_Options_AnnotationOption {
+        get { _deprecated ?? Services_Options_AnnotationOption() }
+        set { _deprecated = newValue }
+    }
+
+    /// Returns true if `deprecated` has been explicitly set.
+    public var hasDeprecated: Bool { _deprecated != nil }
+    /// Clears the value of `deprecated`. Subsequent reads from it will return its default value.
+    public mutating func clearDeprecated() { _deprecated = nil }
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
+
+    fileprivate var _experimental: Services_Options_AnnotationOption?
+    fileprivate var _deprecated: Services_Options_AnnotationOption?
 }
 
 #if swift(>=5.5) && canImport(_Concurrency)
+    extension Services_Options_AnnotationOption: @unchecked Sendable {}
     extension Services_Options_SdkTemplateOption: @unchecked Sendable {}
 #endif // swift(>=5.5) && canImport(_Concurrency)
 
@@ -128,12 +170,52 @@ public let Services_Options_Extensions_sdk_template_option = SwiftProtobuf.Messa
 
 private let _protobuf_package = "services.options"
 
+extension Services_Options_AnnotationOption: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".AnnotationOption"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .same(proto: "active"),
+        2: .same(proto: "message"),
+    ]
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 1: try try decoder.decodeSingularBoolField(value: &active)
+            case 2: try try decoder.decodeSingularStringField(value: &message)
+            default: break
+            }
+        }
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        if active != false {
+            try visitor.visitSingularBoolField(value: active, fieldNumber: 1)
+        }
+        if !message.isEmpty {
+            try visitor.visitSingularStringField(value: message, fieldNumber: 2)
+        }
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Options_AnnotationOption, rhs: Services_Options_AnnotationOption) -> Bool {
+        if lhs.active != rhs.active { return false }
+        if lhs.message != rhs.message { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}
+
 extension Services_Options_SdkTemplateOption: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
     public static let protoMessageName: String = _protobuf_package + ".SdkTemplateOption"
     public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
         1: .same(proto: "anonymous"),
         2: .same(proto: "ignore"),
         3: .standard(proto: "no_arguments"),
+        4: .same(proto: "experimental"),
+        5: .same(proto: "deprecated"),
     ]
 
     public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -145,12 +227,18 @@ extension Services_Options_SdkTemplateOption: SwiftProtobuf.Message, SwiftProtob
             case 1: try try decoder.decodeSingularBoolField(value: &anonymous)
             case 2: try try decoder.decodeSingularBoolField(value: &ignore)
             case 3: try try decoder.decodeSingularBoolField(value: &noArguments)
+            case 4: try try decoder.decodeSingularMessageField(value: &_experimental)
+            case 5: try try decoder.decodeSingularMessageField(value: &_deprecated)
             default: break
             }
         }
     }
 
     public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every if/case branch local when no optimizations
+        // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+        // https://github.com/apple/swift-protobuf/issues/1182
         if anonymous != false {
             try visitor.visitSingularBoolField(value: anonymous, fieldNumber: 1)
         }
@@ -160,6 +248,12 @@ extension Services_Options_SdkTemplateOption: SwiftProtobuf.Message, SwiftProtob
         if noArguments != false {
             try visitor.visitSingularBoolField(value: noArguments, fieldNumber: 3)
         }
+        try { if let v = self._experimental {
+            try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+        } }()
+        try { if let v = self._deprecated {
+            try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+        } }()
         try unknownFields.traverse(visitor: &visitor)
     }
 
@@ -167,6 +261,8 @@ extension Services_Options_SdkTemplateOption: SwiftProtobuf.Message, SwiftProtob
         if lhs.anonymous != rhs.anonymous { return false }
         if lhs.ignore != rhs.ignore { return false }
         if lhs.noArguments != rhs.noArguments { return false }
+        if lhs._experimental != rhs._experimental { return false }
+        if lhs._deprecated != rhs._deprecated { return false }
         if lhs.unknownFields != rhs.unknownFields { return false }
         return true
     }

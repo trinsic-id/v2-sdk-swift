@@ -173,6 +173,95 @@ public struct Services_Universalwallet_V1_DeleteItemResponse {
     public init() {}
 }
 
+/// Request to delete a wallet
+public struct Services_Universalwallet_V1_DeleteWalletRequest {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var account: Services_Universalwallet_V1_DeleteWalletRequest.OneOf_Account?
+
+    /// Email address of account to delete.
+    /// Mutually exclusive with `walletId` and `didUri`.
+    public var email: String {
+        get {
+            if case let .email(v)? = account { return v }
+            return String()
+        }
+        set { account = .email(newValue) }
+    }
+
+    /// Wallet ID of account to delete.
+    /// Mutually exclusive with `email` and `didUri`.
+    public var walletID: String {
+        get {
+            if case let .walletID(v)? = account { return v }
+            return String()
+        }
+        set { account = .walletID(newValue) }
+    }
+
+    /// DID URI of the account to delete.
+    /// Mutually exclusive with `email` and `walletId`.
+    public var didUri: String {
+        get {
+            if case let .didUri(v)? = account { return v }
+            return String()
+        }
+        set { account = .didUri(newValue) }
+    }
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public enum OneOf_Account: Equatable {
+        /// Email address of account to delete.
+        /// Mutually exclusive with `walletId` and `didUri`.
+        case email(String)
+        /// Wallet ID of account to delete.
+        /// Mutually exclusive with `email` and `didUri`.
+        case walletID(String)
+        /// DID URI of the account to delete.
+        /// Mutually exclusive with `email` and `walletId`.
+        case didUri(String)
+
+        #if !swift(>=4.1)
+            public static func == (lhs: Services_Universalwallet_V1_DeleteWalletRequest.OneOf_Account, rhs: Services_Universalwallet_V1_DeleteWalletRequest.OneOf_Account) -> Bool {
+                // The use of inline closures is to circumvent an issue where the compiler
+                // allocates stack space for every case branch when no optimizations are
+                // enabled. https://github.com/apple/swift-protobuf/issues/1034
+                switch (lhs, rhs) {
+                case (.email, .email): return {
+                        guard case let .email(l) = lhs, case let .email(r) = rhs else { preconditionFailure() }
+                        return l == r
+                    }()
+                case (.walletID, .walletID): return {
+                        guard case let .walletID(l) = lhs, case let .walletID(r) = rhs else { preconditionFailure() }
+                        return l == r
+                    }()
+                case (.didUri, .didUri): return {
+                        guard case let .didUri(l) = lhs, case let .didUri(r) = rhs else { preconditionFailure() }
+                        return l == r
+                    }()
+                default: return false
+                }
+            }
+        #endif
+    }
+
+    public init() {}
+}
+
+/// Response to `DeleteWalletRequest`. Empty payload.
+public struct Services_Universalwallet_V1_DeleteWalletResponse {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+}
+
 #if swift(>=5.5) && canImport(_Concurrency)
     extension Services_Universalwallet_V1_SearchRequest: @unchecked Sendable {}
     extension Services_Universalwallet_V1_SearchResponse: @unchecked Sendable {}
@@ -184,6 +273,9 @@ public struct Services_Universalwallet_V1_DeleteItemResponse {
     extension Services_Universalwallet_V1_InsertItemResponse: @unchecked Sendable {}
     extension Services_Universalwallet_V1_DeleteItemRequest: @unchecked Sendable {}
     extension Services_Universalwallet_V1_DeleteItemResponse: @unchecked Sendable {}
+    extension Services_Universalwallet_V1_DeleteWalletRequest: @unchecked Sendable {}
+    extension Services_Universalwallet_V1_DeleteWalletRequest.OneOf_Account: @unchecked Sendable {}
+    extension Services_Universalwallet_V1_DeleteWalletResponse: @unchecked Sendable {}
 #endif // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -513,6 +605,97 @@ extension Services_Universalwallet_V1_DeleteItemResponse: SwiftProtobuf.Message,
     }
 
     public static func == (lhs: Services_Universalwallet_V1_DeleteItemResponse, rhs: Services_Universalwallet_V1_DeleteItemResponse) -> Bool {
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}
+
+extension Services_Universalwallet_V1_DeleteWalletRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".DeleteWalletRequest"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .same(proto: "email"),
+        2: .standard(proto: "wallet_id"),
+        4: .standard(proto: "did_uri"),
+    ]
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 1: try {
+                    var v: String?
+                    try decoder.decodeSingularStringField(value: &v)
+                    if let v = v {
+                        if self.account != nil { try decoder.handleConflictingOneOf() }
+                        self.account = .email(v)
+                    }
+                }()
+            case 2: try {
+                    var v: String?
+                    try decoder.decodeSingularStringField(value: &v)
+                    if let v = v {
+                        if self.account != nil { try decoder.handleConflictingOneOf() }
+                        self.account = .walletID(v)
+                    }
+                }()
+            case 4: try {
+                    var v: String?
+                    try decoder.decodeSingularStringField(value: &v)
+                    if let v = v {
+                        if self.account != nil { try decoder.handleConflictingOneOf() }
+                        self.account = .didUri(v)
+                    }
+                }()
+            default: break
+            }
+        }
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every if/case branch local when no optimizations
+        // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+        // https://github.com/apple/swift-protobuf/issues/1182
+        switch account {
+        case .email?: try {
+                guard case let .email(v)? = self.account else { preconditionFailure() }
+                try visitor.visitSingularStringField(value: v, fieldNumber: 1)
+            }()
+        case .walletID?: try {
+                guard case let .walletID(v)? = self.account else { preconditionFailure() }
+                try visitor.visitSingularStringField(value: v, fieldNumber: 2)
+            }()
+        case .didUri?: try {
+                guard case let .didUri(v)? = self.account else { preconditionFailure() }
+                try visitor.visitSingularStringField(value: v, fieldNumber: 4)
+            }()
+        case nil: break
+        }
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Universalwallet_V1_DeleteWalletRequest, rhs: Services_Universalwallet_V1_DeleteWalletRequest) -> Bool {
+        if lhs.account != rhs.account { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}
+
+extension Services_Universalwallet_V1_DeleteWalletResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".DeleteWalletResponse"
+    public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let _ = try decoder.nextFieldNumber() {}
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Universalwallet_V1_DeleteWalletResponse, rhs: Services_Universalwallet_V1_DeleteWalletResponse) -> Bool {
         if lhs.unknownFields != rhs.unknownFields { return false }
         return true
     }

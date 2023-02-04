@@ -40,21 +40,6 @@ public protocol Services_Provider_V1_ProviderClientProtocol: GRPCClient {
         callOptions: CallOptions?
     ) -> UnaryCall<Services_Provider_V1_UpdateEcosystemRequest, Services_Provider_V1_UpdateEcosystemResponse>
 
-    func GrantAuthorization(
-        _ request: Services_Provider_V1_GrantAuthorizationRequest,
-        callOptions: CallOptions?
-    ) -> UnaryCall<Services_Provider_V1_GrantAuthorizationRequest, Services_Provider_V1_GrantAuthorizationResponse>
-
-    func RevokeAuthorization(
-        _ request: Services_Provider_V1_RevokeAuthorizationRequest,
-        callOptions: CallOptions?
-    ) -> UnaryCall<Services_Provider_V1_RevokeAuthorizationRequest, Services_Provider_V1_RevokeAuthorizationResponse>
-
-    func GetAuthorizations(
-        _ request: Services_Provider_V1_GetAuthorizationsRequest,
-        callOptions: CallOptions?
-    ) -> UnaryCall<Services_Provider_V1_GetAuthorizationsRequest, Services_Provider_V1_GetAuthorizationsResponse>
-
     func AddWebhook(
         _ request: Services_Provider_V1_AddWebhookRequest,
         callOptions: CallOptions?
@@ -75,11 +60,6 @@ public protocol Services_Provider_V1_ProviderClientProtocol: GRPCClient {
         callOptions: CallOptions?
     ) -> UnaryCall<Services_Provider_V1_GetPublicEcosystemInfoRequest, Services_Provider_V1_GetPublicEcosystemInfoResponse>
 
-    func GenerateToken(
-        _ request: Services_Provider_V1_GenerateTokenRequest,
-        callOptions: CallOptions?
-    ) -> UnaryCall<Services_Provider_V1_GenerateTokenRequest, Services_Provider_V1_GenerateTokenResponse>
-
     func Invite(
         _ request: Services_Provider_V1_InviteRequest,
         callOptions: CallOptions?
@@ -94,11 +74,6 @@ public protocol Services_Provider_V1_ProviderClientProtocol: GRPCClient {
         _ request: Services_Provider_V1_GetOberonKeyRequest,
         callOptions: CallOptions?
     ) -> UnaryCall<Services_Provider_V1_GetOberonKeyRequest, Services_Provider_V1_GetOberonKeyResponse>
-
-    func GetEventToken(
-        _ request: Services_Provider_V1_GetEventTokenRequest,
-        callOptions: CallOptions?
-    ) -> UnaryCall<Services_Provider_V1_GetEventTokenRequest, Services_Provider_V1_GetEventTokenResponse>
 
     func UpgradeDID(
         _ request: Services_Provider_V1_UpgradeDidRequest,
@@ -159,60 +134,6 @@ public extension Services_Provider_V1_ProviderClientProtocol {
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
             interceptors: interceptors?.makeUpdateEcosystemInterceptors() ?? []
-        )
-    }
-
-    /// Grant user authorization to ecosystem resources
-    ///
-    /// - Parameters:
-    ///   - request: Request to send to GrantAuthorization.
-    ///   - callOptions: Call options.
-    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-    func GrantAuthorization(
-        _ request: Services_Provider_V1_GrantAuthorizationRequest,
-        callOptions: CallOptions? = nil
-    ) -> UnaryCall<Services_Provider_V1_GrantAuthorizationRequest, Services_Provider_V1_GrantAuthorizationResponse> {
-        makeUnaryCall(
-            path: Services_Provider_V1_ProviderClientMetadata.Methods.GrantAuthorization.path,
-            request: request,
-            callOptions: callOptions ?? defaultCallOptions,
-            interceptors: interceptors?.makeGrantAuthorizationInterceptors() ?? []
-        )
-    }
-
-    /// Revoke user authorization to ecosystem resources
-    ///
-    /// - Parameters:
-    ///   - request: Request to send to RevokeAuthorization.
-    ///   - callOptions: Call options.
-    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-    func RevokeAuthorization(
-        _ request: Services_Provider_V1_RevokeAuthorizationRequest,
-        callOptions: CallOptions? = nil
-    ) -> UnaryCall<Services_Provider_V1_RevokeAuthorizationRequest, Services_Provider_V1_RevokeAuthorizationResponse> {
-        makeUnaryCall(
-            path: Services_Provider_V1_ProviderClientMetadata.Methods.RevokeAuthorization.path,
-            request: request,
-            callOptions: callOptions ?? defaultCallOptions,
-            interceptors: interceptors?.makeRevokeAuthorizationInterceptors() ?? []
-        )
-    }
-
-    /// Retrieve the list of permissions for this particular account/ecosystem
-    ///
-    /// - Parameters:
-    ///   - request: Request to send to GetAuthorizations.
-    ///   - callOptions: Call options.
-    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-    func GetAuthorizations(
-        _ request: Services_Provider_V1_GetAuthorizationsRequest,
-        callOptions: CallOptions? = nil
-    ) -> UnaryCall<Services_Provider_V1_GetAuthorizationsRequest, Services_Provider_V1_GetAuthorizationsResponse> {
-        makeUnaryCall(
-            path: Services_Provider_V1_ProviderClientMetadata.Methods.GetAuthorizations.path,
-            request: request,
-            callOptions: callOptions ?? defaultCallOptions,
-            interceptors: interceptors?.makeGetAuthorizationsInterceptors() ?? []
         )
     }
 
@@ -288,25 +209,6 @@ public extension Services_Provider_V1_ProviderClientProtocol {
         )
     }
 
-    /// Generates an unprotected authentication token that can be used to
-    /// configure server side applications
-    ///
-    /// - Parameters:
-    ///   - request: Request to send to GenerateToken.
-    ///   - callOptions: Call options.
-    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-    func GenerateToken(
-        _ request: Services_Provider_V1_GenerateTokenRequest,
-        callOptions: CallOptions? = nil
-    ) -> UnaryCall<Services_Provider_V1_GenerateTokenRequest, Services_Provider_V1_GenerateTokenResponse> {
-        makeUnaryCall(
-            path: Services_Provider_V1_ProviderClientMetadata.Methods.GenerateToken.path,
-            request: request,
-            callOptions: callOptions ?? defaultCallOptions,
-            interceptors: interceptors?.makeGenerateTokenInterceptors() ?? []
-        )
-    }
-
     /// Invite a user to the ecosystem
     ///
     /// - Parameters:
@@ -358,24 +260,6 @@ public extension Services_Provider_V1_ProviderClientProtocol {
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
             interceptors: interceptors?.makeGetOberonKeyInterceptors() ?? []
-        )
-    }
-
-    /// Generate a signed token (JWT) that can be used to connect to the message bus
-    ///
-    /// - Parameters:
-    ///   - request: Request to send to GetEventToken.
-    ///   - callOptions: Call options.
-    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-    func GetEventToken(
-        _ request: Services_Provider_V1_GetEventTokenRequest,
-        callOptions: CallOptions? = nil
-    ) -> UnaryCall<Services_Provider_V1_GetEventTokenRequest, Services_Provider_V1_GetEventTokenResponse> {
-        makeUnaryCall(
-            path: Services_Provider_V1_ProviderClientMetadata.Methods.GetEventToken.path,
-            request: request,
-            callOptions: callOptions ?? defaultCallOptions,
-            interceptors: interceptors?.makeGetEventTokenInterceptors() ?? []
         )
     }
 
@@ -528,21 +412,6 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
             callOptions: CallOptions?
         ) -> GRPCAsyncUnaryCall<Services_Provider_V1_UpdateEcosystemRequest, Services_Provider_V1_UpdateEcosystemResponse>
 
-        func makeGrantAuthorizationCall(
-            _ request: Services_Provider_V1_GrantAuthorizationRequest,
-            callOptions: CallOptions?
-        ) -> GRPCAsyncUnaryCall<Services_Provider_V1_GrantAuthorizationRequest, Services_Provider_V1_GrantAuthorizationResponse>
-
-        func makeRevokeAuthorizationCall(
-            _ request: Services_Provider_V1_RevokeAuthorizationRequest,
-            callOptions: CallOptions?
-        ) -> GRPCAsyncUnaryCall<Services_Provider_V1_RevokeAuthorizationRequest, Services_Provider_V1_RevokeAuthorizationResponse>
-
-        func makeGetAuthorizationsCall(
-            _ request: Services_Provider_V1_GetAuthorizationsRequest,
-            callOptions: CallOptions?
-        ) -> GRPCAsyncUnaryCall<Services_Provider_V1_GetAuthorizationsRequest, Services_Provider_V1_GetAuthorizationsResponse>
-
         func makeAddWebhookCall(
             _ request: Services_Provider_V1_AddWebhookRequest,
             callOptions: CallOptions?
@@ -563,11 +432,6 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
             callOptions: CallOptions?
         ) -> GRPCAsyncUnaryCall<Services_Provider_V1_GetPublicEcosystemInfoRequest, Services_Provider_V1_GetPublicEcosystemInfoResponse>
 
-        func makeGenerateTokenCall(
-            _ request: Services_Provider_V1_GenerateTokenRequest,
-            callOptions: CallOptions?
-        ) -> GRPCAsyncUnaryCall<Services_Provider_V1_GenerateTokenRequest, Services_Provider_V1_GenerateTokenResponse>
-
         func makeInviteCall(
             _ request: Services_Provider_V1_InviteRequest,
             callOptions: CallOptions?
@@ -582,11 +446,6 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
             _ request: Services_Provider_V1_GetOberonKeyRequest,
             callOptions: CallOptions?
         ) -> GRPCAsyncUnaryCall<Services_Provider_V1_GetOberonKeyRequest, Services_Provider_V1_GetOberonKeyResponse>
-
-        func makeGetEventTokenCall(
-            _ request: Services_Provider_V1_GetEventTokenRequest,
-            callOptions: CallOptions?
-        ) -> GRPCAsyncUnaryCall<Services_Provider_V1_GetEventTokenRequest, Services_Provider_V1_GetEventTokenResponse>
 
         func makeUpgradeDIDCall(
             _ request: Services_Provider_V1_UpgradeDidRequest,
@@ -643,42 +502,6 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
             )
         }
 
-        func makeGrantAuthorizationCall(
-            _ request: Services_Provider_V1_GrantAuthorizationRequest,
-            callOptions: CallOptions? = nil
-        ) -> GRPCAsyncUnaryCall<Services_Provider_V1_GrantAuthorizationRequest, Services_Provider_V1_GrantAuthorizationResponse> {
-            makeAsyncUnaryCall(
-                path: Services_Provider_V1_ProviderClientMetadata.Methods.GrantAuthorization.path,
-                request: request,
-                callOptions: callOptions ?? defaultCallOptions,
-                interceptors: interceptors?.makeGrantAuthorizationInterceptors() ?? []
-            )
-        }
-
-        func makeRevokeAuthorizationCall(
-            _ request: Services_Provider_V1_RevokeAuthorizationRequest,
-            callOptions: CallOptions? = nil
-        ) -> GRPCAsyncUnaryCall<Services_Provider_V1_RevokeAuthorizationRequest, Services_Provider_V1_RevokeAuthorizationResponse> {
-            makeAsyncUnaryCall(
-                path: Services_Provider_V1_ProviderClientMetadata.Methods.RevokeAuthorization.path,
-                request: request,
-                callOptions: callOptions ?? defaultCallOptions,
-                interceptors: interceptors?.makeRevokeAuthorizationInterceptors() ?? []
-            )
-        }
-
-        func makeGetAuthorizationsCall(
-            _ request: Services_Provider_V1_GetAuthorizationsRequest,
-            callOptions: CallOptions? = nil
-        ) -> GRPCAsyncUnaryCall<Services_Provider_V1_GetAuthorizationsRequest, Services_Provider_V1_GetAuthorizationsResponse> {
-            makeAsyncUnaryCall(
-                path: Services_Provider_V1_ProviderClientMetadata.Methods.GetAuthorizations.path,
-                request: request,
-                callOptions: callOptions ?? defaultCallOptions,
-                interceptors: interceptors?.makeGetAuthorizationsInterceptors() ?? []
-            )
-        }
-
         func makeAddWebhookCall(
             _ request: Services_Provider_V1_AddWebhookRequest,
             callOptions: CallOptions? = nil
@@ -727,18 +550,6 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
             )
         }
 
-        func makeGenerateTokenCall(
-            _ request: Services_Provider_V1_GenerateTokenRequest,
-            callOptions: CallOptions? = nil
-        ) -> GRPCAsyncUnaryCall<Services_Provider_V1_GenerateTokenRequest, Services_Provider_V1_GenerateTokenResponse> {
-            makeAsyncUnaryCall(
-                path: Services_Provider_V1_ProviderClientMetadata.Methods.GenerateToken.path,
-                request: request,
-                callOptions: callOptions ?? defaultCallOptions,
-                interceptors: interceptors?.makeGenerateTokenInterceptors() ?? []
-            )
-        }
-
         func makeInviteCall(
             _ request: Services_Provider_V1_InviteRequest,
             callOptions: CallOptions? = nil
@@ -772,18 +583,6 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
                 interceptors: interceptors?.makeGetOberonKeyInterceptors() ?? []
-            )
-        }
-
-        func makeGetEventTokenCall(
-            _ request: Services_Provider_V1_GetEventTokenRequest,
-            callOptions: CallOptions? = nil
-        ) -> GRPCAsyncUnaryCall<Services_Provider_V1_GetEventTokenRequest, Services_Provider_V1_GetEventTokenResponse> {
-            makeAsyncUnaryCall(
-                path: Services_Provider_V1_ProviderClientMetadata.Methods.GetEventToken.path,
-                request: request,
-                callOptions: callOptions ?? defaultCallOptions,
-                interceptors: interceptors?.makeGetEventTokenInterceptors() ?? []
             )
         }
 
@@ -862,42 +661,6 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
             )
         }
 
-        func GrantAuthorization(
-            _ request: Services_Provider_V1_GrantAuthorizationRequest,
-            callOptions: CallOptions? = nil
-        ) async throws -> Services_Provider_V1_GrantAuthorizationResponse {
-            try await performAsyncUnaryCall(
-                path: Services_Provider_V1_ProviderClientMetadata.Methods.GrantAuthorization.path,
-                request: request,
-                callOptions: callOptions ?? defaultCallOptions,
-                interceptors: interceptors?.makeGrantAuthorizationInterceptors() ?? []
-            )
-        }
-
-        func RevokeAuthorization(
-            _ request: Services_Provider_V1_RevokeAuthorizationRequest,
-            callOptions: CallOptions? = nil
-        ) async throws -> Services_Provider_V1_RevokeAuthorizationResponse {
-            try await performAsyncUnaryCall(
-                path: Services_Provider_V1_ProviderClientMetadata.Methods.RevokeAuthorization.path,
-                request: request,
-                callOptions: callOptions ?? defaultCallOptions,
-                interceptors: interceptors?.makeRevokeAuthorizationInterceptors() ?? []
-            )
-        }
-
-        func GetAuthorizations(
-            _ request: Services_Provider_V1_GetAuthorizationsRequest,
-            callOptions: CallOptions? = nil
-        ) async throws -> Services_Provider_V1_GetAuthorizationsResponse {
-            try await performAsyncUnaryCall(
-                path: Services_Provider_V1_ProviderClientMetadata.Methods.GetAuthorizations.path,
-                request: request,
-                callOptions: callOptions ?? defaultCallOptions,
-                interceptors: interceptors?.makeGetAuthorizationsInterceptors() ?? []
-            )
-        }
-
         func AddWebhook(
             _ request: Services_Provider_V1_AddWebhookRequest,
             callOptions: CallOptions? = nil
@@ -946,18 +709,6 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
             )
         }
 
-        func GenerateToken(
-            _ request: Services_Provider_V1_GenerateTokenRequest,
-            callOptions: CallOptions? = nil
-        ) async throws -> Services_Provider_V1_GenerateTokenResponse {
-            try await performAsyncUnaryCall(
-                path: Services_Provider_V1_ProviderClientMetadata.Methods.GenerateToken.path,
-                request: request,
-                callOptions: callOptions ?? defaultCallOptions,
-                interceptors: interceptors?.makeGenerateTokenInterceptors() ?? []
-            )
-        }
-
         func Invite(
             _ request: Services_Provider_V1_InviteRequest,
             callOptions: CallOptions? = nil
@@ -991,18 +742,6 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
                 interceptors: interceptors?.makeGetOberonKeyInterceptors() ?? []
-            )
-        }
-
-        func GetEventToken(
-            _ request: Services_Provider_V1_GetEventTokenRequest,
-            callOptions: CallOptions? = nil
-        ) async throws -> Services_Provider_V1_GetEventTokenResponse {
-            try await performAsyncUnaryCall(
-                path: Services_Provider_V1_ProviderClientMetadata.Methods.GetEventToken.path,
-                request: request,
-                callOptions: callOptions ?? defaultCallOptions,
-                interceptors: interceptors?.makeGetEventTokenInterceptors() ?? []
             )
         }
 
@@ -1081,15 +820,6 @@ public protocol Services_Provider_V1_ProviderClientInterceptorFactoryProtocol: G
     /// - Returns: Interceptors to use when invoking 'UpdateEcosystem'.
     func makeUpdateEcosystemInterceptors() -> [ClientInterceptor<Services_Provider_V1_UpdateEcosystemRequest, Services_Provider_V1_UpdateEcosystemResponse>]
 
-    /// - Returns: Interceptors to use when invoking 'GrantAuthorization'.
-    func makeGrantAuthorizationInterceptors() -> [ClientInterceptor<Services_Provider_V1_GrantAuthorizationRequest, Services_Provider_V1_GrantAuthorizationResponse>]
-
-    /// - Returns: Interceptors to use when invoking 'RevokeAuthorization'.
-    func makeRevokeAuthorizationInterceptors() -> [ClientInterceptor<Services_Provider_V1_RevokeAuthorizationRequest, Services_Provider_V1_RevokeAuthorizationResponse>]
-
-    /// - Returns: Interceptors to use when invoking 'GetAuthorizations'.
-    func makeGetAuthorizationsInterceptors() -> [ClientInterceptor<Services_Provider_V1_GetAuthorizationsRequest, Services_Provider_V1_GetAuthorizationsResponse>]
-
     /// - Returns: Interceptors to use when invoking 'AddWebhook'.
     func makeAddWebhookInterceptors() -> [ClientInterceptor<Services_Provider_V1_AddWebhookRequest, Services_Provider_V1_AddWebhookResponse>]
 
@@ -1102,9 +832,6 @@ public protocol Services_Provider_V1_ProviderClientInterceptorFactoryProtocol: G
     /// - Returns: Interceptors to use when invoking 'GetPublicEcosystemInfo'.
     func makeGetPublicEcosystemInfoInterceptors() -> [ClientInterceptor<Services_Provider_V1_GetPublicEcosystemInfoRequest, Services_Provider_V1_GetPublicEcosystemInfoResponse>]
 
-    /// - Returns: Interceptors to use when invoking 'GenerateToken'.
-    func makeGenerateTokenInterceptors() -> [ClientInterceptor<Services_Provider_V1_GenerateTokenRequest, Services_Provider_V1_GenerateTokenResponse>]
-
     /// - Returns: Interceptors to use when invoking 'Invite'.
     func makeInviteInterceptors() -> [ClientInterceptor<Services_Provider_V1_InviteRequest, Services_Provider_V1_InviteResponse>]
 
@@ -1113,9 +840,6 @@ public protocol Services_Provider_V1_ProviderClientInterceptorFactoryProtocol: G
 
     /// - Returns: Interceptors to use when invoking 'GetOberonKey'.
     func makeGetOberonKeyInterceptors() -> [ClientInterceptor<Services_Provider_V1_GetOberonKeyRequest, Services_Provider_V1_GetOberonKeyResponse>]
-
-    /// - Returns: Interceptors to use when invoking 'GetEventToken'.
-    func makeGetEventTokenInterceptors() -> [ClientInterceptor<Services_Provider_V1_GetEventTokenRequest, Services_Provider_V1_GetEventTokenResponse>]
 
     /// - Returns: Interceptors to use when invoking 'UpgradeDID'.
     func makeUpgradeDIDInterceptors() -> [ClientInterceptor<Services_Provider_V1_UpgradeDidRequest, Services_Provider_V1_UpgradeDidResponse>]
@@ -1137,18 +861,13 @@ public enum Services_Provider_V1_ProviderClientMetadata {
         methods: [
             Services_Provider_V1_ProviderClientMetadata.Methods.CreateEcosystem,
             Services_Provider_V1_ProviderClientMetadata.Methods.UpdateEcosystem,
-            Services_Provider_V1_ProviderClientMetadata.Methods.GrantAuthorization,
-            Services_Provider_V1_ProviderClientMetadata.Methods.RevokeAuthorization,
-            Services_Provider_V1_ProviderClientMetadata.Methods.GetAuthorizations,
             Services_Provider_V1_ProviderClientMetadata.Methods.AddWebhook,
             Services_Provider_V1_ProviderClientMetadata.Methods.DeleteWebhook,
             Services_Provider_V1_ProviderClientMetadata.Methods.EcosystemInfo,
             Services_Provider_V1_ProviderClientMetadata.Methods.GetPublicEcosystemInfo,
-            Services_Provider_V1_ProviderClientMetadata.Methods.GenerateToken,
             Services_Provider_V1_ProviderClientMetadata.Methods.Invite,
             Services_Provider_V1_ProviderClientMetadata.Methods.InvitationStatus,
             Services_Provider_V1_ProviderClientMetadata.Methods.GetOberonKey,
-            Services_Provider_V1_ProviderClientMetadata.Methods.GetEventToken,
             Services_Provider_V1_ProviderClientMetadata.Methods.UpgradeDID,
             Services_Provider_V1_ProviderClientMetadata.Methods.RetrieveDomainVerificationRecord,
             Services_Provider_V1_ProviderClientMetadata.Methods.RefreshDomainVerificationStatus,
@@ -1166,24 +885,6 @@ public enum Services_Provider_V1_ProviderClientMetadata {
         public static let UpdateEcosystem = GRPCMethodDescriptor(
             name: "UpdateEcosystem",
             path: "/services.provider.v1.Provider/UpdateEcosystem",
-            type: GRPCCallType.unary
-        )
-
-        public static let GrantAuthorization = GRPCMethodDescriptor(
-            name: "GrantAuthorization",
-            path: "/services.provider.v1.Provider/GrantAuthorization",
-            type: GRPCCallType.unary
-        )
-
-        public static let RevokeAuthorization = GRPCMethodDescriptor(
-            name: "RevokeAuthorization",
-            path: "/services.provider.v1.Provider/RevokeAuthorization",
-            type: GRPCCallType.unary
-        )
-
-        public static let GetAuthorizations = GRPCMethodDescriptor(
-            name: "GetAuthorizations",
-            path: "/services.provider.v1.Provider/GetAuthorizations",
             type: GRPCCallType.unary
         )
 
@@ -1211,12 +912,6 @@ public enum Services_Provider_V1_ProviderClientMetadata {
             type: GRPCCallType.unary
         )
 
-        public static let GenerateToken = GRPCMethodDescriptor(
-            name: "GenerateToken",
-            path: "/services.provider.v1.Provider/GenerateToken",
-            type: GRPCCallType.unary
-        )
-
         public static let Invite = GRPCMethodDescriptor(
             name: "Invite",
             path: "/services.provider.v1.Provider/Invite",
@@ -1232,12 +927,6 @@ public enum Services_Provider_V1_ProviderClientMetadata {
         public static let GetOberonKey = GRPCMethodDescriptor(
             name: "GetOberonKey",
             path: "/services.provider.v1.Provider/GetOberonKey",
-            type: GRPCCallType.unary
-        )
-
-        public static let GetEventToken = GRPCMethodDescriptor(
-            name: "GetEventToken",
-            path: "/services.provider.v1.Provider/GetEventToken",
             type: GRPCCallType.unary
         )
 
@@ -1277,15 +966,6 @@ public protocol Services_Provider_V1_ProviderProvider: CallHandlerProvider {
     /// Update an existing ecosystem
     func UpdateEcosystem(request: Services_Provider_V1_UpdateEcosystemRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_UpdateEcosystemResponse>
 
-    /// Grant user authorization to ecosystem resources
-    func GrantAuthorization(request: Services_Provider_V1_GrantAuthorizationRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_GrantAuthorizationResponse>
-
-    /// Revoke user authorization to ecosystem resources
-    func RevokeAuthorization(request: Services_Provider_V1_RevokeAuthorizationRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_RevokeAuthorizationResponse>
-
-    /// Retrieve the list of permissions for this particular account/ecosystem
-    func GetAuthorizations(request: Services_Provider_V1_GetAuthorizationsRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_GetAuthorizationsResponse>
-
     /// Add a webhook endpoint to the ecosystem
     func AddWebhook(request: Services_Provider_V1_AddWebhookRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_AddWebhookResponse>
 
@@ -1298,10 +978,6 @@ public protocol Services_Provider_V1_ProviderProvider: CallHandlerProvider {
     /// Get public ecosystem information about *any* ecosystem
     func GetPublicEcosystemInfo(request: Services_Provider_V1_GetPublicEcosystemInfoRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_GetPublicEcosystemInfoResponse>
 
-    /// Generates an unprotected authentication token that can be used to
-    /// configure server side applications
-    func GenerateToken(request: Services_Provider_V1_GenerateTokenRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_GenerateTokenResponse>
-
     /// Invite a user to the ecosystem
     func Invite(request: Services_Provider_V1_InviteRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_InviteResponse>
 
@@ -1310,9 +986,6 @@ public protocol Services_Provider_V1_ProviderProvider: CallHandlerProvider {
 
     /// Returns the public key being used to create/verify oberon tokens
     func GetOberonKey(request: Services_Provider_V1_GetOberonKeyRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_GetOberonKeyResponse>
-
-    /// Generate a signed token (JWT) that can be used to connect to the message bus
-    func GetEventToken(request: Services_Provider_V1_GetEventTokenRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_GetEventTokenResponse>
 
     /// Upgrade a wallet's DID from `did:key` to another method
     func UpgradeDID(request: Services_Provider_V1_UpgradeDidRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_UpgradeDidResponse>
@@ -1357,33 +1030,6 @@ public extension Services_Provider_V1_ProviderProvider {
                 userFunction: UpdateEcosystem(request:context:)
             )
 
-        case "GrantAuthorization":
-            return UnaryServerHandler(
-                context: context,
-                requestDeserializer: ProtobufDeserializer<Services_Provider_V1_GrantAuthorizationRequest>(),
-                responseSerializer: ProtobufSerializer<Services_Provider_V1_GrantAuthorizationResponse>(),
-                interceptors: interceptors?.makeGrantAuthorizationInterceptors() ?? [],
-                userFunction: GrantAuthorization(request:context:)
-            )
-
-        case "RevokeAuthorization":
-            return UnaryServerHandler(
-                context: context,
-                requestDeserializer: ProtobufDeserializer<Services_Provider_V1_RevokeAuthorizationRequest>(),
-                responseSerializer: ProtobufSerializer<Services_Provider_V1_RevokeAuthorizationResponse>(),
-                interceptors: interceptors?.makeRevokeAuthorizationInterceptors() ?? [],
-                userFunction: RevokeAuthorization(request:context:)
-            )
-
-        case "GetAuthorizations":
-            return UnaryServerHandler(
-                context: context,
-                requestDeserializer: ProtobufDeserializer<Services_Provider_V1_GetAuthorizationsRequest>(),
-                responseSerializer: ProtobufSerializer<Services_Provider_V1_GetAuthorizationsResponse>(),
-                interceptors: interceptors?.makeGetAuthorizationsInterceptors() ?? [],
-                userFunction: GetAuthorizations(request:context:)
-            )
-
         case "AddWebhook":
             return UnaryServerHandler(
                 context: context,
@@ -1420,15 +1066,6 @@ public extension Services_Provider_V1_ProviderProvider {
                 userFunction: GetPublicEcosystemInfo(request:context:)
             )
 
-        case "GenerateToken":
-            return UnaryServerHandler(
-                context: context,
-                requestDeserializer: ProtobufDeserializer<Services_Provider_V1_GenerateTokenRequest>(),
-                responseSerializer: ProtobufSerializer<Services_Provider_V1_GenerateTokenResponse>(),
-                interceptors: interceptors?.makeGenerateTokenInterceptors() ?? [],
-                userFunction: GenerateToken(request:context:)
-            )
-
         case "Invite":
             return UnaryServerHandler(
                 context: context,
@@ -1454,15 +1091,6 @@ public extension Services_Provider_V1_ProviderProvider {
                 responseSerializer: ProtobufSerializer<Services_Provider_V1_GetOberonKeyResponse>(),
                 interceptors: interceptors?.makeGetOberonKeyInterceptors() ?? [],
                 userFunction: GetOberonKey(request:context:)
-            )
-
-        case "GetEventToken":
-            return UnaryServerHandler(
-                context: context,
-                requestDeserializer: ProtobufDeserializer<Services_Provider_V1_GetEventTokenRequest>(),
-                responseSerializer: ProtobufSerializer<Services_Provider_V1_GetEventTokenResponse>(),
-                interceptors: interceptors?.makeGetEventTokenInterceptors() ?? [],
-                userFunction: GetEventToken(request:context:)
             )
 
         case "UpgradeDID":
@@ -1527,24 +1155,6 @@ public extension Services_Provider_V1_ProviderProvider {
             context: GRPCAsyncServerCallContext
         ) async throws -> Services_Provider_V1_UpdateEcosystemResponse
 
-        /// Grant user authorization to ecosystem resources
-        @Sendable func GrantAuthorization(
-            request: Services_Provider_V1_GrantAuthorizationRequest,
-            context: GRPCAsyncServerCallContext
-        ) async throws -> Services_Provider_V1_GrantAuthorizationResponse
-
-        /// Revoke user authorization to ecosystem resources
-        @Sendable func RevokeAuthorization(
-            request: Services_Provider_V1_RevokeAuthorizationRequest,
-            context: GRPCAsyncServerCallContext
-        ) async throws -> Services_Provider_V1_RevokeAuthorizationResponse
-
-        /// Retrieve the list of permissions for this particular account/ecosystem
-        @Sendable func GetAuthorizations(
-            request: Services_Provider_V1_GetAuthorizationsRequest,
-            context: GRPCAsyncServerCallContext
-        ) async throws -> Services_Provider_V1_GetAuthorizationsResponse
-
         /// Add a webhook endpoint to the ecosystem
         @Sendable func AddWebhook(
             request: Services_Provider_V1_AddWebhookRequest,
@@ -1569,13 +1179,6 @@ public extension Services_Provider_V1_ProviderProvider {
             context: GRPCAsyncServerCallContext
         ) async throws -> Services_Provider_V1_GetPublicEcosystemInfoResponse
 
-        /// Generates an unprotected authentication token that can be used to
-        /// configure server side applications
-        @Sendable func GenerateToken(
-            request: Services_Provider_V1_GenerateTokenRequest,
-            context: GRPCAsyncServerCallContext
-        ) async throws -> Services_Provider_V1_GenerateTokenResponse
-
         /// Invite a user to the ecosystem
         @Sendable func Invite(
             request: Services_Provider_V1_InviteRequest,
@@ -1593,12 +1196,6 @@ public extension Services_Provider_V1_ProviderProvider {
             request: Services_Provider_V1_GetOberonKeyRequest,
             context: GRPCAsyncServerCallContext
         ) async throws -> Services_Provider_V1_GetOberonKeyResponse
-
-        /// Generate a signed token (JWT) that can be used to connect to the message bus
-        @Sendable func GetEventToken(
-            request: Services_Provider_V1_GetEventTokenRequest,
-            context: GRPCAsyncServerCallContext
-        ) async throws -> Services_Provider_V1_GetEventTokenResponse
 
         /// Upgrade a wallet's DID from `did:key` to another method
         @Sendable func UpgradeDID(
@@ -1662,33 +1259,6 @@ public extension Services_Provider_V1_ProviderProvider {
                     wrapping: UpdateEcosystem(request:context:)
                 )
 
-            case "GrantAuthorization":
-                return GRPCAsyncServerHandler(
-                    context: context,
-                    requestDeserializer: ProtobufDeserializer<Services_Provider_V1_GrantAuthorizationRequest>(),
-                    responseSerializer: ProtobufSerializer<Services_Provider_V1_GrantAuthorizationResponse>(),
-                    interceptors: interceptors?.makeGrantAuthorizationInterceptors() ?? [],
-                    wrapping: GrantAuthorization(request:context:)
-                )
-
-            case "RevokeAuthorization":
-                return GRPCAsyncServerHandler(
-                    context: context,
-                    requestDeserializer: ProtobufDeserializer<Services_Provider_V1_RevokeAuthorizationRequest>(),
-                    responseSerializer: ProtobufSerializer<Services_Provider_V1_RevokeAuthorizationResponse>(),
-                    interceptors: interceptors?.makeRevokeAuthorizationInterceptors() ?? [],
-                    wrapping: RevokeAuthorization(request:context:)
-                )
-
-            case "GetAuthorizations":
-                return GRPCAsyncServerHandler(
-                    context: context,
-                    requestDeserializer: ProtobufDeserializer<Services_Provider_V1_GetAuthorizationsRequest>(),
-                    responseSerializer: ProtobufSerializer<Services_Provider_V1_GetAuthorizationsResponse>(),
-                    interceptors: interceptors?.makeGetAuthorizationsInterceptors() ?? [],
-                    wrapping: GetAuthorizations(request:context:)
-                )
-
             case "AddWebhook":
                 return GRPCAsyncServerHandler(
                     context: context,
@@ -1725,15 +1295,6 @@ public extension Services_Provider_V1_ProviderProvider {
                     wrapping: GetPublicEcosystemInfo(request:context:)
                 )
 
-            case "GenerateToken":
-                return GRPCAsyncServerHandler(
-                    context: context,
-                    requestDeserializer: ProtobufDeserializer<Services_Provider_V1_GenerateTokenRequest>(),
-                    responseSerializer: ProtobufSerializer<Services_Provider_V1_GenerateTokenResponse>(),
-                    interceptors: interceptors?.makeGenerateTokenInterceptors() ?? [],
-                    wrapping: GenerateToken(request:context:)
-                )
-
             case "Invite":
                 return GRPCAsyncServerHandler(
                     context: context,
@@ -1759,15 +1320,6 @@ public extension Services_Provider_V1_ProviderProvider {
                     responseSerializer: ProtobufSerializer<Services_Provider_V1_GetOberonKeyResponse>(),
                     interceptors: interceptors?.makeGetOberonKeyInterceptors() ?? [],
                     wrapping: GetOberonKey(request:context:)
-                )
-
-            case "GetEventToken":
-                return GRPCAsyncServerHandler(
-                    context: context,
-                    requestDeserializer: ProtobufDeserializer<Services_Provider_V1_GetEventTokenRequest>(),
-                    responseSerializer: ProtobufSerializer<Services_Provider_V1_GetEventTokenResponse>(),
-                    interceptors: interceptors?.makeGetEventTokenInterceptors() ?? [],
-                    wrapping: GetEventToken(request:context:)
                 )
 
             case "UpgradeDID":
@@ -1823,18 +1375,6 @@ public protocol Services_Provider_V1_ProviderServerInterceptorFactoryProtocol {
     ///   Defaults to calling `self.makeInterceptors()`.
     func makeUpdateEcosystemInterceptors() -> [ServerInterceptor<Services_Provider_V1_UpdateEcosystemRequest, Services_Provider_V1_UpdateEcosystemResponse>]
 
-    /// - Returns: Interceptors to use when handling 'GrantAuthorization'.
-    ///   Defaults to calling `self.makeInterceptors()`.
-    func makeGrantAuthorizationInterceptors() -> [ServerInterceptor<Services_Provider_V1_GrantAuthorizationRequest, Services_Provider_V1_GrantAuthorizationResponse>]
-
-    /// - Returns: Interceptors to use when handling 'RevokeAuthorization'.
-    ///   Defaults to calling `self.makeInterceptors()`.
-    func makeRevokeAuthorizationInterceptors() -> [ServerInterceptor<Services_Provider_V1_RevokeAuthorizationRequest, Services_Provider_V1_RevokeAuthorizationResponse>]
-
-    /// - Returns: Interceptors to use when handling 'GetAuthorizations'.
-    ///   Defaults to calling `self.makeInterceptors()`.
-    func makeGetAuthorizationsInterceptors() -> [ServerInterceptor<Services_Provider_V1_GetAuthorizationsRequest, Services_Provider_V1_GetAuthorizationsResponse>]
-
     /// - Returns: Interceptors to use when handling 'AddWebhook'.
     ///   Defaults to calling `self.makeInterceptors()`.
     func makeAddWebhookInterceptors() -> [ServerInterceptor<Services_Provider_V1_AddWebhookRequest, Services_Provider_V1_AddWebhookResponse>]
@@ -1851,10 +1391,6 @@ public protocol Services_Provider_V1_ProviderServerInterceptorFactoryProtocol {
     ///   Defaults to calling `self.makeInterceptors()`.
     func makeGetPublicEcosystemInfoInterceptors() -> [ServerInterceptor<Services_Provider_V1_GetPublicEcosystemInfoRequest, Services_Provider_V1_GetPublicEcosystemInfoResponse>]
 
-    /// - Returns: Interceptors to use when handling 'GenerateToken'.
-    ///   Defaults to calling `self.makeInterceptors()`.
-    func makeGenerateTokenInterceptors() -> [ServerInterceptor<Services_Provider_V1_GenerateTokenRequest, Services_Provider_V1_GenerateTokenResponse>]
-
     /// - Returns: Interceptors to use when handling 'Invite'.
     ///   Defaults to calling `self.makeInterceptors()`.
     func makeInviteInterceptors() -> [ServerInterceptor<Services_Provider_V1_InviteRequest, Services_Provider_V1_InviteResponse>]
@@ -1866,10 +1402,6 @@ public protocol Services_Provider_V1_ProviderServerInterceptorFactoryProtocol {
     /// - Returns: Interceptors to use when handling 'GetOberonKey'.
     ///   Defaults to calling `self.makeInterceptors()`.
     func makeGetOberonKeyInterceptors() -> [ServerInterceptor<Services_Provider_V1_GetOberonKeyRequest, Services_Provider_V1_GetOberonKeyResponse>]
-
-    /// - Returns: Interceptors to use when handling 'GetEventToken'.
-    ///   Defaults to calling `self.makeInterceptors()`.
-    func makeGetEventTokenInterceptors() -> [ServerInterceptor<Services_Provider_V1_GetEventTokenRequest, Services_Provider_V1_GetEventTokenResponse>]
 
     /// - Returns: Interceptors to use when handling 'UpgradeDID'.
     ///   Defaults to calling `self.makeInterceptors()`.
@@ -1895,18 +1427,13 @@ public enum Services_Provider_V1_ProviderServerMetadata {
         methods: [
             Services_Provider_V1_ProviderServerMetadata.Methods.CreateEcosystem,
             Services_Provider_V1_ProviderServerMetadata.Methods.UpdateEcosystem,
-            Services_Provider_V1_ProviderServerMetadata.Methods.GrantAuthorization,
-            Services_Provider_V1_ProviderServerMetadata.Methods.RevokeAuthorization,
-            Services_Provider_V1_ProviderServerMetadata.Methods.GetAuthorizations,
             Services_Provider_V1_ProviderServerMetadata.Methods.AddWebhook,
             Services_Provider_V1_ProviderServerMetadata.Methods.DeleteWebhook,
             Services_Provider_V1_ProviderServerMetadata.Methods.EcosystemInfo,
             Services_Provider_V1_ProviderServerMetadata.Methods.GetPublicEcosystemInfo,
-            Services_Provider_V1_ProviderServerMetadata.Methods.GenerateToken,
             Services_Provider_V1_ProviderServerMetadata.Methods.Invite,
             Services_Provider_V1_ProviderServerMetadata.Methods.InvitationStatus,
             Services_Provider_V1_ProviderServerMetadata.Methods.GetOberonKey,
-            Services_Provider_V1_ProviderServerMetadata.Methods.GetEventToken,
             Services_Provider_V1_ProviderServerMetadata.Methods.UpgradeDID,
             Services_Provider_V1_ProviderServerMetadata.Methods.RetrieveDomainVerificationRecord,
             Services_Provider_V1_ProviderServerMetadata.Methods.RefreshDomainVerificationStatus,
@@ -1924,24 +1451,6 @@ public enum Services_Provider_V1_ProviderServerMetadata {
         public static let UpdateEcosystem = GRPCMethodDescriptor(
             name: "UpdateEcosystem",
             path: "/services.provider.v1.Provider/UpdateEcosystem",
-            type: GRPCCallType.unary
-        )
-
-        public static let GrantAuthorization = GRPCMethodDescriptor(
-            name: "GrantAuthorization",
-            path: "/services.provider.v1.Provider/GrantAuthorization",
-            type: GRPCCallType.unary
-        )
-
-        public static let RevokeAuthorization = GRPCMethodDescriptor(
-            name: "RevokeAuthorization",
-            path: "/services.provider.v1.Provider/RevokeAuthorization",
-            type: GRPCCallType.unary
-        )
-
-        public static let GetAuthorizations = GRPCMethodDescriptor(
-            name: "GetAuthorizations",
-            path: "/services.provider.v1.Provider/GetAuthorizations",
             type: GRPCCallType.unary
         )
 
@@ -1969,12 +1478,6 @@ public enum Services_Provider_V1_ProviderServerMetadata {
             type: GRPCCallType.unary
         )
 
-        public static let GenerateToken = GRPCMethodDescriptor(
-            name: "GenerateToken",
-            path: "/services.provider.v1.Provider/GenerateToken",
-            type: GRPCCallType.unary
-        )
-
         public static let Invite = GRPCMethodDescriptor(
             name: "Invite",
             path: "/services.provider.v1.Provider/Invite",
@@ -1990,12 +1493,6 @@ public enum Services_Provider_V1_ProviderServerMetadata {
         public static let GetOberonKey = GRPCMethodDescriptor(
             name: "GetOberonKey",
             path: "/services.provider.v1.Provider/GetOberonKey",
-            type: GRPCCallType.unary
-        )
-
-        public static let GetEventToken = GRPCMethodDescriptor(
-            name: "GetEventToken",
-            path: "/services.provider.v1.Provider/GetEventToken",
             type: GRPCCallType.unary
         )
 

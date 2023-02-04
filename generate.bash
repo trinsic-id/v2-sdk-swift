@@ -12,11 +12,17 @@ fi
 # install protoc and required plugins
 brew install protobuf swift-protobuf grpc-swift swiftformat
 
-PROTO_ROOT=./proto/
+# define protoc plugin paths and generate the files
+PROTOC=$(which protoc)
+PROTOC_GEN_SWIFT=$(which protoc-gen-swift)
+PROTOC_GEN_GRPC_SWIFT=$(which protoc-gen-grpc-swift)
+
+PROTO_ROOT=./proto
 OUT_DIR=./Sources/Trinsic/Proto
 
 for f in $(find $PROTO_ROOT -name "*.proto");
 do
+  echo "Compiling: $f"
     ${PROTOC} \
     --proto_path=${PROTO_ROOT} \
     --plugin=${PROTOC_GEN_SWIFT} \
