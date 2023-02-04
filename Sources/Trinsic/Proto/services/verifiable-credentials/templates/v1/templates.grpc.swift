@@ -58,7 +58,7 @@ public protocol Services_Verifiablecredentials_Templates_V1_CredentialTemplatesC
 
 public extension Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientProtocol {
     var serviceName: String {
-        return "services.verifiablecredentials.templates.v1.CredentialTemplates"
+        "services.verifiablecredentials.templates.v1.CredentialTemplates"
     }
 
     /// Create a credential template in the current ecosystem
@@ -71,7 +71,7 @@ public extension Services_Verifiablecredentials_Templates_V1_CredentialTemplates
         _ request: Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateRequest, Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientMetadata.Methods.Create.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -89,7 +89,7 @@ public extension Services_Verifiablecredentials_Templates_V1_CredentialTemplates
         _ request: Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateRequest, Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientMetadata.Methods.Get.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -107,7 +107,7 @@ public extension Services_Verifiablecredentials_Templates_V1_CredentialTemplates
         _ request: Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesRequest, Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientMetadata.Methods.List.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -125,7 +125,7 @@ public extension Services_Verifiablecredentials_Templates_V1_CredentialTemplates
         _ request: Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesRequest, Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientMetadata.Methods.Search.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -143,7 +143,7 @@ public extension Services_Verifiablecredentials_Templates_V1_CredentialTemplates
         _ request: Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateRequest, Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientMetadata.Methods.Delete.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -247,18 +247,18 @@ public struct Services_Verifiablecredentials_Templates_V1_CredentialTemplatesNIO
     @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
     public extension Services_Verifiablecredentials_Templates_V1_CredentialTemplatesAsyncClientProtocol {
         static var serviceDescriptor: GRPCServiceDescriptor {
-            return Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientMetadata.serviceDescriptor
+            Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientMetadata.serviceDescriptor
         }
 
         var interceptors: Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientInterceptorFactoryProtocol? {
-            return nil
+            nil
         }
 
         func makeCreateCall(
             _ request: Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateRequest, Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientMetadata.Methods.Create.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -270,7 +270,7 @@ public struct Services_Verifiablecredentials_Templates_V1_CredentialTemplatesNIO
             _ request: Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateRequest, Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientMetadata.Methods.Get.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -282,7 +282,7 @@ public struct Services_Verifiablecredentials_Templates_V1_CredentialTemplatesNIO
             _ request: Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesRequest, Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientMetadata.Methods.List.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -294,7 +294,7 @@ public struct Services_Verifiablecredentials_Templates_V1_CredentialTemplatesNIO
             _ request: Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesRequest, Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientMetadata.Methods.Search.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -306,7 +306,7 @@ public struct Services_Verifiablecredentials_Templates_V1_CredentialTemplatesNIO
             _ request: Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateRequest, Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientMetadata.Methods.Delete.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -321,7 +321,7 @@ public struct Services_Verifiablecredentials_Templates_V1_CredentialTemplatesNIO
             _ request: Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientMetadata.Methods.Create.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -333,7 +333,7 @@ public struct Services_Verifiablecredentials_Templates_V1_CredentialTemplatesNIO
             _ request: Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientMetadata.Methods.Get.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -345,7 +345,7 @@ public struct Services_Verifiablecredentials_Templates_V1_CredentialTemplatesNIO
             _ request: Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientMetadata.Methods.List.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -357,7 +357,7 @@ public struct Services_Verifiablecredentials_Templates_V1_CredentialTemplatesNIO
             _ request: Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientMetadata.Methods.Search.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -369,7 +369,7 @@ public struct Services_Verifiablecredentials_Templates_V1_CredentialTemplatesNIO
             _ request: Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientMetadata.Methods.Delete.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -482,7 +482,7 @@ public protocol Services_Verifiablecredentials_Templates_V1_CredentialTemplatesP
 
 public extension Services_Verifiablecredentials_Templates_V1_CredentialTemplatesProvider {
     var serviceName: Substring {
-        return Services_Verifiablecredentials_Templates_V1_CredentialTemplatesServerMetadata.serviceDescriptor.fullName[...]
+        Services_Verifiablecredentials_Templates_V1_CredentialTemplatesServerMetadata.serviceDescriptor.fullName[...]
     }
 
     /// Determines, calls and returns the appropriate request handler, depending on the request's method.
@@ -585,15 +585,15 @@ public extension Services_Verifiablecredentials_Templates_V1_CredentialTemplates
     @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
     public extension Services_Verifiablecredentials_Templates_V1_CredentialTemplatesAsyncProvider {
         static var serviceDescriptor: GRPCServiceDescriptor {
-            return Services_Verifiablecredentials_Templates_V1_CredentialTemplatesServerMetadata.serviceDescriptor
+            Services_Verifiablecredentials_Templates_V1_CredentialTemplatesServerMetadata.serviceDescriptor
         }
 
         var serviceName: Substring {
-            return Services_Verifiablecredentials_Templates_V1_CredentialTemplatesServerMetadata.serviceDescriptor.fullName[...]
+            Services_Verifiablecredentials_Templates_V1_CredentialTemplatesServerMetadata.serviceDescriptor.fullName[...]
         }
 
         var interceptors: Services_Verifiablecredentials_Templates_V1_CredentialTemplatesServerInterceptorFactoryProtocol? {
-            return nil
+            nil
         }
 
         func handle(

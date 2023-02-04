@@ -90,12 +90,12 @@ public struct Services_Account_V1_SignInRequest {
 
     /// Account registration details
     public var details: Services_Account_V1_AccountDetails {
-        get { return _details ?? Services_Account_V1_AccountDetails() }
+        get { _details ?? Services_Account_V1_AccountDetails() }
         set { _details = newValue }
     }
 
     /// Returns true if `details` has been explicitly set.
-    public var hasDetails: Bool { return _details != nil }
+    public var hasDetails: Bool { _details != nil }
     /// Clears the value of `details`. Subsequent reads from it will return its default value.
     public mutating func clearDetails() { _details = nil }
 
@@ -151,12 +151,12 @@ public struct Services_Account_V1_SignInResponse {
     /// See the docs at https://docs.trinsic.id for more information
     /// on working with authentication data.
     public var profile: Services_Account_V1_AccountProfile {
-        get { return _profile ?? Services_Account_V1_AccountProfile() }
+        get { _profile ?? Services_Account_V1_AccountProfile() }
         set { _profile = newValue }
     }
 
     /// Returns true if `profile` has been explicitly set.
-    public var hasProfile: Bool { return _profile != nil }
+    public var hasProfile: Bool { _profile != nil }
     /// Clears the value of `profile`. Subsequent reads from it will return its default value.
     public mutating func clearProfile() { _profile = nil }
 
@@ -188,12 +188,12 @@ public struct Services_Account_V1_AccountProfile {
     /// If token protection is enabled, implementations must supply
     /// protection secret before using the token for authentication.
     public var protection: Services_Account_V1_TokenProtection {
-        get { return _protection ?? Services_Account_V1_TokenProtection() }
+        get { _protection ?? Services_Account_V1_TokenProtection() }
         set { _protection = newValue }
     }
 
     /// Returns true if `protection` has been explicitly set.
-    public var hasProtection: Bool { return _protection != nil }
+    public var hasProtection: Bool { _protection != nil }
     /// Clears the value of `protection`. Subsequent reads from it will return its default value.
     public mutating func clearProtection() { _protection = nil }
 
@@ -242,12 +242,12 @@ public struct Services_Account_V1_AccountInfoResponse {
     /// The account details associated with
     /// the calling request context
     public var details: Services_Account_V1_AccountDetails {
-        get { return _details ?? Services_Account_V1_AccountDetails() }
+        get { _details ?? Services_Account_V1_AccountDetails() }
         set { _details = newValue }
     }
 
     /// Returns true if `details` has been explicitly set.
-    public var hasDetails: Bool { return _details != nil }
+    public var hasDetails: Bool { _details != nil }
     /// Clears the value of `details`. Subsequent reads from it will return its default value.
     public mutating func clearDetails() { _details = nil }
 
@@ -445,12 +445,12 @@ public struct Services_Account_V1_LoginConfirmResponse {
     /// Profile response; must be unprotected using unhashed confirmation code.
     /// Our SDKs will handle this process for you, and return to you an authentication token string.
     public var profile: Services_Account_V1_AccountProfile {
-        get { return _profile ?? Services_Account_V1_AccountProfile() }
+        get { _profile ?? Services_Account_V1_AccountProfile() }
         set { _profile = newValue }
     }
 
     /// Returns true if `profile` has been explicitly set.
-    public var hasProfile: Bool { return _profile != nil }
+    public var hasProfile: Bool { _profile != nil }
     /// Clears the value of `profile`. Subsequent reads from it will return its default value.
     public mutating func clearProfile() { _profile = nil }
 

@@ -22,7 +22,7 @@ public class WalletService: ServiceBase {
     }
 
     public func search() throws -> Services_Universalwallet_V1_SearchResponse {
-        return try search(request: Services_Universalwallet_V1_SearchRequest())
+        try search(request: Services_Universalwallet_V1_SearchRequest())
     }
 
     public func searchWallet(request: Services_Universalwallet_V1_SearchRequest = Services_Universalwallet_V1_SearchRequest()) throws -> Services_Universalwallet_V1_SearchResponse {
@@ -39,31 +39,31 @@ public class WalletService: ServiceBase {
     // target: C:\work\sdk-swift\Sources\Trinsic\WalletService.swift
 
     public func getItem(request: Services_Universalwallet_V1_GetItemRequest) throws -> Services_Universalwallet_V1_GetItemResponse {
-        return try client!.GetItem(request, callOptions: try buildMetadata(request))
+        try client!.GetItem(request, callOptions: try buildMetadata(request))
             .response
             .wait()
     }
 
     public func search(request: Services_Universalwallet_V1_SearchRequest) throws -> Services_Universalwallet_V1_SearchResponse {
-        return try client!.Search(request, callOptions: try buildMetadata(request))
+        try client!.Search(request, callOptions: try buildMetadata(request))
             .response
             .wait()
     }
 
     public func insertItem(request: Services_Universalwallet_V1_InsertItemRequest) throws -> Services_Universalwallet_V1_InsertItemResponse {
-        return try client!.InsertItem(request, callOptions: try buildMetadata(request))
+        try client!.InsertItem(request, callOptions: try buildMetadata(request))
             .response
             .wait()
     }
 
     public func updateItem(request: Services_Universalwallet_V1_UpdateItemRequest) throws -> Services_Universalwallet_V1_UpdateItemResponse {
-        return try client!.UpdateItem(request, callOptions: try buildMetadata(request))
+        try client!.UpdateItem(request, callOptions: try buildMetadata(request))
             .response
             .wait()
     }
 
     public func deleteItem(request: Services_Universalwallet_V1_DeleteItemRequest) throws -> Services_Universalwallet_V1_DeleteItemResponse {
-        return try client!.DeleteItem(request, callOptions: try buildMetadata(request))
+        try client!.DeleteItem(request, callOptions: try buildMetadata(request))
             .response
             .wait()
     }

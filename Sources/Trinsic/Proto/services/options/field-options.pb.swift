@@ -60,14 +60,14 @@ public extension SwiftProtobuf.Google_Protobuf_FieldOptions {
     /// This is not the same as an `optional` protobuf label;
     /// it only impacts documentation generation for the field.
     var Services_Options_optional: Bool {
-        get { return getExtensionValue(ext: Services_Options_Extensions_optional) ?? false }
+        get { getExtensionValue(ext: Services_Options_Extensions_optional) ?? false }
         set { setExtensionValue(ext: Services_Options_Extensions_optional, value: newValue) }
     }
 
     /// Returns true if extension `Services_Options_Extensions_optional`
     /// has been explicitly set.
     var hasServices_Options_optional: Bool {
-        return hasExtensionValue(ext: Services_Options_Extensions_optional)
+        hasExtensionValue(ext: Services_Options_Extensions_optional)
     }
 
     /// Clears the value of extension `Services_Options_Extensions_optional`.
@@ -79,14 +79,14 @@ public extension SwiftProtobuf.Google_Protobuf_FieldOptions {
 
 public extension SwiftProtobuf.Google_Protobuf_MethodOptions {
     var Services_Options_sdkTemplateOption: Services_Options_SdkTemplateOption {
-        get { return getExtensionValue(ext: Services_Options_Extensions_sdk_template_option) ?? Services_Options_SdkTemplateOption() }
+        get { getExtensionValue(ext: Services_Options_Extensions_sdk_template_option) ?? Services_Options_SdkTemplateOption() }
         set { setExtensionValue(ext: Services_Options_Extensions_sdk_template_option, value: newValue) }
     }
 
     /// Returns true if extension `Services_Options_Extensions_sdk_template_option`
     /// has been explicitly set.
     var hasServices_Options_sdkTemplateOption: Bool {
-        return hasExtensionValue(ext: Services_Options_Extensions_sdk_template_option)
+        hasExtensionValue(ext: Services_Options_Extensions_sdk_template_option)
     }
 
     /// Clears the value of extension `Services_Options_Extensions_sdk_template_option`.

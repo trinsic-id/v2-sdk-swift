@@ -250,14 +250,14 @@ public struct Trinsic_Services_Event_ItemReceived {
 public extension SwiftProtobuf.Google_Protobuf_MessageOptions {
     /// Event type associated with this Event message.
     var Trinsic_Services_Event_eventType: Trinsic_Services_Event_EventType {
-        get { return getExtensionValue(ext: Trinsic_Services_Event_Extensions_event_type) ?? .ping }
+        get { getExtensionValue(ext: Trinsic_Services_Event_Extensions_event_type) ?? .ping }
         set { setExtensionValue(ext: Trinsic_Services_Event_Extensions_event_type, value: newValue) }
     }
 
     /// Returns true if extension `Trinsic_Services_Event_Extensions_event_type`
     /// has been explicitly set.
     var hasTrinsic_Services_Event_eventType: Bool {
-        return hasExtensionValue(ext: Trinsic_Services_Event_Extensions_event_type)
+        hasExtensionValue(ext: Trinsic_Services_Event_Extensions_event_type)
     }
 
     /// Clears the value of extension `Trinsic_Services_Event_Extensions_event_type`.

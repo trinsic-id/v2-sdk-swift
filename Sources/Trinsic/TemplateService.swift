@@ -43,31 +43,31 @@ public class TemplateService: ServiceBase {
     // target: C:\work\sdk-swift\Sources\Trinsic\TemplateService.swift
 
     public func create(request: Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateRequest) throws -> Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateResponse {
-        return try client!.Create(request, callOptions: try buildMetadata(request))
+        try client!.Create(request, callOptions: try buildMetadata(request))
             .response
             .wait()
     }
 
     public func get(request: Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateRequest) throws -> Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateResponse {
-        return try client!.Get(request, callOptions: try buildMetadata(request))
+        try client!.Get(request, callOptions: try buildMetadata(request))
             .response
             .wait()
     }
 
     public func list(request: Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesRequest) throws -> Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesResponse {
-        return try client!.List(request, callOptions: try buildMetadata(request))
+        try client!.List(request, callOptions: try buildMetadata(request))
             .response
             .wait()
     }
 
     public func search(request: Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesRequest) throws -> Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesResponse {
-        return try client!.Search(request, callOptions: try buildMetadata(request))
+        try client!.Search(request, callOptions: try buildMetadata(request))
             .response
             .wait()
     }
 
     public func delete(request: Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateRequest) throws -> Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateResponse {
-        return try client!.Delete(request, callOptions: try buildMetadata(request))
+        try client!.Delete(request, callOptions: try buildMetadata(request))
             .response
             .wait()
     }

@@ -68,7 +68,7 @@ public protocol Services_Account_V1_AccountClientProtocol: GRPCClient {
 
 public extension Services_Account_V1_AccountClientProtocol {
     var serviceName: String {
-        return "services.account.v1.Account"
+        "services.account.v1.Account"
     }
 
     /// Sign in to an already existing account
@@ -81,7 +81,7 @@ public extension Services_Account_V1_AccountClientProtocol {
         _ request: Services_Account_V1_SignInRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Account_V1_SignInRequest, Services_Account_V1_SignInResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Account_V1_AccountClientMetadata.Methods.SignIn.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -99,7 +99,7 @@ public extension Services_Account_V1_AccountClientProtocol {
         _ request: Services_Account_V1_LoginRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Account_V1_LoginRequest, Services_Account_V1_LoginResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Account_V1_AccountClientMetadata.Methods.Login.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -117,7 +117,7 @@ public extension Services_Account_V1_AccountClientProtocol {
         _ request: Services_Account_V1_LoginConfirmRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Account_V1_LoginConfirmRequest, Services_Account_V1_LoginConfirmResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Account_V1_AccountClientMetadata.Methods.LoginConfirm.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -135,7 +135,7 @@ public extension Services_Account_V1_AccountClientProtocol {
         _ request: Services_Account_V1_AccountInfoRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Account_V1_AccountInfoRequest, Services_Account_V1_AccountInfoResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Account_V1_AccountClientMetadata.Methods.Info.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -153,7 +153,7 @@ public extension Services_Account_V1_AccountClientProtocol {
         _ request: Services_Account_V1_ListDevicesRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Account_V1_ListDevicesRequest, Services_Account_V1_ListDevicesResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Account_V1_AccountClientMetadata.Methods.ListDevices.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -171,7 +171,7 @@ public extension Services_Account_V1_AccountClientProtocol {
         _ request: Services_Account_V1_RevokeDeviceRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Account_V1_RevokeDeviceRequest, Services_Account_V1_RevokeDeviceResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Account_V1_AccountClientMetadata.Methods.RevokeDevice.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -189,7 +189,7 @@ public extension Services_Account_V1_AccountClientProtocol {
         _ request: Services_Account_V1_AuthorizeWebhookRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Account_V1_AuthorizeWebhookRequest, Services_Account_V1_AuthorizeWebhookResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Account_V1_AccountClientMetadata.Methods.AuthorizeWebhook.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -303,18 +303,18 @@ public struct Services_Account_V1_AccountNIOClient: Services_Account_V1_AccountC
     @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
     public extension Services_Account_V1_AccountAsyncClientProtocol {
         static var serviceDescriptor: GRPCServiceDescriptor {
-            return Services_Account_V1_AccountClientMetadata.serviceDescriptor
+            Services_Account_V1_AccountClientMetadata.serviceDescriptor
         }
 
         var interceptors: Services_Account_V1_AccountClientInterceptorFactoryProtocol? {
-            return nil
+            nil
         }
 
         func makeSignInCall(
             _ request: Services_Account_V1_SignInRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Account_V1_SignInRequest, Services_Account_V1_SignInResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Account_V1_AccountClientMetadata.Methods.SignIn.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -326,7 +326,7 @@ public struct Services_Account_V1_AccountNIOClient: Services_Account_V1_AccountC
             _ request: Services_Account_V1_LoginRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Account_V1_LoginRequest, Services_Account_V1_LoginResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Account_V1_AccountClientMetadata.Methods.Login.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -338,7 +338,7 @@ public struct Services_Account_V1_AccountNIOClient: Services_Account_V1_AccountC
             _ request: Services_Account_V1_LoginConfirmRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Account_V1_LoginConfirmRequest, Services_Account_V1_LoginConfirmResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Account_V1_AccountClientMetadata.Methods.LoginConfirm.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -350,7 +350,7 @@ public struct Services_Account_V1_AccountNIOClient: Services_Account_V1_AccountC
             _ request: Services_Account_V1_AccountInfoRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Account_V1_AccountInfoRequest, Services_Account_V1_AccountInfoResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Account_V1_AccountClientMetadata.Methods.Info.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -362,7 +362,7 @@ public struct Services_Account_V1_AccountNIOClient: Services_Account_V1_AccountC
             _ request: Services_Account_V1_ListDevicesRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Account_V1_ListDevicesRequest, Services_Account_V1_ListDevicesResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Account_V1_AccountClientMetadata.Methods.ListDevices.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -374,7 +374,7 @@ public struct Services_Account_V1_AccountNIOClient: Services_Account_V1_AccountC
             _ request: Services_Account_V1_RevokeDeviceRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Account_V1_RevokeDeviceRequest, Services_Account_V1_RevokeDeviceResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Account_V1_AccountClientMetadata.Methods.RevokeDevice.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -386,7 +386,7 @@ public struct Services_Account_V1_AccountNIOClient: Services_Account_V1_AccountC
             _ request: Services_Account_V1_AuthorizeWebhookRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Account_V1_AuthorizeWebhookRequest, Services_Account_V1_AuthorizeWebhookResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Account_V1_AccountClientMetadata.Methods.AuthorizeWebhook.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -401,7 +401,7 @@ public struct Services_Account_V1_AccountNIOClient: Services_Account_V1_AccountC
             _ request: Services_Account_V1_SignInRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Account_V1_SignInResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Account_V1_AccountClientMetadata.Methods.SignIn.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -413,7 +413,7 @@ public struct Services_Account_V1_AccountNIOClient: Services_Account_V1_AccountC
             _ request: Services_Account_V1_LoginRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Account_V1_LoginResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Account_V1_AccountClientMetadata.Methods.Login.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -425,7 +425,7 @@ public struct Services_Account_V1_AccountNIOClient: Services_Account_V1_AccountC
             _ request: Services_Account_V1_LoginConfirmRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Account_V1_LoginConfirmResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Account_V1_AccountClientMetadata.Methods.LoginConfirm.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -437,7 +437,7 @@ public struct Services_Account_V1_AccountNIOClient: Services_Account_V1_AccountC
             _ request: Services_Account_V1_AccountInfoRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Account_V1_AccountInfoResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Account_V1_AccountClientMetadata.Methods.Info.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -449,7 +449,7 @@ public struct Services_Account_V1_AccountNIOClient: Services_Account_V1_AccountC
             _ request: Services_Account_V1_ListDevicesRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Account_V1_ListDevicesResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Account_V1_AccountClientMetadata.Methods.ListDevices.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -461,7 +461,7 @@ public struct Services_Account_V1_AccountNIOClient: Services_Account_V1_AccountC
             _ request: Services_Account_V1_RevokeDeviceRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Account_V1_RevokeDeviceResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Account_V1_AccountClientMetadata.Methods.RevokeDevice.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -473,7 +473,7 @@ public struct Services_Account_V1_AccountNIOClient: Services_Account_V1_AccountC
             _ request: Services_Account_V1_AuthorizeWebhookRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Account_V1_AuthorizeWebhookResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Account_V1_AccountClientMetadata.Methods.AuthorizeWebhook.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -612,7 +612,7 @@ public protocol Services_Account_V1_AccountProvider: CallHandlerProvider {
 
 public extension Services_Account_V1_AccountProvider {
     var serviceName: Substring {
-        return Services_Account_V1_AccountServerMetadata.serviceDescriptor.fullName[...]
+        Services_Account_V1_AccountServerMetadata.serviceDescriptor.fullName[...]
     }
 
     /// Determines, calls and returns the appropriate request handler, depending on the request's method.
@@ -745,15 +745,15 @@ public extension Services_Account_V1_AccountProvider {
     @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
     public extension Services_Account_V1_AccountAsyncProvider {
         static var serviceDescriptor: GRPCServiceDescriptor {
-            return Services_Account_V1_AccountServerMetadata.serviceDescriptor
+            Services_Account_V1_AccountServerMetadata.serviceDescriptor
         }
 
         var serviceName: Substring {
-            return Services_Account_V1_AccountServerMetadata.serviceDescriptor.fullName[...]
+            Services_Account_V1_AccountServerMetadata.serviceDescriptor.fullName[...]
         }
 
         var interceptors: Services_Account_V1_AccountServerInterceptorFactoryProtocol? {
-            return nil
+            nil
         }
 
         func handle(

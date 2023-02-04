@@ -68,7 +68,7 @@ public protocol Services_Verifiablecredentials_V1_VerifiableCredentialClientProt
 
 public extension Services_Verifiablecredentials_V1_VerifiableCredentialClientProtocol {
     var serviceName: String {
-        return "services.verifiablecredentials.v1.VerifiableCredential"
+        "services.verifiablecredentials.v1.VerifiableCredential"
     }
 
     /// Sign and issue a verifiable credential from a submitted document.
@@ -82,7 +82,7 @@ public extension Services_Verifiablecredentials_V1_VerifiableCredentialClientPro
         _ request: Services_Verifiablecredentials_V1_IssueRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Verifiablecredentials_V1_IssueRequest, Services_Verifiablecredentials_V1_IssueResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.Issue.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -102,7 +102,7 @@ public extension Services_Verifiablecredentials_V1_VerifiableCredentialClientPro
         _ request: Services_Verifiablecredentials_V1_IssueFromTemplateRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Verifiablecredentials_V1_IssueFromTemplateRequest, Services_Verifiablecredentials_V1_IssueFromTemplateResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.IssueFromTemplate.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -120,7 +120,7 @@ public extension Services_Verifiablecredentials_V1_VerifiableCredentialClientPro
         _ request: Services_Verifiablecredentials_V1_CheckStatusRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Verifiablecredentials_V1_CheckStatusRequest, Services_Verifiablecredentials_V1_CheckStatusResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.CheckStatus.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -138,7 +138,7 @@ public extension Services_Verifiablecredentials_V1_VerifiableCredentialClientPro
         _ request: Services_Verifiablecredentials_V1_UpdateStatusRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Verifiablecredentials_V1_UpdateStatusRequest, Services_Verifiablecredentials_V1_UpdateStatusResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.UpdateStatus.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -157,7 +157,7 @@ public extension Services_Verifiablecredentials_V1_VerifiableCredentialClientPro
         _ request: Services_Verifiablecredentials_V1_CreateProofRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Verifiablecredentials_V1_CreateProofRequest, Services_Verifiablecredentials_V1_CreateProofResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.CreateProof.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -176,7 +176,7 @@ public extension Services_Verifiablecredentials_V1_VerifiableCredentialClientPro
         _ request: Services_Verifiablecredentials_V1_VerifyProofRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Verifiablecredentials_V1_VerifyProofRequest, Services_Verifiablecredentials_V1_VerifyProofResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.VerifyProof.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -194,7 +194,7 @@ public extension Services_Verifiablecredentials_V1_VerifiableCredentialClientPro
         _ request: Services_Verifiablecredentials_V1_SendRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Verifiablecredentials_V1_SendRequest, Services_Verifiablecredentials_V1_SendResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.Send.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -308,18 +308,18 @@ public struct Services_Verifiablecredentials_V1_VerifiableCredentialNIOClient: S
     @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
     public extension Services_Verifiablecredentials_V1_VerifiableCredentialAsyncClientProtocol {
         static var serviceDescriptor: GRPCServiceDescriptor {
-            return Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.serviceDescriptor
+            Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.serviceDescriptor
         }
 
         var interceptors: Services_Verifiablecredentials_V1_VerifiableCredentialClientInterceptorFactoryProtocol? {
-            return nil
+            nil
         }
 
         func makeIssueCall(
             _ request: Services_Verifiablecredentials_V1_IssueRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Verifiablecredentials_V1_IssueRequest, Services_Verifiablecredentials_V1_IssueResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.Issue.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -331,7 +331,7 @@ public struct Services_Verifiablecredentials_V1_VerifiableCredentialNIOClient: S
             _ request: Services_Verifiablecredentials_V1_IssueFromTemplateRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Verifiablecredentials_V1_IssueFromTemplateRequest, Services_Verifiablecredentials_V1_IssueFromTemplateResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.IssueFromTemplate.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -343,7 +343,7 @@ public struct Services_Verifiablecredentials_V1_VerifiableCredentialNIOClient: S
             _ request: Services_Verifiablecredentials_V1_CheckStatusRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Verifiablecredentials_V1_CheckStatusRequest, Services_Verifiablecredentials_V1_CheckStatusResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.CheckStatus.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -355,7 +355,7 @@ public struct Services_Verifiablecredentials_V1_VerifiableCredentialNIOClient: S
             _ request: Services_Verifiablecredentials_V1_UpdateStatusRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Verifiablecredentials_V1_UpdateStatusRequest, Services_Verifiablecredentials_V1_UpdateStatusResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.UpdateStatus.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -367,7 +367,7 @@ public struct Services_Verifiablecredentials_V1_VerifiableCredentialNIOClient: S
             _ request: Services_Verifiablecredentials_V1_CreateProofRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Verifiablecredentials_V1_CreateProofRequest, Services_Verifiablecredentials_V1_CreateProofResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.CreateProof.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -379,7 +379,7 @@ public struct Services_Verifiablecredentials_V1_VerifiableCredentialNIOClient: S
             _ request: Services_Verifiablecredentials_V1_VerifyProofRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Verifiablecredentials_V1_VerifyProofRequest, Services_Verifiablecredentials_V1_VerifyProofResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.VerifyProof.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -391,7 +391,7 @@ public struct Services_Verifiablecredentials_V1_VerifiableCredentialNIOClient: S
             _ request: Services_Verifiablecredentials_V1_SendRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Verifiablecredentials_V1_SendRequest, Services_Verifiablecredentials_V1_SendResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.Send.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -406,7 +406,7 @@ public struct Services_Verifiablecredentials_V1_VerifiableCredentialNIOClient: S
             _ request: Services_Verifiablecredentials_V1_IssueRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Verifiablecredentials_V1_IssueResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.Issue.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -418,7 +418,7 @@ public struct Services_Verifiablecredentials_V1_VerifiableCredentialNIOClient: S
             _ request: Services_Verifiablecredentials_V1_IssueFromTemplateRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Verifiablecredentials_V1_IssueFromTemplateResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.IssueFromTemplate.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -430,7 +430,7 @@ public struct Services_Verifiablecredentials_V1_VerifiableCredentialNIOClient: S
             _ request: Services_Verifiablecredentials_V1_CheckStatusRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Verifiablecredentials_V1_CheckStatusResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.CheckStatus.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -442,7 +442,7 @@ public struct Services_Verifiablecredentials_V1_VerifiableCredentialNIOClient: S
             _ request: Services_Verifiablecredentials_V1_UpdateStatusRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Verifiablecredentials_V1_UpdateStatusResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.UpdateStatus.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -454,7 +454,7 @@ public struct Services_Verifiablecredentials_V1_VerifiableCredentialNIOClient: S
             _ request: Services_Verifiablecredentials_V1_CreateProofRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Verifiablecredentials_V1_CreateProofResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.CreateProof.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -466,7 +466,7 @@ public struct Services_Verifiablecredentials_V1_VerifiableCredentialNIOClient: S
             _ request: Services_Verifiablecredentials_V1_VerifyProofRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Verifiablecredentials_V1_VerifyProofResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.VerifyProof.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -478,7 +478,7 @@ public struct Services_Verifiablecredentials_V1_VerifiableCredentialNIOClient: S
             _ request: Services_Verifiablecredentials_V1_SendRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Verifiablecredentials_V1_SendResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Verifiablecredentials_V1_VerifiableCredentialClientMetadata.Methods.Send.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -622,7 +622,7 @@ public protocol Services_Verifiablecredentials_V1_VerifiableCredentialProvider: 
 
 public extension Services_Verifiablecredentials_V1_VerifiableCredentialProvider {
     var serviceName: Substring {
-        return Services_Verifiablecredentials_V1_VerifiableCredentialServerMetadata.serviceDescriptor.fullName[...]
+        Services_Verifiablecredentials_V1_VerifiableCredentialServerMetadata.serviceDescriptor.fullName[...]
     }
 
     /// Determines, calls and returns the appropriate request handler, depending on the request's method.
@@ -760,15 +760,15 @@ public extension Services_Verifiablecredentials_V1_VerifiableCredentialProvider 
     @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
     public extension Services_Verifiablecredentials_V1_VerifiableCredentialAsyncProvider {
         static var serviceDescriptor: GRPCServiceDescriptor {
-            return Services_Verifiablecredentials_V1_VerifiableCredentialServerMetadata.serviceDescriptor
+            Services_Verifiablecredentials_V1_VerifiableCredentialServerMetadata.serviceDescriptor
         }
 
         var serviceName: Substring {
-            return Services_Verifiablecredentials_V1_VerifiableCredentialServerMetadata.serviceDescriptor.fullName[...]
+            Services_Verifiablecredentials_V1_VerifiableCredentialServerMetadata.serviceDescriptor.fullName[...]
         }
 
         var interceptors: Services_Verifiablecredentials_V1_VerifiableCredentialServerInterceptorFactoryProtocol? {
-            return nil
+            nil
         }
 
         func handle(

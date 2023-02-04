@@ -58,7 +58,7 @@ public protocol Services_Universalwallet_V1_UniversalWalletClientProtocol: GRPCC
 
 public extension Services_Universalwallet_V1_UniversalWalletClientProtocol {
     var serviceName: String {
-        return "services.universalwallet.v1.UniversalWallet"
+        "services.universalwallet.v1.UniversalWallet"
     }
 
     /// Retrieve an item from the wallet with a given item identifier
@@ -71,7 +71,7 @@ public extension Services_Universalwallet_V1_UniversalWalletClientProtocol {
         _ request: Services_Universalwallet_V1_GetItemRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Universalwallet_V1_GetItemRequest, Services_Universalwallet_V1_GetItemResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.GetItem.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -89,7 +89,7 @@ public extension Services_Universalwallet_V1_UniversalWalletClientProtocol {
         _ request: Services_Universalwallet_V1_SearchRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Universalwallet_V1_SearchRequest, Services_Universalwallet_V1_SearchResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.Search.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -107,7 +107,7 @@ public extension Services_Universalwallet_V1_UniversalWalletClientProtocol {
         _ request: Services_Universalwallet_V1_InsertItemRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Universalwallet_V1_InsertItemRequest, Services_Universalwallet_V1_InsertItemResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.InsertItem.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -125,7 +125,7 @@ public extension Services_Universalwallet_V1_UniversalWalletClientProtocol {
         _ request: Services_Universalwallet_V1_UpdateItemRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Universalwallet_V1_UpdateItemRequest, Services_Universalwallet_V1_UpdateItemResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.UpdateItem.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -143,7 +143,7 @@ public extension Services_Universalwallet_V1_UniversalWalletClientProtocol {
         _ request: Services_Universalwallet_V1_DeleteItemRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Universalwallet_V1_DeleteItemRequest, Services_Universalwallet_V1_DeleteItemResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.DeleteItem.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -247,18 +247,18 @@ public struct Services_Universalwallet_V1_UniversalWalletNIOClient: Services_Uni
     @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
     public extension Services_Universalwallet_V1_UniversalWalletAsyncClientProtocol {
         static var serviceDescriptor: GRPCServiceDescriptor {
-            return Services_Universalwallet_V1_UniversalWalletClientMetadata.serviceDescriptor
+            Services_Universalwallet_V1_UniversalWalletClientMetadata.serviceDescriptor
         }
 
         var interceptors: Services_Universalwallet_V1_UniversalWalletClientInterceptorFactoryProtocol? {
-            return nil
+            nil
         }
 
         func makeGetItemCall(
             _ request: Services_Universalwallet_V1_GetItemRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Universalwallet_V1_GetItemRequest, Services_Universalwallet_V1_GetItemResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.GetItem.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -270,7 +270,7 @@ public struct Services_Universalwallet_V1_UniversalWalletNIOClient: Services_Uni
             _ request: Services_Universalwallet_V1_SearchRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Universalwallet_V1_SearchRequest, Services_Universalwallet_V1_SearchResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.Search.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -282,7 +282,7 @@ public struct Services_Universalwallet_V1_UniversalWalletNIOClient: Services_Uni
             _ request: Services_Universalwallet_V1_InsertItemRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Universalwallet_V1_InsertItemRequest, Services_Universalwallet_V1_InsertItemResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.InsertItem.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -294,7 +294,7 @@ public struct Services_Universalwallet_V1_UniversalWalletNIOClient: Services_Uni
             _ request: Services_Universalwallet_V1_UpdateItemRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Universalwallet_V1_UpdateItemRequest, Services_Universalwallet_V1_UpdateItemResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.UpdateItem.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -306,7 +306,7 @@ public struct Services_Universalwallet_V1_UniversalWalletNIOClient: Services_Uni
             _ request: Services_Universalwallet_V1_DeleteItemRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Universalwallet_V1_DeleteItemRequest, Services_Universalwallet_V1_DeleteItemResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.DeleteItem.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -321,7 +321,7 @@ public struct Services_Universalwallet_V1_UniversalWalletNIOClient: Services_Uni
             _ request: Services_Universalwallet_V1_GetItemRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Universalwallet_V1_GetItemResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.GetItem.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -333,7 +333,7 @@ public struct Services_Universalwallet_V1_UniversalWalletNIOClient: Services_Uni
             _ request: Services_Universalwallet_V1_SearchRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Universalwallet_V1_SearchResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.Search.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -345,7 +345,7 @@ public struct Services_Universalwallet_V1_UniversalWalletNIOClient: Services_Uni
             _ request: Services_Universalwallet_V1_InsertItemRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Universalwallet_V1_InsertItemResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.InsertItem.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -357,7 +357,7 @@ public struct Services_Universalwallet_V1_UniversalWalletNIOClient: Services_Uni
             _ request: Services_Universalwallet_V1_UpdateItemRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Universalwallet_V1_UpdateItemResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.UpdateItem.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -369,7 +369,7 @@ public struct Services_Universalwallet_V1_UniversalWalletNIOClient: Services_Uni
             _ request: Services_Universalwallet_V1_DeleteItemRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Universalwallet_V1_DeleteItemResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.DeleteItem.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -482,7 +482,7 @@ public protocol Services_Universalwallet_V1_UniversalWalletProvider: CallHandler
 
 public extension Services_Universalwallet_V1_UniversalWalletProvider {
     var serviceName: Substring {
-        return Services_Universalwallet_V1_UniversalWalletServerMetadata.serviceDescriptor.fullName[...]
+        Services_Universalwallet_V1_UniversalWalletServerMetadata.serviceDescriptor.fullName[...]
     }
 
     /// Determines, calls and returns the appropriate request handler, depending on the request's method.
@@ -585,15 +585,15 @@ public extension Services_Universalwallet_V1_UniversalWalletProvider {
     @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
     public extension Services_Universalwallet_V1_UniversalWalletAsyncProvider {
         static var serviceDescriptor: GRPCServiceDescriptor {
-            return Services_Universalwallet_V1_UniversalWalletServerMetadata.serviceDescriptor
+            Services_Universalwallet_V1_UniversalWalletServerMetadata.serviceDescriptor
         }
 
         var serviceName: Substring {
-            return Services_Universalwallet_V1_UniversalWalletServerMetadata.serviceDescriptor.fullName[...]
+            Services_Universalwallet_V1_UniversalWalletServerMetadata.serviceDescriptor.fullName[...]
         }
 
         var interceptors: Services_Universalwallet_V1_UniversalWalletServerInterceptorFactoryProtocol? {
-            return nil
+            nil
         }
 
         func handle(

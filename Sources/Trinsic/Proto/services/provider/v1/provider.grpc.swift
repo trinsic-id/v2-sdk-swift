@@ -123,7 +123,7 @@ public protocol Services_Provider_V1_ProviderClientProtocol: GRPCClient {
 
 public extension Services_Provider_V1_ProviderClientProtocol {
     var serviceName: String {
-        return "services.provider.v1.Provider"
+        "services.provider.v1.Provider"
     }
 
     /// Create new ecosystem and assign the authenticated user as owner
@@ -136,7 +136,7 @@ public extension Services_Provider_V1_ProviderClientProtocol {
         _ request: Services_Provider_V1_CreateEcosystemRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Provider_V1_CreateEcosystemRequest, Services_Provider_V1_CreateEcosystemResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Provider_V1_ProviderClientMetadata.Methods.CreateEcosystem.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -154,7 +154,7 @@ public extension Services_Provider_V1_ProviderClientProtocol {
         _ request: Services_Provider_V1_UpdateEcosystemRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Provider_V1_UpdateEcosystemRequest, Services_Provider_V1_UpdateEcosystemResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Provider_V1_ProviderClientMetadata.Methods.UpdateEcosystem.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -172,7 +172,7 @@ public extension Services_Provider_V1_ProviderClientProtocol {
         _ request: Services_Provider_V1_GrantAuthorizationRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Provider_V1_GrantAuthorizationRequest, Services_Provider_V1_GrantAuthorizationResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Provider_V1_ProviderClientMetadata.Methods.GrantAuthorization.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -190,7 +190,7 @@ public extension Services_Provider_V1_ProviderClientProtocol {
         _ request: Services_Provider_V1_RevokeAuthorizationRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Provider_V1_RevokeAuthorizationRequest, Services_Provider_V1_RevokeAuthorizationResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Provider_V1_ProviderClientMetadata.Methods.RevokeAuthorization.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -208,7 +208,7 @@ public extension Services_Provider_V1_ProviderClientProtocol {
         _ request: Services_Provider_V1_GetAuthorizationsRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Provider_V1_GetAuthorizationsRequest, Services_Provider_V1_GetAuthorizationsResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Provider_V1_ProviderClientMetadata.Methods.GetAuthorizations.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -226,7 +226,7 @@ public extension Services_Provider_V1_ProviderClientProtocol {
         _ request: Services_Provider_V1_AddWebhookRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Provider_V1_AddWebhookRequest, Services_Provider_V1_AddWebhookResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Provider_V1_ProviderClientMetadata.Methods.AddWebhook.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -244,7 +244,7 @@ public extension Services_Provider_V1_ProviderClientProtocol {
         _ request: Services_Provider_V1_DeleteWebhookRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Provider_V1_DeleteWebhookRequest, Services_Provider_V1_DeleteWebhookResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Provider_V1_ProviderClientMetadata.Methods.DeleteWebhook.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -262,7 +262,7 @@ public extension Services_Provider_V1_ProviderClientProtocol {
         _ request: Services_Provider_V1_EcosystemInfoRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Provider_V1_EcosystemInfoRequest, Services_Provider_V1_EcosystemInfoResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Provider_V1_ProviderClientMetadata.Methods.EcosystemInfo.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -280,7 +280,7 @@ public extension Services_Provider_V1_ProviderClientProtocol {
         _ request: Services_Provider_V1_GetPublicEcosystemInfoRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Provider_V1_GetPublicEcosystemInfoRequest, Services_Provider_V1_GetPublicEcosystemInfoResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Provider_V1_ProviderClientMetadata.Methods.GetPublicEcosystemInfo.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -299,7 +299,7 @@ public extension Services_Provider_V1_ProviderClientProtocol {
         _ request: Services_Provider_V1_GenerateTokenRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Provider_V1_GenerateTokenRequest, Services_Provider_V1_GenerateTokenResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Provider_V1_ProviderClientMetadata.Methods.GenerateToken.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -317,7 +317,7 @@ public extension Services_Provider_V1_ProviderClientProtocol {
         _ request: Services_Provider_V1_InviteRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Provider_V1_InviteRequest, Services_Provider_V1_InviteResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Provider_V1_ProviderClientMetadata.Methods.Invite.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -335,7 +335,7 @@ public extension Services_Provider_V1_ProviderClientProtocol {
         _ request: Services_Provider_V1_InvitationStatusRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Provider_V1_InvitationStatusRequest, Services_Provider_V1_InvitationStatusResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Provider_V1_ProviderClientMetadata.Methods.InvitationStatus.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -353,7 +353,7 @@ public extension Services_Provider_V1_ProviderClientProtocol {
         _ request: Services_Provider_V1_GetOberonKeyRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Provider_V1_GetOberonKeyRequest, Services_Provider_V1_GetOberonKeyResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Provider_V1_ProviderClientMetadata.Methods.GetOberonKey.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -371,7 +371,7 @@ public extension Services_Provider_V1_ProviderClientProtocol {
         _ request: Services_Provider_V1_GetEventTokenRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Provider_V1_GetEventTokenRequest, Services_Provider_V1_GetEventTokenResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Provider_V1_ProviderClientMetadata.Methods.GetEventToken.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -389,7 +389,7 @@ public extension Services_Provider_V1_ProviderClientProtocol {
         _ request: Services_Provider_V1_UpgradeDidRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Provider_V1_UpgradeDidRequest, Services_Provider_V1_UpgradeDidResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Provider_V1_ProviderClientMetadata.Methods.UpgradeDID.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -407,7 +407,7 @@ public extension Services_Provider_V1_ProviderClientProtocol {
         _ request: Services_Provider_V1_RetrieveDomainVerificationRecordRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Provider_V1_RetrieveDomainVerificationRecordRequest, Services_Provider_V1_RetrieveDomainVerificationRecordResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Provider_V1_ProviderClientMetadata.Methods.RetrieveDomainVerificationRecord.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -425,7 +425,7 @@ public extension Services_Provider_V1_ProviderClientProtocol {
         _ request: Services_Provider_V1_RefreshDomainVerificationStatusRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Provider_V1_RefreshDomainVerificationStatusRequest, Services_Provider_V1_RefreshDomainVerificationStatusResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Provider_V1_ProviderClientMetadata.Methods.RefreshDomainVerificationStatus.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -443,7 +443,7 @@ public extension Services_Provider_V1_ProviderClientProtocol {
         _ request: Services_Provider_V1_SearchWalletConfigurationsRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Provider_V1_SearchWalletConfigurationsRequest, Services_Provider_V1_SearchWalletConfigurationResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Provider_V1_ProviderClientMetadata.Methods.SearchWalletConfigurations.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -612,18 +612,18 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
     @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
     public extension Services_Provider_V1_ProviderAsyncClientProtocol {
         static var serviceDescriptor: GRPCServiceDescriptor {
-            return Services_Provider_V1_ProviderClientMetadata.serviceDescriptor
+            Services_Provider_V1_ProviderClientMetadata.serviceDescriptor
         }
 
         var interceptors: Services_Provider_V1_ProviderClientInterceptorFactoryProtocol? {
-            return nil
+            nil
         }
 
         func makeCreateEcosystemCall(
             _ request: Services_Provider_V1_CreateEcosystemRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Provider_V1_CreateEcosystemRequest, Services_Provider_V1_CreateEcosystemResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Provider_V1_ProviderClientMetadata.Methods.CreateEcosystem.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -635,7 +635,7 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
             _ request: Services_Provider_V1_UpdateEcosystemRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Provider_V1_UpdateEcosystemRequest, Services_Provider_V1_UpdateEcosystemResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Provider_V1_ProviderClientMetadata.Methods.UpdateEcosystem.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -647,7 +647,7 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
             _ request: Services_Provider_V1_GrantAuthorizationRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Provider_V1_GrantAuthorizationRequest, Services_Provider_V1_GrantAuthorizationResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Provider_V1_ProviderClientMetadata.Methods.GrantAuthorization.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -659,7 +659,7 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
             _ request: Services_Provider_V1_RevokeAuthorizationRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Provider_V1_RevokeAuthorizationRequest, Services_Provider_V1_RevokeAuthorizationResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Provider_V1_ProviderClientMetadata.Methods.RevokeAuthorization.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -671,7 +671,7 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
             _ request: Services_Provider_V1_GetAuthorizationsRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Provider_V1_GetAuthorizationsRequest, Services_Provider_V1_GetAuthorizationsResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Provider_V1_ProviderClientMetadata.Methods.GetAuthorizations.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -683,7 +683,7 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
             _ request: Services_Provider_V1_AddWebhookRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Provider_V1_AddWebhookRequest, Services_Provider_V1_AddWebhookResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Provider_V1_ProviderClientMetadata.Methods.AddWebhook.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -695,7 +695,7 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
             _ request: Services_Provider_V1_DeleteWebhookRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Provider_V1_DeleteWebhookRequest, Services_Provider_V1_DeleteWebhookResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Provider_V1_ProviderClientMetadata.Methods.DeleteWebhook.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -707,7 +707,7 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
             _ request: Services_Provider_V1_EcosystemInfoRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Provider_V1_EcosystemInfoRequest, Services_Provider_V1_EcosystemInfoResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Provider_V1_ProviderClientMetadata.Methods.EcosystemInfo.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -719,7 +719,7 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
             _ request: Services_Provider_V1_GetPublicEcosystemInfoRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Provider_V1_GetPublicEcosystemInfoRequest, Services_Provider_V1_GetPublicEcosystemInfoResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Provider_V1_ProviderClientMetadata.Methods.GetPublicEcosystemInfo.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -731,7 +731,7 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
             _ request: Services_Provider_V1_GenerateTokenRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Provider_V1_GenerateTokenRequest, Services_Provider_V1_GenerateTokenResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Provider_V1_ProviderClientMetadata.Methods.GenerateToken.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -743,7 +743,7 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
             _ request: Services_Provider_V1_InviteRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Provider_V1_InviteRequest, Services_Provider_V1_InviteResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Provider_V1_ProviderClientMetadata.Methods.Invite.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -755,7 +755,7 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
             _ request: Services_Provider_V1_InvitationStatusRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Provider_V1_InvitationStatusRequest, Services_Provider_V1_InvitationStatusResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Provider_V1_ProviderClientMetadata.Methods.InvitationStatus.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -767,7 +767,7 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
             _ request: Services_Provider_V1_GetOberonKeyRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Provider_V1_GetOberonKeyRequest, Services_Provider_V1_GetOberonKeyResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Provider_V1_ProviderClientMetadata.Methods.GetOberonKey.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -779,7 +779,7 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
             _ request: Services_Provider_V1_GetEventTokenRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Provider_V1_GetEventTokenRequest, Services_Provider_V1_GetEventTokenResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Provider_V1_ProviderClientMetadata.Methods.GetEventToken.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -791,7 +791,7 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
             _ request: Services_Provider_V1_UpgradeDidRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Provider_V1_UpgradeDidRequest, Services_Provider_V1_UpgradeDidResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Provider_V1_ProviderClientMetadata.Methods.UpgradeDID.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -803,7 +803,7 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
             _ request: Services_Provider_V1_RetrieveDomainVerificationRecordRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Provider_V1_RetrieveDomainVerificationRecordRequest, Services_Provider_V1_RetrieveDomainVerificationRecordResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Provider_V1_ProviderClientMetadata.Methods.RetrieveDomainVerificationRecord.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -815,7 +815,7 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
             _ request: Services_Provider_V1_RefreshDomainVerificationStatusRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Provider_V1_RefreshDomainVerificationStatusRequest, Services_Provider_V1_RefreshDomainVerificationStatusResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Provider_V1_ProviderClientMetadata.Methods.RefreshDomainVerificationStatus.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -827,7 +827,7 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
             _ request: Services_Provider_V1_SearchWalletConfigurationsRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Provider_V1_SearchWalletConfigurationsRequest, Services_Provider_V1_SearchWalletConfigurationResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Provider_V1_ProviderClientMetadata.Methods.SearchWalletConfigurations.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -842,7 +842,7 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
             _ request: Services_Provider_V1_CreateEcosystemRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Provider_V1_CreateEcosystemResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Provider_V1_ProviderClientMetadata.Methods.CreateEcosystem.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -854,7 +854,7 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
             _ request: Services_Provider_V1_UpdateEcosystemRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Provider_V1_UpdateEcosystemResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Provider_V1_ProviderClientMetadata.Methods.UpdateEcosystem.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -866,7 +866,7 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
             _ request: Services_Provider_V1_GrantAuthorizationRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Provider_V1_GrantAuthorizationResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Provider_V1_ProviderClientMetadata.Methods.GrantAuthorization.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -878,7 +878,7 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
             _ request: Services_Provider_V1_RevokeAuthorizationRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Provider_V1_RevokeAuthorizationResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Provider_V1_ProviderClientMetadata.Methods.RevokeAuthorization.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -890,7 +890,7 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
             _ request: Services_Provider_V1_GetAuthorizationsRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Provider_V1_GetAuthorizationsResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Provider_V1_ProviderClientMetadata.Methods.GetAuthorizations.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -902,7 +902,7 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
             _ request: Services_Provider_V1_AddWebhookRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Provider_V1_AddWebhookResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Provider_V1_ProviderClientMetadata.Methods.AddWebhook.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -914,7 +914,7 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
             _ request: Services_Provider_V1_DeleteWebhookRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Provider_V1_DeleteWebhookResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Provider_V1_ProviderClientMetadata.Methods.DeleteWebhook.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -926,7 +926,7 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
             _ request: Services_Provider_V1_EcosystemInfoRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Provider_V1_EcosystemInfoResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Provider_V1_ProviderClientMetadata.Methods.EcosystemInfo.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -938,7 +938,7 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
             _ request: Services_Provider_V1_GetPublicEcosystemInfoRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Provider_V1_GetPublicEcosystemInfoResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Provider_V1_ProviderClientMetadata.Methods.GetPublicEcosystemInfo.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -950,7 +950,7 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
             _ request: Services_Provider_V1_GenerateTokenRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Provider_V1_GenerateTokenResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Provider_V1_ProviderClientMetadata.Methods.GenerateToken.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -962,7 +962,7 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
             _ request: Services_Provider_V1_InviteRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Provider_V1_InviteResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Provider_V1_ProviderClientMetadata.Methods.Invite.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -974,7 +974,7 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
             _ request: Services_Provider_V1_InvitationStatusRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Provider_V1_InvitationStatusResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Provider_V1_ProviderClientMetadata.Methods.InvitationStatus.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -986,7 +986,7 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
             _ request: Services_Provider_V1_GetOberonKeyRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Provider_V1_GetOberonKeyResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Provider_V1_ProviderClientMetadata.Methods.GetOberonKey.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -998,7 +998,7 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
             _ request: Services_Provider_V1_GetEventTokenRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Provider_V1_GetEventTokenResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Provider_V1_ProviderClientMetadata.Methods.GetEventToken.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -1010,7 +1010,7 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
             _ request: Services_Provider_V1_UpgradeDidRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Provider_V1_UpgradeDidResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Provider_V1_ProviderClientMetadata.Methods.UpgradeDID.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -1022,7 +1022,7 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
             _ request: Services_Provider_V1_RetrieveDomainVerificationRecordRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Provider_V1_RetrieveDomainVerificationRecordResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Provider_V1_ProviderClientMetadata.Methods.RetrieveDomainVerificationRecord.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -1034,7 +1034,7 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
             _ request: Services_Provider_V1_RefreshDomainVerificationStatusRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Provider_V1_RefreshDomainVerificationStatusResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Provider_V1_ProviderClientMetadata.Methods.RefreshDomainVerificationStatus.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -1046,7 +1046,7 @@ public struct Services_Provider_V1_ProviderNIOClient: Services_Provider_V1_Provi
             _ request: Services_Provider_V1_SearchWalletConfigurationsRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Provider_V1_SearchWalletConfigurationResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Provider_V1_ProviderClientMetadata.Methods.SearchWalletConfigurations.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -1329,7 +1329,7 @@ public protocol Services_Provider_V1_ProviderProvider: CallHandlerProvider {
 
 public extension Services_Provider_V1_ProviderProvider {
     var serviceName: Substring {
-        return Services_Provider_V1_ProviderServerMetadata.serviceDescriptor.fullName[...]
+        Services_Provider_V1_ProviderServerMetadata.serviceDescriptor.fullName[...]
     }
 
     /// Determines, calls and returns the appropriate request handler, depending on the request's method.
@@ -1628,15 +1628,15 @@ public extension Services_Provider_V1_ProviderProvider {
     @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
     public extension Services_Provider_V1_ProviderAsyncProvider {
         static var serviceDescriptor: GRPCServiceDescriptor {
-            return Services_Provider_V1_ProviderServerMetadata.serviceDescriptor
+            Services_Provider_V1_ProviderServerMetadata.serviceDescriptor
         }
 
         var serviceName: Substring {
-            return Services_Provider_V1_ProviderServerMetadata.serviceDescriptor.fullName[...]
+            Services_Provider_V1_ProviderServerMetadata.serviceDescriptor.fullName[...]
         }
 
         var interceptors: Services_Provider_V1_ProviderServerInterceptorFactoryProtocol? {
-            return nil
+            nil
         }
 
         func handle(

@@ -127,25 +127,25 @@ public class AccountService: ServiceBase {
     // target: C:\work\sdk-swift\Sources\Trinsic\AccountService.swift
 
     public func info(request: Services_Account_V1_AccountInfoRequest) throws -> Services_Account_V1_AccountInfoResponse {
-        return try client!.Info(request, callOptions: try buildMetadata(request))
+        try client!.Info(request, callOptions: try buildMetadata(request))
             .response
             .wait()
     }
 
     public func listDevices(request: Services_Account_V1_ListDevicesRequest) throws -> Services_Account_V1_ListDevicesResponse {
-        return try client!.ListDevices(request, callOptions: try buildMetadata(request))
+        try client!.ListDevices(request, callOptions: try buildMetadata(request))
             .response
             .wait()
     }
 
     public func revokeDevice(request: Services_Account_V1_RevokeDeviceRequest) throws -> Services_Account_V1_RevokeDeviceResponse {
-        return try client!.RevokeDevice(request, callOptions: try buildMetadata(request))
+        try client!.RevokeDevice(request, callOptions: try buildMetadata(request))
             .response
             .wait()
     }
 
     public func authorizeWebhook(request: Services_Account_V1_AuthorizeWebhookRequest) throws -> Services_Account_V1_AuthorizeWebhookResponse {
-        return try client!.AuthorizeWebhook(request, callOptions: try buildMetadata(request))
+        try client!.AuthorizeWebhook(request, callOptions: try buildMetadata(request))
             .response
             .wait()
     }

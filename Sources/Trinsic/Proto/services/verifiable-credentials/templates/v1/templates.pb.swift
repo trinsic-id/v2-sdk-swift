@@ -90,12 +90,12 @@ public struct Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateR
 
     /// Template fetched by ID
     public var template: Services_Verifiablecredentials_Templates_V1_TemplateData {
-        get { return _template ?? Services_Verifiablecredentials_Templates_V1_TemplateData() }
+        get { _template ?? Services_Verifiablecredentials_Templates_V1_TemplateData() }
         set { _template = newValue }
     }
 
     /// Returns true if `template` has been explicitly set.
-    public var hasTemplate: Bool { return _template != nil }
+    public var hasTemplate: Bool { _template != nil }
     /// Clears the value of `template`. Subsequent reads from it will return its default value.
     public mutating func clearTemplate() { _template = nil }
 
@@ -236,12 +236,12 @@ public struct Services_Verifiablecredentials_Templates_V1_CreateCredentialTempla
 
     /// Created template
     public var data: Services_Verifiablecredentials_Templates_V1_TemplateData {
-        get { return _data ?? Services_Verifiablecredentials_Templates_V1_TemplateData() }
+        get { _data ?? Services_Verifiablecredentials_Templates_V1_TemplateData() }
         set { _data = newValue }
     }
 
     /// Returns true if `data` has been explicitly set.
-    public var hasData: Bool { return _data != nil }
+    public var hasData: Bool { _data != nil }
     /// Clears the value of `data`. Subsequent reads from it will return its default value.
     public mutating func clearData() { _data = nil }
 
@@ -292,12 +292,12 @@ public struct Services_Verifiablecredentials_Templates_V1_GetTemplateResponse {
     // methods supported on all messages.
 
     public var data: Services_Verifiablecredentials_Templates_V1_TemplateData {
-        get { return _data ?? Services_Verifiablecredentials_Templates_V1_TemplateData() }
+        get { _data ?? Services_Verifiablecredentials_Templates_V1_TemplateData() }
         set { _data = newValue }
     }
 
     /// Returns true if `data` has been explicitly set.
-    public var hasData: Bool { return _data != nil }
+    public var hasData: Bool { _data != nil }
     /// Clears the value of `data`. Subsequent reads from it will return its default value.
     public mutating func clearData() { _data = nil }
 

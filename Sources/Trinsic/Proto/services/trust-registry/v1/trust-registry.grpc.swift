@@ -69,7 +69,7 @@ public protocol Services_Trustregistry_V1_TrustRegistryClientProtocol: GRPCClien
 
 public extension Services_Trustregistry_V1_TrustRegistryClientProtocol {
     var serviceName: String {
-        return "services.trustregistry.v1.TrustRegistry"
+        "services.trustregistry.v1.TrustRegistry"
     }
 
     /// Add a governance framework to the ecosystem
@@ -82,7 +82,7 @@ public extension Services_Trustregistry_V1_TrustRegistryClientProtocol {
         _ request: Services_Trustregistry_V1_AddFrameworkRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Trustregistry_V1_AddFrameworkRequest, Services_Trustregistry_V1_AddFrameworkResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.AddFramework.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -100,7 +100,7 @@ public extension Services_Trustregistry_V1_TrustRegistryClientProtocol {
         _ request: Services_Trustregistry_V1_RemoveFrameworkRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Trustregistry_V1_RemoveFrameworkRequest, Services_Trustregistry_V1_RemoveFrameworkResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.RemoveFramework.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -118,7 +118,7 @@ public extension Services_Trustregistry_V1_TrustRegistryClientProtocol {
         _ request: Services_Trustregistry_V1_SearchRegistryRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Trustregistry_V1_SearchRegistryRequest, Services_Trustregistry_V1_SearchRegistryResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.SearchRegistry.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -136,7 +136,7 @@ public extension Services_Trustregistry_V1_TrustRegistryClientProtocol {
         _ request: Services_Trustregistry_V1_RegisterMemberRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Trustregistry_V1_RegisterMemberRequest, Services_Trustregistry_V1_RegisterMemberResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.RegisterMember.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -154,7 +154,7 @@ public extension Services_Trustregistry_V1_TrustRegistryClientProtocol {
         _ request: Services_Trustregistry_V1_UnregisterMemberRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Trustregistry_V1_UnregisterMemberRequest, Services_Trustregistry_V1_UnregisterMemberResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.UnregisterMember.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -172,7 +172,7 @@ public extension Services_Trustregistry_V1_TrustRegistryClientProtocol {
         _ request: Services_Trustregistry_V1_GetMembershipStatusRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Trustregistry_V1_GetMembershipStatusRequest, Services_Trustregistry_V1_GetMembershipStatusResponse> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.GetMembershipStatus.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -192,7 +192,7 @@ public extension Services_Trustregistry_V1_TrustRegistryClientProtocol {
         callOptions: CallOptions? = nil,
         handler: @escaping (Services_Trustregistry_V1_FetchDataResponse) -> Void
     ) -> ServerStreamingCall<Services_Trustregistry_V1_FetchDataRequest, Services_Trustregistry_V1_FetchDataResponse> {
-        return makeServerStreamingCall(
+        makeServerStreamingCall(
             path: Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.FetchData.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -307,18 +307,18 @@ public struct Services_Trustregistry_V1_TrustRegistryNIOClient: Services_Trustre
     @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
     public extension Services_Trustregistry_V1_TrustRegistryAsyncClientProtocol {
         static var serviceDescriptor: GRPCServiceDescriptor {
-            return Services_Trustregistry_V1_TrustRegistryClientMetadata.serviceDescriptor
+            Services_Trustregistry_V1_TrustRegistryClientMetadata.serviceDescriptor
         }
 
         var interceptors: Services_Trustregistry_V1_TrustRegistryClientInterceptorFactoryProtocol? {
-            return nil
+            nil
         }
 
         func makeAddFrameworkCall(
             _ request: Services_Trustregistry_V1_AddFrameworkRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Trustregistry_V1_AddFrameworkRequest, Services_Trustregistry_V1_AddFrameworkResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.AddFramework.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -330,7 +330,7 @@ public struct Services_Trustregistry_V1_TrustRegistryNIOClient: Services_Trustre
             _ request: Services_Trustregistry_V1_RemoveFrameworkRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Trustregistry_V1_RemoveFrameworkRequest, Services_Trustregistry_V1_RemoveFrameworkResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.RemoveFramework.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -342,7 +342,7 @@ public struct Services_Trustregistry_V1_TrustRegistryNIOClient: Services_Trustre
             _ request: Services_Trustregistry_V1_SearchRegistryRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Trustregistry_V1_SearchRegistryRequest, Services_Trustregistry_V1_SearchRegistryResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.SearchRegistry.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -354,7 +354,7 @@ public struct Services_Trustregistry_V1_TrustRegistryNIOClient: Services_Trustre
             _ request: Services_Trustregistry_V1_RegisterMemberRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Trustregistry_V1_RegisterMemberRequest, Services_Trustregistry_V1_RegisterMemberResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.RegisterMember.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -366,7 +366,7 @@ public struct Services_Trustregistry_V1_TrustRegistryNIOClient: Services_Trustre
             _ request: Services_Trustregistry_V1_UnregisterMemberRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Trustregistry_V1_UnregisterMemberRequest, Services_Trustregistry_V1_UnregisterMemberResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.UnregisterMember.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -378,7 +378,7 @@ public struct Services_Trustregistry_V1_TrustRegistryNIOClient: Services_Trustre
             _ request: Services_Trustregistry_V1_GetMembershipStatusRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<Services_Trustregistry_V1_GetMembershipStatusRequest, Services_Trustregistry_V1_GetMembershipStatusResponse> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.GetMembershipStatus.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -390,7 +390,7 @@ public struct Services_Trustregistry_V1_TrustRegistryNIOClient: Services_Trustre
             _ request: Services_Trustregistry_V1_FetchDataRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncServerStreamingCall<Services_Trustregistry_V1_FetchDataRequest, Services_Trustregistry_V1_FetchDataResponse> {
-            return makeAsyncServerStreamingCall(
+            makeAsyncServerStreamingCall(
                 path: Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.FetchData.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -405,7 +405,7 @@ public struct Services_Trustregistry_V1_TrustRegistryNIOClient: Services_Trustre
             _ request: Services_Trustregistry_V1_AddFrameworkRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Trustregistry_V1_AddFrameworkResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.AddFramework.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -417,7 +417,7 @@ public struct Services_Trustregistry_V1_TrustRegistryNIOClient: Services_Trustre
             _ request: Services_Trustregistry_V1_RemoveFrameworkRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Trustregistry_V1_RemoveFrameworkResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.RemoveFramework.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -429,7 +429,7 @@ public struct Services_Trustregistry_V1_TrustRegistryNIOClient: Services_Trustre
             _ request: Services_Trustregistry_V1_SearchRegistryRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Trustregistry_V1_SearchRegistryResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.SearchRegistry.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -441,7 +441,7 @@ public struct Services_Trustregistry_V1_TrustRegistryNIOClient: Services_Trustre
             _ request: Services_Trustregistry_V1_RegisterMemberRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Trustregistry_V1_RegisterMemberResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.RegisterMember.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -453,7 +453,7 @@ public struct Services_Trustregistry_V1_TrustRegistryNIOClient: Services_Trustre
             _ request: Services_Trustregistry_V1_UnregisterMemberRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Trustregistry_V1_UnregisterMemberResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.UnregisterMember.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -465,7 +465,7 @@ public struct Services_Trustregistry_V1_TrustRegistryNIOClient: Services_Trustre
             _ request: Services_Trustregistry_V1_GetMembershipStatusRequest,
             callOptions: CallOptions? = nil
         ) async throws -> Services_Trustregistry_V1_GetMembershipStatusResponse {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.GetMembershipStatus.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -477,7 +477,7 @@ public struct Services_Trustregistry_V1_TrustRegistryNIOClient: Services_Trustre
             _ request: Services_Trustregistry_V1_FetchDataRequest,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncResponseStream<Services_Trustregistry_V1_FetchDataResponse> {
-            return performAsyncServerStreamingCall(
+            performAsyncServerStreamingCall(
                 path: Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.FetchData.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -616,7 +616,7 @@ public protocol Services_Trustregistry_V1_TrustRegistryProvider: CallHandlerProv
 
 public extension Services_Trustregistry_V1_TrustRegistryProvider {
     var serviceName: Substring {
-        return Services_Trustregistry_V1_TrustRegistryServerMetadata.serviceDescriptor.fullName[...]
+        Services_Trustregistry_V1_TrustRegistryServerMetadata.serviceDescriptor.fullName[...]
     }
 
     /// Determines, calls and returns the appropriate request handler, depending on the request's method.
@@ -750,15 +750,15 @@ public extension Services_Trustregistry_V1_TrustRegistryProvider {
     @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
     public extension Services_Trustregistry_V1_TrustRegistryAsyncProvider {
         static var serviceDescriptor: GRPCServiceDescriptor {
-            return Services_Trustregistry_V1_TrustRegistryServerMetadata.serviceDescriptor
+            Services_Trustregistry_V1_TrustRegistryServerMetadata.serviceDescriptor
         }
 
         var serviceName: Substring {
-            return Services_Trustregistry_V1_TrustRegistryServerMetadata.serviceDescriptor.fullName[...]
+            Services_Trustregistry_V1_TrustRegistryServerMetadata.serviceDescriptor.fullName[...]
         }
 
         var interceptors: Services_Trustregistry_V1_TrustRegistryServerInterceptorFactoryProtocol? {
-            return nil
+            nil
         }
 
         func handle(

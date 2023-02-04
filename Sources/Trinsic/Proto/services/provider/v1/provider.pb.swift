@@ -78,12 +78,12 @@ public struct Services_Provider_V1_InviteRequest {
 
     /// Account details of invitee
     public var details: Services_Account_V1_AccountDetails {
-        get { return _details ?? Services_Account_V1_AccountDetails() }
+        get { _details ?? Services_Account_V1_AccountDetails() }
         set { _details = newValue }
     }
 
     /// Returns true if `details` has been explicitly set.
-    public var hasDetails: Bool { return _details != nil }
+    public var hasDetails: Bool { _details != nil }
     /// Clears the value of `details`. Subsequent reads from it will return its default value.
     public mutating func clearDetails() { _details = nil }
 
@@ -230,12 +230,12 @@ public struct Services_Provider_V1_Ecosystem {
 
     /// Display details
     public var display: Services_Provider_V1_EcosystemDisplay {
-        get { return _display ?? Services_Provider_V1_EcosystemDisplay() }
+        get { _display ?? Services_Provider_V1_EcosystemDisplay() }
         set { _display = newValue }
     }
 
     /// Returns true if `display` has been explicitly set.
-    public var hasDisplay: Bool { return _display != nil }
+    public var hasDisplay: Bool { _display != nil }
     /// Clears the value of `display`. Subsequent reads from it will return its default value.
     public mutating func clearDisplay() { _display = nil }
 
@@ -312,12 +312,12 @@ public struct Services_Provider_V1_CreateEcosystemRequest {
 
     /// The account details of the owner of the ecosystem
     public var details: Services_Account_V1_AccountDetails {
-        get { return _details ?? Services_Account_V1_AccountDetails() }
+        get { _details ?? Services_Account_V1_AccountDetails() }
         set { _details = newValue }
     }
 
     /// Returns true if `details` has been explicitly set.
-    public var hasDetails: Bool { return _details != nil }
+    public var hasDetails: Bool { _details != nil }
     /// Clears the value of `details`. Subsequent reads from it will return its default value.
     public mutating func clearDetails() { _details = nil }
 
@@ -339,23 +339,23 @@ public struct Services_Provider_V1_CreateEcosystemResponse {
 
     /// Details of the created ecosystem
     public var ecosystem: Services_Provider_V1_Ecosystem {
-        get { return _ecosystem ?? Services_Provider_V1_Ecosystem() }
+        get { _ecosystem ?? Services_Provider_V1_Ecosystem() }
         set { _ecosystem = newValue }
     }
 
     /// Returns true if `ecosystem` has been explicitly set.
-    public var hasEcosystem: Bool { return _ecosystem != nil }
+    public var hasEcosystem: Bool { _ecosystem != nil }
     /// Clears the value of `ecosystem`. Subsequent reads from it will return its default value.
     public mutating func clearEcosystem() { _ecosystem = nil }
 
     /// Account profile for auth of the owner of the ecosystem
     public var profile: Services_Account_V1_AccountProfile {
-        get { return _profile ?? Services_Account_V1_AccountProfile() }
+        get { _profile ?? Services_Account_V1_AccountProfile() }
         set { _profile = newValue }
     }
 
     /// Returns true if `profile` has been explicitly set.
-    public var hasProfile: Bool { return _profile != nil }
+    public var hasProfile: Bool { _profile != nil }
     /// Clears the value of `profile`. Subsequent reads from it will return its default value.
     public mutating func clearProfile() { _profile = nil }
 
@@ -390,12 +390,12 @@ public struct Services_Provider_V1_UpdateEcosystemRequest {
 
     /// Display details
     public var display: Services_Provider_V1_EcosystemDisplay {
-        get { return _display ?? Services_Provider_V1_EcosystemDisplay() }
+        get { _display ?? Services_Provider_V1_EcosystemDisplay() }
         set { _display = newValue }
     }
 
     /// Returns true if `display` has been explicitly set.
-    public var hasDisplay: Bool { return _display != nil }
+    public var hasDisplay: Bool { _display != nil }
     /// Clears the value of `display`. Subsequent reads from it will return its default value.
     public mutating func clearDisplay() { _display = nil }
 
@@ -412,22 +412,22 @@ public struct Services_Provider_V1_EcosystemDisplay {
     // methods supported on all messages.
 
     public var dark: Services_Provider_V1_EcosystemDisplayDetails {
-        get { return _dark ?? Services_Provider_V1_EcosystemDisplayDetails() }
+        get { _dark ?? Services_Provider_V1_EcosystemDisplayDetails() }
         set { _dark = newValue }
     }
 
     /// Returns true if `dark` has been explicitly set.
-    public var hasDark: Bool { return _dark != nil }
+    public var hasDark: Bool { _dark != nil }
     /// Clears the value of `dark`. Subsequent reads from it will return its default value.
     public mutating func clearDark() { _dark = nil }
 
     public var light: Services_Provider_V1_EcosystemDisplayDetails {
-        get { return _light ?? Services_Provider_V1_EcosystemDisplayDetails() }
+        get { _light ?? Services_Provider_V1_EcosystemDisplayDetails() }
         set { _light = newValue }
     }
 
     /// Returns true if `light` has been explicitly set.
-    public var hasLight: Bool { return _light != nil }
+    public var hasLight: Bool { _light != nil }
     /// Clears the value of `light`. Subsequent reads from it will return its default value.
     public mutating func clearLight() { _light = nil }
 
@@ -463,12 +463,12 @@ public struct Services_Provider_V1_UpdateEcosystemResponse {
 
     /// Current ecosystem metadata, post-update
     public var ecosystem: Services_Provider_V1_Ecosystem {
-        get { return _ecosystem ?? Services_Provider_V1_Ecosystem() }
+        get { _ecosystem ?? Services_Provider_V1_Ecosystem() }
         set { _ecosystem = newValue }
     }
 
     /// Returns true if `ecosystem` has been explicitly set.
-    public var hasEcosystem: Bool { return _ecosystem != nil }
+    public var hasEcosystem: Bool { _ecosystem != nil }
     /// Clears the value of `ecosystem`. Subsequent reads from it will return its default value.
     public mutating func clearEcosystem() { _ecosystem = nil }
 
@@ -509,12 +509,12 @@ public struct Services_Provider_V1_AddWebhookResponse {
 
     /// Ecosystem data with new webhook
     public var ecosystem: Services_Provider_V1_Ecosystem {
-        get { return _ecosystem ?? Services_Provider_V1_Ecosystem() }
+        get { _ecosystem ?? Services_Provider_V1_Ecosystem() }
         set { _ecosystem = newValue }
     }
 
     /// Returns true if `ecosystem` has been explicitly set.
-    public var hasEcosystem: Bool { return _ecosystem != nil }
+    public var hasEcosystem: Bool { _ecosystem != nil }
     /// Clears the value of `ecosystem`. Subsequent reads from it will return its default value.
     public mutating func clearEcosystem() { _ecosystem = nil }
 
@@ -547,12 +547,12 @@ public struct Services_Provider_V1_DeleteWebhookResponse {
 
     /// Ecosystem data after removal of webhook
     public var ecosystem: Services_Provider_V1_Ecosystem {
-        get { return _ecosystem ?? Services_Provider_V1_Ecosystem() }
+        get { _ecosystem ?? Services_Provider_V1_Ecosystem() }
         set { _ecosystem = newValue }
     }
 
     /// Returns true if `ecosystem` has been explicitly set.
-    public var hasEcosystem: Bool { return _ecosystem != nil }
+    public var hasEcosystem: Bool { _ecosystem != nil }
     /// Clears the value of `ecosystem`. Subsequent reads from it will return its default value.
     public mutating func clearEcosystem() { _ecosystem = nil }
 
@@ -582,12 +582,12 @@ public struct Services_Provider_V1_EcosystemInfoResponse {
 
     /// Ecosystem corresponding to current ecosystem in the account token
     public var ecosystem: Services_Provider_V1_Ecosystem {
-        get { return _ecosystem ?? Services_Provider_V1_Ecosystem() }
+        get { _ecosystem ?? Services_Provider_V1_Ecosystem() }
         set { _ecosystem = newValue }
     }
 
     /// Returns true if `ecosystem` has been explicitly set.
-    public var hasEcosystem: Bool { return _ecosystem != nil }
+    public var hasEcosystem: Bool { _ecosystem != nil }
     /// Clears the value of `ecosystem`. Subsequent reads from it will return its default value.
     public mutating func clearEcosystem() { _ecosystem = nil }
 
@@ -619,12 +619,12 @@ public struct Services_Provider_V1_GetPublicEcosystemInfoResponse {
 
     /// Ecosystem corresponding to requested `ecosystem_id`
     public var ecosystem: Services_Provider_V1_PublicEcosystemInformation {
-        get { return _ecosystem ?? Services_Provider_V1_PublicEcosystemInformation() }
+        get { _ecosystem ?? Services_Provider_V1_PublicEcosystemInformation() }
         set { _ecosystem = newValue }
     }
 
     /// Returns true if `ecosystem` has been explicitly set.
-    public var hasEcosystem: Bool { return _ecosystem != nil }
+    public var hasEcosystem: Bool { _ecosystem != nil }
     /// Clears the value of `ecosystem`. Subsequent reads from it will return its default value.
     public mutating func clearEcosystem() { _ecosystem = nil }
 
@@ -651,12 +651,12 @@ public struct Services_Provider_V1_PublicEcosystemInformation {
 
     /// Style display information
     public var styleDisplay: Services_Provider_V1_EcosystemDisplay {
-        get { return _styleDisplay ?? Services_Provider_V1_EcosystemDisplay() }
+        get { _styleDisplay ?? Services_Provider_V1_EcosystemDisplay() }
         set { _styleDisplay = newValue }
     }
 
     /// Returns true if `styleDisplay` has been explicitly set.
-    public var hasStyleDisplay: Bool { return _styleDisplay != nil }
+    public var hasStyleDisplay: Bool { _styleDisplay != nil }
     /// Clears the value of `styleDisplay`. Subsequent reads from it will return its default value.
     public mutating func clearStyleDisplay() { _styleDisplay = nil }
 
@@ -689,12 +689,12 @@ public struct Services_Provider_V1_GenerateTokenResponse {
 
     /// Account authentication profile that contains unprotected token
     public var profile: Services_Account_V1_AccountProfile {
-        get { return _profile ?? Services_Account_V1_AccountProfile() }
+        get { _profile ?? Services_Account_V1_AccountProfile() }
         set { _profile = newValue }
     }
 
     /// Returns true if `profile` has been explicitly set.
-    public var hasProfile: Bool { return _profile != nil }
+    public var hasProfile: Bool { _profile != nil }
     /// Clears the value of `profile`. Subsequent reads from it will return its default value.
     public mutating func clearProfile() { _profile = nil }
 

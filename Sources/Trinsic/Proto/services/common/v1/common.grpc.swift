@@ -37,7 +37,7 @@ public protocol Services_Common_V1_CommonClientProtocol: GRPCClient {
 
 public extension Services_Common_V1_CommonClientProtocol {
     var serviceName: String {
-        return "services.common.v1.Common"
+        "services.common.v1.Common"
     }
 
     /// Unary call to Request
@@ -50,7 +50,7 @@ public extension Services_Common_V1_CommonClientProtocol {
         _ request: Pbmse_V1_EncryptedMessage,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Pbmse_V1_EncryptedMessage, Pbmse_V1_EncryptedMessage> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: "/services.common.v1.Common/Request",
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -94,7 +94,7 @@ public protocol Services_Common_V1_CommonProvider: CallHandlerProvider {
 }
 
 public extension Services_Common_V1_CommonProvider {
-    var serviceName: Substring { return "services.common.v1.Common" }
+    var serviceName: Substring { "services.common.v1.Common" }
 
     /// Determines, calls and returns the appropriate request handler, depending on the request's method.
     /// Returns nil for methods not handled by this service.
