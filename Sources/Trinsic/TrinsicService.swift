@@ -26,7 +26,7 @@ public class TrinsicService: ServiceBase {
         _accessManagementService?.options = options
         return _accessManagementService!
     }
-    
+
     public func account() -> AccountService {
         _accountService = _accountService ?? AccountService(options: options)
         _accountService?.options = options
@@ -38,7 +38,7 @@ public class TrinsicService: ServiceBase {
         _credentialService?.options = options
         return _credentialService!
     }
-    
+
     public func fileManagement() -> FileManagementService {
         _fileManagementService = _fileManagementService ?? FileManagementService(options: options)
         _fileManagementService?.options = options
