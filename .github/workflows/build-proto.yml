@@ -32,9 +32,8 @@ jobs:
 
       - uses: trinsic-id/protoc-gen-sdk@main
         id: buildsdkwrappers
-      - name: Install protobuf plugins
-        run: |
-          brew install swift-protobuf grpc-swift
+        with:
+          swiftPath: ${{github.workspace}}/Sources/Trinsic
       - name: Compile proto files
         run: ./generate.bash
         shell: bash
