@@ -35,3 +35,4 @@ do
 done
 
 swiftformat . --swiftversion 5.6
+echo "Done!"
