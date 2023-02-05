@@ -33,6 +33,7 @@ jobs:
       - uses: trinsic-id/protoc-gen-sdk@main
         id: buildsdkwrappers
         with:
+          protoPath: ${{github.workspace}}/proto
           swiftPath: ${{github.workspace}}/Sources/Trinsic
       - name: Compile proto files
         run: ./generate.bash
