@@ -78,12 +78,12 @@ public struct Services_Provider_V1_InviteRequest {
 
     /// Account details of invitee
     public var details: Services_Account_V1_AccountDetails {
-        get { return _details ?? Services_Account_V1_AccountDetails() }
+        get { _details ?? Services_Account_V1_AccountDetails() }
         set { _details = newValue }
     }
 
     /// Returns true if `details` has been explicitly set.
-    public var hasDetails: Bool { return _details != nil }
+    public var hasDetails: Bool { _details != nil }
     /// Clears the value of `details`. Subsequent reads from it will return its default value.
     public mutating func clearDetails() { _details = nil }
 
@@ -230,12 +230,12 @@ public struct Services_Provider_V1_Ecosystem {
 
     /// Display details
     public var display: Services_Provider_V1_EcosystemDisplay {
-        get { return _display ?? Services_Provider_V1_EcosystemDisplay() }
+        get { _display ?? Services_Provider_V1_EcosystemDisplay() }
         set { _display = newValue }
     }
 
     /// Returns true if `display` has been explicitly set.
-    public var hasDisplay: Bool { return _display != nil }
+    public var hasDisplay: Bool { _display != nil }
     /// Clears the value of `display`. Subsequent reads from it will return its default value.
     public mutating func clearDisplay() { _display = nil }
 
@@ -312,12 +312,12 @@ public struct Services_Provider_V1_CreateEcosystemRequest {
 
     /// The account details of the owner of the ecosystem
     public var details: Services_Account_V1_AccountDetails {
-        get { return _details ?? Services_Account_V1_AccountDetails() }
+        get { _details ?? Services_Account_V1_AccountDetails() }
         set { _details = newValue }
     }
 
     /// Returns true if `details` has been explicitly set.
-    public var hasDetails: Bool { return _details != nil }
+    public var hasDetails: Bool { _details != nil }
     /// Clears the value of `details`. Subsequent reads from it will return its default value.
     public mutating func clearDetails() { _details = nil }
 
@@ -339,23 +339,23 @@ public struct Services_Provider_V1_CreateEcosystemResponse {
 
     /// Details of the created ecosystem
     public var ecosystem: Services_Provider_V1_Ecosystem {
-        get { return _ecosystem ?? Services_Provider_V1_Ecosystem() }
+        get { _ecosystem ?? Services_Provider_V1_Ecosystem() }
         set { _ecosystem = newValue }
     }
 
     /// Returns true if `ecosystem` has been explicitly set.
-    public var hasEcosystem: Bool { return _ecosystem != nil }
+    public var hasEcosystem: Bool { _ecosystem != nil }
     /// Clears the value of `ecosystem`. Subsequent reads from it will return its default value.
     public mutating func clearEcosystem() { _ecosystem = nil }
 
     /// Account profile for auth of the owner of the ecosystem
     public var profile: Services_Account_V1_AccountProfile {
-        get { return _profile ?? Services_Account_V1_AccountProfile() }
+        get { _profile ?? Services_Account_V1_AccountProfile() }
         set { _profile = newValue }
     }
 
     /// Returns true if `profile` has been explicitly set.
-    public var hasProfile: Bool { return _profile != nil }
+    public var hasProfile: Bool { _profile != nil }
     /// Clears the value of `profile`. Subsequent reads from it will return its default value.
     public mutating func clearProfile() { _profile = nil }
 
@@ -367,7 +367,7 @@ public struct Services_Provider_V1_CreateEcosystemResponse {
     public init() {}
 
     fileprivate var _ecosystem: Services_Provider_V1_Ecosystem?
-    fileprivate var _profile: Services_Account_V1_AccountProfile?
+    private var _profile: Services_Account_V1_AccountProfile?
 }
 
 /// Request to update an ecosystem's metadata
@@ -386,16 +386,15 @@ public struct Services_Provider_V1_UpdateEcosystemRequest {
     public var domain: String = .init()
 
     /// New name
-    public var name: String = .init()
-
+    /// string name = 4;
     /// Display details
-    public var display: Services_Provider_V1_EcosystemDisplay {
-        get { return _display ?? Services_Provider_V1_EcosystemDisplay() }
+    public var display: Services_Provider_V1_EcosystemDisplayRequest {
+        get { _display ?? Services_Provider_V1_EcosystemDisplayRequest() }
         set { _display = newValue }
     }
 
     /// Returns true if `display` has been explicitly set.
-    public var hasDisplay: Bool { return _display != nil }
+    public var hasDisplay: Bool { _display != nil }
     /// Clears the value of `display`. Subsequent reads from it will return its default value.
     public mutating func clearDisplay() { _display = nil }
 
@@ -403,31 +402,23 @@ public struct Services_Provider_V1_UpdateEcosystemRequest {
 
     public init() {}
 
-    fileprivate var _display: Services_Provider_V1_EcosystemDisplay?
+    fileprivate var _display: Services_Provider_V1_EcosystemDisplayRequest?
 }
 
-public struct Services_Provider_V1_EcosystemDisplay {
+public struct Services_Provider_V1_EcosystemDisplayRequest {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
 
-    public var dark: Services_Provider_V1_EcosystemDisplayDetails {
-        get { return _dark ?? Services_Provider_V1_EcosystemDisplayDetails() }
-        set { _dark = newValue }
-    }
-
-    /// Returns true if `dark` has been explicitly set.
-    public var hasDark: Bool { return _dark != nil }
-    /// Clears the value of `dark`. Subsequent reads from it will return its default value.
-    public mutating func clearDark() { _dark = nil }
-
-    public var light: Services_Provider_V1_EcosystemDisplayDetails {
-        get { return _light ?? Services_Provider_V1_EcosystemDisplayDetails() }
+    /// Removed the Dark after discussion with team, as we don't provide a dark UI anywhere (yet) in our platform.
+    /// EcosystemDisplayDetailsRequest dark = 1;
+    public var light: Services_Provider_V1_EcosystemDisplayDetailsRequest {
+        get { _light ?? Services_Provider_V1_EcosystemDisplayDetailsRequest() }
         set { _light = newValue }
     }
 
     /// Returns true if `light` has been explicitly set.
-    public var hasLight: Bool { return _light != nil }
+    public var hasLight: Bool { _light != nil }
     /// Clears the value of `light`. Subsequent reads from it will return its default value.
     public mutating func clearLight() { _light = nil }
 
@@ -435,7 +426,74 @@ public struct Services_Provider_V1_EcosystemDisplay {
 
     public init() {}
 
-    fileprivate var _dark: Services_Provider_V1_EcosystemDisplayDetails?
+    fileprivate var _light: Services_Provider_V1_EcosystemDisplayDetailsRequest?
+}
+
+public struct Services_Provider_V1_EcosystemDisplayDetailsRequest {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    /// string id = 1;
+    /// string name = 2;
+    ///    string logo_url = 3;
+    public var color: String = .init()
+
+    public var logoData: Data = .init()
+
+    /// MIME type of the file
+    public var logoFormat: String = .init()
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+}
+
+/// Response to `UpdateEcosystemRequest`
+public struct Services_Provider_V1_UpdateEcosystemResponse {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    /// Current ecosystem metadata, post-update
+    public var ecosystem: Services_Provider_V1_Ecosystem {
+        get { _ecosystem ?? Services_Provider_V1_Ecosystem() }
+        set { _ecosystem = newValue }
+    }
+
+    /// Returns true if `ecosystem` has been explicitly set.
+    public var hasEcosystem: Bool { _ecosystem != nil }
+    /// Clears the value of `ecosystem`. Subsequent reads from it will return its default value.
+    public mutating func clearEcosystem() { _ecosystem = nil }
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+
+    fileprivate var _ecosystem: Services_Provider_V1_Ecosystem?
+}
+
+public struct Services_Provider_V1_EcosystemDisplay {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    ///    Removed the Dark after discussion with team, as we don't provide a dark UI anywhere (yet) in our platform.
+    ///    EcosystemDisplayDetails dark = 1;
+    public var light: Services_Provider_V1_EcosystemDisplayDetails {
+        get { _light ?? Services_Provider_V1_EcosystemDisplayDetails() }
+        set { _light = newValue }
+    }
+
+    /// Returns true if `light` has been explicitly set.
+    public var hasLight: Bool { _light != nil }
+    /// Clears the value of `light`. Subsequent reads from it will return its default value.
+    public mutating func clearLight() { _light = nil }
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+
     fileprivate var _light: Services_Provider_V1_EcosystemDisplayDetails?
 }
 
@@ -453,30 +511,6 @@ public struct Services_Provider_V1_EcosystemDisplayDetails {
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
-}
-
-/// Response to `UpdateEcosystemRequest`
-public struct Services_Provider_V1_UpdateEcosystemResponse {
-    // SwiftProtobuf.Message conformance is added in an extension below. See the
-    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-    // methods supported on all messages.
-
-    /// Current ecosystem metadata, post-update
-    public var ecosystem: Services_Provider_V1_Ecosystem {
-        get { return _ecosystem ?? Services_Provider_V1_Ecosystem() }
-        set { _ecosystem = newValue }
-    }
-
-    /// Returns true if `ecosystem` has been explicitly set.
-    public var hasEcosystem: Bool { return _ecosystem != nil }
-    /// Clears the value of `ecosystem`. Subsequent reads from it will return its default value.
-    public mutating func clearEcosystem() { _ecosystem = nil }
-
-    public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-    public init() {}
-
-    fileprivate var _ecosystem: Services_Provider_V1_Ecosystem?
 }
 
 /// Request to add a webhook to an ecosystem
@@ -509,12 +543,12 @@ public struct Services_Provider_V1_AddWebhookResponse {
 
     /// Ecosystem data with new webhook
     public var ecosystem: Services_Provider_V1_Ecosystem {
-        get { return _ecosystem ?? Services_Provider_V1_Ecosystem() }
+        get { _ecosystem ?? Services_Provider_V1_Ecosystem() }
         set { _ecosystem = newValue }
     }
 
     /// Returns true if `ecosystem` has been explicitly set.
-    public var hasEcosystem: Bool { return _ecosystem != nil }
+    public var hasEcosystem: Bool { _ecosystem != nil }
     /// Clears the value of `ecosystem`. Subsequent reads from it will return its default value.
     public mutating func clearEcosystem() { _ecosystem = nil }
 
@@ -547,12 +581,12 @@ public struct Services_Provider_V1_DeleteWebhookResponse {
 
     /// Ecosystem data after removal of webhook
     public var ecosystem: Services_Provider_V1_Ecosystem {
-        get { return _ecosystem ?? Services_Provider_V1_Ecosystem() }
+        get { _ecosystem ?? Services_Provider_V1_Ecosystem() }
         set { _ecosystem = newValue }
     }
 
     /// Returns true if `ecosystem` has been explicitly set.
-    public var hasEcosystem: Bool { return _ecosystem != nil }
+    public var hasEcosystem: Bool { _ecosystem != nil }
     /// Clears the value of `ecosystem`. Subsequent reads from it will return its default value.
     public mutating func clearEcosystem() { _ecosystem = nil }
 
@@ -582,12 +616,12 @@ public struct Services_Provider_V1_EcosystemInfoResponse {
 
     /// Ecosystem corresponding to current ecosystem in the account token
     public var ecosystem: Services_Provider_V1_Ecosystem {
-        get { return _ecosystem ?? Services_Provider_V1_Ecosystem() }
+        get { _ecosystem ?? Services_Provider_V1_Ecosystem() }
         set { _ecosystem = newValue }
     }
 
     /// Returns true if `ecosystem` has been explicitly set.
-    public var hasEcosystem: Bool { return _ecosystem != nil }
+    public var hasEcosystem: Bool { _ecosystem != nil }
     /// Clears the value of `ecosystem`. Subsequent reads from it will return its default value.
     public mutating func clearEcosystem() { _ecosystem = nil }
 
@@ -619,12 +653,12 @@ public struct Services_Provider_V1_GetPublicEcosystemInfoResponse {
 
     /// Ecosystem corresponding to requested `ecosystem_id`
     public var ecosystem: Services_Provider_V1_PublicEcosystemInformation {
-        get { return _ecosystem ?? Services_Provider_V1_PublicEcosystemInformation() }
+        get { _ecosystem ?? Services_Provider_V1_PublicEcosystemInformation() }
         set { _ecosystem = newValue }
     }
 
     /// Returns true if `ecosystem` has been explicitly set.
-    public var hasEcosystem: Bool { return _ecosystem != nil }
+    public var hasEcosystem: Bool { _ecosystem != nil }
     /// Clears the value of `ecosystem`. Subsequent reads from it will return its default value.
     public mutating func clearEcosystem() { _ecosystem = nil }
 
@@ -651,58 +685,23 @@ public struct Services_Provider_V1_PublicEcosystemInformation {
 
     /// Style display information
     public var styleDisplay: Services_Provider_V1_EcosystemDisplay {
-        get { return _styleDisplay ?? Services_Provider_V1_EcosystemDisplay() }
+        get { _styleDisplay ?? Services_Provider_V1_EcosystemDisplay() }
         set { _styleDisplay = newValue }
     }
 
     /// Returns true if `styleDisplay` has been explicitly set.
-    public var hasStyleDisplay: Bool { return _styleDisplay != nil }
+    public var hasStyleDisplay: Bool { _styleDisplay != nil }
     /// Clears the value of `styleDisplay`. Subsequent reads from it will return its default value.
     public mutating func clearStyleDisplay() { _styleDisplay = nil }
+
+    /// Description of the ecosystem
+    public var description_p: String = .init()
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
 
     fileprivate var _styleDisplay: Services_Provider_V1_EcosystemDisplay?
-}
-
-/// Request to generate an authentication token for the current account
-public struct Services_Provider_V1_GenerateTokenRequest {
-    // SwiftProtobuf.Message conformance is added in an extension below. See the
-    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-    // methods supported on all messages.
-
-    /// Description to identify this token
-    public var description_p: String = .init()
-
-    public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-    public init() {}
-}
-
-/// Response to `GenerateTokenRequest`
-public struct Services_Provider_V1_GenerateTokenResponse {
-    // SwiftProtobuf.Message conformance is added in an extension below. See the
-    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-    // methods supported on all messages.
-
-    /// Account authentication profile that contains unprotected token
-    public var profile: Services_Account_V1_AccountProfile {
-        get { return _profile ?? Services_Account_V1_AccountProfile() }
-        set { _profile = newValue }
-    }
-
-    /// Returns true if `profile` has been explicitly set.
-    public var hasProfile: Bool { return _profile != nil }
-    /// Clears the value of `profile`. Subsequent reads from it will return its default value.
-    public mutating func clearProfile() { _profile = nil }
-
-    public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-    public init() {}
-
-    fileprivate var _profile: Services_Account_V1_AccountProfile?
 }
 
 /// Request to fetch the Trinsic public key used
@@ -731,35 +730,6 @@ public struct Services_Provider_V1_GetOberonKeyResponse {
     public init() {}
 }
 
-/// Generates an events token bound to the provided ed25519 public key.
-public struct Services_Provider_V1_GetEventTokenRequest {
-    // SwiftProtobuf.Message conformance is added in an extension below. See the
-    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-    // methods supported on all messages.
-
-    /// Raw public key to generate event token for
-    public var pk: Data = .init()
-
-    public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-    public init() {}
-}
-
-/// Response message containing a token (JWT) that can be used
-/// to connect directly to the message streaming architecture
-public struct Services_Provider_V1_GetEventTokenResponse {
-    // SwiftProtobuf.Message conformance is added in an extension below. See the
-    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-    // methods supported on all messages.
-
-    /// JWT bound to the public key provided in `GetEventTokenRequest`
-    public var token: String = .init()
-
-    public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-    public init() {}
-}
-
 public struct Services_Provider_V1_RetrieveDomainVerificationRecordRequest {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -776,8 +746,11 @@ public struct Services_Provider_V1_RetrieveDomainVerificationRecordResponse {
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
 
-    /// TXT code to use for domain verification
-    public var verificationTxt: String = .init()
+    /// TXT record name to use for domain verification
+    public var verificationRecordName: String = .init()
+
+    /// TXT code for domain verification
+    public var verificationRecordValue: String = .init()
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -804,190 +777,6 @@ public struct Services_Provider_V1_RefreshDomainVerificationStatusResponse {
 
     /// Specifies if the above `domain` was successfully verified
     public var domainVerified: Bool = false
-
-    public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-    public init() {}
-}
-
-/// Grant permissions to a resource or path in the ecosystem
-public struct Services_Provider_V1_GrantAuthorizationRequest {
-    // SwiftProtobuf.Message conformance is added in an extension below. See the
-    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-    // methods supported on all messages.
-
-    public var account: Services_Provider_V1_GrantAuthorizationRequest.OneOf_Account?
-
-    /// Email address of account being granted permission.
-    /// Mutually exclusive with `walletId`.
-    public var email: String {
-        get {
-            if case let .email(v)? = account { return v }
-            return String()
-        }
-        set { account = .email(newValue) }
-    }
-
-    /// Wallet ID of account being granted permission.
-    /// Mutually exclusive with `email`.
-    public var walletID: String {
-        get {
-            if case let .walletID(v)? = account { return v }
-            return String()
-        }
-        set { account = .walletID(newValue) }
-    }
-
-    /// Resource string that account is receiving permissions for.
-    /// Resources are specified as a RESTful path: /{ecoId}/{resource type}/{resource id}. `ecoId` may be omitted.
-    public var resource: String = .init()
-
-    /// Action to authorize. Default is "*" (all)
-    public var action: String = .init()
-
-    public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-    public enum OneOf_Account: Equatable {
-        /// Email address of account being granted permission.
-        /// Mutually exclusive with `walletId`.
-        case email(String)
-        /// Wallet ID of account being granted permission.
-        /// Mutually exclusive with `email`.
-        case walletID(String)
-
-        #if !swift(>=4.1)
-            public static func == (lhs: Services_Provider_V1_GrantAuthorizationRequest.OneOf_Account, rhs: Services_Provider_V1_GrantAuthorizationRequest.OneOf_Account) -> Bool {
-                // The use of inline closures is to circumvent an issue where the compiler
-                // allocates stack space for every case branch when no optimizations are
-                // enabled. https://github.com/apple/swift-protobuf/issues/1034
-                switch (lhs, rhs) {
-                case (.email, .email): return {
-                        guard case let .email(l) = lhs, case let .email(r) = rhs else { preconditionFailure() }
-                        return l == r
-                    }()
-                case (.walletID, .walletID): return {
-                        guard case let .walletID(l) = lhs, case let .walletID(r) = rhs else { preconditionFailure() }
-                        return l == r
-                    }()
-                default: return false
-                }
-            }
-        #endif
-    }
-
-    public init() {}
-}
-
-/// Response to `GrantAuthorizationRequest`
-public struct Services_Provider_V1_GrantAuthorizationResponse {
-    // SwiftProtobuf.Message conformance is added in an extension below. See the
-    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-    // methods supported on all messages.
-
-    public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-    public init() {}
-}
-
-/// Revoke permissions to a resource or path in the ecosystem
-public struct Services_Provider_V1_RevokeAuthorizationRequest {
-    // SwiftProtobuf.Message conformance is added in an extension below. See the
-    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-    // methods supported on all messages.
-
-    public var account: Services_Provider_V1_RevokeAuthorizationRequest.OneOf_Account?
-
-    /// Email address of account having permission revoked.
-    /// Mutually exclusive with `walletId`.
-    public var email: String {
-        get {
-            if case let .email(v)? = account { return v }
-            return String()
-        }
-        set { account = .email(newValue) }
-    }
-
-    /// Wallet ID of account having permission revoked.
-    /// Mutually exclusive with `email`.
-    public var walletID: String {
-        get {
-            if case let .walletID(v)? = account { return v }
-            return String()
-        }
-        set { account = .walletID(newValue) }
-    }
-
-    /// Resource string that account is losing permissions for.
-    /// Resources are specified as a RESTful path: /{ecoId}/{resource type}/{resource id}. `ecoId` may be omitted.
-    public var resource: String = .init()
-
-    /// Action to revoke. Default is "*" (all)
-    public var action: String = .init()
-
-    public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-    public enum OneOf_Account: Equatable {
-        /// Email address of account having permission revoked.
-        /// Mutually exclusive with `walletId`.
-        case email(String)
-        /// Wallet ID of account having permission revoked.
-        /// Mutually exclusive with `email`.
-        case walletID(String)
-
-        #if !swift(>=4.1)
-            public static func == (lhs: Services_Provider_V1_RevokeAuthorizationRequest.OneOf_Account, rhs: Services_Provider_V1_RevokeAuthorizationRequest.OneOf_Account) -> Bool {
-                // The use of inline closures is to circumvent an issue where the compiler
-                // allocates stack space for every case branch when no optimizations are
-                // enabled. https://github.com/apple/swift-protobuf/issues/1034
-                switch (lhs, rhs) {
-                case (.email, .email): return {
-                        guard case let .email(l) = lhs, case let .email(r) = rhs else { preconditionFailure() }
-                        return l == r
-                    }()
-                case (.walletID, .walletID): return {
-                        guard case let .walletID(l) = lhs, case let .walletID(r) = rhs else { preconditionFailure() }
-                        return l == r
-                    }()
-                default: return false
-                }
-            }
-        #endif
-    }
-
-    public init() {}
-}
-
-/// Response to `RevokeAuthorizationRequest`
-public struct Services_Provider_V1_RevokeAuthorizationResponse {
-    // SwiftProtobuf.Message conformance is added in an extension below. See the
-    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-    // methods supported on all messages.
-
-    public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-    public init() {}
-}
-
-/// Fetch list of grants that the current account has access to
-/// in its ecosystem
-public struct Services_Provider_V1_GetAuthorizationsRequest {
-    // SwiftProtobuf.Message conformance is added in an extension below. See the
-    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-    // methods supported on all messages.
-
-    public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-    public init() {}
-}
-
-/// Response to `GetAuthorizationsRequest`
-public struct Services_Provider_V1_GetAuthorizationsResponse {
-    // SwiftProtobuf.Message conformance is added in an extension below. See the
-    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-    // methods supported on all messages.
-
-    /// Grants attached to account
-    public var grants: [Services_Provider_V1_Grant] = []
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1047,6 +836,8 @@ public struct Services_Provider_V1_WalletConfiguration {
 
     public var publicDid: String = .init()
 
+    public var configType: String = .init()
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
@@ -1105,6 +896,87 @@ public struct Services_Provider_V1_IonOptions {
 
 #endif // swift(>=4.2)
 
+/// Options for creation of DID on the SOV network
+public struct Services_Provider_V1_IndyOptions {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    /// SOV network on which DID should be published
+    public var network: Services_Provider_V1_IndyOptions.IndyNetwork = .danube
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public enum IndyNetwork: SwiftProtobuf.Enum {
+        public typealias RawValue = Int
+        case danube // = 0
+        case sovrinBuilder // = 1
+        case sovrinStaging // = 2
+        case sovrin // = 3
+        case idUnionTest // = 4
+        case idUnion // = 5
+        case indicioTest // = 6
+        case indicioDemo // = 7
+        case indicio // = 8
+        case UNRECOGNIZED(Int)
+
+        public init() {
+            self = .danube
+        }
+
+        public init?(rawValue: Int) {
+            switch rawValue {
+            case 0: self = .danube
+            case 1: self = .sovrinBuilder
+            case 2: self = .sovrinStaging
+            case 3: self = .sovrin
+            case 4: self = .idUnionTest
+            case 5: self = .idUnion
+            case 6: self = .indicioTest
+            case 7: self = .indicioDemo
+            case 8: self = .indicio
+            default: self = .UNRECOGNIZED(rawValue)
+            }
+        }
+
+        public var rawValue: Int {
+            switch self {
+            case .danube: return 0
+            case .sovrinBuilder: return 1
+            case .sovrinStaging: return 2
+            case .sovrin: return 3
+            case .idUnionTest: return 4
+            case .idUnion: return 5
+            case .indicioTest: return 6
+            case .indicioDemo: return 7
+            case .indicio: return 8
+            case let .UNRECOGNIZED(i): return i
+            }
+        }
+    }
+
+    public init() {}
+}
+
+#if swift(>=4.2)
+
+    extension Services_Provider_V1_IndyOptions.IndyNetwork: CaseIterable {
+        // The compiler won't synthesize support with the UNRECOGNIZED case.
+        public static var allCases: [Services_Provider_V1_IndyOptions.IndyNetwork] = [
+            .danube,
+            .sovrinBuilder,
+            .sovrinStaging,
+            .sovrin,
+            .idUnionTest,
+            .idUnion,
+            .indicioTest,
+            .indicioDemo,
+            .indicio,
+        ]
+    }
+
+#endif // swift(>=4.2)
+
 /// Request to upgrade a wallet
 public struct Services_Provider_V1_UpgradeDidRequest {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -1114,7 +986,7 @@ public struct Services_Provider_V1_UpgradeDidRequest {
     public var account: Services_Provider_V1_UpgradeDidRequest.OneOf_Account?
 
     /// Email address of account to upgrade.
-    /// Mutually exclusive with `walletId`.
+    /// Mutually exclusive with `walletId` and `didUri`.
     public var email: String {
         get {
             if case let .email(v)? = account { return v }
@@ -1124,13 +996,23 @@ public struct Services_Provider_V1_UpgradeDidRequest {
     }
 
     /// Wallet ID of account to upgrade.
-    /// Mutually exclusive with `email`.
+    /// Mutually exclusive with `email` and `didUri`.
     public var walletID: String {
         get {
             if case let .walletID(v)? = account { return v }
             return String()
         }
         set { account = .walletID(newValue) }
+    }
+
+    /// DID URI of the account to upgrade.
+    /// Mutually exclusive with `email` and `walletId`.
+    public var didUri: String {
+        get {
+            if case let .didUri(v)? = account { return v }
+            return String()
+        }
+        set { account = .didUri(newValue) }
     }
 
     /// DID Method to which wallet should be upgraded
@@ -1147,15 +1029,27 @@ public struct Services_Provider_V1_UpgradeDidRequest {
         set { options = .ionOptions(newValue) }
     }
 
+    /// Configuration for creation of DID on INDY network
+    public var indyOptions: Services_Provider_V1_IndyOptions {
+        get {
+            if case let .indyOptions(v)? = options { return v }
+            return Services_Provider_V1_IndyOptions()
+        }
+        set { options = .indyOptions(newValue) }
+    }
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public enum OneOf_Account: Equatable {
         /// Email address of account to upgrade.
-        /// Mutually exclusive with `walletId`.
+        /// Mutually exclusive with `walletId` and `didUri`.
         case email(String)
         /// Wallet ID of account to upgrade.
-        /// Mutually exclusive with `email`.
+        /// Mutually exclusive with `email` and `didUri`.
         case walletID(String)
+        /// DID URI of the account to upgrade.
+        /// Mutually exclusive with `email` and `walletId`.
+        case didUri(String)
 
         #if !swift(>=4.1)
             public static func == (lhs: Services_Provider_V1_UpgradeDidRequest.OneOf_Account, rhs: Services_Provider_V1_UpgradeDidRequest.OneOf_Account) -> Bool {
@@ -1171,6 +1065,10 @@ public struct Services_Provider_V1_UpgradeDidRequest {
                         guard case let .walletID(l) = lhs, case let .walletID(r) = rhs else { preconditionFailure() }
                         return l == r
                     }()
+                case (.didUri, .didUri): return {
+                        guard case let .didUri(l) = lhs, case let .didUri(r) = rhs else { preconditionFailure() }
+                        return l == r
+                    }()
                 default: return false
                 }
             }
@@ -1180,6 +1078,8 @@ public struct Services_Provider_V1_UpgradeDidRequest {
     public enum OneOf_Options: Equatable {
         /// Configuration for creation of DID on ION network
         case ionOptions(Services_Provider_V1_IonOptions)
+        /// Configuration for creation of DID on INDY network
+        case indyOptions(Services_Provider_V1_IndyOptions)
 
         #if !swift(>=4.1)
             public static func == (lhs: Services_Provider_V1_UpgradeDidRequest.OneOf_Options, rhs: Services_Provider_V1_UpgradeDidRequest.OneOf_Options) -> Bool {
@@ -1191,6 +1091,11 @@ public struct Services_Provider_V1_UpgradeDidRequest {
                         guard case let .ionOptions(l) = lhs, case let .ionOptions(r) = rhs else { preconditionFailure() }
                         return l == r
                     }()
+                case (.indyOptions, .indyOptions): return {
+                        guard case let .indyOptions(l) = lhs, case let .indyOptions(r) = rhs else { preconditionFailure() }
+                        return l == r
+                    }()
+                default: return false
                 }
             }
         #endif
@@ -1227,9 +1132,11 @@ public struct Services_Provider_V1_UpgradeDidResponse {
     extension Services_Provider_V1_CreateEcosystemRequest: @unchecked Sendable {}
     extension Services_Provider_V1_CreateEcosystemResponse: @unchecked Sendable {}
     extension Services_Provider_V1_UpdateEcosystemRequest: @unchecked Sendable {}
+    extension Services_Provider_V1_EcosystemDisplayRequest: @unchecked Sendable {}
+    extension Services_Provider_V1_EcosystemDisplayDetailsRequest: @unchecked Sendable {}
+    extension Services_Provider_V1_UpdateEcosystemResponse: @unchecked Sendable {}
     extension Services_Provider_V1_EcosystemDisplay: @unchecked Sendable {}
     extension Services_Provider_V1_EcosystemDisplayDetails: @unchecked Sendable {}
-    extension Services_Provider_V1_UpdateEcosystemResponse: @unchecked Sendable {}
     extension Services_Provider_V1_AddWebhookRequest: @unchecked Sendable {}
     extension Services_Provider_V1_AddWebhookResponse: @unchecked Sendable {}
     extension Services_Provider_V1_DeleteWebhookRequest: @unchecked Sendable {}
@@ -1239,29 +1146,19 @@ public struct Services_Provider_V1_UpgradeDidResponse {
     extension Services_Provider_V1_GetPublicEcosystemInfoRequest: @unchecked Sendable {}
     extension Services_Provider_V1_GetPublicEcosystemInfoResponse: @unchecked Sendable {}
     extension Services_Provider_V1_PublicEcosystemInformation: @unchecked Sendable {}
-    extension Services_Provider_V1_GenerateTokenRequest: @unchecked Sendable {}
-    extension Services_Provider_V1_GenerateTokenResponse: @unchecked Sendable {}
     extension Services_Provider_V1_GetOberonKeyRequest: @unchecked Sendable {}
     extension Services_Provider_V1_GetOberonKeyResponse: @unchecked Sendable {}
-    extension Services_Provider_V1_GetEventTokenRequest: @unchecked Sendable {}
-    extension Services_Provider_V1_GetEventTokenResponse: @unchecked Sendable {}
     extension Services_Provider_V1_RetrieveDomainVerificationRecordRequest: @unchecked Sendable {}
     extension Services_Provider_V1_RetrieveDomainVerificationRecordResponse: @unchecked Sendable {}
     extension Services_Provider_V1_RefreshDomainVerificationStatusRequest: @unchecked Sendable {}
     extension Services_Provider_V1_RefreshDomainVerificationStatusResponse: @unchecked Sendable {}
-    extension Services_Provider_V1_GrantAuthorizationRequest: @unchecked Sendable {}
-    extension Services_Provider_V1_GrantAuthorizationRequest.OneOf_Account: @unchecked Sendable {}
-    extension Services_Provider_V1_GrantAuthorizationResponse: @unchecked Sendable {}
-    extension Services_Provider_V1_RevokeAuthorizationRequest: @unchecked Sendable {}
-    extension Services_Provider_V1_RevokeAuthorizationRequest.OneOf_Account: @unchecked Sendable {}
-    extension Services_Provider_V1_RevokeAuthorizationResponse: @unchecked Sendable {}
-    extension Services_Provider_V1_GetAuthorizationsRequest: @unchecked Sendable {}
-    extension Services_Provider_V1_GetAuthorizationsResponse: @unchecked Sendable {}
     extension Services_Provider_V1_SearchWalletConfigurationsRequest: @unchecked Sendable {}
     extension Services_Provider_V1_SearchWalletConfigurationResponse: @unchecked Sendable {}
     extension Services_Provider_V1_WalletConfiguration: @unchecked Sendable {}
     extension Services_Provider_V1_IonOptions: @unchecked Sendable {}
     extension Services_Provider_V1_IonOptions.IonNetwork: @unchecked Sendable {}
+    extension Services_Provider_V1_IndyOptions: @unchecked Sendable {}
+    extension Services_Provider_V1_IndyOptions.IndyNetwork: @unchecked Sendable {}
     extension Services_Provider_V1_UpgradeDidRequest: @unchecked Sendable {}
     extension Services_Provider_V1_UpgradeDidRequest.OneOf_Account: @unchecked Sendable {}
     extension Services_Provider_V1_UpgradeDidRequest.OneOf_Options: @unchecked Sendable {}
@@ -1742,7 +1639,6 @@ extension Services_Provider_V1_UpdateEcosystemRequest: SwiftProtobuf.Message, Sw
         1: .same(proto: "description"),
         2: .same(proto: "uri"),
         3: .same(proto: "domain"),
-        4: .same(proto: "name"),
         5: .same(proto: "display"),
     ]
 
@@ -1755,7 +1651,6 @@ extension Services_Provider_V1_UpdateEcosystemRequest: SwiftProtobuf.Message, Sw
             case 1: try try decoder.decodeSingularStringField(value: &description_p)
             case 2: try try decoder.decodeSingularStringField(value: &uri)
             case 3: try try decoder.decodeSingularStringField(value: &domain)
-            case 4: try try decoder.decodeSingularStringField(value: &name)
             case 5: try try decoder.decodeSingularMessageField(value: &_display)
             default: break
             }
@@ -1776,9 +1671,6 @@ extension Services_Provider_V1_UpdateEcosystemRequest: SwiftProtobuf.Message, Sw
         if !domain.isEmpty {
             try visitor.visitSingularStringField(value: domain, fieldNumber: 3)
         }
-        if !name.isEmpty {
-            try visitor.visitSingularStringField(value: name, fieldNumber: 4)
-        }
         try { if let v = self._display {
             try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
         } }()
@@ -1789,17 +1681,15 @@ extension Services_Provider_V1_UpdateEcosystemRequest: SwiftProtobuf.Message, Sw
         if lhs.description_p != rhs.description_p { return false }
         if lhs.uri != rhs.uri { return false }
         if lhs.domain != rhs.domain { return false }
-        if lhs.name != rhs.name { return false }
         if lhs._display != rhs._display { return false }
         if lhs.unknownFields != rhs.unknownFields { return false }
         return true
     }
 }
 
-extension Services_Provider_V1_EcosystemDisplay: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-    public static let protoMessageName: String = _protobuf_package + ".EcosystemDisplay"
+extension Services_Provider_V1_EcosystemDisplayRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".EcosystemDisplayRequest"
     public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-        1: .same(proto: "dark"),
         2: .same(proto: "light"),
     ]
 
@@ -1809,7 +1699,6 @@ extension Services_Provider_V1_EcosystemDisplay: SwiftProtobuf.Message, SwiftPro
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularMessageField(value: &_dark)
             case 2: try try decoder.decodeSingularMessageField(value: &_light)
             default: break
             }
@@ -1821,9 +1710,122 @@ extension Services_Provider_V1_EcosystemDisplay: SwiftProtobuf.Message, SwiftPro
         // allocates stack space for every if/case branch local when no optimizations
         // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
         // https://github.com/apple/swift-protobuf/issues/1182
-        try { if let v = self._dark {
+        try { if let v = self._light {
+            try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+        } }()
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Provider_V1_EcosystemDisplayRequest, rhs: Services_Provider_V1_EcosystemDisplayRequest) -> Bool {
+        if lhs._light != rhs._light { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}
+
+extension Services_Provider_V1_EcosystemDisplayDetailsRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".EcosystemDisplayDetailsRequest"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        4: .same(proto: "color"),
+        5: .standard(proto: "logo_data"),
+        6: .standard(proto: "logo_format"),
+    ]
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 4: try try decoder.decodeSingularStringField(value: &color)
+            case 5: try try decoder.decodeSingularBytesField(value: &logoData)
+            case 6: try try decoder.decodeSingularStringField(value: &logoFormat)
+            default: break
+            }
+        }
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        if !color.isEmpty {
+            try visitor.visitSingularStringField(value: color, fieldNumber: 4)
+        }
+        if !logoData.isEmpty {
+            try visitor.visitSingularBytesField(value: logoData, fieldNumber: 5)
+        }
+        if !logoFormat.isEmpty {
+            try visitor.visitSingularStringField(value: logoFormat, fieldNumber: 6)
+        }
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Provider_V1_EcosystemDisplayDetailsRequest, rhs: Services_Provider_V1_EcosystemDisplayDetailsRequest) -> Bool {
+        if lhs.color != rhs.color { return false }
+        if lhs.logoData != rhs.logoData { return false }
+        if lhs.logoFormat != rhs.logoFormat { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}
+
+extension Services_Provider_V1_UpdateEcosystemResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".UpdateEcosystemResponse"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .same(proto: "Ecosystem"),
+    ]
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 1: try try decoder.decodeSingularMessageField(value: &_ecosystem)
+            default: break
+            }
+        }
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every if/case branch local when no optimizations
+        // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+        // https://github.com/apple/swift-protobuf/issues/1182
+        try { if let v = self._ecosystem {
             try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
         } }()
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Provider_V1_UpdateEcosystemResponse, rhs: Services_Provider_V1_UpdateEcosystemResponse) -> Bool {
+        if lhs._ecosystem != rhs._ecosystem { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}
+
+extension Services_Provider_V1_EcosystemDisplay: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".EcosystemDisplay"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        2: .same(proto: "light"),
+    ]
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 2: try try decoder.decodeSingularMessageField(value: &_light)
+            default: break
+            }
+        }
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every if/case branch local when no optimizations
+        // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+        // https://github.com/apple/swift-protobuf/issues/1182
         try { if let v = self._light {
             try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
         } }()
@@ -1831,7 +1833,6 @@ extension Services_Provider_V1_EcosystemDisplay: SwiftProtobuf.Message, SwiftPro
     }
 
     public static func == (lhs: Services_Provider_V1_EcosystemDisplay, rhs: Services_Provider_V1_EcosystemDisplay) -> Bool {
-        if lhs._dark != rhs._dark { return false }
         if lhs._light != rhs._light { return false }
         if lhs.unknownFields != rhs.unknownFields { return false }
         return true
@@ -1871,42 +1872,6 @@ extension Services_Provider_V1_EcosystemDisplayDetails: SwiftProtobuf.Message, S
     public static func == (lhs: Services_Provider_V1_EcosystemDisplayDetails, rhs: Services_Provider_V1_EcosystemDisplayDetails) -> Bool {
         if lhs.logoURL != rhs.logoURL { return false }
         if lhs.color != rhs.color { return false }
-        if lhs.unknownFields != rhs.unknownFields { return false }
-        return true
-    }
-}
-
-extension Services_Provider_V1_UpdateEcosystemResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-    public static let protoMessageName: String = _protobuf_package + ".UpdateEcosystemResponse"
-    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-        1: .same(proto: "Ecosystem"),
-    ]
-
-    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-        while let fieldNumber = try decoder.nextFieldNumber() {
-            // The use of inline closures is to circumvent an issue where the compiler
-            // allocates stack space for every case branch when no optimizations are
-            // enabled. https://github.com/apple/swift-protobuf/issues/1034
-            switch fieldNumber {
-            case 1: try try decoder.decodeSingularMessageField(value: &_ecosystem)
-            default: break
-            }
-        }
-    }
-
-    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-        // The use of inline closures is to circumvent an issue where the compiler
-        // allocates stack space for every if/case branch local when no optimizations
-        // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-        // https://github.com/apple/swift-protobuf/issues/1182
-        try { if let v = self._ecosystem {
-            try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-        } }()
-        try unknownFields.traverse(visitor: &visitor)
-    }
-
-    public static func == (lhs: Services_Provider_V1_UpdateEcosystemResponse, rhs: Services_Provider_V1_UpdateEcosystemResponse) -> Bool {
-        if lhs._ecosystem != rhs._ecosystem { return false }
         if lhs.unknownFields != rhs.unknownFields { return false }
         return true
     }
@@ -2189,6 +2154,7 @@ extension Services_Provider_V1_PublicEcosystemInformation: SwiftProtobuf.Message
         2: .same(proto: "domain"),
         3: .standard(proto: "domain_verified"),
         4: .standard(proto: "style_display"),
+        5: .same(proto: "description"),
     ]
 
     public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -2201,6 +2167,7 @@ extension Services_Provider_V1_PublicEcosystemInformation: SwiftProtobuf.Message
             case 2: try try decoder.decodeSingularStringField(value: &domain)
             case 3: try try decoder.decodeSingularBoolField(value: &domainVerified)
             case 4: try try decoder.decodeSingularMessageField(value: &_styleDisplay)
+            case 5: try try decoder.decodeSingularStringField(value: &description_p)
             default: break
             }
         }
@@ -2223,6 +2190,9 @@ extension Services_Provider_V1_PublicEcosystemInformation: SwiftProtobuf.Message
         try { if let v = self._styleDisplay {
             try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
         } }()
+        if !description_p.isEmpty {
+            try visitor.visitSingularStringField(value: description_p, fieldNumber: 5)
+        }
         try unknownFields.traverse(visitor: &visitor)
     }
 
@@ -2231,74 +2201,7 @@ extension Services_Provider_V1_PublicEcosystemInformation: SwiftProtobuf.Message
         if lhs.domain != rhs.domain { return false }
         if lhs.domainVerified != rhs.domainVerified { return false }
         if lhs._styleDisplay != rhs._styleDisplay { return false }
-        if lhs.unknownFields != rhs.unknownFields { return false }
-        return true
-    }
-}
-
-extension Services_Provider_V1_GenerateTokenRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-    public static let protoMessageName: String = _protobuf_package + ".GenerateTokenRequest"
-    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-        1: .same(proto: "description"),
-    ]
-
-    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-        while let fieldNumber = try decoder.nextFieldNumber() {
-            // The use of inline closures is to circumvent an issue where the compiler
-            // allocates stack space for every case branch when no optimizations are
-            // enabled. https://github.com/apple/swift-protobuf/issues/1034
-            switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &description_p)
-            default: break
-            }
-        }
-    }
-
-    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-        if !description_p.isEmpty {
-            try visitor.visitSingularStringField(value: description_p, fieldNumber: 1)
-        }
-        try unknownFields.traverse(visitor: &visitor)
-    }
-
-    public static func == (lhs: Services_Provider_V1_GenerateTokenRequest, rhs: Services_Provider_V1_GenerateTokenRequest) -> Bool {
         if lhs.description_p != rhs.description_p { return false }
-        if lhs.unknownFields != rhs.unknownFields { return false }
-        return true
-    }
-}
-
-extension Services_Provider_V1_GenerateTokenResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-    public static let protoMessageName: String = _protobuf_package + ".GenerateTokenResponse"
-    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-        1: .same(proto: "profile"),
-    ]
-
-    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-        while let fieldNumber = try decoder.nextFieldNumber() {
-            // The use of inline closures is to circumvent an issue where the compiler
-            // allocates stack space for every case branch when no optimizations are
-            // enabled. https://github.com/apple/swift-protobuf/issues/1034
-            switch fieldNumber {
-            case 1: try try decoder.decodeSingularMessageField(value: &_profile)
-            default: break
-            }
-        }
-    }
-
-    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-        // The use of inline closures is to circumvent an issue where the compiler
-        // allocates stack space for every if/case branch local when no optimizations
-        // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-        // https://github.com/apple/swift-protobuf/issues/1182
-        try { if let v = self._profile {
-            try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-        } }()
-        try unknownFields.traverse(visitor: &visitor)
-    }
-
-    public static func == (lhs: Services_Provider_V1_GenerateTokenResponse, rhs: Services_Provider_V1_GenerateTokenResponse) -> Bool {
-        if lhs._profile != rhs._profile { return false }
         if lhs.unknownFields != rhs.unknownFields { return false }
         return true
     }
@@ -2354,70 +2257,6 @@ extension Services_Provider_V1_GetOberonKeyResponse: SwiftProtobuf.Message, Swif
     }
 }
 
-extension Services_Provider_V1_GetEventTokenRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-    public static let protoMessageName: String = _protobuf_package + ".GetEventTokenRequest"
-    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-        1: .same(proto: "pk"),
-    ]
-
-    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-        while let fieldNumber = try decoder.nextFieldNumber() {
-            // The use of inline closures is to circumvent an issue where the compiler
-            // allocates stack space for every case branch when no optimizations are
-            // enabled. https://github.com/apple/swift-protobuf/issues/1034
-            switch fieldNumber {
-            case 1: try try decoder.decodeSingularBytesField(value: &pk)
-            default: break
-            }
-        }
-    }
-
-    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-        if !pk.isEmpty {
-            try visitor.visitSingularBytesField(value: pk, fieldNumber: 1)
-        }
-        try unknownFields.traverse(visitor: &visitor)
-    }
-
-    public static func == (lhs: Services_Provider_V1_GetEventTokenRequest, rhs: Services_Provider_V1_GetEventTokenRequest) -> Bool {
-        if lhs.pk != rhs.pk { return false }
-        if lhs.unknownFields != rhs.unknownFields { return false }
-        return true
-    }
-}
-
-extension Services_Provider_V1_GetEventTokenResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-    public static let protoMessageName: String = _protobuf_package + ".GetEventTokenResponse"
-    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-        1: .same(proto: "token"),
-    ]
-
-    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-        while let fieldNumber = try decoder.nextFieldNumber() {
-            // The use of inline closures is to circumvent an issue where the compiler
-            // allocates stack space for every case branch when no optimizations are
-            // enabled. https://github.com/apple/swift-protobuf/issues/1034
-            switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &token)
-            default: break
-            }
-        }
-    }
-
-    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-        if !token.isEmpty {
-            try visitor.visitSingularStringField(value: token, fieldNumber: 1)
-        }
-        try unknownFields.traverse(visitor: &visitor)
-    }
-
-    public static func == (lhs: Services_Provider_V1_GetEventTokenResponse, rhs: Services_Provider_V1_GetEventTokenResponse) -> Bool {
-        if lhs.token != rhs.token { return false }
-        if lhs.unknownFields != rhs.unknownFields { return false }
-        return true
-    }
-}
-
 extension Services_Provider_V1_RetrieveDomainVerificationRecordRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
     public static let protoMessageName: String = _protobuf_package + ".RetrieveDomainVerificationRecordRequest"
     public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
@@ -2439,7 +2278,8 @@ extension Services_Provider_V1_RetrieveDomainVerificationRecordRequest: SwiftPro
 extension Services_Provider_V1_RetrieveDomainVerificationRecordResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
     public static let protoMessageName: String = _protobuf_package + ".RetrieveDomainVerificationRecordResponse"
     public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-        1: .standard(proto: "verification_txt"),
+        1: .standard(proto: "verification_record_name"),
+        2: .standard(proto: "verification_record_Value"),
     ]
 
     public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -2448,21 +2288,26 @@ extension Services_Provider_V1_RetrieveDomainVerificationRecordResponse: SwiftPr
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &verificationTxt)
+            case 1: try try decoder.decodeSingularStringField(value: &verificationRecordName)
+            case 2: try try decoder.decodeSingularStringField(value: &verificationRecordValue)
             default: break
             }
         }
     }
 
     public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-        if !verificationTxt.isEmpty {
-            try visitor.visitSingularStringField(value: verificationTxt, fieldNumber: 1)
+        if !verificationRecordName.isEmpty {
+            try visitor.visitSingularStringField(value: verificationRecordName, fieldNumber: 1)
+        }
+        if !verificationRecordValue.isEmpty {
+            try visitor.visitSingularStringField(value: verificationRecordValue, fieldNumber: 2)
         }
         try unknownFields.traverse(visitor: &visitor)
     }
 
     public static func == (lhs: Services_Provider_V1_RetrieveDomainVerificationRecordResponse, rhs: Services_Provider_V1_RetrieveDomainVerificationRecordResponse) -> Bool {
-        if lhs.verificationTxt != rhs.verificationTxt { return false }
+        if lhs.verificationRecordName != rhs.verificationRecordName { return false }
+        if lhs.verificationRecordValue != rhs.verificationRecordValue { return false }
         if lhs.unknownFields != rhs.unknownFields { return false }
         return true
     }
@@ -2519,236 +2364,6 @@ extension Services_Provider_V1_RefreshDomainVerificationStatusResponse: SwiftPro
     public static func == (lhs: Services_Provider_V1_RefreshDomainVerificationStatusResponse, rhs: Services_Provider_V1_RefreshDomainVerificationStatusResponse) -> Bool {
         if lhs.domain != rhs.domain { return false }
         if lhs.domainVerified != rhs.domainVerified { return false }
-        if lhs.unknownFields != rhs.unknownFields { return false }
-        return true
-    }
-}
-
-extension Services_Provider_V1_GrantAuthorizationRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-    public static let protoMessageName: String = _protobuf_package + ".GrantAuthorizationRequest"
-    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-        1: .same(proto: "email"),
-        2: .same(proto: "walletId"),
-        3: .same(proto: "resource"),
-        4: .same(proto: "action"),
-    ]
-
-    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-        while let fieldNumber = try decoder.nextFieldNumber() {
-            // The use of inline closures is to circumvent an issue where the compiler
-            // allocates stack space for every case branch when no optimizations are
-            // enabled. https://github.com/apple/swift-protobuf/issues/1034
-            switch fieldNumber {
-            case 1: try {
-                    var v: String?
-                    try decoder.decodeSingularStringField(value: &v)
-                    if let v = v {
-                        if self.account != nil { try decoder.handleConflictingOneOf() }
-                        self.account = .email(v)
-                    }
-                }()
-            case 2: try {
-                    var v: String?
-                    try decoder.decodeSingularStringField(value: &v)
-                    if let v = v {
-                        if self.account != nil { try decoder.handleConflictingOneOf() }
-                        self.account = .walletID(v)
-                    }
-                }()
-            case 3: try try decoder.decodeSingularStringField(value: &resource)
-            case 4: try try decoder.decodeSingularStringField(value: &action)
-            default: break
-            }
-        }
-    }
-
-    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-        // The use of inline closures is to circumvent an issue where the compiler
-        // allocates stack space for every if/case branch local when no optimizations
-        // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-        // https://github.com/apple/swift-protobuf/issues/1182
-        switch account {
-        case .email?: try {
-                guard case let .email(v)? = self.account else { preconditionFailure() }
-                try visitor.visitSingularStringField(value: v, fieldNumber: 1)
-            }()
-        case .walletID?: try {
-                guard case let .walletID(v)? = self.account else { preconditionFailure() }
-                try visitor.visitSingularStringField(value: v, fieldNumber: 2)
-            }()
-        case nil: break
-        }
-        if !resource.isEmpty {
-            try visitor.visitSingularStringField(value: resource, fieldNumber: 3)
-        }
-        if !action.isEmpty {
-            try visitor.visitSingularStringField(value: action, fieldNumber: 4)
-        }
-        try unknownFields.traverse(visitor: &visitor)
-    }
-
-    public static func == (lhs: Services_Provider_V1_GrantAuthorizationRequest, rhs: Services_Provider_V1_GrantAuthorizationRequest) -> Bool {
-        if lhs.account != rhs.account { return false }
-        if lhs.resource != rhs.resource { return false }
-        if lhs.action != rhs.action { return false }
-        if lhs.unknownFields != rhs.unknownFields { return false }
-        return true
-    }
-}
-
-extension Services_Provider_V1_GrantAuthorizationResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-    public static let protoMessageName: String = _protobuf_package + ".GrantAuthorizationResponse"
-    public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
-
-    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-        while let _ = try decoder.nextFieldNumber() {}
-    }
-
-    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-        try unknownFields.traverse(visitor: &visitor)
-    }
-
-    public static func == (lhs: Services_Provider_V1_GrantAuthorizationResponse, rhs: Services_Provider_V1_GrantAuthorizationResponse) -> Bool {
-        if lhs.unknownFields != rhs.unknownFields { return false }
-        return true
-    }
-}
-
-extension Services_Provider_V1_RevokeAuthorizationRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-    public static let protoMessageName: String = _protobuf_package + ".RevokeAuthorizationRequest"
-    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-        1: .same(proto: "email"),
-        2: .same(proto: "walletId"),
-        3: .same(proto: "resource"),
-        4: .same(proto: "action"),
-    ]
-
-    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-        while let fieldNumber = try decoder.nextFieldNumber() {
-            // The use of inline closures is to circumvent an issue where the compiler
-            // allocates stack space for every case branch when no optimizations are
-            // enabled. https://github.com/apple/swift-protobuf/issues/1034
-            switch fieldNumber {
-            case 1: try {
-                    var v: String?
-                    try decoder.decodeSingularStringField(value: &v)
-                    if let v = v {
-                        if self.account != nil { try decoder.handleConflictingOneOf() }
-                        self.account = .email(v)
-                    }
-                }()
-            case 2: try {
-                    var v: String?
-                    try decoder.decodeSingularStringField(value: &v)
-                    if let v = v {
-                        if self.account != nil { try decoder.handleConflictingOneOf() }
-                        self.account = .walletID(v)
-                    }
-                }()
-            case 3: try try decoder.decodeSingularStringField(value: &resource)
-            case 4: try try decoder.decodeSingularStringField(value: &action)
-            default: break
-            }
-        }
-    }
-
-    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-        // The use of inline closures is to circumvent an issue where the compiler
-        // allocates stack space for every if/case branch local when no optimizations
-        // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-        // https://github.com/apple/swift-protobuf/issues/1182
-        switch account {
-        case .email?: try {
-                guard case let .email(v)? = self.account else { preconditionFailure() }
-                try visitor.visitSingularStringField(value: v, fieldNumber: 1)
-            }()
-        case .walletID?: try {
-                guard case let .walletID(v)? = self.account else { preconditionFailure() }
-                try visitor.visitSingularStringField(value: v, fieldNumber: 2)
-            }()
-        case nil: break
-        }
-        if !resource.isEmpty {
-            try visitor.visitSingularStringField(value: resource, fieldNumber: 3)
-        }
-        if !action.isEmpty {
-            try visitor.visitSingularStringField(value: action, fieldNumber: 4)
-        }
-        try unknownFields.traverse(visitor: &visitor)
-    }
-
-    public static func == (lhs: Services_Provider_V1_RevokeAuthorizationRequest, rhs: Services_Provider_V1_RevokeAuthorizationRequest) -> Bool {
-        if lhs.account != rhs.account { return false }
-        if lhs.resource != rhs.resource { return false }
-        if lhs.action != rhs.action { return false }
-        if lhs.unknownFields != rhs.unknownFields { return false }
-        return true
-    }
-}
-
-extension Services_Provider_V1_RevokeAuthorizationResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-    public static let protoMessageName: String = _protobuf_package + ".RevokeAuthorizationResponse"
-    public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
-
-    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-        while let _ = try decoder.nextFieldNumber() {}
-    }
-
-    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-        try unknownFields.traverse(visitor: &visitor)
-    }
-
-    public static func == (lhs: Services_Provider_V1_RevokeAuthorizationResponse, rhs: Services_Provider_V1_RevokeAuthorizationResponse) -> Bool {
-        if lhs.unknownFields != rhs.unknownFields { return false }
-        return true
-    }
-}
-
-extension Services_Provider_V1_GetAuthorizationsRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-    public static let protoMessageName: String = _protobuf_package + ".GetAuthorizationsRequest"
-    public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
-
-    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-        while let _ = try decoder.nextFieldNumber() {}
-    }
-
-    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-        try unknownFields.traverse(visitor: &visitor)
-    }
-
-    public static func == (lhs: Services_Provider_V1_GetAuthorizationsRequest, rhs: Services_Provider_V1_GetAuthorizationsRequest) -> Bool {
-        if lhs.unknownFields != rhs.unknownFields { return false }
-        return true
-    }
-}
-
-extension Services_Provider_V1_GetAuthorizationsResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-    public static let protoMessageName: String = _protobuf_package + ".GetAuthorizationsResponse"
-    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-        1: .same(proto: "grants"),
-    ]
-
-    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-        while let fieldNumber = try decoder.nextFieldNumber() {
-            // The use of inline closures is to circumvent an issue where the compiler
-            // allocates stack space for every case branch when no optimizations are
-            // enabled. https://github.com/apple/swift-protobuf/issues/1034
-            switch fieldNumber {
-            case 1: try try decoder.decodeRepeatedMessageField(value: &grants)
-            default: break
-            }
-        }
-    }
-
-    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-        if !grants.isEmpty {
-            try visitor.visitRepeatedMessageField(value: grants, fieldNumber: 1)
-        }
-        try unknownFields.traverse(visitor: &visitor)
-    }
-
-    public static func == (lhs: Services_Provider_V1_GetAuthorizationsResponse, rhs: Services_Provider_V1_GetAuthorizationsResponse) -> Bool {
-        if lhs.grants != rhs.grants { return false }
         if lhs.unknownFields != rhs.unknownFields { return false }
         return true
     }
@@ -2844,6 +2459,7 @@ extension Services_Provider_V1_WalletConfiguration: SwiftProtobuf.Message, Swift
         3: .same(proto: "sms"),
         4: .standard(proto: "wallet_id"),
         5: .standard(proto: "public_did"),
+        6: .standard(proto: "config_type"),
     ]
 
     public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -2857,6 +2473,7 @@ extension Services_Provider_V1_WalletConfiguration: SwiftProtobuf.Message, Swift
             case 3: try try decoder.decodeSingularStringField(value: &sms)
             case 4: try try decoder.decodeSingularStringField(value: &walletID)
             case 5: try try decoder.decodeSingularStringField(value: &publicDid)
+            case 6: try try decoder.decodeSingularStringField(value: &configType)
             default: break
             }
         }
@@ -2878,6 +2495,9 @@ extension Services_Provider_V1_WalletConfiguration: SwiftProtobuf.Message, Swift
         if !publicDid.isEmpty {
             try visitor.visitSingularStringField(value: publicDid, fieldNumber: 5)
         }
+        if !configType.isEmpty {
+            try visitor.visitSingularStringField(value: configType, fieldNumber: 6)
+        }
         try unknownFields.traverse(visitor: &visitor)
     }
 
@@ -2887,6 +2507,7 @@ extension Services_Provider_V1_WalletConfiguration: SwiftProtobuf.Message, Swift
         if lhs.sms != rhs.sms { return false }
         if lhs.walletID != rhs.walletID { return false }
         if lhs.publicDid != rhs.publicDid { return false }
+        if lhs.configType != rhs.configType { return false }
         if lhs.unknownFields != rhs.unknownFields { return false }
         return true
     }
@@ -2931,13 +2552,61 @@ extension Services_Provider_V1_IonOptions.IonNetwork: SwiftProtobuf._ProtoNamePr
     ]
 }
 
+extension Services_Provider_V1_IndyOptions: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".IndyOptions"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .same(proto: "network"),
+    ]
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 1: try try decoder.decodeSingularEnumField(value: &network)
+            default: break
+            }
+        }
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        if network != .danube {
+            try visitor.visitSingularEnumField(value: network, fieldNumber: 1)
+        }
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Provider_V1_IndyOptions, rhs: Services_Provider_V1_IndyOptions) -> Bool {
+        if lhs.network != rhs.network { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}
+
+extension Services_Provider_V1_IndyOptions.IndyNetwork: SwiftProtobuf._ProtoNameProviding {
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        0: .same(proto: "Danube"),
+        1: .same(proto: "SovrinBuilder"),
+        2: .same(proto: "SovrinStaging"),
+        3: .same(proto: "Sovrin"),
+        4: .same(proto: "IdUnionTest"),
+        5: .same(proto: "IdUnion"),
+        6: .same(proto: "IndicioTest"),
+        7: .same(proto: "IndicioDemo"),
+        8: .same(proto: "Indicio"),
+    ]
+}
+
 extension Services_Provider_V1_UpgradeDidRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
     public static let protoMessageName: String = _protobuf_package + ".UpgradeDidRequest"
     public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
         1: .same(proto: "email"),
         2: .standard(proto: "wallet_id"),
+        6: .standard(proto: "did_uri"),
         3: .same(proto: "method"),
         4: .standard(proto: "ion_options"),
+        5: .standard(proto: "indy_options"),
     ]
 
     public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -2976,6 +2645,27 @@ extension Services_Provider_V1_UpgradeDidRequest: SwiftProtobuf.Message, SwiftPr
                         self.options = .ionOptions(v)
                     }
                 }()
+            case 5: try {
+                    var v: Services_Provider_V1_IndyOptions?
+                    var hadOneofValue = false
+                    if let current = self.options {
+                        hadOneofValue = true
+                        if case let .indyOptions(m) = current { v = m }
+                    }
+                    try decoder.decodeSingularMessageField(value: &v)
+                    if let v = v {
+                        if hadOneofValue { try decoder.handleConflictingOneOf() }
+                        self.options = .indyOptions(v)
+                    }
+                }()
+            case 6: try {
+                    var v: String?
+                    try decoder.decodeSingularStringField(value: &v)
+                    if let v = v {
+                        if self.account != nil { try decoder.handleConflictingOneOf() }
+                        self.account = .didUri(v)
+                    }
+                }()
             default: break
             }
         }
@@ -2995,13 +2685,24 @@ extension Services_Provider_V1_UpgradeDidRequest: SwiftProtobuf.Message, SwiftPr
                 guard case let .walletID(v)? = self.account else { preconditionFailure() }
                 try visitor.visitSingularStringField(value: v, fieldNumber: 2)
             }()
-        case nil: break
+        default: break
         }
         if method != .key {
             try visitor.visitSingularEnumField(value: method, fieldNumber: 3)
         }
-        try { if case let .ionOptions(v)? = self.options {
-            try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+        switch options {
+        case .ionOptions?: try {
+                guard case let .ionOptions(v)? = self.options else { preconditionFailure() }
+                try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+            }()
+        case .indyOptions?: try {
+                guard case let .indyOptions(v)? = self.options else { preconditionFailure() }
+                try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+            }()
+        case nil: break
+        }
+        try { if case let .didUri(v)? = self.account {
+            try visitor.visitSingularStringField(value: v, fieldNumber: 6)
         } }()
         try unknownFields.traverse(visitor: &visitor)
     }

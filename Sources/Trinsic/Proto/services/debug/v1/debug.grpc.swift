@@ -43,7 +43,7 @@ public protocol Services_Debug_V1_DebuggingClientProtocol: GRPCClient {
 
 public extension Services_Debug_V1_DebuggingClientProtocol {
     var serviceName: String {
-        return "services.debug.v1.Debugging"
+        "services.debug.v1.Debugging"
     }
 
     /// Unary call to CallEmpty
@@ -56,7 +56,7 @@ public extension Services_Debug_V1_DebuggingClientProtocol {
         _ request: SwiftProtobuf.Google_Protobuf_Empty,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<SwiftProtobuf.Google_Protobuf_Empty, SwiftProtobuf.Google_Protobuf_Empty> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Debug_V1_DebuggingClientMetadata.Methods.CallEmpty.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -74,7 +74,7 @@ public extension Services_Debug_V1_DebuggingClientProtocol {
         _ request: SwiftProtobuf.Google_Protobuf_Empty,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<SwiftProtobuf.Google_Protobuf_Empty, SwiftProtobuf.Google_Protobuf_Empty> {
-        return makeUnaryCall(
+        makeUnaryCall(
             path: Services_Debug_V1_DebuggingClientMetadata.Methods.CallEmptyAuth.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
@@ -163,18 +163,18 @@ public struct Services_Debug_V1_DebuggingNIOClient: Services_Debug_V1_DebuggingC
     @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
     public extension Services_Debug_V1_DebuggingAsyncClientProtocol {
         static var serviceDescriptor: GRPCServiceDescriptor {
-            return Services_Debug_V1_DebuggingClientMetadata.serviceDescriptor
+            Services_Debug_V1_DebuggingClientMetadata.serviceDescriptor
         }
 
         var interceptors: Services_Debug_V1_DebuggingClientInterceptorFactoryProtocol? {
-            return nil
+            nil
         }
 
         func makeCallEmptyCall(
             _ request: SwiftProtobuf.Google_Protobuf_Empty,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<SwiftProtobuf.Google_Protobuf_Empty, SwiftProtobuf.Google_Protobuf_Empty> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Debug_V1_DebuggingClientMetadata.Methods.CallEmpty.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -186,7 +186,7 @@ public struct Services_Debug_V1_DebuggingNIOClient: Services_Debug_V1_DebuggingC
             _ request: SwiftProtobuf.Google_Protobuf_Empty,
             callOptions: CallOptions? = nil
         ) -> GRPCAsyncUnaryCall<SwiftProtobuf.Google_Protobuf_Empty, SwiftProtobuf.Google_Protobuf_Empty> {
-            return makeAsyncUnaryCall(
+            makeAsyncUnaryCall(
                 path: Services_Debug_V1_DebuggingClientMetadata.Methods.CallEmptyAuth.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -201,7 +201,7 @@ public struct Services_Debug_V1_DebuggingNIOClient: Services_Debug_V1_DebuggingC
             _ request: SwiftProtobuf.Google_Protobuf_Empty,
             callOptions: CallOptions? = nil
         ) async throws -> SwiftProtobuf.Google_Protobuf_Empty {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Debug_V1_DebuggingClientMetadata.Methods.CallEmpty.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -213,7 +213,7 @@ public struct Services_Debug_V1_DebuggingNIOClient: Services_Debug_V1_DebuggingC
             _ request: SwiftProtobuf.Google_Protobuf_Empty,
             callOptions: CallOptions? = nil
         ) async throws -> SwiftProtobuf.Google_Protobuf_Empty {
-            return try await performAsyncUnaryCall(
+            try await performAsyncUnaryCall(
                 path: Services_Debug_V1_DebuggingClientMetadata.Methods.CallEmptyAuth.path,
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
@@ -285,7 +285,7 @@ public protocol Services_Debug_V1_DebuggingProvider: CallHandlerProvider {
 
 public extension Services_Debug_V1_DebuggingProvider {
     var serviceName: Substring {
-        return Services_Debug_V1_DebuggingServerMetadata.serviceDescriptor.fullName[...]
+        Services_Debug_V1_DebuggingServerMetadata.serviceDescriptor.fullName[...]
     }
 
     /// Determines, calls and returns the appropriate request handler, depending on the request's method.
@@ -341,15 +341,15 @@ public extension Services_Debug_V1_DebuggingProvider {
     @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
     public extension Services_Debug_V1_DebuggingAsyncProvider {
         static var serviceDescriptor: GRPCServiceDescriptor {
-            return Services_Debug_V1_DebuggingServerMetadata.serviceDescriptor
+            Services_Debug_V1_DebuggingServerMetadata.serviceDescriptor
         }
 
         var serviceName: Substring {
-            return Services_Debug_V1_DebuggingServerMetadata.serviceDescriptor.fullName[...]
+            Services_Debug_V1_DebuggingServerMetadata.serviceDescriptor.fullName[...]
         }
 
         var interceptors: Services_Debug_V1_DebuggingServerInterceptorFactoryProtocol? {
-            return nil
+            nil
         }
 
         func handle(

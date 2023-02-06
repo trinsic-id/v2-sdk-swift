@@ -90,15 +90,16 @@ public struct Services_Account_V1_SignInRequest {
 
     /// Account registration details
     public var details: Services_Account_V1_AccountDetails {
-        get { return _details ?? Services_Account_V1_AccountDetails() }
+        get { _details ?? Services_Account_V1_AccountDetails() }
         set { _details = newValue }
     }
 
     /// Returns true if `details` has been explicitly set.
-    public var hasDetails: Bool { return _details != nil }
+    public var hasDetails: Bool { _details != nil }
     /// Clears the value of `details`. Subsequent reads from it will return its default value.
     public mutating func clearDetails() { _details = nil }
 
+    /// DEPRECATED, will be removed April 1st 2023
     /// Invitation code associated with this registration
     public var invitationCode: String = .init()
 
@@ -151,12 +152,12 @@ public struct Services_Account_V1_SignInResponse {
     /// See the docs at https://docs.trinsic.id for more information
     /// on working with authentication data.
     public var profile: Services_Account_V1_AccountProfile {
-        get { return _profile ?? Services_Account_V1_AccountProfile() }
+        get { _profile ?? Services_Account_V1_AccountProfile() }
         set { _profile = newValue }
     }
 
     /// Returns true if `profile` has been explicitly set.
-    public var hasProfile: Bool { return _profile != nil }
+    public var hasProfile: Bool { _profile != nil }
     /// Clears the value of `profile`. Subsequent reads from it will return its default value.
     public mutating func clearProfile() { _profile = nil }
 
@@ -188,12 +189,12 @@ public struct Services_Account_V1_AccountProfile {
     /// If token protection is enabled, implementations must supply
     /// protection secret before using the token for authentication.
     public var protection: Services_Account_V1_TokenProtection {
-        get { return _protection ?? Services_Account_V1_TokenProtection() }
+        get { _protection ?? Services_Account_V1_TokenProtection() }
         set { _protection = newValue }
     }
 
     /// Returns true if `protection` has been explicitly set.
-    public var hasProtection: Bool { return _protection != nil }
+    public var hasProtection: Bool { _protection != nil }
     /// Clears the value of `protection`. Subsequent reads from it will return its default value.
     public mutating func clearProtection() { _protection = nil }
 
@@ -242,12 +243,12 @@ public struct Services_Account_V1_AccountInfoResponse {
     /// The account details associated with
     /// the calling request context
     public var details: Services_Account_V1_AccountDetails {
-        get { return _details ?? Services_Account_V1_AccountDetails() }
+        get { _details ?? Services_Account_V1_AccountDetails() }
         set { _details = newValue }
     }
 
     /// Returns true if `details` has been explicitly set.
-    public var hasDetails: Bool { return _details != nil }
+    public var hasDetails: Bool { _details != nil }
     /// Clears the value of `details`. Subsequent reads from it will return its default value.
     public mutating func clearDetails() { _details = nil }
 
@@ -275,46 +276,6 @@ public struct Services_Account_V1_AccountInfoResponse {
     public init() {}
 
     fileprivate var _details: Services_Account_V1_AccountDetails?
-}
-
-public struct Services_Account_V1_ListDevicesRequest {
-    // SwiftProtobuf.Message conformance is added in an extension below. See the
-    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-    // methods supported on all messages.
-
-    public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-    public init() {}
-}
-
-public struct Services_Account_V1_ListDevicesResponse {
-    // SwiftProtobuf.Message conformance is added in an extension below. See the
-    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-    // methods supported on all messages.
-
-    public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-    public init() {}
-}
-
-public struct Services_Account_V1_RevokeDeviceRequest {
-    // SwiftProtobuf.Message conformance is added in an extension below. See the
-    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-    // methods supported on all messages.
-
-    public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-    public init() {}
-}
-
-public struct Services_Account_V1_RevokeDeviceResponse {
-    // SwiftProtobuf.Message conformance is added in an extension below. See the
-    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-    // methods supported on all messages.
-
-    public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-    public init() {}
 }
 
 /// Deprecated
@@ -345,6 +306,7 @@ public struct Services_Account_V1_LoginRequest {
     /// Email address of account. If unspecified, an anonymous account will be created.
     public var email: String = .init()
 
+    /// DEPRECATED, will be removed April 1st 2023
     /// Invitation code associated with this registration
     public var invitationCode: String = .init()
 
@@ -445,12 +407,12 @@ public struct Services_Account_V1_LoginConfirmResponse {
     /// Profile response; must be unprotected using unhashed confirmation code.
     /// Our SDKs will handle this process for you, and return to you an authentication token string.
     public var profile: Services_Account_V1_AccountProfile {
-        get { return _profile ?? Services_Account_V1_AccountProfile() }
+        get { _profile ?? Services_Account_V1_AccountProfile() }
         set { _profile = newValue }
     }
 
     /// Returns true if `profile` has been explicitly set.
-    public var hasProfile: Bool { return _profile != nil }
+    public var hasProfile: Bool { _profile != nil }
     /// Clears the value of `profile`. Subsequent reads from it will return its default value.
     public mutating func clearProfile() { _profile = nil }
 
@@ -496,10 +458,6 @@ public struct Services_Account_V1_AuthorizeWebhookResponse {
     extension Services_Account_V1_TokenProtection: @unchecked Sendable {}
     extension Services_Account_V1_AccountInfoRequest: @unchecked Sendable {}
     extension Services_Account_V1_AccountInfoResponse: @unchecked Sendable {}
-    extension Services_Account_V1_ListDevicesRequest: @unchecked Sendable {}
-    extension Services_Account_V1_ListDevicesResponse: @unchecked Sendable {}
-    extension Services_Account_V1_RevokeDeviceRequest: @unchecked Sendable {}
-    extension Services_Account_V1_RevokeDeviceResponse: @unchecked Sendable {}
     extension Services_Account_V1_AccountEcosystem: @unchecked Sendable {}
     extension Services_Account_V1_LoginRequest: @unchecked Sendable {}
     extension Services_Account_V1_LoginResponse: @unchecked Sendable {}
@@ -835,78 +793,6 @@ extension Services_Account_V1_AccountInfoResponse: SwiftProtobuf.Message, SwiftP
         if lhs.ecosystemID != rhs.ecosystemID { return false }
         if lhs.publicDid != rhs.publicDid { return false }
         if lhs.authorizedWebhooks != rhs.authorizedWebhooks { return false }
-        if lhs.unknownFields != rhs.unknownFields { return false }
-        return true
-    }
-}
-
-extension Services_Account_V1_ListDevicesRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-    public static let protoMessageName: String = _protobuf_package + ".ListDevicesRequest"
-    public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
-
-    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-        while let _ = try decoder.nextFieldNumber() {}
-    }
-
-    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-        try unknownFields.traverse(visitor: &visitor)
-    }
-
-    public static func == (lhs: Services_Account_V1_ListDevicesRequest, rhs: Services_Account_V1_ListDevicesRequest) -> Bool {
-        if lhs.unknownFields != rhs.unknownFields { return false }
-        return true
-    }
-}
-
-extension Services_Account_V1_ListDevicesResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-    public static let protoMessageName: String = _protobuf_package + ".ListDevicesResponse"
-    public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
-
-    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-        while let _ = try decoder.nextFieldNumber() {}
-    }
-
-    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-        try unknownFields.traverse(visitor: &visitor)
-    }
-
-    public static func == (lhs: Services_Account_V1_ListDevicesResponse, rhs: Services_Account_V1_ListDevicesResponse) -> Bool {
-        if lhs.unknownFields != rhs.unknownFields { return false }
-        return true
-    }
-}
-
-extension Services_Account_V1_RevokeDeviceRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-    public static let protoMessageName: String = _protobuf_package + ".RevokeDeviceRequest"
-    public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
-
-    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-        while let _ = try decoder.nextFieldNumber() {}
-    }
-
-    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-        try unknownFields.traverse(visitor: &visitor)
-    }
-
-    public static func == (lhs: Services_Account_V1_RevokeDeviceRequest, rhs: Services_Account_V1_RevokeDeviceRequest) -> Bool {
-        if lhs.unknownFields != rhs.unknownFields { return false }
-        return true
-    }
-}
-
-extension Services_Account_V1_RevokeDeviceResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-    public static let protoMessageName: String = _protobuf_package + ".RevokeDeviceResponse"
-    public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
-
-    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-        while let _ = try decoder.nextFieldNumber() {}
-    }
-
-    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-        try unknownFields.traverse(visitor: &visitor)
-    }
-
-    public static func == (lhs: Services_Account_V1_RevokeDeviceResponse, rhs: Services_Account_V1_RevokeDeviceResponse) -> Bool {
         if lhs.unknownFields != rhs.unknownFields { return false }
         return true
     }

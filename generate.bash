@@ -12,21 +12,17 @@ fi
 # install protoc and required plugins
 brew install protobuf swift-protobuf grpc-swift swiftformat
 
-# add 'trinsic-id/sdk' repository as submodule
-# to use the proto files for code generation
-git submodule add https://github.com/trinsic-id/sdk
-
 # define protoc plugin paths and generate the files
-PROTOC=`which protoc`
-PROTOC_GEN_SWIFT=`which protoc-gen-swift`
-PROTOC_GEN_GRPC_SWIFT=`which protoc-gen-grpc-swift`
+PROTOC=$(which protoc)
+PROTOC_GEN_SWIFT=$(which protoc-gen-swift)
+PROTOC_GEN_GRPC_SWIFT=$(which protoc-gen-grpc-swift)
 
-PROTO_ROOT=./sdk/proto/
-PROTO_DIR=./sdk/proto/
+PROTO_ROOT=./proto
 OUT_DIR=./Sources/Trinsic/Proto
 
 for f in $(find $PROTO_ROOT -name "*.proto");
 do
+  echo "Compiling: $f"
     ${PROTOC} \
     --proto_path=${PROTO_ROOT} \
     --plugin=${PROTOC_GEN_SWIFT} \
@@ -35,13 +31,8 @@ do
     --plugin=${PROTOC_GEN_GRPC_SWIFT} \
     --grpc-swift_opt=Visibility=Public \
     --grpc-swift_opt=KeepMethodCasing=true \
-    --grpc-swift_out=${OUT_DIR} $f
+    --grpc-swift_out=${OUT_DIR} "$f"
 done
 
-swiftformat .
-
-# remove the git submodule
-
-git submodule deinit -f sdk
-rm -rf .git/modules/sdk
-rm -fr sdk
+swiftformat . --swiftversion 5.6
+echo "Done!"

@@ -1,0 +1,61 @@
+name: Build Proto Files
+on:
+  workflow_call:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "proto/**"
+  pull_request:
+    paths:
+      - "proto/**"
+      - ".github/workflows/build-proto.yml"
+
+jobs:
+  compile_proto:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          ref: ${{ github.head_ref }}
+          submodules: recursive
+      - name: Install Protoc
+        uses: arduino/setup-protoc@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Configure git credentials
+        uses: OleksiyRudenko/gha-git-credentials@v2
+        with:
+          token: '${{ secrets.GITHUB_TOKEN }}'
+
+      - uses: trinsic-id/protoc-gen-sdk@main
+        id: buildsdkwrappers
+        with:
+          protoPath: ${{github.workspace}}/proto
+          swiftPath: ${{github.workspace}}/Sources/Trinsic
+      - name: Compile proto files
+        run: ./generate.bash
+        shell: bash
+
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v9
+        id: commit_changes
+        with:
+          author_name: Mewmba
+          author_email: mewmba@trinsic.id
+          message: 'Generated code from proto files on branch ${{ github.head_ref }}'
+          new_branch: 'mewmba-${{ github.head_ref }}-generated-protos'
+          push: '--force --set-upstream origin mewmba-${{ github.head_ref }}-generated-protos'
+
+      - name: pull-request
+        uses: repo-sync/pull-request@v2
+        if: ${{ steps.commit_changes.outputs.committed == 'true' }}
+        with:
+          source_branch: "mewmba-${{ github.head_ref }}-generated-protos"  # From previous step
+          destination_branch: ${{ github.head_ref }}
+          pr_title: "Generated Protos for ${{ github.head_ref }}"
+          pr_body: ":rocket: Generated protos"
+          pr_allow_empty: false
+          github_token: ${{ secrets.GITHUB_TOKEN }}

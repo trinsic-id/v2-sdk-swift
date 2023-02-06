@@ -27,6 +27,7 @@ public enum Services_Verifiablecredentials_Templates_V1_FieldType: SwiftProtobuf
     case number // = 1
     case bool // = 2
     case datetime // = 4
+    case uri // = 5
     case UNRECOGNIZED(Int)
 
     public init() {
@@ -39,6 +40,7 @@ public enum Services_Verifiablecredentials_Templates_V1_FieldType: SwiftProtobuf
         case 1: self = .number
         case 2: self = .bool
         case 4: self = .datetime
+        case 5: self = .uri
         default: self = .UNRECOGNIZED(rawValue)
         }
     }
@@ -49,6 +51,7 @@ public enum Services_Verifiablecredentials_Templates_V1_FieldType: SwiftProtobuf
         case .number: return 1
         case .bool: return 2
         case .datetime: return 4
+        case .uri: return 5
         case let .UNRECOGNIZED(i): return i
         }
     }
@@ -63,6 +66,7 @@ public enum Services_Verifiablecredentials_Templates_V1_FieldType: SwiftProtobuf
             .number,
             .bool,
             .datetime,
+            .uri,
         ]
     }
 
@@ -90,12 +94,12 @@ public struct Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateR
 
     /// Template fetched by ID
     public var template: Services_Verifiablecredentials_Templates_V1_TemplateData {
-        get { return _template ?? Services_Verifiablecredentials_Templates_V1_TemplateData() }
+        get { _template ?? Services_Verifiablecredentials_Templates_V1_TemplateData() }
         set { _template = newValue }
     }
 
     /// Returns true if `template` has been explicitly set.
-    public var hasTemplate: Bool { return _template != nil }
+    public var hasTemplate: Bool { _template != nil }
     /// Clears the value of `template`. Subsequent reads from it will return its default value.
     public mutating func clearTemplate() { _template = nil }
 
@@ -103,7 +107,7 @@ public struct Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateR
 
     public init() {}
 
-    fileprivate var _template: Services_Verifiablecredentials_Templates_V1_TemplateData?
+    private var _template: Services_Verifiablecredentials_Templates_V1_TemplateData?
 }
 
 /// Request to search templates using a SQL query
@@ -236,12 +240,12 @@ public struct Services_Verifiablecredentials_Templates_V1_CreateCredentialTempla
 
     /// Created template
     public var data: Services_Verifiablecredentials_Templates_V1_TemplateData {
-        get { return _data ?? Services_Verifiablecredentials_Templates_V1_TemplateData() }
+        get { _data ?? Services_Verifiablecredentials_Templates_V1_TemplateData() }
         set { _data = newValue }
     }
 
     /// Returns true if `data` has been explicitly set.
-    public var hasData: Bool { return _data != nil }
+    public var hasData: Bool { _data != nil }
     /// Clears the value of `data`. Subsequent reads from it will return its default value.
     public mutating func clearData() { _data = nil }
 
@@ -266,6 +270,9 @@ public struct Services_Verifiablecredentials_Templates_V1_TemplateField {
 
     /// The type of the field
     public var type: Services_Verifiablecredentials_Templates_V1_FieldType = .string
+
+    /// Annotations for the field that may be used to add additional information
+    public var annotations: [String: String] = [:]
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -292,12 +299,12 @@ public struct Services_Verifiablecredentials_Templates_V1_GetTemplateResponse {
     // methods supported on all messages.
 
     public var data: Services_Verifiablecredentials_Templates_V1_TemplateData {
-        get { return _data ?? Services_Verifiablecredentials_Templates_V1_TemplateData() }
+        get { _data ?? Services_Verifiablecredentials_Templates_V1_TemplateData() }
         set { _data = newValue }
     }
 
     /// Returns true if `data` has been explicitly set.
-    public var hasData: Bool { return _data != nil }
+    public var hasData: Bool { _data != nil }
     /// Clears the value of `data`. Subsequent reads from it will return its default value.
     public mutating func clearData() { _data = nil }
 
@@ -407,6 +414,7 @@ extension Services_Verifiablecredentials_Templates_V1_FieldType: SwiftProtobuf._
         1: .same(proto: "NUMBER"),
         2: .same(proto: "BOOL"),
         4: .same(proto: "DATETIME"),
+        5: .same(proto: "URI"),
     ]
 }
 
@@ -778,6 +786,7 @@ extension Services_Verifiablecredentials_Templates_V1_TemplateField: SwiftProtob
         2: .same(proto: "description"),
         3: .same(proto: "optional"),
         4: .same(proto: "type"),
+        5: .same(proto: "annotations"),
     ]
 
     public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -789,6 +798,7 @@ extension Services_Verifiablecredentials_Templates_V1_TemplateField: SwiftProtob
             case 2: try try decoder.decodeSingularStringField(value: &description_p)
             case 3: try try decoder.decodeSingularBoolField(value: &optional)
             case 4: try try decoder.decodeSingularEnumField(value: &type)
+            case 5: try { try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMap<SwiftProtobuf.ProtobufString, SwiftProtobuf.ProtobufString>.self, value: &self.annotations) }()
             default: break
             }
         }
@@ -804,6 +814,9 @@ extension Services_Verifiablecredentials_Templates_V1_TemplateField: SwiftProtob
         if type != .string {
             try visitor.visitSingularEnumField(value: type, fieldNumber: 4)
         }
+        if !annotations.isEmpty {
+            try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMap<SwiftProtobuf.ProtobufString, SwiftProtobuf.ProtobufString>.self, value: annotations, fieldNumber: 5)
+        }
         try unknownFields.traverse(visitor: &visitor)
     }
 
@@ -811,6 +824,7 @@ extension Services_Verifiablecredentials_Templates_V1_TemplateField: SwiftProtob
         if lhs.description_p != rhs.description_p { return false }
         if lhs.optional != rhs.optional { return false }
         if lhs.type != rhs.type { return false }
+        if lhs.annotations != rhs.annotations { return false }
         if lhs.unknownFields != rhs.unknownFields { return false }
         return true
     }

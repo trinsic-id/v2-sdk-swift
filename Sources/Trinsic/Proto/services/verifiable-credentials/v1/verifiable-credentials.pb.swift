@@ -67,6 +67,11 @@ public struct Services_Verifiablecredentials_V1_IssueFromTemplateRequest {
     /// metadata with membership info for the given ecosystem governance framework (EGF)
     public var frameworkID: String = .init()
 
+    /// Save a copy of the issued credential to this user's wallet. This copy will only contain
+    /// the credential data, but not the secret proof value. Issuers may use this data to
+    /// keep track of the details for revocation status.
+    public var saveCopy: Bool = false
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
@@ -95,10 +100,29 @@ public struct Services_Verifiablecredentials_V1_CreateProofRequest {
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
 
+    /// Selective disclosure specification. If nothing is provided, the entire proof is returned.
+    /// Either a custom JSON-LD frame is provided, or a list of attributes is provided for selective disclosure
+    public var disclosure: Services_Verifiablecredentials_V1_CreateProofRequest.OneOf_Disclosure?
+
     /// A valid JSON-LD frame describing which fields should be
     /// revealed in the generated proof.
     /// If unspecified, all fields in the document will be revealed
-    public var revealDocumentJson: String = .init()
+    public var revealDocumentJson: String {
+        get {
+            if case let .revealDocumentJson(v)? = disclosure { return v }
+            return String()
+        }
+        set { disclosure = .revealDocumentJson(newValue) }
+    }
+
+    /// Information about what sections of the document to reveal
+    public var revealTemplate: Services_Verifiablecredentials_V1_RevealTemplateAttributes {
+        get {
+            if case let .revealTemplate(v)? = disclosure { return v }
+            return Services_Verifiablecredentials_V1_RevealTemplateAttributes()
+        }
+        set { disclosure = .revealTemplate(newValue) }
+    }
 
     /// Specify the input to be used to derive this proof.
     /// Input can be an existing item in the wallet or an input document
@@ -124,7 +148,41 @@ public struct Services_Verifiablecredentials_V1_CreateProofRequest {
         set { proof = .documentJson(newValue) }
     }
 
+    /// Nonce value used to derive the proof. If not specified, a random nonce will be generated.
+    /// This value may be represented in base64 format in the proof model.
+    public var nonce: Data = .init()
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    /// Selective disclosure specification. If nothing is provided, the entire proof is returned.
+    /// Either a custom JSON-LD frame is provided, or a list of attributes is provided for selective disclosure
+    public enum OneOf_Disclosure: Equatable {
+        /// A valid JSON-LD frame describing which fields should be
+        /// revealed in the generated proof.
+        /// If unspecified, all fields in the document will be revealed
+        case revealDocumentJson(String)
+        /// Information about what sections of the document to reveal
+        case revealTemplate(Services_Verifiablecredentials_V1_RevealTemplateAttributes)
+
+        #if !swift(>=4.1)
+            public static func == (lhs: Services_Verifiablecredentials_V1_CreateProofRequest.OneOf_Disclosure, rhs: Services_Verifiablecredentials_V1_CreateProofRequest.OneOf_Disclosure) -> Bool {
+                // The use of inline closures is to circumvent an issue where the compiler
+                // allocates stack space for every case branch when no optimizations are
+                // enabled. https://github.com/apple/swift-protobuf/issues/1034
+                switch (lhs, rhs) {
+                case (.revealDocumentJson, .revealDocumentJson): return {
+                        guard case let .revealDocumentJson(l) = lhs, case let .revealDocumentJson(r) = rhs else { preconditionFailure() }
+                        return l == r
+                    }()
+                case (.revealTemplate, .revealTemplate): return {
+                        guard case let .revealTemplate(l) = lhs, case let .revealTemplate(r) = rhs else { preconditionFailure() }
+                        return l == r
+                    }()
+                default: return false
+                }
+            }
+        #endif
+    }
 
     /// Specify the input to be used to derive this proof.
     /// Input can be an existing item in the wallet or an input document
@@ -155,6 +213,19 @@ public struct Services_Verifiablecredentials_V1_CreateProofRequest {
             }
         #endif
     }
+
+    public init() {}
+}
+
+public struct Services_Verifiablecredentials_V1_RevealTemplateAttributes {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    /// A list of document attributes to reveal. If unset, all attributes will be returned.
+    public var templateAttributes: [String] = []
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
 }
@@ -215,7 +286,7 @@ public struct Services_Verifiablecredentials_V1_ValidationMessage {
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
 
-    /// Whether or not this validation check passed
+    /// Whether this validation check passed
     public var isValid: Bool = false
 
     /// If validation failed, contains messages explaining why
@@ -244,6 +315,19 @@ public struct Services_Verifiablecredentials_V1_SendRequest {
     }
 
     /// DID of recipient (presently unsupported)
+    /// string did_uri = 2 [deprecated=true];
+    /// DIDComm out-of-band invitation JSON (presently unsupported)
+    /// string didcomm_invitation_json = 3 [deprecated=true];
+    /// Wallet ID of the recipient within the ecosystem
+    public var walletID: String {
+        get {
+            if case let .walletID(v)? = deliveryMethod { return v }
+            return String()
+        }
+        set { deliveryMethod = .walletID(newValue) }
+    }
+
+    /// DID URI of the recipient
     public var didUri: String {
         get {
             if case let .didUri(v)? = deliveryMethod { return v }
@@ -252,14 +336,8 @@ public struct Services_Verifiablecredentials_V1_SendRequest {
         set { deliveryMethod = .didUri(newValue) }
     }
 
-    /// DIDComm out-of-band invitation JSON (presently unsupported)
-    public var didcommInvitationJson: String {
-        get {
-            if case let .didcommInvitationJson(v)? = deliveryMethod { return v }
-            return String()
-        }
-        set { deliveryMethod = .didcommInvitationJson(newValue) }
-    }
+    /// Send email notification that credential has been sent to a wallet
+    public var sendNotification: Bool = false
 
     /// JSON document to send to recipient
     public var documentJson: String = .init()
@@ -270,9 +348,13 @@ public struct Services_Verifiablecredentials_V1_SendRequest {
         /// Email address of user to send item to
         case email(String)
         /// DID of recipient (presently unsupported)
-        case didUri(String)
+        /// string did_uri = 2 [deprecated=true];
         /// DIDComm out-of-band invitation JSON (presently unsupported)
-        case didcommInvitationJson(String)
+        /// string didcomm_invitation_json = 3 [deprecated=true];
+        /// Wallet ID of the recipient within the ecosystem
+        case walletID(String)
+        /// DID URI of the recipient
+        case didUri(String)
 
         #if !swift(>=4.1)
             public static func == (lhs: Services_Verifiablecredentials_V1_SendRequest.OneOf_DeliveryMethod, rhs: Services_Verifiablecredentials_V1_SendRequest.OneOf_DeliveryMethod) -> Bool {
@@ -284,12 +366,12 @@ public struct Services_Verifiablecredentials_V1_SendRequest {
                         guard case let .email(l) = lhs, case let .email(r) = rhs else { preconditionFailure() }
                         return l == r
                     }()
-                case (.didUri, .didUri): return {
-                        guard case let .didUri(l) = lhs, case let .didUri(r) = rhs else { preconditionFailure() }
+                case (.walletID, .walletID): return {
+                        guard case let .walletID(l) = lhs, case let .walletID(r) = rhs else { preconditionFailure() }
                         return l == r
                     }()
-                case (.didcommInvitationJson, .didcommInvitationJson): return {
-                        guard case let .didcommInvitationJson(l) = lhs, case let .didcommInvitationJson(r) = rhs else { preconditionFailure() }
+                case (.didUri, .didUri): return {
+                        guard case let .didUri(l) = lhs, case let .didUri(r) = rhs else { preconditionFailure() }
                         return l == r
                     }()
                 default: return false
@@ -374,7 +456,9 @@ public struct Services_Verifiablecredentials_V1_CheckStatusResponse {
     extension Services_Verifiablecredentials_V1_IssueFromTemplateRequest: @unchecked Sendable {}
     extension Services_Verifiablecredentials_V1_IssueFromTemplateResponse: @unchecked Sendable {}
     extension Services_Verifiablecredentials_V1_CreateProofRequest: @unchecked Sendable {}
+    extension Services_Verifiablecredentials_V1_CreateProofRequest.OneOf_Disclosure: @unchecked Sendable {}
     extension Services_Verifiablecredentials_V1_CreateProofRequest.OneOf_Proof: @unchecked Sendable {}
+    extension Services_Verifiablecredentials_V1_RevealTemplateAttributes: @unchecked Sendable {}
     extension Services_Verifiablecredentials_V1_CreateProofResponse: @unchecked Sendable {}
     extension Services_Verifiablecredentials_V1_VerifyProofRequest: @unchecked Sendable {}
     extension Services_Verifiablecredentials_V1_VerifyProofResponse: @unchecked Sendable {}
@@ -462,6 +546,7 @@ extension Services_Verifiablecredentials_V1_IssueFromTemplateRequest: SwiftProto
         1: .standard(proto: "template_id"),
         2: .standard(proto: "values_json"),
         3: .standard(proto: "framework_id"),
+        4: .standard(proto: "save_copy"),
     ]
 
     public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -473,6 +558,7 @@ extension Services_Verifiablecredentials_V1_IssueFromTemplateRequest: SwiftProto
             case 1: try try decoder.decodeSingularStringField(value: &templateID)
             case 2: try try decoder.decodeSingularStringField(value: &valuesJson)
             case 3: try try decoder.decodeSingularStringField(value: &frameworkID)
+            case 4: try try decoder.decodeSingularBoolField(value: &saveCopy)
             default: break
             }
         }
@@ -488,6 +574,9 @@ extension Services_Verifiablecredentials_V1_IssueFromTemplateRequest: SwiftProto
         if !frameworkID.isEmpty {
             try visitor.visitSingularStringField(value: frameworkID, fieldNumber: 3)
         }
+        if saveCopy != false {
+            try visitor.visitSingularBoolField(value: saveCopy, fieldNumber: 4)
+        }
         try unknownFields.traverse(visitor: &visitor)
     }
 
@@ -495,6 +584,7 @@ extension Services_Verifiablecredentials_V1_IssueFromTemplateRequest: SwiftProto
         if lhs.templateID != rhs.templateID { return false }
         if lhs.valuesJson != rhs.valuesJson { return false }
         if lhs.frameworkID != rhs.frameworkID { return false }
+        if lhs.saveCopy != rhs.saveCopy { return false }
         if lhs.unknownFields != rhs.unknownFields { return false }
         return true
     }
@@ -536,8 +626,10 @@ extension Services_Verifiablecredentials_V1_CreateProofRequest: SwiftProtobuf.Me
     public static let protoMessageName: String = _protobuf_package + ".CreateProofRequest"
     public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
         1: .standard(proto: "reveal_document_json"),
+        11: .standard(proto: "reveal_template"),
         2: .standard(proto: "item_id"),
         3: .standard(proto: "document_json"),
+        10: .same(proto: "nonce"),
     ]
 
     public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -546,7 +638,14 @@ extension Services_Verifiablecredentials_V1_CreateProofRequest: SwiftProtobuf.Me
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &revealDocumentJson)
+            case 1: try {
+                    var v: String?
+                    try decoder.decodeSingularStringField(value: &v)
+                    if let v = v {
+                        if self.disclosure != nil { try decoder.handleConflictingOneOf() }
+                        self.disclosure = .revealDocumentJson(v)
+                    }
+                }()
             case 2: try {
                     var v: String?
                     try decoder.decodeSingularStringField(value: &v)
@@ -563,6 +662,20 @@ extension Services_Verifiablecredentials_V1_CreateProofRequest: SwiftProtobuf.Me
                         self.proof = .documentJson(v)
                     }
                 }()
+            case 10: try try decoder.decodeSingularBytesField(value: &nonce)
+            case 11: try {
+                    var v: Services_Verifiablecredentials_V1_RevealTemplateAttributes?
+                    var hadOneofValue = false
+                    if let current = self.disclosure {
+                        hadOneofValue = true
+                        if case let .revealTemplate(m) = current { v = m }
+                    }
+                    try decoder.decodeSingularMessageField(value: &v)
+                    if let v = v {
+                        if hadOneofValue { try decoder.handleConflictingOneOf() }
+                        self.disclosure = .revealTemplate(v)
+                    }
+                }()
             default: break
             }
         }
@@ -573,9 +686,9 @@ extension Services_Verifiablecredentials_V1_CreateProofRequest: SwiftProtobuf.Me
         // allocates stack space for every if/case branch local when no optimizations
         // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
         // https://github.com/apple/swift-protobuf/issues/1182
-        if !revealDocumentJson.isEmpty {
-            try visitor.visitSingularStringField(value: revealDocumentJson, fieldNumber: 1)
-        }
+        try { if case let .revealDocumentJson(v)? = self.disclosure {
+            try visitor.visitSingularStringField(value: v, fieldNumber: 1)
+        } }()
         switch proof {
         case .itemID?: try {
                 guard case let .itemID(v)? = self.proof else { preconditionFailure() }
@@ -587,12 +700,51 @@ extension Services_Verifiablecredentials_V1_CreateProofRequest: SwiftProtobuf.Me
             }()
         case nil: break
         }
+        if !nonce.isEmpty {
+            try visitor.visitSingularBytesField(value: nonce, fieldNumber: 10)
+        }
+        try { if case let .revealTemplate(v)? = self.disclosure {
+            try visitor.visitSingularMessageField(value: v, fieldNumber: 11)
+        } }()
         try unknownFields.traverse(visitor: &visitor)
     }
 
     public static func == (lhs: Services_Verifiablecredentials_V1_CreateProofRequest, rhs: Services_Verifiablecredentials_V1_CreateProofRequest) -> Bool {
-        if lhs.revealDocumentJson != rhs.revealDocumentJson { return false }
+        if lhs.disclosure != rhs.disclosure { return false }
         if lhs.proof != rhs.proof { return false }
+        if lhs.nonce != rhs.nonce { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}
+
+extension Services_Verifiablecredentials_V1_RevealTemplateAttributes: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".RevealTemplateAttributes"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .standard(proto: "template_attributes"),
+    ]
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 1: try try decoder.decodeRepeatedStringField(value: &templateAttributes)
+            default: break
+            }
+        }
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        if !templateAttributes.isEmpty {
+            try visitor.visitRepeatedStringField(value: templateAttributes, fieldNumber: 1)
+        }
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Verifiablecredentials_V1_RevealTemplateAttributes, rhs: Services_Verifiablecredentials_V1_RevealTemplateAttributes) -> Bool {
+        if lhs.templateAttributes != rhs.templateAttributes { return false }
         if lhs.unknownFields != rhs.unknownFields { return false }
         return true
     }
@@ -748,8 +900,9 @@ extension Services_Verifiablecredentials_V1_SendRequest: SwiftProtobuf.Message, 
     public static let protoMessageName: String = _protobuf_package + ".SendRequest"
     public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
         1: .same(proto: "email"),
-        2: .standard(proto: "did_uri"),
-        3: .standard(proto: "didcomm_invitation_json"),
+        5: .standard(proto: "wallet_id"),
+        6: .standard(proto: "did_uri"),
+        4: .standard(proto: "send_notification"),
         100: .standard(proto: "document_json"),
     ]
 
@@ -767,20 +920,21 @@ extension Services_Verifiablecredentials_V1_SendRequest: SwiftProtobuf.Message, 
                         self.deliveryMethod = .email(v)
                     }
                 }()
-            case 2: try {
+            case 4: try try decoder.decodeSingularBoolField(value: &sendNotification)
+            case 5: try {
+                    var v: String?
+                    try decoder.decodeSingularStringField(value: &v)
+                    if let v = v {
+                        if self.deliveryMethod != nil { try decoder.handleConflictingOneOf() }
+                        self.deliveryMethod = .walletID(v)
+                    }
+                }()
+            case 6: try {
                     var v: String?
                     try decoder.decodeSingularStringField(value: &v)
                     if let v = v {
                         if self.deliveryMethod != nil { try decoder.handleConflictingOneOf() }
                         self.deliveryMethod = .didUri(v)
-                    }
-                }()
-            case 3: try {
-                    var v: String?
-                    try decoder.decodeSingularStringField(value: &v)
-                    if let v = v {
-                        if self.deliveryMethod != nil { try decoder.handleConflictingOneOf() }
-                        self.deliveryMethod = .didcommInvitationJson(v)
                     }
                 }()
             case 100: try try decoder.decodeSingularStringField(value: &documentJson)
@@ -794,20 +948,22 @@ extension Services_Verifiablecredentials_V1_SendRequest: SwiftProtobuf.Message, 
         // allocates stack space for every if/case branch local when no optimizations
         // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
         // https://github.com/apple/swift-protobuf/issues/1182
+        try { if case let .email(v)? = self.deliveryMethod {
+            try visitor.visitSingularStringField(value: v, fieldNumber: 1)
+        } }()
+        if sendNotification != false {
+            try visitor.visitSingularBoolField(value: sendNotification, fieldNumber: 4)
+        }
         switch deliveryMethod {
-        case .email?: try {
-                guard case let .email(v)? = self.deliveryMethod else { preconditionFailure() }
-                try visitor.visitSingularStringField(value: v, fieldNumber: 1)
+        case .walletID?: try {
+                guard case let .walletID(v)? = self.deliveryMethod else { preconditionFailure() }
+                try visitor.visitSingularStringField(value: v, fieldNumber: 5)
             }()
         case .didUri?: try {
                 guard case let .didUri(v)? = self.deliveryMethod else { preconditionFailure() }
-                try visitor.visitSingularStringField(value: v, fieldNumber: 2)
+                try visitor.visitSingularStringField(value: v, fieldNumber: 6)
             }()
-        case .didcommInvitationJson?: try {
-                guard case let .didcommInvitationJson(v)? = self.deliveryMethod else { preconditionFailure() }
-                try visitor.visitSingularStringField(value: v, fieldNumber: 3)
-            }()
-        case nil: break
+        default: break
         }
         if !documentJson.isEmpty {
             try visitor.visitSingularStringField(value: documentJson, fieldNumber: 100)
@@ -817,6 +973,7 @@ extension Services_Verifiablecredentials_V1_SendRequest: SwiftProtobuf.Message, 
 
     public static func == (lhs: Services_Verifiablecredentials_V1_SendRequest, rhs: Services_Verifiablecredentials_V1_SendRequest) -> Bool {
         if lhs.deliveryMethod != rhs.deliveryMethod { return false }
+        if lhs.sendNotification != rhs.sendNotification { return false }
         if lhs.documentJson != rhs.documentJson { return false }
         if lhs.unknownFields != rhs.unknownFields { return false }
         return true

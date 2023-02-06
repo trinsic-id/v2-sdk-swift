@@ -8,8 +8,10 @@
 import Foundation
 
 public class TrinsicService: ServiceBase {
+    private var _accessManagementService: AccessManagementService?
     private var _accountService: AccountService?
     private var _credentialService: CredentialService?
+    private var _fileManagementService: FileManagementService?
     private var _providerService: ProviderService?
     private var _templateService: TemplateService?
     private var _trustRegistryService: TrustRegistryService?
@@ -17,6 +19,12 @@ public class TrinsicService: ServiceBase {
 
     public init() {
         super.init(options: Sdk_Options_V1_ServiceOptions())
+    }
+
+    public func accessManagement() -> AccessManagementService {
+        _accessManagementService = _accessManagementService ?? AccessManagementService(options: options)
+        _accessManagementService?.options = options
+        return _accessManagementService!
     }
 
     public func account() -> AccountService {
@@ -29,6 +37,12 @@ public class TrinsicService: ServiceBase {
         _credentialService = _credentialService ?? CredentialService(options: options)
         _credentialService?.options = options
         return _credentialService!
+    }
+
+    public func fileManagement() -> FileManagementService {
+        _fileManagementService = _fileManagementService ?? FileManagementService(options: options)
+        _fileManagementService?.options = options
+        return _fileManagementService!
     }
 
     public func provider() -> ProviderService {

@@ -194,12 +194,12 @@ public struct Pbmse_V1_EncryptionRecipient {
     // methods supported on all messages.
 
     public var header: Pbmse_V1_EncryptionHeader {
-        get { return _header ?? Pbmse_V1_EncryptionHeader() }
+        get { _header ?? Pbmse_V1_EncryptionHeader() }
         set { _header = newValue }
     }
 
     /// Returns true if `header` has been explicitly set.
-    public var hasHeader: Bool { return _header != nil }
+    public var hasHeader: Bool { _header != nil }
     /// Clears the value of `header`. Subsequent reads from it will return its default value.
     public mutating func clearHeader() { _header = nil }
 
