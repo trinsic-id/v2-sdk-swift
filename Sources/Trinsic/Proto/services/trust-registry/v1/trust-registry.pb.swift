@@ -390,65 +390,23 @@ public struct Services_Trustregistry_V1_UnregisterMemberResponse {
 }
 
 /// Request to fetch membership status in governance framework for a specific credential schema.
-/// Only one of `did_uri`, `x509_cert` may be specified.
 public struct Services_Trustregistry_V1_GetMembershipStatusRequest {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
 
-    /// URI of governance framework
-    public var governanceFrameworkUri: String = .init()
-
-    public var member: Services_Trustregistry_V1_GetMembershipStatusRequest.OneOf_Member?
+    /// The ID of the ecosystem governance framework.
+    /// This ID may be found in the 'trustRegistry' field in the
+    /// verifiable credential model
+    public var frameworkID: String = .init()
 
     /// DID URI of member
-    public var didUri: String {
-        get {
-            if case let .didUri(v)? = member { return v }
-            return String()
-        }
-        set { member = .didUri(newValue) }
-    }
-
-    /// X.509 certificate of member
-    public var x509Cert: String {
-        get {
-            if case let .x509Cert(v)? = member { return v }
-            return String()
-        }
-        set { member = .x509Cert(newValue) }
-    }
+    public var didUri: String = .init()
 
     /// URI of credential schema associated with membership
     public var schemaUri: String = .init()
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-    public enum OneOf_Member: Equatable {
-        /// DID URI of member
-        case didUri(String)
-        /// X.509 certificate of member
-        case x509Cert(String)
-
-        #if !swift(>=4.1)
-            public static func == (lhs: Services_Trustregistry_V1_GetMembershipStatusRequest.OneOf_Member, rhs: Services_Trustregistry_V1_GetMembershipStatusRequest.OneOf_Member) -> Bool {
-                // The use of inline closures is to circumvent an issue where the compiler
-                // allocates stack space for every case branch when no optimizations are
-                // enabled. https://github.com/apple/swift-protobuf/issues/1034
-                switch (lhs, rhs) {
-                case (.didUri, .didUri): return {
-                        guard case let .didUri(l) = lhs, case let .didUri(r) = rhs else { preconditionFailure() }
-                        return l == r
-                    }()
-                case (.x509Cert, .x509Cert): return {
-                        guard case let .x509Cert(l) = lhs, case let .x509Cert(r) = rhs else { preconditionFailure() }
-                        return l == r
-                    }()
-                default: return false
-                }
-            }
-        #endif
-    }
 
     public init() {}
 }
@@ -515,7 +473,6 @@ public struct Services_Trustregistry_V1_FetchDataResponse {
     extension Services_Trustregistry_V1_UnregisterMemberRequest.OneOf_Member: @unchecked Sendable {}
     extension Services_Trustregistry_V1_UnregisterMemberResponse: @unchecked Sendable {}
     extension Services_Trustregistry_V1_GetMembershipStatusRequest: @unchecked Sendable {}
-    extension Services_Trustregistry_V1_GetMembershipStatusRequest.OneOf_Member: @unchecked Sendable {}
     extension Services_Trustregistry_V1_GetMembershipStatusResponse: @unchecked Sendable {}
     extension Services_Trustregistry_V1_FetchDataRequest: @unchecked Sendable {}
     extension Services_Trustregistry_V1_FetchDataResponse: @unchecked Sendable {}
@@ -1020,9 +977,8 @@ extension Services_Trustregistry_V1_UnregisterMemberResponse: SwiftProtobuf.Mess
 extension Services_Trustregistry_V1_GetMembershipStatusRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
     public static let protoMessageName: String = _protobuf_package + ".GetMembershipStatusRequest"
     public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-        1: .standard(proto: "governance_framework_uri"),
+        1: .standard(proto: "framework_id"),
         2: .standard(proto: "did_uri"),
-        3: .standard(proto: "x509_cert"),
         4: .standard(proto: "schema_uri"),
     ]
 
@@ -1032,23 +988,8 @@ extension Services_Trustregistry_V1_GetMembershipStatusRequest: SwiftProtobuf.Me
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &governanceFrameworkUri)
-            case 2: try {
-                    var v: String?
-                    try decoder.decodeSingularStringField(value: &v)
-                    if let v = v {
-                        if self.member != nil { try decoder.handleConflictingOneOf() }
-                        self.member = .didUri(v)
-                    }
-                }()
-            case 3: try {
-                    var v: String?
-                    try decoder.decodeSingularStringField(value: &v)
-                    if let v = v {
-                        if self.member != nil { try decoder.handleConflictingOneOf() }
-                        self.member = .x509Cert(v)
-                    }
-                }()
+            case 1: try try decoder.decodeSingularStringField(value: &frameworkID)
+            case 2: try try decoder.decodeSingularStringField(value: &didUri)
             case 4: try try decoder.decodeSingularStringField(value: &schemaUri)
             default: break
             }
@@ -1056,23 +997,11 @@ extension Services_Trustregistry_V1_GetMembershipStatusRequest: SwiftProtobuf.Me
     }
 
     public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-        // The use of inline closures is to circumvent an issue where the compiler
-        // allocates stack space for every if/case branch local when no optimizations
-        // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-        // https://github.com/apple/swift-protobuf/issues/1182
-        if !governanceFrameworkUri.isEmpty {
-            try visitor.visitSingularStringField(value: governanceFrameworkUri, fieldNumber: 1)
+        if !frameworkID.isEmpty {
+            try visitor.visitSingularStringField(value: frameworkID, fieldNumber: 1)
         }
-        switch member {
-        case .didUri?: try {
-                guard case let .didUri(v)? = self.member else { preconditionFailure() }
-                try visitor.visitSingularStringField(value: v, fieldNumber: 2)
-            }()
-        case .x509Cert?: try {
-                guard case let .x509Cert(v)? = self.member else { preconditionFailure() }
-                try visitor.visitSingularStringField(value: v, fieldNumber: 3)
-            }()
-        case nil: break
+        if !didUri.isEmpty {
+            try visitor.visitSingularStringField(value: didUri, fieldNumber: 2)
         }
         if !schemaUri.isEmpty {
             try visitor.visitSingularStringField(value: schemaUri, fieldNumber: 4)
@@ -1081,8 +1010,8 @@ extension Services_Trustregistry_V1_GetMembershipStatusRequest: SwiftProtobuf.Me
     }
 
     public static func == (lhs: Services_Trustregistry_V1_GetMembershipStatusRequest, rhs: Services_Trustregistry_V1_GetMembershipStatusRequest) -> Bool {
-        if lhs.governanceFrameworkUri != rhs.governanceFrameworkUri { return false }
-        if lhs.member != rhs.member { return false }
+        if lhs.frameworkID != rhs.frameworkID { return false }
+        if lhs.didUri != rhs.didUri { return false }
         if lhs.schemaUri != rhs.schemaUri { return false }
         if lhs.unknownFields != rhs.unknownFields { return false }
         return true

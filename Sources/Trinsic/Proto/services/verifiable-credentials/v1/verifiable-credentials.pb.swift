@@ -148,6 +148,9 @@ public struct Services_Verifiablecredentials_V1_CreateProofRequest {
         set { proof = .documentJson(newValue) }
     }
 
+    /// Wrap the output in a verifiable presentation
+    public var useVerifiablePresentation: Bool = false
+
     /// Nonce value used to derive the proof. If not specified, a random nonce will be generated.
     /// This value may be represented in base64 format in the proof model.
     public var nonce: Data = .init()
@@ -314,10 +317,6 @@ public struct Services_Verifiablecredentials_V1_SendRequest {
         set { deliveryMethod = .email(newValue) }
     }
 
-    /// DID of recipient (presently unsupported)
-    /// string did_uri = 2 [deprecated=true];
-    /// DIDComm out-of-band invitation JSON (presently unsupported)
-    /// string didcomm_invitation_json = 3 [deprecated=true];
     /// Wallet ID of the recipient within the ecosystem
     public var walletID: String {
         get {
@@ -347,10 +346,6 @@ public struct Services_Verifiablecredentials_V1_SendRequest {
     public enum OneOf_DeliveryMethod: Equatable {
         /// Email address of user to send item to
         case email(String)
-        /// DID of recipient (presently unsupported)
-        /// string did_uri = 2 [deprecated=true];
-        /// DIDComm out-of-band invitation JSON (presently unsupported)
-        /// string didcomm_invitation_json = 3 [deprecated=true];
         /// Wallet ID of the recipient within the ecosystem
         case walletID(String)
         /// DID URI of the recipient
@@ -629,6 +624,7 @@ extension Services_Verifiablecredentials_V1_CreateProofRequest: SwiftProtobuf.Me
         11: .standard(proto: "reveal_template"),
         2: .standard(proto: "item_id"),
         3: .standard(proto: "document_json"),
+        4: .standard(proto: "use_verifiable_presentation"),
         10: .same(proto: "nonce"),
     ]
 
@@ -662,6 +658,7 @@ extension Services_Verifiablecredentials_V1_CreateProofRequest: SwiftProtobuf.Me
                         self.proof = .documentJson(v)
                     }
                 }()
+            case 4: try try decoder.decodeSingularBoolField(value: &useVerifiablePresentation)
             case 10: try try decoder.decodeSingularBytesField(value: &nonce)
             case 11: try {
                     var v: Services_Verifiablecredentials_V1_RevealTemplateAttributes?
@@ -700,6 +697,9 @@ extension Services_Verifiablecredentials_V1_CreateProofRequest: SwiftProtobuf.Me
             }()
         case nil: break
         }
+        if useVerifiablePresentation != false {
+            try visitor.visitSingularBoolField(value: useVerifiablePresentation, fieldNumber: 4)
+        }
         if !nonce.isEmpty {
             try visitor.visitSingularBytesField(value: nonce, fieldNumber: 10)
         }
@@ -712,6 +712,7 @@ extension Services_Verifiablecredentials_V1_CreateProofRequest: SwiftProtobuf.Me
     public static func == (lhs: Services_Verifiablecredentials_V1_CreateProofRequest, rhs: Services_Verifiablecredentials_V1_CreateProofRequest) -> Bool {
         if lhs.disclosure != rhs.disclosure { return false }
         if lhs.proof != rhs.proof { return false }
+        if lhs.useVerifiablePresentation != rhs.useVerifiablePresentation { return false }
         if lhs.nonce != rhs.nonce { return false }
         if lhs.unknownFields != rhs.unknownFields { return false }
         return true

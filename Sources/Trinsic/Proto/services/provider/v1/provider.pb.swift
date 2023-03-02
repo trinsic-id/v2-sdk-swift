@@ -225,9 +225,6 @@ public struct Services_Provider_V1_Ecosystem {
     /// External URL associated with the organization or ecosystem entity
     public var uri: String = .init()
 
-    /// Configured webhooks, if any
-    public var webhooks: [Services_Provider_V1_WebhookConfig] = []
-
     /// Display details
     public var display: Services_Provider_V1_EcosystemDisplay {
         get { _display ?? Services_Provider_V1_EcosystemDisplay() }
@@ -266,26 +263,6 @@ public struct Services_Provider_V1_WebhookConfig {
 
     /// Last known status of webhook (whether or not Trinsic can successfully reach destination)
     public var status: String = .init()
-
-    public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-    public init() {}
-}
-
-/// A grant authorizing `actions` on a `resourceId`
-public struct Services_Provider_V1_Grant {
-    // SwiftProtobuf.Message conformance is added in an extension below. See the
-    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-    // methods supported on all messages.
-
-    /// the urn of the resource
-    public var resourceID: String = .init()
-
-    /// list of actions that are allowed
-    public var actions: [String] = []
-
-    /// any child grants
-    public var childGrants: [Services_Provider_V1_Grant] = []
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -385,8 +362,6 @@ public struct Services_Provider_V1_UpdateEcosystemRequest {
     /// New domain URL
     public var domain: String = .init()
 
-    /// New name
-    /// string name = 4;
     /// Display details
     public var display: Services_Provider_V1_EcosystemDisplayRequest {
         get { _display ?? Services_Provider_V1_EcosystemDisplayRequest() }
@@ -434,9 +409,6 @@ public struct Services_Provider_V1_EcosystemDisplayDetailsRequest {
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
 
-    /// string id = 1;
-    /// string name = 2;
-    ///    string logo_url = 3;
     public var color: String = .init()
 
     public var logoData: Data = .init()
@@ -502,8 +474,6 @@ public struct Services_Provider_V1_EcosystemDisplayDetails {
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
 
-    /// string id = 1;
-    /// string name = 2;
     public var logoURL: String = .init()
 
     public var color: String = .init()
@@ -1128,7 +1098,6 @@ public struct Services_Provider_V1_UpgradeDidResponse {
     extension Services_Provider_V1_InvitationStatusResponse.Status: @unchecked Sendable {}
     extension Services_Provider_V1_Ecosystem: @unchecked Sendable {}
     extension Services_Provider_V1_WebhookConfig: @unchecked Sendable {}
-    extension Services_Provider_V1_Grant: @unchecked Sendable {}
     extension Services_Provider_V1_CreateEcosystemRequest: @unchecked Sendable {}
     extension Services_Provider_V1_CreateEcosystemResponse: @unchecked Sendable {}
     extension Services_Provider_V1_UpdateEcosystemRequest: @unchecked Sendable {}
@@ -1366,7 +1335,6 @@ extension Services_Provider_V1_Ecosystem: SwiftProtobuf.Message, SwiftProtobuf._
         2: .same(proto: "name"),
         3: .same(proto: "description"),
         4: .same(proto: "uri"),
-        5: .same(proto: "webhooks"),
         6: .same(proto: "display"),
         7: .same(proto: "domain"),
     ]
@@ -1381,7 +1349,6 @@ extension Services_Provider_V1_Ecosystem: SwiftProtobuf.Message, SwiftProtobuf._
             case 2: try try decoder.decodeSingularStringField(value: &name)
             case 3: try try decoder.decodeSingularStringField(value: &description_p)
             case 4: try try decoder.decodeSingularStringField(value: &uri)
-            case 5: try try decoder.decodeRepeatedMessageField(value: &webhooks)
             case 6: try try decoder.decodeSingularMessageField(value: &_display)
             case 7: try try decoder.decodeSingularStringField(value: &domain)
             default: break
@@ -1406,9 +1373,6 @@ extension Services_Provider_V1_Ecosystem: SwiftProtobuf.Message, SwiftProtobuf._
         if !uri.isEmpty {
             try visitor.visitSingularStringField(value: uri, fieldNumber: 4)
         }
-        if !webhooks.isEmpty {
-            try visitor.visitRepeatedMessageField(value: webhooks, fieldNumber: 5)
-        }
         try { if let v = self._display {
             try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
         } }()
@@ -1423,7 +1387,6 @@ extension Services_Provider_V1_Ecosystem: SwiftProtobuf.Message, SwiftProtobuf._
         if lhs.name != rhs.name { return false }
         if lhs.description_p != rhs.description_p { return false }
         if lhs.uri != rhs.uri { return false }
-        if lhs.webhooks != rhs.webhooks { return false }
         if lhs._display != rhs._display { return false }
         if lhs.domain != rhs.domain { return false }
         if lhs.unknownFields != rhs.unknownFields { return false }
@@ -1476,50 +1439,6 @@ extension Services_Provider_V1_WebhookConfig: SwiftProtobuf.Message, SwiftProtob
         if lhs.destinationURL != rhs.destinationURL { return false }
         if lhs.events != rhs.events { return false }
         if lhs.status != rhs.status { return false }
-        if lhs.unknownFields != rhs.unknownFields { return false }
-        return true
-    }
-}
-
-extension Services_Provider_V1_Grant: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-    public static let protoMessageName: String = _protobuf_package + ".Grant"
-    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-        1: .same(proto: "resourceId"),
-        2: .same(proto: "actions"),
-        3: .standard(proto: "child_grants"),
-    ]
-
-    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-        while let fieldNumber = try decoder.nextFieldNumber() {
-            // The use of inline closures is to circumvent an issue where the compiler
-            // allocates stack space for every case branch when no optimizations are
-            // enabled. https://github.com/apple/swift-protobuf/issues/1034
-            switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &resourceID)
-            case 2: try try decoder.decodeRepeatedStringField(value: &actions)
-            case 3: try try decoder.decodeRepeatedMessageField(value: &childGrants)
-            default: break
-            }
-        }
-    }
-
-    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-        if !resourceID.isEmpty {
-            try visitor.visitSingularStringField(value: resourceID, fieldNumber: 1)
-        }
-        if !actions.isEmpty {
-            try visitor.visitRepeatedStringField(value: actions, fieldNumber: 2)
-        }
-        if !childGrants.isEmpty {
-            try visitor.visitRepeatedMessageField(value: childGrants, fieldNumber: 3)
-        }
-        try unknownFields.traverse(visitor: &visitor)
-    }
-
-    public static func == (lhs: Services_Provider_V1_Grant, rhs: Services_Provider_V1_Grant) -> Bool {
-        if lhs.resourceID != rhs.resourceID { return false }
-        if lhs.actions != rhs.actions { return false }
-        if lhs.childGrants != rhs.childGrants { return false }
         if lhs.unknownFields != rhs.unknownFields { return false }
         return true
     }
