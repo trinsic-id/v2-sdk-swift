@@ -268,9 +268,6 @@ public struct Services_Account_V1_AccountInfoResponse {
     /// This DID is used as the `issuer` when signing verifiable credentials
     public var publicDid: String = .init()
 
-    /// Webhook events, if any, this wallet has authorized
-    public var authorizedWebhooks: [String] = []
-
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
@@ -735,7 +732,6 @@ extension Services_Account_V1_AccountInfoResponse: SwiftProtobuf.Message, SwiftP
         4: .standard(proto: "device_id"),
         5: .standard(proto: "ecosystem_id"),
         6: .standard(proto: "public_did"),
-        7: .standard(proto: "authorized_webhooks"),
     ]
 
     public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -750,7 +746,6 @@ extension Services_Account_V1_AccountInfoResponse: SwiftProtobuf.Message, SwiftP
             case 4: try try decoder.decodeSingularStringField(value: &deviceID)
             case 5: try try decoder.decodeSingularStringField(value: &ecosystemID)
             case 6: try try decoder.decodeSingularStringField(value: &publicDid)
-            case 7: try try decoder.decodeRepeatedStringField(value: &authorizedWebhooks)
             default: break
             }
         }
@@ -779,9 +774,6 @@ extension Services_Account_V1_AccountInfoResponse: SwiftProtobuf.Message, SwiftP
         if !publicDid.isEmpty {
             try visitor.visitSingularStringField(value: publicDid, fieldNumber: 6)
         }
-        if !authorizedWebhooks.isEmpty {
-            try visitor.visitRepeatedStringField(value: authorizedWebhooks, fieldNumber: 7)
-        }
         try unknownFields.traverse(visitor: &visitor)
     }
 
@@ -792,7 +784,6 @@ extension Services_Account_V1_AccountInfoResponse: SwiftProtobuf.Message, SwiftP
         if lhs.deviceID != rhs.deviceID { return false }
         if lhs.ecosystemID != rhs.ecosystemID { return false }
         if lhs.publicDid != rhs.publicDid { return false }
-        if lhs.authorizedWebhooks != rhs.authorizedWebhooks { return false }
         if lhs.unknownFields != rhs.unknownFields { return false }
         return true
     }
