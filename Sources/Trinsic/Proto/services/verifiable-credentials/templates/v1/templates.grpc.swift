@@ -40,6 +40,11 @@ public protocol Services_Verifiablecredentials_Templates_V1_CredentialTemplatesC
         callOptions: CallOptions?
     ) -> UnaryCall<Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateRequest, Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateResponse>
 
+    func Update(
+        _ request: Services_Verifiablecredentials_Templates_V1_UpdateCredentialTemplateRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Verifiablecredentials_Templates_V1_UpdateCredentialTemplateRequest, Services_Verifiablecredentials_Templates_V1_UpdateCredentialTemplateResponse>
+
     func List(
         _ request: Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesRequest,
         callOptions: CallOptions?
@@ -94,6 +99,24 @@ public extension Services_Verifiablecredentials_Templates_V1_CredentialTemplates
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
             interceptors: interceptors?.makeGetInterceptors() ?? []
+        )
+    }
+
+    /// Update metadata of a template
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to Update.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func Update(
+        _ request: Services_Verifiablecredentials_Templates_V1_UpdateCredentialTemplateRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Verifiablecredentials_Templates_V1_UpdateCredentialTemplateRequest, Services_Verifiablecredentials_Templates_V1_UpdateCredentialTemplateResponse> {
+        makeUnaryCall(
+            path: Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientMetadata.Methods.Update.path,
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeUpdateInterceptors() ?? []
         )
     }
 
@@ -228,6 +251,11 @@ public struct Services_Verifiablecredentials_Templates_V1_CredentialTemplatesNIO
             callOptions: CallOptions?
         ) -> GRPCAsyncUnaryCall<Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateRequest, Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateResponse>
 
+        func makeUpdateCall(
+            _ request: Services_Verifiablecredentials_Templates_V1_UpdateCredentialTemplateRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Verifiablecredentials_Templates_V1_UpdateCredentialTemplateRequest, Services_Verifiablecredentials_Templates_V1_UpdateCredentialTemplateResponse>
+
         func makeListCall(
             _ request: Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesRequest,
             callOptions: CallOptions?
@@ -275,6 +303,18 @@ public struct Services_Verifiablecredentials_Templates_V1_CredentialTemplatesNIO
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
                 interceptors: interceptors?.makeGetInterceptors() ?? []
+            )
+        }
+
+        func makeUpdateCall(
+            _ request: Services_Verifiablecredentials_Templates_V1_UpdateCredentialTemplateRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Verifiablecredentials_Templates_V1_UpdateCredentialTemplateRequest, Services_Verifiablecredentials_Templates_V1_UpdateCredentialTemplateResponse> {
+            makeAsyncUnaryCall(
+                path: Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientMetadata.Methods.Update.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeUpdateInterceptors() ?? []
             )
         }
 
@@ -341,6 +381,18 @@ public struct Services_Verifiablecredentials_Templates_V1_CredentialTemplatesNIO
             )
         }
 
+        func Update(
+            _ request: Services_Verifiablecredentials_Templates_V1_UpdateCredentialTemplateRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Verifiablecredentials_Templates_V1_UpdateCredentialTemplateResponse {
+            try await performAsyncUnaryCall(
+                path: Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientMetadata.Methods.Update.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeUpdateInterceptors() ?? []
+            )
+        }
+
         func List(
             _ request: Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesRequest,
             callOptions: CallOptions? = nil
@@ -404,6 +456,9 @@ public protocol Services_Verifiablecredentials_Templates_V1_CredentialTemplatesC
     /// - Returns: Interceptors to use when invoking 'Get'.
     func makeGetInterceptors() -> [ClientInterceptor<Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateRequest, Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateResponse>]
 
+    /// - Returns: Interceptors to use when invoking 'Update'.
+    func makeUpdateInterceptors() -> [ClientInterceptor<Services_Verifiablecredentials_Templates_V1_UpdateCredentialTemplateRequest, Services_Verifiablecredentials_Templates_V1_UpdateCredentialTemplateResponse>]
+
     /// - Returns: Interceptors to use when invoking 'List'.
     func makeListInterceptors() -> [ClientInterceptor<Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesRequest, Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesResponse>]
 
@@ -421,6 +476,7 @@ public enum Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClien
         methods: [
             Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientMetadata.Methods.Create,
             Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientMetadata.Methods.Get,
+            Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientMetadata.Methods.Update,
             Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientMetadata.Methods.List,
             Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientMetadata.Methods.Search,
             Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientMetadata.Methods.Delete,
@@ -437,6 +493,12 @@ public enum Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClien
         public static let Get = GRPCMethodDescriptor(
             name: "Get",
             path: "/services.verifiablecredentials.templates.v1.CredentialTemplates/Get",
+            type: GRPCCallType.unary
+        )
+
+        public static let Update = GRPCMethodDescriptor(
+            name: "Update",
+            path: "/services.verifiablecredentials.templates.v1.CredentialTemplates/Update",
             type: GRPCCallType.unary
         )
 
@@ -469,6 +531,9 @@ public protocol Services_Verifiablecredentials_Templates_V1_CredentialTemplatesP
 
     /// Fetch a credential template by ID
     func Get(request: Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateResponse>
+
+    /// Update metadata of a template
+    func Update(request: Services_Verifiablecredentials_Templates_V1_UpdateCredentialTemplateRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Verifiablecredentials_Templates_V1_UpdateCredentialTemplateResponse>
 
     /// Search credential templates using SQL, returning strongly-typed template data
     func List(request: Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesResponse>
@@ -508,6 +573,15 @@ public extension Services_Verifiablecredentials_Templates_V1_CredentialTemplates
                 responseSerializer: ProtobufSerializer<Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateResponse>(),
                 interceptors: interceptors?.makeGetInterceptors() ?? [],
                 userFunction: Get(request:context:)
+            )
+
+        case "Update":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Verifiablecredentials_Templates_V1_UpdateCredentialTemplateRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Verifiablecredentials_Templates_V1_UpdateCredentialTemplateResponse>(),
+                interceptors: interceptors?.makeUpdateInterceptors() ?? [],
+                userFunction: Update(request:context:)
             )
 
         case "List":
@@ -562,6 +636,12 @@ public extension Services_Verifiablecredentials_Templates_V1_CredentialTemplates
             request: Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateRequest,
             context: GRPCAsyncServerCallContext
         ) async throws -> Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateResponse
+
+        /// Update metadata of a template
+        @Sendable func Update(
+            request: Services_Verifiablecredentials_Templates_V1_UpdateCredentialTemplateRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Verifiablecredentials_Templates_V1_UpdateCredentialTemplateResponse
 
         /// Search credential templates using SQL, returning strongly-typed template data
         @Sendable func List(
@@ -619,6 +699,15 @@ public extension Services_Verifiablecredentials_Templates_V1_CredentialTemplates
                     wrapping: Get(request:context:)
                 )
 
+            case "Update":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Verifiablecredentials_Templates_V1_UpdateCredentialTemplateRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Verifiablecredentials_Templates_V1_UpdateCredentialTemplateResponse>(),
+                    interceptors: interceptors?.makeUpdateInterceptors() ?? [],
+                    wrapping: Update(request:context:)
+                )
+
             case "List":
                 return GRPCAsyncServerHandler(
                     context: context,
@@ -663,6 +752,10 @@ public protocol Services_Verifiablecredentials_Templates_V1_CredentialTemplatesS
     ///   Defaults to calling `self.makeInterceptors()`.
     func makeGetInterceptors() -> [ServerInterceptor<Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateRequest, Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateResponse>]
 
+    /// - Returns: Interceptors to use when handling 'Update'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeUpdateInterceptors() -> [ServerInterceptor<Services_Verifiablecredentials_Templates_V1_UpdateCredentialTemplateRequest, Services_Verifiablecredentials_Templates_V1_UpdateCredentialTemplateResponse>]
+
     /// - Returns: Interceptors to use when handling 'List'.
     ///   Defaults to calling `self.makeInterceptors()`.
     func makeListInterceptors() -> [ServerInterceptor<Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesRequest, Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesResponse>]
@@ -683,6 +776,7 @@ public enum Services_Verifiablecredentials_Templates_V1_CredentialTemplatesServe
         methods: [
             Services_Verifiablecredentials_Templates_V1_CredentialTemplatesServerMetadata.Methods.Create,
             Services_Verifiablecredentials_Templates_V1_CredentialTemplatesServerMetadata.Methods.Get,
+            Services_Verifiablecredentials_Templates_V1_CredentialTemplatesServerMetadata.Methods.Update,
             Services_Verifiablecredentials_Templates_V1_CredentialTemplatesServerMetadata.Methods.List,
             Services_Verifiablecredentials_Templates_V1_CredentialTemplatesServerMetadata.Methods.Search,
             Services_Verifiablecredentials_Templates_V1_CredentialTemplatesServerMetadata.Methods.Delete,
@@ -699,6 +793,12 @@ public enum Services_Verifiablecredentials_Templates_V1_CredentialTemplatesServe
         public static let Get = GRPCMethodDescriptor(
             name: "Get",
             path: "/services.verifiablecredentials.templates.v1.CredentialTemplates/Get",
+            type: GRPCCallType.unary
+        )
+
+        public static let Update = GRPCMethodDescriptor(
+            name: "Update",
+            path: "/services.verifiablecredentials.templates.v1.CredentialTemplates/Update",
             type: GRPCCallType.unary
         )
 
