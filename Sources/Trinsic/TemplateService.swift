@@ -25,7 +25,7 @@ public class TemplateService: ServiceBase {
         if request.query.isEmpty {
             request.query = "SELECT * FROM c OFFSET 0 LIMIT 100"
         }
-        return try client!.List(request, callOptions: try buildMetadata(request))
+        return try client!.List(request, callOptions: buildMetadata(request))
             .response
             .wait()
     }
@@ -34,7 +34,7 @@ public class TemplateService: ServiceBase {
         if request.query.isEmpty {
             request.query = "SELECT * FROM c OFFSET 0 LIMIT 100"
         }
-        return try client!.Search(request, callOptions: try buildMetadata(request))
+        return try client!.Search(request, callOptions: buildMetadata(request))
             .response
             .wait()
     }
@@ -43,31 +43,31 @@ public class TemplateService: ServiceBase {
     // target: /Users/scott/Documents/GitHub/sdk-swift/Sources/Trinsic/TemplateService.swift
 
     public func create(request: Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateRequest) throws -> Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateResponse {
-        try client!.Create(request, callOptions: try buildMetadata(request))
+        try client!.Create(request, callOptions: buildMetadata(request))
             .response
             .wait()
     }
 
     public func get(request: Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateRequest) throws -> Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateResponse {
-        try client!.Get(request, callOptions: try buildMetadata(request))
+        try client!.Get(request, callOptions: buildMetadata(request))
             .response
             .wait()
     }
 
     public func list(request: Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesRequest) throws -> Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesResponse {
-        try client!.List(request, callOptions: try buildMetadata(request))
+        try client!.List(request, callOptions: buildMetadata(request))
             .response
             .wait()
     }
 
     public func search(request: Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesRequest) throws -> Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesResponse {
-        try client!.Search(request, callOptions: try buildMetadata(request))
+        try client!.Search(request, callOptions: buildMetadata(request))
             .response
             .wait()
     }
 
     public func delete(request: Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateRequest) throws -> Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateResponse {
-        try client!.Delete(request, callOptions: try buildMetadata(request))
+        try client!.Delete(request, callOptions: buildMetadata(request))
             .response
             .wait()
     }
