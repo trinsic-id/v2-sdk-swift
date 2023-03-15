@@ -16,7 +16,7 @@ Import the services in your app
 import Trinsic
 
 let accountService = Services.Account().build()
-let myProfile = try accountService.signIn()
+let myProfile = try accountService.loginAnonymous("default")
 
 let walletService = Services.Wallet()
     .with(profile: myProfile)
