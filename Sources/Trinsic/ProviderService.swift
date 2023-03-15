@@ -23,7 +23,7 @@ public class ProviderService: ServiceBase {
 
     public func createEcosystem(request: Services_Provider_V1_CreateEcosystemRequest) throws -> Services_Provider_V1_CreateEcosystemResponse {
         if !request.name.isEmpty || (request.hasDetails && !request.details.email.isEmpty) {
-            return try client!.CreateEcosystem(request, callOptions: try buildMetadata(request))
+            return try client!.CreateEcosystem(request, callOptions: buildMetadata(request))
                 .response
                 .wait()
         } else {
@@ -36,62 +36,62 @@ public class ProviderService: ServiceBase {
 
     @available(*, deprecated, message: "This will be removed May 1, 2023")
     public func updateEcosystem(request: Services_Provider_V1_UpdateEcosystemRequest) throws -> Services_Provider_V1_UpdateEcosystemResponse {
-        try client!.UpdateEcosystem(request, callOptions: try buildMetadata(request))
+        try client!.UpdateEcosystem(request, callOptions: buildMetadata(request))
             .response
             .wait()
     }
 
     public func addWebhook(request: Services_Provider_V1_AddWebhookRequest) throws -> Services_Provider_V1_AddWebhookResponse {
-        try client!.AddWebhook(request, callOptions: try buildMetadata(request))
+        try client!.AddWebhook(request, callOptions: buildMetadata(request))
             .response
             .wait()
     }
 
     public func deleteWebhook(request: Services_Provider_V1_DeleteWebhookRequest) throws -> Services_Provider_V1_DeleteWebhookResponse {
-        try client!.DeleteWebhook(request, callOptions: try buildMetadata(request))
+        try client!.DeleteWebhook(request, callOptions: buildMetadata(request))
             .response
             .wait()
     }
 
     public func ecosystemInfo(request: Services_Provider_V1_EcosystemInfoRequest) throws -> Services_Provider_V1_EcosystemInfoResponse {
-        try client!.EcosystemInfo(request, callOptions: try buildMetadata(request))
+        try client!.EcosystemInfo(request, callOptions: buildMetadata(request))
             .response
             .wait()
     }
 
     @available(*, deprecated, message: "This will be removed May 1, 2023")
     public func getPublicEcosystemInfo(request: Services_Provider_V1_GetPublicEcosystemInfoRequest) throws -> Services_Provider_V1_GetPublicEcosystemInfoResponse {
-        try client!.GetPublicEcosystemInfo(request, callOptions: try buildMetadata(nil))
+        try client!.GetPublicEcosystemInfo(request, callOptions: buildMetadata(nil))
             .response
             .wait()
     }
 
     public func getOberonKey(request: Services_Provider_V1_GetOberonKeyRequest) throws -> Services_Provider_V1_GetOberonKeyResponse {
-        try client!.GetOberonKey(request, callOptions: try buildMetadata(nil))
+        try client!.GetOberonKey(request, callOptions: buildMetadata(nil))
             .response
             .wait()
     }
 
     public func upgradeDID(request: Services_Provider_V1_UpgradeDidRequest) throws -> Services_Provider_V1_UpgradeDidResponse {
-        try client!.UpgradeDID(request, callOptions: try buildMetadata(request))
+        try client!.UpgradeDID(request, callOptions: buildMetadata(request))
             .response
             .wait()
     }
 
     public func retrieveDomainVerificationRecord(request: Services_Provider_V1_RetrieveDomainVerificationRecordRequest) throws -> Services_Provider_V1_RetrieveDomainVerificationRecordResponse {
-        try client!.RetrieveDomainVerificationRecord(request, callOptions: try buildMetadata(request))
+        try client!.RetrieveDomainVerificationRecord(request, callOptions: buildMetadata(request))
             .response
             .wait()
     }
 
     public func refreshDomainVerificationStatus(request: Services_Provider_V1_RefreshDomainVerificationStatusRequest) throws -> Services_Provider_V1_RefreshDomainVerificationStatusResponse {
-        try client!.RefreshDomainVerificationStatus(request, callOptions: try buildMetadata(request))
+        try client!.RefreshDomainVerificationStatus(request, callOptions: buildMetadata(request))
             .response
             .wait()
     }
 
     public func searchWalletConfigurations(request: Services_Provider_V1_SearchWalletConfigurationsRequest) throws -> Services_Provider_V1_SearchWalletConfigurationResponse {
-        try client!.SearchWalletConfigurations(request, callOptions: try buildMetadata(request))
+        try client!.SearchWalletConfigurations(request, callOptions: buildMetadata(request))
             .response
             .wait()
     }

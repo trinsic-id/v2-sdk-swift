@@ -51,7 +51,7 @@ public class ServiceBase {
 
     internal func buildMetadata(_ request: Message?) throws -> CallOptions {
         var metadataOptions = CallOptions()
-        metadataOptions.customMetadata.add(name: "TrinsicOkapiVersion", value: try Okapi.Metadata.getMetadata(request: Okapi_Metadata_MetadataRequest()).version)
+        try metadataOptions.customMetadata.add(name: "TrinsicOkapiVersion", value: Okapi.Metadata.getMetadata(request: Okapi_Metadata_MetadataRequest()).version)
         metadataOptions.customMetadata.add(name: "TrinsicSDKLanguage", value: "swift")
         // TODO: - Embed swift version const somewhere, it isn't uniformly recorded
         metadataOptions.customMetadata.add(name: "TrinsicSDKVersion", value: getSDKVersion())
@@ -83,12 +83,12 @@ public class ServiceBase {
 
             let proof = try Oberon.createProof(request: proofRequest)
 
-            metadataOptions.customMetadata.add(
+            try metadataOptions.customMetadata.add(
                 name: "Authorization",
                 value: String(format: "Oberon ver=1,proof=%@,data=%@,nonce=%@",
                               proof.proof.toBase64URL(),
                               profile.authData.toBase64URL(),
-                              try nonce.serializedData().toBase64URL())
+                              nonce.serializedData().toBase64URL())
             )
         }
         return metadataOptions

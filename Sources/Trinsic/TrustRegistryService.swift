@@ -25,37 +25,37 @@ public class TrustRegistryService: ServiceBase {
     // target: /Users/scott/Documents/GitHub/sdk-swift/Sources/Trinsic/TrustRegistryService.swift
 
     public func addFramework(request: Services_Trustregistry_V1_AddFrameworkRequest) throws -> Services_Trustregistry_V1_AddFrameworkResponse {
-        try client!.AddFramework(request, callOptions: try buildMetadata(request))
+        try client!.AddFramework(request, callOptions: buildMetadata(request))
             .response
             .wait()
     }
 
     public func removeFramework(request: Services_Trustregistry_V1_RemoveFrameworkRequest) throws -> Services_Trustregistry_V1_RemoveFrameworkResponse {
-        try client!.RemoveFramework(request, callOptions: try buildMetadata(request))
+        try client!.RemoveFramework(request, callOptions: buildMetadata(request))
             .response
             .wait()
     }
 
     public func searchRegistry(request: Services_Trustregistry_V1_SearchRegistryRequest) throws -> Services_Trustregistry_V1_SearchRegistryResponse {
-        try client!.SearchRegistry(request, callOptions: try buildMetadata(request))
+        try client!.SearchRegistry(request, callOptions: buildMetadata(request))
             .response
             .wait()
     }
 
     public func registerMember(request: Services_Trustregistry_V1_RegisterMemberRequest) throws -> Services_Trustregistry_V1_RegisterMemberResponse {
-        try client!.RegisterMember(request, callOptions: try buildMetadata(request))
+        try client!.RegisterMember(request, callOptions: buildMetadata(request))
             .response
             .wait()
     }
 
     public func unregisterMember(request: Services_Trustregistry_V1_UnregisterMemberRequest) throws -> Services_Trustregistry_V1_UnregisterMemberResponse {
-        try client!.UnregisterMember(request, callOptions: try buildMetadata(request))
+        try client!.UnregisterMember(request, callOptions: buildMetadata(request))
             .response
             .wait()
     }
 
     public func getMembershipStatus(request: Services_Trustregistry_V1_GetMembershipStatusRequest) throws -> Services_Trustregistry_V1_GetMembershipStatusResponse {
-        try client!.GetMembershipStatus(request, callOptions: try buildMetadata(request))
+        try client!.GetMembershipStatus(request, callOptions: buildMetadata(request))
             .response
             .wait()
     }

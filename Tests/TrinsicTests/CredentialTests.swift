@@ -84,8 +84,8 @@ final class CredentialTests: XCTestCase {
         credentialService.options.authToken = clinic
 
         var issueRequest = Services_Verifiablecredentials_V1_IssueRequest()
-        issueRequest.documentJson = String(
-            decoding: try JSONSerialization.data(
+        issueRequest.documentJson = try String(
+            decoding: JSONSerialization.data(
                 withJSONObject: vaccinationCertificateUnsigned,
                 options: JSONSerialization.WritingOptions.prettyPrinted
             ),
