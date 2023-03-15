@@ -26,21 +26,21 @@ public class AccessManagementService: ServiceBase {
 
     @available(*, deprecated, message: "This method is experimental")
     public func addRoleAssignment(request: Services_Provider_V1_AddRoleAssignmentRequest) throws -> Services_Provider_V1_AddRoleAssignmentResponse {
-        try client!.AddRoleAssignment(request, callOptions: try buildMetadata(request))
+        try client!.AddRoleAssignment(request, callOptions: buildMetadata(request))
             .response
             .wait()
     }
 
     @available(*, deprecated, message: "This method is experimental")
     public func removeRoleAssignment(request: Services_Provider_V1_RemoveRoleAssignmentRequest) throws -> Services_Provider_V1_RemoveRoleAssignmentResponse {
-        try client!.RemoveRoleAssignment(request, callOptions: try buildMetadata(request))
+        try client!.RemoveRoleAssignment(request, callOptions: buildMetadata(request))
             .response
             .wait()
     }
 
     @available(*, deprecated, message: "This method is experimental")
     public func listRoleAssignments(request: Services_Provider_V1_ListRoleAssignmentsRequest) throws -> Services_Provider_V1_ListRoleAssignmentsResponse {
-        try client!.ListRoleAssignments(request, callOptions: try buildMetadata(request))
+        try client!.ListRoleAssignments(request, callOptions: buildMetadata(request))
             .response
             .wait()
     }
