@@ -25,6 +25,8 @@ import NIO
 import NIOConcurrencyHelpers
 import SwiftProtobuf
 
+/// Service for managing wallets
+///
 /// Usage: instantiate `Services_Universalwallet_V1_UniversalWalletClient`, then call methods of this protocol to make API calls.
 public protocol Services_Universalwallet_V1_UniversalWalletClientProtocol: GRPCClient {
     var serviceName: String { get }
@@ -236,6 +238,7 @@ public struct Services_Universalwallet_V1_UniversalWalletNIOClient: Services_Uni
 }
 
 #if compiler(>=5.6)
+    /// Service for managing wallets
     @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
     public protocol Services_Universalwallet_V1_UniversalWalletAsyncClientProtocol: GRPCClient {
         static var serviceDescriptor: GRPCServiceDescriptor { get }
@@ -522,6 +525,8 @@ public enum Services_Universalwallet_V1_UniversalWalletClientMetadata {
     }
 }
 
+/// Service for managing wallets
+///
 /// To build a server, implement a class that conforms to this protocol.
 public protocol Services_Universalwallet_V1_UniversalWalletProvider: CallHandlerProvider {
     var interceptors: Services_Universalwallet_V1_UniversalWalletServerInterceptorFactoryProtocol? { get }
@@ -619,6 +624,8 @@ public extension Services_Universalwallet_V1_UniversalWalletProvider {
 
 #if compiler(>=5.6)
 
+    /// Service for managing wallets
+    ///
     /// To implement a server, implement an object which conforms to this protocol.
     @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
     public protocol Services_Universalwallet_V1_UniversalWalletAsyncProvider: CallHandlerProvider {
