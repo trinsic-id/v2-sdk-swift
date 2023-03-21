@@ -61,6 +61,56 @@ public protocol Services_Universalwallet_V1_UniversalWalletClientProtocol: GRPCC
         _ request: Services_Universalwallet_V1_DeleteWalletRequest,
         callOptions: CallOptions?
     ) -> UnaryCall<Services_Universalwallet_V1_DeleteWalletRequest, Services_Universalwallet_V1_DeleteWalletResponse>
+
+    func CreateWallet(
+        _ request: Services_Universalwallet_V1_CreateWalletRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Universalwallet_V1_CreateWalletRequest, Services_Universalwallet_V1_CreateWalletResponse>
+
+    func GetWalletInfo(
+        _ request: Services_Universalwallet_V1_GetWalletInfoRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Universalwallet_V1_GetWalletInfoRequest, Services_Universalwallet_V1_GetWalletInfoResponse>
+
+    func GetMyInfo(
+        _ request: Services_Universalwallet_V1_GetMyInfoRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Universalwallet_V1_GetMyInfoRequest, Services_Universalwallet_V1_GetMyInfoResponse>
+
+    func GenerateAuthToken(
+        _ request: Services_Universalwallet_V1_GenerateAuthTokenRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Universalwallet_V1_GenerateAuthTokenRequest, Services_Universalwallet_V1_GenerateAuthTokenResponse>
+
+    func RevokeAuthToken(
+        _ request: Services_Universalwallet_V1_RevokeAuthTokenRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Universalwallet_V1_RevokeAuthTokenRequest, Services_Universalwallet_V1_RevokeAuthTokenResponse>
+
+    func AddExternalIdentityInit(
+        _ request: Services_Universalwallet_V1_AddExternalIdentityInitRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Universalwallet_V1_AddExternalIdentityInitRequest, Services_Universalwallet_V1_AddExternalIdentityInitResponse>
+
+    func AddExternalIdentityConfirm(
+        _ request: Services_Universalwallet_V1_AddExternalIdentityConfirmRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Universalwallet_V1_AddExternalIdentityConfirmRequest, Services_Universalwallet_V1_AddExternalIdentityConfirmResponse>
+
+    func AuthenticateInit(
+        _ request: Services_Universalwallet_V1_AuthenticateInitRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Universalwallet_V1_AuthenticateInitRequest, Services_Universalwallet_V1_AuthenticateInitResponse>
+
+    func AuthenticateConfirm(
+        _ request: Services_Universalwallet_V1_AuthenticateConfirmRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Universalwallet_V1_AuthenticateConfirmRequest, Services_Universalwallet_V1_AuthenticateConfirmResponse>
+
+    func ListWallets(
+        _ request: Services_Universalwallet_V1_ListWalletsRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Universalwallet_V1_ListWalletsRequest, Services_Universalwallet_V1_ListWalletsResponse>
 }
 
 public extension Services_Universalwallet_V1_UniversalWalletClientProtocol {
@@ -175,6 +225,192 @@ public extension Services_Universalwallet_V1_UniversalWalletClientProtocol {
             interceptors: interceptors?.makeDeleteWalletInterceptors() ?? []
         )
     }
+
+    /// Create a new wallet and generate an auth token for access
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to CreateWallet.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func CreateWallet(
+        _ request: Services_Universalwallet_V1_CreateWalletRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Universalwallet_V1_CreateWalletRequest, Services_Universalwallet_V1_CreateWalletResponse> {
+        makeUnaryCall(
+            path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.CreateWallet.path,
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeCreateWalletInterceptors() ?? []
+        )
+    }
+
+    /// Retrieve wallet details and configuration
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to GetWalletInfo.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func GetWalletInfo(
+        _ request: Services_Universalwallet_V1_GetWalletInfoRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Universalwallet_V1_GetWalletInfoRequest, Services_Universalwallet_V1_GetWalletInfoResponse> {
+        makeUnaryCall(
+            path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.GetWalletInfo.path,
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeGetWalletInfoInterceptors() ?? []
+        )
+    }
+
+    /// Retrieve wallet details and configuration about the currently authenticated wallet
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to GetMyInfo.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func GetMyInfo(
+        _ request: Services_Universalwallet_V1_GetMyInfoRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Universalwallet_V1_GetMyInfoRequest, Services_Universalwallet_V1_GetMyInfoResponse> {
+        makeUnaryCall(
+            path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.GetMyInfo.path,
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeGetMyInfoInterceptors() ?? []
+        )
+    }
+
+    /// Generate new token for a given wallet and add it to the collection of known auth tokens.
+    /// This endpoint requires authentication and will return a new token ID and auth token.
+    /// Use this endpoint if you want to authorize another device, without having to share your
+    /// existing auth token.
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to GenerateAuthToken.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func GenerateAuthToken(
+        _ request: Services_Universalwallet_V1_GenerateAuthTokenRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Universalwallet_V1_GenerateAuthTokenRequest, Services_Universalwallet_V1_GenerateAuthTokenResponse> {
+        makeUnaryCall(
+            path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.GenerateAuthToken.path,
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeGenerateAuthTokenInterceptors() ?? []
+        )
+    }
+
+    /// Revokes a previously issued auth token and updates the collection of known auth tokens.
+    /// This endpoint requires authentication.
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to RevokeAuthToken.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func RevokeAuthToken(
+        _ request: Services_Universalwallet_V1_RevokeAuthTokenRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Universalwallet_V1_RevokeAuthTokenRequest, Services_Universalwallet_V1_RevokeAuthTokenResponse> {
+        makeUnaryCall(
+            path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.RevokeAuthToken.path,
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeRevokeAuthTokenInterceptors() ?? []
+        )
+    }
+
+    /// Add new external identity to the current wallet, such as email, sms, ethereum address, etc.
+    /// This identity ownership must be confirmed using `AddIdentityConfirm` via OTP, signature, etc.
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to AddExternalIdentityInit.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func AddExternalIdentityInit(
+        _ request: Services_Universalwallet_V1_AddExternalIdentityInitRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Universalwallet_V1_AddExternalIdentityInitRequest, Services_Universalwallet_V1_AddExternalIdentityInitResponse> {
+        makeUnaryCall(
+            path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.AddExternalIdentityInit.path,
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeAddExternalIdentityInitInterceptors() ?? []
+        )
+    }
+
+    /// Confirm identity added to the current wallet using `AddIdentity`
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to AddExternalIdentityConfirm.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func AddExternalIdentityConfirm(
+        _ request: Services_Universalwallet_V1_AddExternalIdentityConfirmRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Universalwallet_V1_AddExternalIdentityConfirmRequest, Services_Universalwallet_V1_AddExternalIdentityConfirmResponse> {
+        makeUnaryCall(
+            path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.AddExternalIdentityConfirm.path,
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeAddExternalIdentityConfirmInterceptors() ?? []
+        )
+    }
+
+    /// Sign-in to an already existing wallet, using an identity added that was previously registered
+    /// This endpoint does not require authentication, and will return a challenge to be signed or verified
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to AuthenticateInit.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func AuthenticateInit(
+        _ request: Services_Universalwallet_V1_AuthenticateInitRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Universalwallet_V1_AuthenticateInitRequest, Services_Universalwallet_V1_AuthenticateInitResponse> {
+        makeUnaryCall(
+            path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.AuthenticateInit.path,
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeAuthenticateInitInterceptors() ?? []
+        )
+    }
+
+    /// Confirm sign-in to an already existing wallet and return authentication token
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to AuthenticateConfirm.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func AuthenticateConfirm(
+        _ request: Services_Universalwallet_V1_AuthenticateConfirmRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Universalwallet_V1_AuthenticateConfirmRequest, Services_Universalwallet_V1_AuthenticateConfirmResponse> {
+        makeUnaryCall(
+            path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.AuthenticateConfirm.path,
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeAuthenticateConfirmInterceptors() ?? []
+        )
+    }
+
+    /// List all wallets in the ecosystem
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to ListWallets.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func ListWallets(
+        _ request: Services_Universalwallet_V1_ListWalletsRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Universalwallet_V1_ListWalletsRequest, Services_Universalwallet_V1_ListWalletsResponse> {
+        makeUnaryCall(
+            path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.ListWallets.path,
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeListWalletsInterceptors() ?? []
+        )
+    }
 }
 
 #if compiler(>=5.6)
@@ -273,6 +509,56 @@ public struct Services_Universalwallet_V1_UniversalWalletNIOClient: Services_Uni
             _ request: Services_Universalwallet_V1_DeleteWalletRequest,
             callOptions: CallOptions?
         ) -> GRPCAsyncUnaryCall<Services_Universalwallet_V1_DeleteWalletRequest, Services_Universalwallet_V1_DeleteWalletResponse>
+
+        func makeCreateWalletCall(
+            _ request: Services_Universalwallet_V1_CreateWalletRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Universalwallet_V1_CreateWalletRequest, Services_Universalwallet_V1_CreateWalletResponse>
+
+        func makeGetWalletInfoCall(
+            _ request: Services_Universalwallet_V1_GetWalletInfoRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Universalwallet_V1_GetWalletInfoRequest, Services_Universalwallet_V1_GetWalletInfoResponse>
+
+        func makeGetMyInfoCall(
+            _ request: Services_Universalwallet_V1_GetMyInfoRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Universalwallet_V1_GetMyInfoRequest, Services_Universalwallet_V1_GetMyInfoResponse>
+
+        func makeGenerateAuthTokenCall(
+            _ request: Services_Universalwallet_V1_GenerateAuthTokenRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Universalwallet_V1_GenerateAuthTokenRequest, Services_Universalwallet_V1_GenerateAuthTokenResponse>
+
+        func makeRevokeAuthTokenCall(
+            _ request: Services_Universalwallet_V1_RevokeAuthTokenRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Universalwallet_V1_RevokeAuthTokenRequest, Services_Universalwallet_V1_RevokeAuthTokenResponse>
+
+        func makeAddExternalIdentityInitCall(
+            _ request: Services_Universalwallet_V1_AddExternalIdentityInitRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Universalwallet_V1_AddExternalIdentityInitRequest, Services_Universalwallet_V1_AddExternalIdentityInitResponse>
+
+        func makeAddExternalIdentityConfirmCall(
+            _ request: Services_Universalwallet_V1_AddExternalIdentityConfirmRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Universalwallet_V1_AddExternalIdentityConfirmRequest, Services_Universalwallet_V1_AddExternalIdentityConfirmResponse>
+
+        func makeAuthenticateInitCall(
+            _ request: Services_Universalwallet_V1_AuthenticateInitRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Universalwallet_V1_AuthenticateInitRequest, Services_Universalwallet_V1_AuthenticateInitResponse>
+
+        func makeAuthenticateConfirmCall(
+            _ request: Services_Universalwallet_V1_AuthenticateConfirmRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Universalwallet_V1_AuthenticateConfirmRequest, Services_Universalwallet_V1_AuthenticateConfirmResponse>
+
+        func makeListWalletsCall(
+            _ request: Services_Universalwallet_V1_ListWalletsRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Universalwallet_V1_ListWalletsRequest, Services_Universalwallet_V1_ListWalletsResponse>
     }
 
     @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -356,6 +642,126 @@ public struct Services_Universalwallet_V1_UniversalWalletNIOClient: Services_Uni
                 interceptors: interceptors?.makeDeleteWalletInterceptors() ?? []
             )
         }
+
+        func makeCreateWalletCall(
+            _ request: Services_Universalwallet_V1_CreateWalletRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Universalwallet_V1_CreateWalletRequest, Services_Universalwallet_V1_CreateWalletResponse> {
+            makeAsyncUnaryCall(
+                path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.CreateWallet.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeCreateWalletInterceptors() ?? []
+            )
+        }
+
+        func makeGetWalletInfoCall(
+            _ request: Services_Universalwallet_V1_GetWalletInfoRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Universalwallet_V1_GetWalletInfoRequest, Services_Universalwallet_V1_GetWalletInfoResponse> {
+            makeAsyncUnaryCall(
+                path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.GetWalletInfo.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeGetWalletInfoInterceptors() ?? []
+            )
+        }
+
+        func makeGetMyInfoCall(
+            _ request: Services_Universalwallet_V1_GetMyInfoRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Universalwallet_V1_GetMyInfoRequest, Services_Universalwallet_V1_GetMyInfoResponse> {
+            makeAsyncUnaryCall(
+                path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.GetMyInfo.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeGetMyInfoInterceptors() ?? []
+            )
+        }
+
+        func makeGenerateAuthTokenCall(
+            _ request: Services_Universalwallet_V1_GenerateAuthTokenRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Universalwallet_V1_GenerateAuthTokenRequest, Services_Universalwallet_V1_GenerateAuthTokenResponse> {
+            makeAsyncUnaryCall(
+                path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.GenerateAuthToken.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeGenerateAuthTokenInterceptors() ?? []
+            )
+        }
+
+        func makeRevokeAuthTokenCall(
+            _ request: Services_Universalwallet_V1_RevokeAuthTokenRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Universalwallet_V1_RevokeAuthTokenRequest, Services_Universalwallet_V1_RevokeAuthTokenResponse> {
+            makeAsyncUnaryCall(
+                path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.RevokeAuthToken.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeRevokeAuthTokenInterceptors() ?? []
+            )
+        }
+
+        func makeAddExternalIdentityInitCall(
+            _ request: Services_Universalwallet_V1_AddExternalIdentityInitRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Universalwallet_V1_AddExternalIdentityInitRequest, Services_Universalwallet_V1_AddExternalIdentityInitResponse> {
+            makeAsyncUnaryCall(
+                path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.AddExternalIdentityInit.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeAddExternalIdentityInitInterceptors() ?? []
+            )
+        }
+
+        func makeAddExternalIdentityConfirmCall(
+            _ request: Services_Universalwallet_V1_AddExternalIdentityConfirmRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Universalwallet_V1_AddExternalIdentityConfirmRequest, Services_Universalwallet_V1_AddExternalIdentityConfirmResponse> {
+            makeAsyncUnaryCall(
+                path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.AddExternalIdentityConfirm.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeAddExternalIdentityConfirmInterceptors() ?? []
+            )
+        }
+
+        func makeAuthenticateInitCall(
+            _ request: Services_Universalwallet_V1_AuthenticateInitRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Universalwallet_V1_AuthenticateInitRequest, Services_Universalwallet_V1_AuthenticateInitResponse> {
+            makeAsyncUnaryCall(
+                path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.AuthenticateInit.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeAuthenticateInitInterceptors() ?? []
+            )
+        }
+
+        func makeAuthenticateConfirmCall(
+            _ request: Services_Universalwallet_V1_AuthenticateConfirmRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Universalwallet_V1_AuthenticateConfirmRequest, Services_Universalwallet_V1_AuthenticateConfirmResponse> {
+            makeAsyncUnaryCall(
+                path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.AuthenticateConfirm.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeAuthenticateConfirmInterceptors() ?? []
+            )
+        }
+
+        func makeListWalletsCall(
+            _ request: Services_Universalwallet_V1_ListWalletsRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Universalwallet_V1_ListWalletsRequest, Services_Universalwallet_V1_ListWalletsResponse> {
+            makeAsyncUnaryCall(
+                path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.ListWallets.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeListWalletsInterceptors() ?? []
+            )
+        }
     }
 
     @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -431,6 +837,126 @@ public struct Services_Universalwallet_V1_UniversalWalletNIOClient: Services_Uni
                 interceptors: interceptors?.makeDeleteWalletInterceptors() ?? []
             )
         }
+
+        func CreateWallet(
+            _ request: Services_Universalwallet_V1_CreateWalletRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Universalwallet_V1_CreateWalletResponse {
+            try await performAsyncUnaryCall(
+                path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.CreateWallet.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeCreateWalletInterceptors() ?? []
+            )
+        }
+
+        func GetWalletInfo(
+            _ request: Services_Universalwallet_V1_GetWalletInfoRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Universalwallet_V1_GetWalletInfoResponse {
+            try await performAsyncUnaryCall(
+                path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.GetWalletInfo.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeGetWalletInfoInterceptors() ?? []
+            )
+        }
+
+        func GetMyInfo(
+            _ request: Services_Universalwallet_V1_GetMyInfoRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Universalwallet_V1_GetMyInfoResponse {
+            try await performAsyncUnaryCall(
+                path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.GetMyInfo.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeGetMyInfoInterceptors() ?? []
+            )
+        }
+
+        func GenerateAuthToken(
+            _ request: Services_Universalwallet_V1_GenerateAuthTokenRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Universalwallet_V1_GenerateAuthTokenResponse {
+            try await performAsyncUnaryCall(
+                path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.GenerateAuthToken.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeGenerateAuthTokenInterceptors() ?? []
+            )
+        }
+
+        func RevokeAuthToken(
+            _ request: Services_Universalwallet_V1_RevokeAuthTokenRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Universalwallet_V1_RevokeAuthTokenResponse {
+            try await performAsyncUnaryCall(
+                path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.RevokeAuthToken.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeRevokeAuthTokenInterceptors() ?? []
+            )
+        }
+
+        func AddExternalIdentityInit(
+            _ request: Services_Universalwallet_V1_AddExternalIdentityInitRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Universalwallet_V1_AddExternalIdentityInitResponse {
+            try await performAsyncUnaryCall(
+                path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.AddExternalIdentityInit.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeAddExternalIdentityInitInterceptors() ?? []
+            )
+        }
+
+        func AddExternalIdentityConfirm(
+            _ request: Services_Universalwallet_V1_AddExternalIdentityConfirmRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Universalwallet_V1_AddExternalIdentityConfirmResponse {
+            try await performAsyncUnaryCall(
+                path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.AddExternalIdentityConfirm.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeAddExternalIdentityConfirmInterceptors() ?? []
+            )
+        }
+
+        func AuthenticateInit(
+            _ request: Services_Universalwallet_V1_AuthenticateInitRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Universalwallet_V1_AuthenticateInitResponse {
+            try await performAsyncUnaryCall(
+                path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.AuthenticateInit.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeAuthenticateInitInterceptors() ?? []
+            )
+        }
+
+        func AuthenticateConfirm(
+            _ request: Services_Universalwallet_V1_AuthenticateConfirmRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Universalwallet_V1_AuthenticateConfirmResponse {
+            try await performAsyncUnaryCall(
+                path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.AuthenticateConfirm.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeAuthenticateConfirmInterceptors() ?? []
+            )
+        }
+
+        func ListWallets(
+            _ request: Services_Universalwallet_V1_ListWalletsRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Universalwallet_V1_ListWalletsResponse {
+            try await performAsyncUnaryCall(
+                path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.ListWallets.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeListWalletsInterceptors() ?? []
+            )
+        }
     }
 
     @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -470,6 +996,36 @@ public protocol Services_Universalwallet_V1_UniversalWalletClientInterceptorFact
 
     /// - Returns: Interceptors to use when invoking 'DeleteWallet'.
     func makeDeleteWalletInterceptors() -> [ClientInterceptor<Services_Universalwallet_V1_DeleteWalletRequest, Services_Universalwallet_V1_DeleteWalletResponse>]
+
+    /// - Returns: Interceptors to use when invoking 'CreateWallet'.
+    func makeCreateWalletInterceptors() -> [ClientInterceptor<Services_Universalwallet_V1_CreateWalletRequest, Services_Universalwallet_V1_CreateWalletResponse>]
+
+    /// - Returns: Interceptors to use when invoking 'GetWalletInfo'.
+    func makeGetWalletInfoInterceptors() -> [ClientInterceptor<Services_Universalwallet_V1_GetWalletInfoRequest, Services_Universalwallet_V1_GetWalletInfoResponse>]
+
+    /// - Returns: Interceptors to use when invoking 'GetMyInfo'.
+    func makeGetMyInfoInterceptors() -> [ClientInterceptor<Services_Universalwallet_V1_GetMyInfoRequest, Services_Universalwallet_V1_GetMyInfoResponse>]
+
+    /// - Returns: Interceptors to use when invoking 'GenerateAuthToken'.
+    func makeGenerateAuthTokenInterceptors() -> [ClientInterceptor<Services_Universalwallet_V1_GenerateAuthTokenRequest, Services_Universalwallet_V1_GenerateAuthTokenResponse>]
+
+    /// - Returns: Interceptors to use when invoking 'RevokeAuthToken'.
+    func makeRevokeAuthTokenInterceptors() -> [ClientInterceptor<Services_Universalwallet_V1_RevokeAuthTokenRequest, Services_Universalwallet_V1_RevokeAuthTokenResponse>]
+
+    /// - Returns: Interceptors to use when invoking 'AddExternalIdentityInit'.
+    func makeAddExternalIdentityInitInterceptors() -> [ClientInterceptor<Services_Universalwallet_V1_AddExternalIdentityInitRequest, Services_Universalwallet_V1_AddExternalIdentityInitResponse>]
+
+    /// - Returns: Interceptors to use when invoking 'AddExternalIdentityConfirm'.
+    func makeAddExternalIdentityConfirmInterceptors() -> [ClientInterceptor<Services_Universalwallet_V1_AddExternalIdentityConfirmRequest, Services_Universalwallet_V1_AddExternalIdentityConfirmResponse>]
+
+    /// - Returns: Interceptors to use when invoking 'AuthenticateInit'.
+    func makeAuthenticateInitInterceptors() -> [ClientInterceptor<Services_Universalwallet_V1_AuthenticateInitRequest, Services_Universalwallet_V1_AuthenticateInitResponse>]
+
+    /// - Returns: Interceptors to use when invoking 'AuthenticateConfirm'.
+    func makeAuthenticateConfirmInterceptors() -> [ClientInterceptor<Services_Universalwallet_V1_AuthenticateConfirmRequest, Services_Universalwallet_V1_AuthenticateConfirmResponse>]
+
+    /// - Returns: Interceptors to use when invoking 'ListWallets'.
+    func makeListWalletsInterceptors() -> [ClientInterceptor<Services_Universalwallet_V1_ListWalletsRequest, Services_Universalwallet_V1_ListWalletsResponse>]
 }
 
 public enum Services_Universalwallet_V1_UniversalWalletClientMetadata {
@@ -483,6 +1039,16 @@ public enum Services_Universalwallet_V1_UniversalWalletClientMetadata {
             Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.UpdateItem,
             Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.DeleteItem,
             Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.DeleteWallet,
+            Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.CreateWallet,
+            Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.GetWalletInfo,
+            Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.GetMyInfo,
+            Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.GenerateAuthToken,
+            Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.RevokeAuthToken,
+            Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.AddExternalIdentityInit,
+            Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.AddExternalIdentityConfirm,
+            Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.AuthenticateInit,
+            Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.AuthenticateConfirm,
+            Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.ListWallets,
         ]
     )
 
@@ -522,6 +1088,66 @@ public enum Services_Universalwallet_V1_UniversalWalletClientMetadata {
             path: "/services.universalwallet.v1.UniversalWallet/DeleteWallet",
             type: GRPCCallType.unary
         )
+
+        public static let CreateWallet = GRPCMethodDescriptor(
+            name: "CreateWallet",
+            path: "/services.universalwallet.v1.UniversalWallet/CreateWallet",
+            type: GRPCCallType.unary
+        )
+
+        public static let GetWalletInfo = GRPCMethodDescriptor(
+            name: "GetWalletInfo",
+            path: "/services.universalwallet.v1.UniversalWallet/GetWalletInfo",
+            type: GRPCCallType.unary
+        )
+
+        public static let GetMyInfo = GRPCMethodDescriptor(
+            name: "GetMyInfo",
+            path: "/services.universalwallet.v1.UniversalWallet/GetMyInfo",
+            type: GRPCCallType.unary
+        )
+
+        public static let GenerateAuthToken = GRPCMethodDescriptor(
+            name: "GenerateAuthToken",
+            path: "/services.universalwallet.v1.UniversalWallet/GenerateAuthToken",
+            type: GRPCCallType.unary
+        )
+
+        public static let RevokeAuthToken = GRPCMethodDescriptor(
+            name: "RevokeAuthToken",
+            path: "/services.universalwallet.v1.UniversalWallet/RevokeAuthToken",
+            type: GRPCCallType.unary
+        )
+
+        public static let AddExternalIdentityInit = GRPCMethodDescriptor(
+            name: "AddExternalIdentityInit",
+            path: "/services.universalwallet.v1.UniversalWallet/AddExternalIdentityInit",
+            type: GRPCCallType.unary
+        )
+
+        public static let AddExternalIdentityConfirm = GRPCMethodDescriptor(
+            name: "AddExternalIdentityConfirm",
+            path: "/services.universalwallet.v1.UniversalWallet/AddExternalIdentityConfirm",
+            type: GRPCCallType.unary
+        )
+
+        public static let AuthenticateInit = GRPCMethodDescriptor(
+            name: "AuthenticateInit",
+            path: "/services.universalwallet.v1.UniversalWallet/AuthenticateInit",
+            type: GRPCCallType.unary
+        )
+
+        public static let AuthenticateConfirm = GRPCMethodDescriptor(
+            name: "AuthenticateConfirm",
+            path: "/services.universalwallet.v1.UniversalWallet/AuthenticateConfirm",
+            type: GRPCCallType.unary
+        )
+
+        public static let ListWallets = GRPCMethodDescriptor(
+            name: "ListWallets",
+            path: "/services.universalwallet.v1.UniversalWallet/ListWallets",
+            type: GRPCCallType.unary
+        )
     }
 }
 
@@ -548,6 +1174,42 @@ public protocol Services_Universalwallet_V1_UniversalWalletProvider: CallHandler
 
     /// Delete a wallet and its credentials
     func DeleteWallet(request: Services_Universalwallet_V1_DeleteWalletRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Universalwallet_V1_DeleteWalletResponse>
+
+    /// Create a new wallet and generate an auth token for access
+    func CreateWallet(request: Services_Universalwallet_V1_CreateWalletRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Universalwallet_V1_CreateWalletResponse>
+
+    /// Retrieve wallet details and configuration
+    func GetWalletInfo(request: Services_Universalwallet_V1_GetWalletInfoRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Universalwallet_V1_GetWalletInfoResponse>
+
+    /// Retrieve wallet details and configuration about the currently authenticated wallet
+    func GetMyInfo(request: Services_Universalwallet_V1_GetMyInfoRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Universalwallet_V1_GetMyInfoResponse>
+
+    /// Generate new token for a given wallet and add it to the collection of known auth tokens.
+    /// This endpoint requires authentication and will return a new token ID and auth token.
+    /// Use this endpoint if you want to authorize another device, without having to share your
+    /// existing auth token.
+    func GenerateAuthToken(request: Services_Universalwallet_V1_GenerateAuthTokenRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Universalwallet_V1_GenerateAuthTokenResponse>
+
+    /// Revokes a previously issued auth token and updates the collection of known auth tokens.
+    /// This endpoint requires authentication.
+    func RevokeAuthToken(request: Services_Universalwallet_V1_RevokeAuthTokenRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Universalwallet_V1_RevokeAuthTokenResponse>
+
+    /// Add new external identity to the current wallet, such as email, sms, ethereum address, etc.
+    /// This identity ownership must be confirmed using `AddIdentityConfirm` via OTP, signature, etc.
+    func AddExternalIdentityInit(request: Services_Universalwallet_V1_AddExternalIdentityInitRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Universalwallet_V1_AddExternalIdentityInitResponse>
+
+    /// Confirm identity added to the current wallet using `AddIdentity`
+    func AddExternalIdentityConfirm(request: Services_Universalwallet_V1_AddExternalIdentityConfirmRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Universalwallet_V1_AddExternalIdentityConfirmResponse>
+
+    /// Sign-in to an already existing wallet, using an identity added that was previously registered
+    /// This endpoint does not require authentication, and will return a challenge to be signed or verified
+    func AuthenticateInit(request: Services_Universalwallet_V1_AuthenticateInitRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Universalwallet_V1_AuthenticateInitResponse>
+
+    /// Confirm sign-in to an already existing wallet and return authentication token
+    func AuthenticateConfirm(request: Services_Universalwallet_V1_AuthenticateConfirmRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Universalwallet_V1_AuthenticateConfirmResponse>
+
+    /// List all wallets in the ecosystem
+    func ListWallets(request: Services_Universalwallet_V1_ListWalletsRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Universalwallet_V1_ListWalletsResponse>
 }
 
 public extension Services_Universalwallet_V1_UniversalWalletProvider {
@@ -616,6 +1278,96 @@ public extension Services_Universalwallet_V1_UniversalWalletProvider {
                 userFunction: DeleteWallet(request:context:)
             )
 
+        case "CreateWallet":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Universalwallet_V1_CreateWalletRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Universalwallet_V1_CreateWalletResponse>(),
+                interceptors: interceptors?.makeCreateWalletInterceptors() ?? [],
+                userFunction: CreateWallet(request:context:)
+            )
+
+        case "GetWalletInfo":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Universalwallet_V1_GetWalletInfoRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Universalwallet_V1_GetWalletInfoResponse>(),
+                interceptors: interceptors?.makeGetWalletInfoInterceptors() ?? [],
+                userFunction: GetWalletInfo(request:context:)
+            )
+
+        case "GetMyInfo":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Universalwallet_V1_GetMyInfoRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Universalwallet_V1_GetMyInfoResponse>(),
+                interceptors: interceptors?.makeGetMyInfoInterceptors() ?? [],
+                userFunction: GetMyInfo(request:context:)
+            )
+
+        case "GenerateAuthToken":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Universalwallet_V1_GenerateAuthTokenRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Universalwallet_V1_GenerateAuthTokenResponse>(),
+                interceptors: interceptors?.makeGenerateAuthTokenInterceptors() ?? [],
+                userFunction: GenerateAuthToken(request:context:)
+            )
+
+        case "RevokeAuthToken":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Universalwallet_V1_RevokeAuthTokenRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Universalwallet_V1_RevokeAuthTokenResponse>(),
+                interceptors: interceptors?.makeRevokeAuthTokenInterceptors() ?? [],
+                userFunction: RevokeAuthToken(request:context:)
+            )
+
+        case "AddExternalIdentityInit":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Universalwallet_V1_AddExternalIdentityInitRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Universalwallet_V1_AddExternalIdentityInitResponse>(),
+                interceptors: interceptors?.makeAddExternalIdentityInitInterceptors() ?? [],
+                userFunction: AddExternalIdentityInit(request:context:)
+            )
+
+        case "AddExternalIdentityConfirm":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Universalwallet_V1_AddExternalIdentityConfirmRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Universalwallet_V1_AddExternalIdentityConfirmResponse>(),
+                interceptors: interceptors?.makeAddExternalIdentityConfirmInterceptors() ?? [],
+                userFunction: AddExternalIdentityConfirm(request:context:)
+            )
+
+        case "AuthenticateInit":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Universalwallet_V1_AuthenticateInitRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Universalwallet_V1_AuthenticateInitResponse>(),
+                interceptors: interceptors?.makeAuthenticateInitInterceptors() ?? [],
+                userFunction: AuthenticateInit(request:context:)
+            )
+
+        case "AuthenticateConfirm":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Universalwallet_V1_AuthenticateConfirmRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Universalwallet_V1_AuthenticateConfirmResponse>(),
+                interceptors: interceptors?.makeAuthenticateConfirmInterceptors() ?? [],
+                userFunction: AuthenticateConfirm(request:context:)
+            )
+
+        case "ListWallets":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Universalwallet_V1_ListWalletsRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Universalwallet_V1_ListWalletsResponse>(),
+                interceptors: interceptors?.makeListWalletsInterceptors() ?? [],
+                userFunction: ListWallets(request:context:)
+            )
+
         default:
             return nil
         }
@@ -667,6 +1419,72 @@ public extension Services_Universalwallet_V1_UniversalWalletProvider {
             request: Services_Universalwallet_V1_DeleteWalletRequest,
             context: GRPCAsyncServerCallContext
         ) async throws -> Services_Universalwallet_V1_DeleteWalletResponse
+
+        /// Create a new wallet and generate an auth token for access
+        @Sendable func CreateWallet(
+            request: Services_Universalwallet_V1_CreateWalletRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Universalwallet_V1_CreateWalletResponse
+
+        /// Retrieve wallet details and configuration
+        @Sendable func GetWalletInfo(
+            request: Services_Universalwallet_V1_GetWalletInfoRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Universalwallet_V1_GetWalletInfoResponse
+
+        /// Retrieve wallet details and configuration about the currently authenticated wallet
+        @Sendable func GetMyInfo(
+            request: Services_Universalwallet_V1_GetMyInfoRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Universalwallet_V1_GetMyInfoResponse
+
+        /// Generate new token for a given wallet and add it to the collection of known auth tokens.
+        /// This endpoint requires authentication and will return a new token ID and auth token.
+        /// Use this endpoint if you want to authorize another device, without having to share your
+        /// existing auth token.
+        @Sendable func GenerateAuthToken(
+            request: Services_Universalwallet_V1_GenerateAuthTokenRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Universalwallet_V1_GenerateAuthTokenResponse
+
+        /// Revokes a previously issued auth token and updates the collection of known auth tokens.
+        /// This endpoint requires authentication.
+        @Sendable func RevokeAuthToken(
+            request: Services_Universalwallet_V1_RevokeAuthTokenRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Universalwallet_V1_RevokeAuthTokenResponse
+
+        /// Add new external identity to the current wallet, such as email, sms, ethereum address, etc.
+        /// This identity ownership must be confirmed using `AddIdentityConfirm` via OTP, signature, etc.
+        @Sendable func AddExternalIdentityInit(
+            request: Services_Universalwallet_V1_AddExternalIdentityInitRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Universalwallet_V1_AddExternalIdentityInitResponse
+
+        /// Confirm identity added to the current wallet using `AddIdentity`
+        @Sendable func AddExternalIdentityConfirm(
+            request: Services_Universalwallet_V1_AddExternalIdentityConfirmRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Universalwallet_V1_AddExternalIdentityConfirmResponse
+
+        /// Sign-in to an already existing wallet, using an identity added that was previously registered
+        /// This endpoint does not require authentication, and will return a challenge to be signed or verified
+        @Sendable func AuthenticateInit(
+            request: Services_Universalwallet_V1_AuthenticateInitRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Universalwallet_V1_AuthenticateInitResponse
+
+        /// Confirm sign-in to an already existing wallet and return authentication token
+        @Sendable func AuthenticateConfirm(
+            request: Services_Universalwallet_V1_AuthenticateConfirmRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Universalwallet_V1_AuthenticateConfirmResponse
+
+        /// List all wallets in the ecosystem
+        @Sendable func ListWallets(
+            request: Services_Universalwallet_V1_ListWalletsRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Universalwallet_V1_ListWalletsResponse
     }
 
     @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -742,6 +1560,96 @@ public extension Services_Universalwallet_V1_UniversalWalletProvider {
                     wrapping: DeleteWallet(request:context:)
                 )
 
+            case "CreateWallet":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Universalwallet_V1_CreateWalletRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Universalwallet_V1_CreateWalletResponse>(),
+                    interceptors: interceptors?.makeCreateWalletInterceptors() ?? [],
+                    wrapping: CreateWallet(request:context:)
+                )
+
+            case "GetWalletInfo":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Universalwallet_V1_GetWalletInfoRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Universalwallet_V1_GetWalletInfoResponse>(),
+                    interceptors: interceptors?.makeGetWalletInfoInterceptors() ?? [],
+                    wrapping: GetWalletInfo(request:context:)
+                )
+
+            case "GetMyInfo":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Universalwallet_V1_GetMyInfoRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Universalwallet_V1_GetMyInfoResponse>(),
+                    interceptors: interceptors?.makeGetMyInfoInterceptors() ?? [],
+                    wrapping: GetMyInfo(request:context:)
+                )
+
+            case "GenerateAuthToken":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Universalwallet_V1_GenerateAuthTokenRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Universalwallet_V1_GenerateAuthTokenResponse>(),
+                    interceptors: interceptors?.makeGenerateAuthTokenInterceptors() ?? [],
+                    wrapping: GenerateAuthToken(request:context:)
+                )
+
+            case "RevokeAuthToken":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Universalwallet_V1_RevokeAuthTokenRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Universalwallet_V1_RevokeAuthTokenResponse>(),
+                    interceptors: interceptors?.makeRevokeAuthTokenInterceptors() ?? [],
+                    wrapping: RevokeAuthToken(request:context:)
+                )
+
+            case "AddExternalIdentityInit":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Universalwallet_V1_AddExternalIdentityInitRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Universalwallet_V1_AddExternalIdentityInitResponse>(),
+                    interceptors: interceptors?.makeAddExternalIdentityInitInterceptors() ?? [],
+                    wrapping: AddExternalIdentityInit(request:context:)
+                )
+
+            case "AddExternalIdentityConfirm":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Universalwallet_V1_AddExternalIdentityConfirmRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Universalwallet_V1_AddExternalIdentityConfirmResponse>(),
+                    interceptors: interceptors?.makeAddExternalIdentityConfirmInterceptors() ?? [],
+                    wrapping: AddExternalIdentityConfirm(request:context:)
+                )
+
+            case "AuthenticateInit":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Universalwallet_V1_AuthenticateInitRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Universalwallet_V1_AuthenticateInitResponse>(),
+                    interceptors: interceptors?.makeAuthenticateInitInterceptors() ?? [],
+                    wrapping: AuthenticateInit(request:context:)
+                )
+
+            case "AuthenticateConfirm":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Universalwallet_V1_AuthenticateConfirmRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Universalwallet_V1_AuthenticateConfirmResponse>(),
+                    interceptors: interceptors?.makeAuthenticateConfirmInterceptors() ?? [],
+                    wrapping: AuthenticateConfirm(request:context:)
+                )
+
+            case "ListWallets":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Universalwallet_V1_ListWalletsRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Universalwallet_V1_ListWalletsResponse>(),
+                    interceptors: interceptors?.makeListWalletsInterceptors() ?? [],
+                    wrapping: ListWallets(request:context:)
+                )
+
             default:
                 return nil
             }
@@ -774,6 +1682,46 @@ public protocol Services_Universalwallet_V1_UniversalWalletServerInterceptorFact
     /// - Returns: Interceptors to use when handling 'DeleteWallet'.
     ///   Defaults to calling `self.makeInterceptors()`.
     func makeDeleteWalletInterceptors() -> [ServerInterceptor<Services_Universalwallet_V1_DeleteWalletRequest, Services_Universalwallet_V1_DeleteWalletResponse>]
+
+    /// - Returns: Interceptors to use when handling 'CreateWallet'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeCreateWalletInterceptors() -> [ServerInterceptor<Services_Universalwallet_V1_CreateWalletRequest, Services_Universalwallet_V1_CreateWalletResponse>]
+
+    /// - Returns: Interceptors to use when handling 'GetWalletInfo'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeGetWalletInfoInterceptors() -> [ServerInterceptor<Services_Universalwallet_V1_GetWalletInfoRequest, Services_Universalwallet_V1_GetWalletInfoResponse>]
+
+    /// - Returns: Interceptors to use when handling 'GetMyInfo'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeGetMyInfoInterceptors() -> [ServerInterceptor<Services_Universalwallet_V1_GetMyInfoRequest, Services_Universalwallet_V1_GetMyInfoResponse>]
+
+    /// - Returns: Interceptors to use when handling 'GenerateAuthToken'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeGenerateAuthTokenInterceptors() -> [ServerInterceptor<Services_Universalwallet_V1_GenerateAuthTokenRequest, Services_Universalwallet_V1_GenerateAuthTokenResponse>]
+
+    /// - Returns: Interceptors to use when handling 'RevokeAuthToken'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeRevokeAuthTokenInterceptors() -> [ServerInterceptor<Services_Universalwallet_V1_RevokeAuthTokenRequest, Services_Universalwallet_V1_RevokeAuthTokenResponse>]
+
+    /// - Returns: Interceptors to use when handling 'AddExternalIdentityInit'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeAddExternalIdentityInitInterceptors() -> [ServerInterceptor<Services_Universalwallet_V1_AddExternalIdentityInitRequest, Services_Universalwallet_V1_AddExternalIdentityInitResponse>]
+
+    /// - Returns: Interceptors to use when handling 'AddExternalIdentityConfirm'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeAddExternalIdentityConfirmInterceptors() -> [ServerInterceptor<Services_Universalwallet_V1_AddExternalIdentityConfirmRequest, Services_Universalwallet_V1_AddExternalIdentityConfirmResponse>]
+
+    /// - Returns: Interceptors to use when handling 'AuthenticateInit'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeAuthenticateInitInterceptors() -> [ServerInterceptor<Services_Universalwallet_V1_AuthenticateInitRequest, Services_Universalwallet_V1_AuthenticateInitResponse>]
+
+    /// - Returns: Interceptors to use when handling 'AuthenticateConfirm'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeAuthenticateConfirmInterceptors() -> [ServerInterceptor<Services_Universalwallet_V1_AuthenticateConfirmRequest, Services_Universalwallet_V1_AuthenticateConfirmResponse>]
+
+    /// - Returns: Interceptors to use when handling 'ListWallets'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeListWalletsInterceptors() -> [ServerInterceptor<Services_Universalwallet_V1_ListWalletsRequest, Services_Universalwallet_V1_ListWalletsResponse>]
 }
 
 public enum Services_Universalwallet_V1_UniversalWalletServerMetadata {
@@ -787,6 +1735,16 @@ public enum Services_Universalwallet_V1_UniversalWalletServerMetadata {
             Services_Universalwallet_V1_UniversalWalletServerMetadata.Methods.UpdateItem,
             Services_Universalwallet_V1_UniversalWalletServerMetadata.Methods.DeleteItem,
             Services_Universalwallet_V1_UniversalWalletServerMetadata.Methods.DeleteWallet,
+            Services_Universalwallet_V1_UniversalWalletServerMetadata.Methods.CreateWallet,
+            Services_Universalwallet_V1_UniversalWalletServerMetadata.Methods.GetWalletInfo,
+            Services_Universalwallet_V1_UniversalWalletServerMetadata.Methods.GetMyInfo,
+            Services_Universalwallet_V1_UniversalWalletServerMetadata.Methods.GenerateAuthToken,
+            Services_Universalwallet_V1_UniversalWalletServerMetadata.Methods.RevokeAuthToken,
+            Services_Universalwallet_V1_UniversalWalletServerMetadata.Methods.AddExternalIdentityInit,
+            Services_Universalwallet_V1_UniversalWalletServerMetadata.Methods.AddExternalIdentityConfirm,
+            Services_Universalwallet_V1_UniversalWalletServerMetadata.Methods.AuthenticateInit,
+            Services_Universalwallet_V1_UniversalWalletServerMetadata.Methods.AuthenticateConfirm,
+            Services_Universalwallet_V1_UniversalWalletServerMetadata.Methods.ListWallets,
         ]
     )
 
@@ -824,6 +1782,66 @@ public enum Services_Universalwallet_V1_UniversalWalletServerMetadata {
         public static let DeleteWallet = GRPCMethodDescriptor(
             name: "DeleteWallet",
             path: "/services.universalwallet.v1.UniversalWallet/DeleteWallet",
+            type: GRPCCallType.unary
+        )
+
+        public static let CreateWallet = GRPCMethodDescriptor(
+            name: "CreateWallet",
+            path: "/services.universalwallet.v1.UniversalWallet/CreateWallet",
+            type: GRPCCallType.unary
+        )
+
+        public static let GetWalletInfo = GRPCMethodDescriptor(
+            name: "GetWalletInfo",
+            path: "/services.universalwallet.v1.UniversalWallet/GetWalletInfo",
+            type: GRPCCallType.unary
+        )
+
+        public static let GetMyInfo = GRPCMethodDescriptor(
+            name: "GetMyInfo",
+            path: "/services.universalwallet.v1.UniversalWallet/GetMyInfo",
+            type: GRPCCallType.unary
+        )
+
+        public static let GenerateAuthToken = GRPCMethodDescriptor(
+            name: "GenerateAuthToken",
+            path: "/services.universalwallet.v1.UniversalWallet/GenerateAuthToken",
+            type: GRPCCallType.unary
+        )
+
+        public static let RevokeAuthToken = GRPCMethodDescriptor(
+            name: "RevokeAuthToken",
+            path: "/services.universalwallet.v1.UniversalWallet/RevokeAuthToken",
+            type: GRPCCallType.unary
+        )
+
+        public static let AddExternalIdentityInit = GRPCMethodDescriptor(
+            name: "AddExternalIdentityInit",
+            path: "/services.universalwallet.v1.UniversalWallet/AddExternalIdentityInit",
+            type: GRPCCallType.unary
+        )
+
+        public static let AddExternalIdentityConfirm = GRPCMethodDescriptor(
+            name: "AddExternalIdentityConfirm",
+            path: "/services.universalwallet.v1.UniversalWallet/AddExternalIdentityConfirm",
+            type: GRPCCallType.unary
+        )
+
+        public static let AuthenticateInit = GRPCMethodDescriptor(
+            name: "AuthenticateInit",
+            path: "/services.universalwallet.v1.UniversalWallet/AuthenticateInit",
+            type: GRPCCallType.unary
+        )
+
+        public static let AuthenticateConfirm = GRPCMethodDescriptor(
+            name: "AuthenticateConfirm",
+            path: "/services.universalwallet.v1.UniversalWallet/AuthenticateConfirm",
+            type: GRPCCallType.unary
+        )
+
+        public static let ListWallets = GRPCMethodDescriptor(
+            name: "ListWallets",
+            path: "/services.universalwallet.v1.UniversalWallet/ListWallets",
             type: GRPCCallType.unary
         )
     }
