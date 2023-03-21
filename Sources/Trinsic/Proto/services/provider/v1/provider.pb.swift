@@ -808,6 +808,11 @@ public struct Services_Provider_V1_WalletConfiguration {
 
     public var configType: String = .init()
 
+    /// List of active authentication tokens for this wallet.
+    /// This list does not contain the issued token, only metadata
+    /// such as ID, description, and creation date.
+    public var authTokens: [Services_Account_V1_WalletAuthToken] = []
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
@@ -2379,6 +2384,7 @@ extension Services_Provider_V1_WalletConfiguration: SwiftProtobuf.Message, Swift
         4: .standard(proto: "wallet_id"),
         5: .standard(proto: "public_did"),
         6: .standard(proto: "config_type"),
+        7: .standard(proto: "auth_tokens"),
     ]
 
     public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -2393,6 +2399,7 @@ extension Services_Provider_V1_WalletConfiguration: SwiftProtobuf.Message, Swift
             case 4: try try decoder.decodeSingularStringField(value: &walletID)
             case 5: try try decoder.decodeSingularStringField(value: &publicDid)
             case 6: try try decoder.decodeSingularStringField(value: &configType)
+            case 7: try try decoder.decodeRepeatedMessageField(value: &authTokens)
             default: break
             }
         }
@@ -2417,6 +2424,9 @@ extension Services_Provider_V1_WalletConfiguration: SwiftProtobuf.Message, Swift
         if !configType.isEmpty {
             try visitor.visitSingularStringField(value: configType, fieldNumber: 6)
         }
+        if !authTokens.isEmpty {
+            try visitor.visitRepeatedMessageField(value: authTokens, fieldNumber: 7)
+        }
         try unknownFields.traverse(visitor: &visitor)
     }
 
@@ -2427,6 +2437,7 @@ extension Services_Provider_V1_WalletConfiguration: SwiftProtobuf.Message, Swift
         if lhs.walletID != rhs.walletID { return false }
         if lhs.publicDid != rhs.publicDid { return false }
         if lhs.configType != rhs.configType { return false }
+        if lhs.authTokens != rhs.authTokens { return false }
         if lhs.unknownFields != rhs.unknownFields { return false }
         return true
     }

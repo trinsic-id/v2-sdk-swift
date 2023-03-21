@@ -20,6 +20,55 @@ private struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVer
     typealias Version = _2
 }
 
+public enum Services_Universalwallet_V1_IdentityProvider: SwiftProtobuf.Enum {
+    public typealias RawValue = Int
+
+    /// Identity provider is unknown
+    case unknown // = 0
+
+    /// Identity provider is email
+    case email // = 1
+
+    /// Identity provider is phone
+    case phone // = 2
+    case UNRECOGNIZED(Int)
+
+    public init() {
+        self = .unknown
+    }
+
+    public init?(rawValue: Int) {
+        switch rawValue {
+        case 0: self = .unknown
+        case 1: self = .email
+        case 2: self = .phone
+        default: self = .UNRECOGNIZED(rawValue)
+        }
+    }
+
+    public var rawValue: Int {
+        switch self {
+        case .unknown: return 0
+        case .email: return 1
+        case .phone: return 2
+        case let .UNRECOGNIZED(i): return i
+        }
+    }
+}
+
+#if swift(>=4.2)
+
+    extension Services_Universalwallet_V1_IdentityProvider: CaseIterable {
+        // The compiler won't synthesize support with the UNRECOGNIZED case.
+        public static var allCases: [Services_Universalwallet_V1_IdentityProvider] = [
+            .unknown,
+            .email,
+            .phone,
+        ]
+    }
+
+#endif // swift(>=4.2)
+
 /// Request to search items in wallet
 public struct Services_Universalwallet_V1_SearchRequest {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -262,7 +311,317 @@ public struct Services_Universalwallet_V1_DeleteWalletResponse {
     public init() {}
 }
 
+public struct Services_Universalwallet_V1_CreateWalletRequest {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    /// Ecosystem ID of the wallet to create
+    public var ecosystemID: String = .init()
+
+    /// Wallet name or description.
+    /// Use this field to add vendor specific information about this wallet,
+    /// such as email, phone, internal ID, etc.
+    /// This field is not unique within our platform
+    public var description_p: String = .init()
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+}
+
+public struct Services_Universalwallet_V1_CreateWalletResponse {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    /// Wallet ID of the newly created wallet
+    public var walletID: String = .init()
+
+    /// Auth token for the newly created wallet
+    public var authToken: String = .init()
+
+    /// Token ID of the newly generated token
+    public var tokenID: String = .init()
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+}
+
+public struct Services_Universalwallet_V1_GenerateAuthTokenRequest {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var walletID: String = .init()
+
+    public var tokenDescription: String = .init()
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+}
+
+public struct Services_Universalwallet_V1_GenerateAuthTokenResponse {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var tokenID: String = .init()
+
+    public var authToken: String = .init()
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+}
+
+/// Request to retrieve wallet information about a given wallet identified by its wallet ID
+public struct Services_Universalwallet_V1_GetWalletInfoRequest {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    /// Wallet ID of the wallet to retrieve
+    public var walletID: String = .init()
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+}
+
+/// Response to `GetWalletInfoRequest`
+public struct Services_Universalwallet_V1_GetWalletInfoResponse {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    /// Wallet configuration
+    public var wallet: Services_Provider_V1_WalletConfiguration {
+        get { _wallet ?? Services_Provider_V1_WalletConfiguration() }
+        set { _wallet = newValue }
+    }
+
+    /// Returns true if `wallet` has been explicitly set.
+    public var hasWallet: Bool { _wallet != nil }
+    /// Clears the value of `wallet`. Subsequent reads from it will return its default value.
+    public mutating func clearWallet() { _wallet = nil }
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+
+    fileprivate var _wallet: Services_Provider_V1_WalletConfiguration?
+}
+
+/// Request to retrieve wallet information about the currently authenticated wallet
+public struct Services_Universalwallet_V1_GetMyInfoRequest {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+}
+
+/// Response to `GetMyInfoRequest`
+public struct Services_Universalwallet_V1_GetMyInfoResponse {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    /// Wallet configuration
+    public var wallet: Services_Provider_V1_WalletConfiguration {
+        get { _wallet ?? Services_Provider_V1_WalletConfiguration() }
+        set { _wallet = newValue }
+    }
+
+    /// Returns true if `wallet` has been explicitly set.
+    public var hasWallet: Bool { _wallet != nil }
+    /// Clears the value of `wallet`. Subsequent reads from it will return its default value.
+    public mutating func clearWallet() { _wallet = nil }
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+
+    fileprivate var _wallet: Services_Provider_V1_WalletConfiguration?
+}
+
+/// Request to revoke a previously issued auth token
+public struct Services_Universalwallet_V1_RevokeAuthTokenRequest {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    /// Wallet ID of the wallet to from which to revoke the token
+    public var walletID: String = .init()
+
+    /// Token ID of the token to revoke
+    public var tokenID: String = .init()
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+}
+
+public struct Services_Universalwallet_V1_RevokeAuthTokenResponse {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+}
+
+public struct Services_Universalwallet_V1_ListWalletsRequest {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var filter: String = .init()
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+}
+
+public struct Services_Universalwallet_V1_ListWalletsResponse {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var wallets: [Services_Provider_V1_WalletConfiguration] = []
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+}
+
+public struct Services_Universalwallet_V1_AddExternalIdentityInitRequest {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    /// Identity to add to the wallet
+    public var identity: String = .init()
+
+    public var provider: Services_Universalwallet_V1_IdentityProvider = .unknown
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+}
+
+public struct Services_Universalwallet_V1_AddExternalIdentityInitResponse {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    /// Challenge to be verified by the user.
+    /// Pass this challenge back to the `AddIdentityConfirm` endpoint
+    public var challenge: String = .init()
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+}
+
+public struct Services_Universalwallet_V1_AddExternalIdentityConfirmRequest {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    /// The challenge received from the `AddIdentityInit` endpoint
+    public var challenge: String = .init()
+
+    /// The response to the challenge. If using Email or Phone,
+    /// this is the OTP code sent to the user's email or phone
+    public var response: String = .init()
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+}
+
+public struct Services_Universalwallet_V1_AddExternalIdentityConfirmResponse {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+}
+
+public struct Services_Universalwallet_V1_AuthenticateInitRequest {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    /// Identity to add to the wallet
+    public var identity: String = .init()
+
+    /// Identity provider
+    public var provider: Services_Universalwallet_V1_IdentityProvider = .unknown
+
+    /// Ecosystem ID to which the wallet belongs
+    public var ecosystemID: String = .init()
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+}
+
+public struct Services_Universalwallet_V1_AuthenticateInitResponse {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    /// The challenge received from the `AcquireAuthTokenInit` endpoint
+    /// Pass this challenge back to the `AcquireAuthTokenConfirm` endpoint
+    public var challenge: String = .init()
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+}
+
+public struct Services_Universalwallet_V1_AuthenticateConfirmRequest {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    /// The challenge received from the `AcquireAuthTokenInit` endpoint
+    public var challenge: String = .init()
+
+    /// The response to the challenge. If using Email or Phone,
+    /// this is the OTP code sent to the user's email or phone
+    public var response: String = .init()
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+}
+
+public struct Services_Universalwallet_V1_AuthenticateConfirmResponse {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    /// Auth token for the wallet
+    public var authToken: String = .init()
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+}
+
 #if swift(>=5.5) && canImport(_Concurrency)
+    extension Services_Universalwallet_V1_IdentityProvider: @unchecked Sendable {}
     extension Services_Universalwallet_V1_SearchRequest: @unchecked Sendable {}
     extension Services_Universalwallet_V1_SearchResponse: @unchecked Sendable {}
     extension Services_Universalwallet_V1_GetItemRequest: @unchecked Sendable {}
@@ -276,11 +635,39 @@ public struct Services_Universalwallet_V1_DeleteWalletResponse {
     extension Services_Universalwallet_V1_DeleteWalletRequest: @unchecked Sendable {}
     extension Services_Universalwallet_V1_DeleteWalletRequest.OneOf_Account: @unchecked Sendable {}
     extension Services_Universalwallet_V1_DeleteWalletResponse: @unchecked Sendable {}
+    extension Services_Universalwallet_V1_CreateWalletRequest: @unchecked Sendable {}
+    extension Services_Universalwallet_V1_CreateWalletResponse: @unchecked Sendable {}
+    extension Services_Universalwallet_V1_GenerateAuthTokenRequest: @unchecked Sendable {}
+    extension Services_Universalwallet_V1_GenerateAuthTokenResponse: @unchecked Sendable {}
+    extension Services_Universalwallet_V1_GetWalletInfoRequest: @unchecked Sendable {}
+    extension Services_Universalwallet_V1_GetWalletInfoResponse: @unchecked Sendable {}
+    extension Services_Universalwallet_V1_GetMyInfoRequest: @unchecked Sendable {}
+    extension Services_Universalwallet_V1_GetMyInfoResponse: @unchecked Sendable {}
+    extension Services_Universalwallet_V1_RevokeAuthTokenRequest: @unchecked Sendable {}
+    extension Services_Universalwallet_V1_RevokeAuthTokenResponse: @unchecked Sendable {}
+    extension Services_Universalwallet_V1_ListWalletsRequest: @unchecked Sendable {}
+    extension Services_Universalwallet_V1_ListWalletsResponse: @unchecked Sendable {}
+    extension Services_Universalwallet_V1_AddExternalIdentityInitRequest: @unchecked Sendable {}
+    extension Services_Universalwallet_V1_AddExternalIdentityInitResponse: @unchecked Sendable {}
+    extension Services_Universalwallet_V1_AddExternalIdentityConfirmRequest: @unchecked Sendable {}
+    extension Services_Universalwallet_V1_AddExternalIdentityConfirmResponse: @unchecked Sendable {}
+    extension Services_Universalwallet_V1_AuthenticateInitRequest: @unchecked Sendable {}
+    extension Services_Universalwallet_V1_AuthenticateInitResponse: @unchecked Sendable {}
+    extension Services_Universalwallet_V1_AuthenticateConfirmRequest: @unchecked Sendable {}
+    extension Services_Universalwallet_V1_AuthenticateConfirmResponse: @unchecked Sendable {}
 #endif // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 private let _protobuf_package = "services.universalwallet.v1"
+
+extension Services_Universalwallet_V1_IdentityProvider: SwiftProtobuf._ProtoNameProviding {
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        0: .same(proto: "UNKNOWN"),
+        1: .same(proto: "EMAIL"),
+        2: .same(proto: "PHONE"),
+    ]
+}
 
 extension Services_Universalwallet_V1_SearchRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
     public static let protoMessageName: String = _protobuf_package + ".SearchRequest"
@@ -696,6 +1083,678 @@ extension Services_Universalwallet_V1_DeleteWalletResponse: SwiftProtobuf.Messag
     }
 
     public static func == (lhs: Services_Universalwallet_V1_DeleteWalletResponse, rhs: Services_Universalwallet_V1_DeleteWalletResponse) -> Bool {
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}
+
+extension Services_Universalwallet_V1_CreateWalletRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".CreateWalletRequest"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .standard(proto: "ecosystem_id"),
+        2: .same(proto: "description"),
+    ]
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 1: try try decoder.decodeSingularStringField(value: &ecosystemID)
+            case 2: try try decoder.decodeSingularStringField(value: &description_p)
+            default: break
+            }
+        }
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        if !ecosystemID.isEmpty {
+            try visitor.visitSingularStringField(value: ecosystemID, fieldNumber: 1)
+        }
+        if !description_p.isEmpty {
+            try visitor.visitSingularStringField(value: description_p, fieldNumber: 2)
+        }
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Universalwallet_V1_CreateWalletRequest, rhs: Services_Universalwallet_V1_CreateWalletRequest) -> Bool {
+        if lhs.ecosystemID != rhs.ecosystemID { return false }
+        if lhs.description_p != rhs.description_p { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}
+
+extension Services_Universalwallet_V1_CreateWalletResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".CreateWalletResponse"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .standard(proto: "wallet_id"),
+        2: .standard(proto: "auth_token"),
+        3: .standard(proto: "token_id"),
+    ]
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 1: try try decoder.decodeSingularStringField(value: &walletID)
+            case 2: try try decoder.decodeSingularStringField(value: &authToken)
+            case 3: try try decoder.decodeSingularStringField(value: &tokenID)
+            default: break
+            }
+        }
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        if !walletID.isEmpty {
+            try visitor.visitSingularStringField(value: walletID, fieldNumber: 1)
+        }
+        if !authToken.isEmpty {
+            try visitor.visitSingularStringField(value: authToken, fieldNumber: 2)
+        }
+        if !tokenID.isEmpty {
+            try visitor.visitSingularStringField(value: tokenID, fieldNumber: 3)
+        }
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Universalwallet_V1_CreateWalletResponse, rhs: Services_Universalwallet_V1_CreateWalletResponse) -> Bool {
+        if lhs.walletID != rhs.walletID { return false }
+        if lhs.authToken != rhs.authToken { return false }
+        if lhs.tokenID != rhs.tokenID { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}
+
+extension Services_Universalwallet_V1_GenerateAuthTokenRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".GenerateAuthTokenRequest"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .standard(proto: "wallet_id"),
+        2: .standard(proto: "token_description"),
+    ]
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 1: try try decoder.decodeSingularStringField(value: &walletID)
+            case 2: try try decoder.decodeSingularStringField(value: &tokenDescription)
+            default: break
+            }
+        }
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        if !walletID.isEmpty {
+            try visitor.visitSingularStringField(value: walletID, fieldNumber: 1)
+        }
+        if !tokenDescription.isEmpty {
+            try visitor.visitSingularStringField(value: tokenDescription, fieldNumber: 2)
+        }
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Universalwallet_V1_GenerateAuthTokenRequest, rhs: Services_Universalwallet_V1_GenerateAuthTokenRequest) -> Bool {
+        if lhs.walletID != rhs.walletID { return false }
+        if lhs.tokenDescription != rhs.tokenDescription { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}
+
+extension Services_Universalwallet_V1_GenerateAuthTokenResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".GenerateAuthTokenResponse"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .standard(proto: "token_id"),
+        2: .standard(proto: "auth_token"),
+    ]
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 1: try try decoder.decodeSingularStringField(value: &tokenID)
+            case 2: try try decoder.decodeSingularStringField(value: &authToken)
+            default: break
+            }
+        }
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        if !tokenID.isEmpty {
+            try visitor.visitSingularStringField(value: tokenID, fieldNumber: 1)
+        }
+        if !authToken.isEmpty {
+            try visitor.visitSingularStringField(value: authToken, fieldNumber: 2)
+        }
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Universalwallet_V1_GenerateAuthTokenResponse, rhs: Services_Universalwallet_V1_GenerateAuthTokenResponse) -> Bool {
+        if lhs.tokenID != rhs.tokenID { return false }
+        if lhs.authToken != rhs.authToken { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}
+
+extension Services_Universalwallet_V1_GetWalletInfoRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".GetWalletInfoRequest"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .standard(proto: "wallet_id"),
+    ]
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 1: try try decoder.decodeSingularStringField(value: &walletID)
+            default: break
+            }
+        }
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        if !walletID.isEmpty {
+            try visitor.visitSingularStringField(value: walletID, fieldNumber: 1)
+        }
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Universalwallet_V1_GetWalletInfoRequest, rhs: Services_Universalwallet_V1_GetWalletInfoRequest) -> Bool {
+        if lhs.walletID != rhs.walletID { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}
+
+extension Services_Universalwallet_V1_GetWalletInfoResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".GetWalletInfoResponse"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .same(proto: "wallet"),
+    ]
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 1: try try decoder.decodeSingularMessageField(value: &_wallet)
+            default: break
+            }
+        }
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every if/case branch local when no optimizations
+        // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+        // https://github.com/apple/swift-protobuf/issues/1182
+        try { if let v = self._wallet {
+            try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+        } }()
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Universalwallet_V1_GetWalletInfoResponse, rhs: Services_Universalwallet_V1_GetWalletInfoResponse) -> Bool {
+        if lhs._wallet != rhs._wallet { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}
+
+extension Services_Universalwallet_V1_GetMyInfoRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".GetMyInfoRequest"
+    public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let _ = try decoder.nextFieldNumber() {}
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Universalwallet_V1_GetMyInfoRequest, rhs: Services_Universalwallet_V1_GetMyInfoRequest) -> Bool {
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}
+
+extension Services_Universalwallet_V1_GetMyInfoResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".GetMyInfoResponse"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .same(proto: "wallet"),
+    ]
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 1: try try decoder.decodeSingularMessageField(value: &_wallet)
+            default: break
+            }
+        }
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every if/case branch local when no optimizations
+        // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+        // https://github.com/apple/swift-protobuf/issues/1182
+        try { if let v = self._wallet {
+            try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+        } }()
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Universalwallet_V1_GetMyInfoResponse, rhs: Services_Universalwallet_V1_GetMyInfoResponse) -> Bool {
+        if lhs._wallet != rhs._wallet { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}
+
+extension Services_Universalwallet_V1_RevokeAuthTokenRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".RevokeAuthTokenRequest"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .standard(proto: "wallet_id"),
+        2: .standard(proto: "token_id"),
+    ]
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 1: try try decoder.decodeSingularStringField(value: &walletID)
+            case 2: try try decoder.decodeSingularStringField(value: &tokenID)
+            default: break
+            }
+        }
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        if !walletID.isEmpty {
+            try visitor.visitSingularStringField(value: walletID, fieldNumber: 1)
+        }
+        if !tokenID.isEmpty {
+            try visitor.visitSingularStringField(value: tokenID, fieldNumber: 2)
+        }
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Universalwallet_V1_RevokeAuthTokenRequest, rhs: Services_Universalwallet_V1_RevokeAuthTokenRequest) -> Bool {
+        if lhs.walletID != rhs.walletID { return false }
+        if lhs.tokenID != rhs.tokenID { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}
+
+extension Services_Universalwallet_V1_RevokeAuthTokenResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".RevokeAuthTokenResponse"
+    public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let _ = try decoder.nextFieldNumber() {}
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Universalwallet_V1_RevokeAuthTokenResponse, rhs: Services_Universalwallet_V1_RevokeAuthTokenResponse) -> Bool {
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}
+
+extension Services_Universalwallet_V1_ListWalletsRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".ListWalletsRequest"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .same(proto: "filter"),
+    ]
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 1: try try decoder.decodeSingularStringField(value: &filter)
+            default: break
+            }
+        }
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        if !filter.isEmpty {
+            try visitor.visitSingularStringField(value: filter, fieldNumber: 1)
+        }
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Universalwallet_V1_ListWalletsRequest, rhs: Services_Universalwallet_V1_ListWalletsRequest) -> Bool {
+        if lhs.filter != rhs.filter { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}
+
+extension Services_Universalwallet_V1_ListWalletsResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".ListWalletsResponse"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .same(proto: "wallets"),
+    ]
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 1: try try decoder.decodeRepeatedMessageField(value: &wallets)
+            default: break
+            }
+        }
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        if !wallets.isEmpty {
+            try visitor.visitRepeatedMessageField(value: wallets, fieldNumber: 1)
+        }
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Universalwallet_V1_ListWalletsResponse, rhs: Services_Universalwallet_V1_ListWalletsResponse) -> Bool {
+        if lhs.wallets != rhs.wallets { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}
+
+extension Services_Universalwallet_V1_AddExternalIdentityInitRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".AddExternalIdentityInitRequest"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .same(proto: "identity"),
+        2: .same(proto: "provider"),
+    ]
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 1: try try decoder.decodeSingularStringField(value: &identity)
+            case 2: try try decoder.decodeSingularEnumField(value: &provider)
+            default: break
+            }
+        }
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        if !identity.isEmpty {
+            try visitor.visitSingularStringField(value: identity, fieldNumber: 1)
+        }
+        if provider != .unknown {
+            try visitor.visitSingularEnumField(value: provider, fieldNumber: 2)
+        }
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Universalwallet_V1_AddExternalIdentityInitRequest, rhs: Services_Universalwallet_V1_AddExternalIdentityInitRequest) -> Bool {
+        if lhs.identity != rhs.identity { return false }
+        if lhs.provider != rhs.provider { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}
+
+extension Services_Universalwallet_V1_AddExternalIdentityInitResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".AddExternalIdentityInitResponse"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .same(proto: "challenge"),
+    ]
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 1: try try decoder.decodeSingularStringField(value: &challenge)
+            default: break
+            }
+        }
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        if !challenge.isEmpty {
+            try visitor.visitSingularStringField(value: challenge, fieldNumber: 1)
+        }
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Universalwallet_V1_AddExternalIdentityInitResponse, rhs: Services_Universalwallet_V1_AddExternalIdentityInitResponse) -> Bool {
+        if lhs.challenge != rhs.challenge { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}
+
+extension Services_Universalwallet_V1_AddExternalIdentityConfirmRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".AddExternalIdentityConfirmRequest"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .same(proto: "challenge"),
+        2: .same(proto: "response"),
+    ]
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 1: try try decoder.decodeSingularStringField(value: &challenge)
+            case 2: try try decoder.decodeSingularStringField(value: &response)
+            default: break
+            }
+        }
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        if !challenge.isEmpty {
+            try visitor.visitSingularStringField(value: challenge, fieldNumber: 1)
+        }
+        if !response.isEmpty {
+            try visitor.visitSingularStringField(value: response, fieldNumber: 2)
+        }
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Universalwallet_V1_AddExternalIdentityConfirmRequest, rhs: Services_Universalwallet_V1_AddExternalIdentityConfirmRequest) -> Bool {
+        if lhs.challenge != rhs.challenge { return false }
+        if lhs.response != rhs.response { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}
+
+extension Services_Universalwallet_V1_AddExternalIdentityConfirmResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".AddExternalIdentityConfirmResponse"
+    public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let _ = try decoder.nextFieldNumber() {}
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Universalwallet_V1_AddExternalIdentityConfirmResponse, rhs: Services_Universalwallet_V1_AddExternalIdentityConfirmResponse) -> Bool {
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}
+
+extension Services_Universalwallet_V1_AuthenticateInitRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".AuthenticateInitRequest"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .same(proto: "identity"),
+        2: .same(proto: "provider"),
+        3: .standard(proto: "ecosystem_id"),
+    ]
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 1: try try decoder.decodeSingularStringField(value: &identity)
+            case 2: try try decoder.decodeSingularEnumField(value: &provider)
+            case 3: try try decoder.decodeSingularStringField(value: &ecosystemID)
+            default: break
+            }
+        }
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        if !identity.isEmpty {
+            try visitor.visitSingularStringField(value: identity, fieldNumber: 1)
+        }
+        if provider != .unknown {
+            try visitor.visitSingularEnumField(value: provider, fieldNumber: 2)
+        }
+        if !ecosystemID.isEmpty {
+            try visitor.visitSingularStringField(value: ecosystemID, fieldNumber: 3)
+        }
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Universalwallet_V1_AuthenticateInitRequest, rhs: Services_Universalwallet_V1_AuthenticateInitRequest) -> Bool {
+        if lhs.identity != rhs.identity { return false }
+        if lhs.provider != rhs.provider { return false }
+        if lhs.ecosystemID != rhs.ecosystemID { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}
+
+extension Services_Universalwallet_V1_AuthenticateInitResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".AuthenticateInitResponse"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .same(proto: "challenge"),
+    ]
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 1: try try decoder.decodeSingularStringField(value: &challenge)
+            default: break
+            }
+        }
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        if !challenge.isEmpty {
+            try visitor.visitSingularStringField(value: challenge, fieldNumber: 1)
+        }
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Universalwallet_V1_AuthenticateInitResponse, rhs: Services_Universalwallet_V1_AuthenticateInitResponse) -> Bool {
+        if lhs.challenge != rhs.challenge { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}
+
+extension Services_Universalwallet_V1_AuthenticateConfirmRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".AuthenticateConfirmRequest"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .same(proto: "challenge"),
+        2: .same(proto: "response"),
+    ]
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 1: try try decoder.decodeSingularStringField(value: &challenge)
+            case 2: try try decoder.decodeSingularStringField(value: &response)
+            default: break
+            }
+        }
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        if !challenge.isEmpty {
+            try visitor.visitSingularStringField(value: challenge, fieldNumber: 1)
+        }
+        if !response.isEmpty {
+            try visitor.visitSingularStringField(value: response, fieldNumber: 2)
+        }
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Universalwallet_V1_AuthenticateConfirmRequest, rhs: Services_Universalwallet_V1_AuthenticateConfirmRequest) -> Bool {
+        if lhs.challenge != rhs.challenge { return false }
+        if lhs.response != rhs.response { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}
+
+extension Services_Universalwallet_V1_AuthenticateConfirmResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".AuthenticateConfirmResponse"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .standard(proto: "auth_token"),
+    ]
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 1: try try decoder.decodeSingularStringField(value: &authToken)
+            default: break
+            }
+        }
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        if !authToken.isEmpty {
+            try visitor.visitSingularStringField(value: authToken, fieldNumber: 1)
+        }
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Universalwallet_V1_AuthenticateConfirmResponse, rhs: Services_Universalwallet_V1_AuthenticateConfirmResponse) -> Bool {
+        if lhs.authToken != rhs.authToken { return false }
         if lhs.unknownFields != rhs.unknownFields { return false }
         return true
     }
