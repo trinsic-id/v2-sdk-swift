@@ -268,6 +268,11 @@ public struct Services_Account_V1_AccountInfoResponse {
     /// This DID is used as the `issuer` when signing verifiable credentials
     public var publicDid: String = .init()
 
+    /// List of active authentication tokens for this wallet.
+    /// This list does not contain the issued token, only metadata
+    /// such as ID, description, and creation date.
+    public var authTokens: [Services_Account_V1_WalletAuthToken] = []
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
@@ -446,6 +451,37 @@ public struct Services_Account_V1_AuthorizeWebhookResponse {
     public init() {}
 }
 
+/// Information about authenticaton tokens for a wallet
+public struct Services_Account_V1_WalletAuthToken {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    /// Unique identifier for the token.
+    /// This field will match the `DeviceId` in the WalletAuthData
+    public var id: String = .init()
+
+    /// Device name/description
+    public var description_p: String {
+        get { _description_p ?? String() }
+        set { _description_p = newValue }
+    }
+
+    /// Returns true if `description_p` has been explicitly set.
+    public var hasDescription_p: Bool { _description_p != nil }
+    /// Clears the value of `description_p`. Subsequent reads from it will return its default value.
+    public mutating func clearDescription_p() { _description_p = nil }
+
+    /// Date when the token was created in ISO 8601 format
+    public var dateCreated: String = .init()
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+
+    private var _description_p: String?
+}
+
 #if swift(>=5.5) && canImport(_Concurrency)
     extension Services_Account_V1_ConfirmationMethod: @unchecked Sendable {}
     extension Services_Account_V1_SignInRequest: @unchecked Sendable {}
@@ -463,6 +499,7 @@ public struct Services_Account_V1_AuthorizeWebhookResponse {
     extension Services_Account_V1_LoginConfirmResponse: @unchecked Sendable {}
     extension Services_Account_V1_AuthorizeWebhookRequest: @unchecked Sendable {}
     extension Services_Account_V1_AuthorizeWebhookResponse: @unchecked Sendable {}
+    extension Services_Account_V1_WalletAuthToken: @unchecked Sendable {}
 #endif // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -732,6 +769,7 @@ extension Services_Account_V1_AccountInfoResponse: SwiftProtobuf.Message, SwiftP
         4: .standard(proto: "device_id"),
         5: .standard(proto: "ecosystem_id"),
         6: .standard(proto: "public_did"),
+        8: .standard(proto: "auth_tokens"),
     ]
 
     public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -746,6 +784,7 @@ extension Services_Account_V1_AccountInfoResponse: SwiftProtobuf.Message, SwiftP
             case 4: try try decoder.decodeSingularStringField(value: &deviceID)
             case 5: try try decoder.decodeSingularStringField(value: &ecosystemID)
             case 6: try try decoder.decodeSingularStringField(value: &publicDid)
+            case 8: try try decoder.decodeRepeatedMessageField(value: &authTokens)
             default: break
             }
         }
@@ -774,6 +813,9 @@ extension Services_Account_V1_AccountInfoResponse: SwiftProtobuf.Message, SwiftP
         if !publicDid.isEmpty {
             try visitor.visitSingularStringField(value: publicDid, fieldNumber: 6)
         }
+        if !authTokens.isEmpty {
+            try visitor.visitRepeatedMessageField(value: authTokens, fieldNumber: 8)
+        }
         try unknownFields.traverse(visitor: &visitor)
     }
 
@@ -784,6 +826,7 @@ extension Services_Account_V1_AccountInfoResponse: SwiftProtobuf.Message, SwiftP
         if lhs.deviceID != rhs.deviceID { return false }
         if lhs.ecosystemID != rhs.ecosystemID { return false }
         if lhs.publicDid != rhs.publicDid { return false }
+        if lhs.authTokens != rhs.authTokens { return false }
         if lhs.unknownFields != rhs.unknownFields { return false }
         return true
     }
@@ -1067,6 +1110,54 @@ extension Services_Account_V1_AuthorizeWebhookResponse: SwiftProtobuf.Message, S
     }
 
     public static func == (lhs: Services_Account_V1_AuthorizeWebhookResponse, rhs: Services_Account_V1_AuthorizeWebhookResponse) -> Bool {
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}
+
+extension Services_Account_V1_WalletAuthToken: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".WalletAuthToken"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .same(proto: "id"),
+        2: .same(proto: "description"),
+        3: .standard(proto: "date_created"),
+    ]
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 1: try try decoder.decodeSingularStringField(value: &id)
+            case 2: try try decoder.decodeSingularStringField(value: &_description_p)
+            case 3: try try decoder.decodeSingularStringField(value: &dateCreated)
+            default: break
+            }
+        }
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every if/case branch local when no optimizations
+        // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+        // https://github.com/apple/swift-protobuf/issues/1182
+        if !id.isEmpty {
+            try visitor.visitSingularStringField(value: id, fieldNumber: 1)
+        }
+        try { if let v = self._description_p {
+            try visitor.visitSingularStringField(value: v, fieldNumber: 2)
+        } }()
+        if !dateCreated.isEmpty {
+            try visitor.visitSingularStringField(value: dateCreated, fieldNumber: 3)
+        }
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Account_V1_WalletAuthToken, rhs: Services_Account_V1_WalletAuthToken) -> Bool {
+        if lhs.id != rhs.id { return false }
+        if lhs._description_p != rhs._description_p { return false }
+        if lhs.dateCreated != rhs.dateCreated { return false }
         if lhs.unknownFields != rhs.unknownFields { return false }
         return true
     }
