@@ -29,6 +29,9 @@ final class AccountExamples {
         let response = try accountService.login(request: request)
         let challengeString: String = String(data: response.challenge, encoding: .utf8)!
         //Store the challenge string for the loginConfirm call
+        
+        //Another option rather than logging in is to use the `loginAnonymous` call - in this case you need to manage the storage of auth tokens and manage authenticating your users
+        let authToken = try accountService.loginAnonymous(ecosystemId: "[Your ecosystem ID]")
         // }
         // accountLoginConfirm() {
         //Retrieve the challenge string from the login call
