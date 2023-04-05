@@ -425,38 +425,6 @@ public struct Services_Trustregistry_V1_GetMembershipStatusResponse {
     public init() {}
 }
 
-/// Not implemented.
-public struct Services_Trustregistry_V1_FetchDataRequest {
-    // SwiftProtobuf.Message conformance is added in an extension below. See the
-    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-    // methods supported on all messages.
-
-    public var governanceFrameworkUri: String = .init()
-
-    public var query: String = .init()
-
-    public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-    public init() {}
-}
-
-/// Not implemented.
-public struct Services_Trustregistry_V1_FetchDataResponse {
-    // SwiftProtobuf.Message conformance is added in an extension below. See the
-    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-    // methods supported on all messages.
-
-    public var responseJson: String = .init()
-
-    public var hasMoreResults_p: Bool = false
-
-    public var continuationToken: String = .init()
-
-    public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-    public init() {}
-}
-
 #if swift(>=5.5) && canImport(_Concurrency)
     extension Services_Trustregistry_V1_RegistrationStatus: @unchecked Sendable {}
     extension Services_Trustregistry_V1_AddFrameworkRequest: @unchecked Sendable {}
@@ -474,8 +442,6 @@ public struct Services_Trustregistry_V1_FetchDataResponse {
     extension Services_Trustregistry_V1_UnregisterMemberResponse: @unchecked Sendable {}
     extension Services_Trustregistry_V1_GetMembershipStatusRequest: @unchecked Sendable {}
     extension Services_Trustregistry_V1_GetMembershipStatusResponse: @unchecked Sendable {}
-    extension Services_Trustregistry_V1_FetchDataRequest: @unchecked Sendable {}
-    extension Services_Trustregistry_V1_FetchDataResponse: @unchecked Sendable {}
 #endif // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -1045,88 +1011,6 @@ extension Services_Trustregistry_V1_GetMembershipStatusResponse: SwiftProtobuf.M
 
     public static func == (lhs: Services_Trustregistry_V1_GetMembershipStatusResponse, rhs: Services_Trustregistry_V1_GetMembershipStatusResponse) -> Bool {
         if lhs.status != rhs.status { return false }
-        if lhs.unknownFields != rhs.unknownFields { return false }
-        return true
-    }
-}
-
-extension Services_Trustregistry_V1_FetchDataRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-    public static let protoMessageName: String = _protobuf_package + ".FetchDataRequest"
-    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-        1: .standard(proto: "governance_framework_uri"),
-        2: .same(proto: "query"),
-    ]
-
-    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-        while let fieldNumber = try decoder.nextFieldNumber() {
-            // The use of inline closures is to circumvent an issue where the compiler
-            // allocates stack space for every case branch when no optimizations are
-            // enabled. https://github.com/apple/swift-protobuf/issues/1034
-            switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &governanceFrameworkUri)
-            case 2: try try decoder.decodeSingularStringField(value: &query)
-            default: break
-            }
-        }
-    }
-
-    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-        if !governanceFrameworkUri.isEmpty {
-            try visitor.visitSingularStringField(value: governanceFrameworkUri, fieldNumber: 1)
-        }
-        if !query.isEmpty {
-            try visitor.visitSingularStringField(value: query, fieldNumber: 2)
-        }
-        try unknownFields.traverse(visitor: &visitor)
-    }
-
-    public static func == (lhs: Services_Trustregistry_V1_FetchDataRequest, rhs: Services_Trustregistry_V1_FetchDataRequest) -> Bool {
-        if lhs.governanceFrameworkUri != rhs.governanceFrameworkUri { return false }
-        if lhs.query != rhs.query { return false }
-        if lhs.unknownFields != rhs.unknownFields { return false }
-        return true
-    }
-}
-
-extension Services_Trustregistry_V1_FetchDataResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-    public static let protoMessageName: String = _protobuf_package + ".FetchDataResponse"
-    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-        1: .standard(proto: "response_json"),
-        2: .standard(proto: "has_more_results"),
-        3: .standard(proto: "continuation_token"),
-    ]
-
-    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-        while let fieldNumber = try decoder.nextFieldNumber() {
-            // The use of inline closures is to circumvent an issue where the compiler
-            // allocates stack space for every case branch when no optimizations are
-            // enabled. https://github.com/apple/swift-protobuf/issues/1034
-            switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &responseJson)
-            case 2: try try decoder.decodeSingularBoolField(value: &hasMoreResults_p)
-            case 3: try try decoder.decodeSingularStringField(value: &continuationToken)
-            default: break
-            }
-        }
-    }
-
-    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-        if !responseJson.isEmpty {
-            try visitor.visitSingularStringField(value: responseJson, fieldNumber: 1)
-        }
-        if hasMoreResults_p != false {
-            try visitor.visitSingularBoolField(value: hasMoreResults_p, fieldNumber: 2)
-        }
-        if !continuationToken.isEmpty {
-            try visitor.visitSingularStringField(value: continuationToken, fieldNumber: 3)
-        }
-        try unknownFields.traverse(visitor: &visitor)
-    }
-
-    public static func == (lhs: Services_Trustregistry_V1_FetchDataResponse, rhs: Services_Trustregistry_V1_FetchDataResponse) -> Bool {
-        if lhs.responseJson != rhs.responseJson { return false }
-        if lhs.hasMoreResults_p != rhs.hasMoreResults_p { return false }
-        if lhs.continuationToken != rhs.continuationToken { return false }
         if lhs.unknownFields != rhs.unknownFields { return false }
         return true
     }

@@ -59,12 +59,6 @@ public protocol Services_Trustregistry_V1_TrustRegistryClientProtocol: GRPCClien
         _ request: Services_Trustregistry_V1_GetMembershipStatusRequest,
         callOptions: CallOptions?
     ) -> UnaryCall<Services_Trustregistry_V1_GetMembershipStatusRequest, Services_Trustregistry_V1_GetMembershipStatusResponse>
-
-    func FetchData(
-        _ request: Services_Trustregistry_V1_FetchDataRequest,
-        callOptions: CallOptions?,
-        handler: @escaping (Services_Trustregistry_V1_FetchDataResponse) -> Void
-    ) -> ServerStreamingCall<Services_Trustregistry_V1_FetchDataRequest, Services_Trustregistry_V1_FetchDataResponse>
 }
 
 public extension Services_Trustregistry_V1_TrustRegistryClientProtocol {
@@ -179,27 +173,6 @@ public extension Services_Trustregistry_V1_TrustRegistryClientProtocol {
             interceptors: interceptors?.makeGetMembershipStatusInterceptors() ?? []
         )
     }
-
-    /// Not implemented.
-    ///
-    /// - Parameters:
-    ///   - request: Request to send to FetchData.
-    ///   - callOptions: Call options.
-    ///   - handler: A closure called when each response is received from the server.
-    /// - Returns: A `ServerStreamingCall` with futures for the metadata and status.
-    func FetchData(
-        _ request: Services_Trustregistry_V1_FetchDataRequest,
-        callOptions: CallOptions? = nil,
-        handler: @escaping (Services_Trustregistry_V1_FetchDataResponse) -> Void
-    ) -> ServerStreamingCall<Services_Trustregistry_V1_FetchDataRequest, Services_Trustregistry_V1_FetchDataResponse> {
-        makeServerStreamingCall(
-            path: Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.FetchData.path,
-            request: request,
-            callOptions: callOptions ?? defaultCallOptions,
-            interceptors: interceptors?.makeFetchDataInterceptors() ?? [],
-            handler: handler
-        )
-    }
 }
 
 #if compiler(>=5.6)
@@ -297,11 +270,6 @@ public struct Services_Trustregistry_V1_TrustRegistryNIOClient: Services_Trustre
             _ request: Services_Trustregistry_V1_GetMembershipStatusRequest,
             callOptions: CallOptions?
         ) -> GRPCAsyncUnaryCall<Services_Trustregistry_V1_GetMembershipStatusRequest, Services_Trustregistry_V1_GetMembershipStatusResponse>
-
-        func makeFetchDataCall(
-            _ request: Services_Trustregistry_V1_FetchDataRequest,
-            callOptions: CallOptions?
-        ) -> GRPCAsyncServerStreamingCall<Services_Trustregistry_V1_FetchDataRequest, Services_Trustregistry_V1_FetchDataResponse>
     }
 
     @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -385,18 +353,6 @@ public struct Services_Trustregistry_V1_TrustRegistryNIOClient: Services_Trustre
                 interceptors: interceptors?.makeGetMembershipStatusInterceptors() ?? []
             )
         }
-
-        func makeFetchDataCall(
-            _ request: Services_Trustregistry_V1_FetchDataRequest,
-            callOptions: CallOptions? = nil
-        ) -> GRPCAsyncServerStreamingCall<Services_Trustregistry_V1_FetchDataRequest, Services_Trustregistry_V1_FetchDataResponse> {
-            makeAsyncServerStreamingCall(
-                path: Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.FetchData.path,
-                request: request,
-                callOptions: callOptions ?? defaultCallOptions,
-                interceptors: interceptors?.makeFetchDataInterceptors() ?? []
-            )
-        }
     }
 
     @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -472,18 +428,6 @@ public struct Services_Trustregistry_V1_TrustRegistryNIOClient: Services_Trustre
                 interceptors: interceptors?.makeGetMembershipStatusInterceptors() ?? []
             )
         }
-
-        func FetchData(
-            _ request: Services_Trustregistry_V1_FetchDataRequest,
-            callOptions: CallOptions? = nil
-        ) -> GRPCAsyncResponseStream<Services_Trustregistry_V1_FetchDataResponse> {
-            performAsyncServerStreamingCall(
-                path: Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.FetchData.path,
-                request: request,
-                callOptions: callOptions ?? defaultCallOptions,
-                interceptors: interceptors?.makeFetchDataInterceptors() ?? []
-            )
-        }
     }
 
     @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -523,9 +467,6 @@ public protocol Services_Trustregistry_V1_TrustRegistryClientInterceptorFactoryP
 
     /// - Returns: Interceptors to use when invoking 'GetMembershipStatus'.
     func makeGetMembershipStatusInterceptors() -> [ClientInterceptor<Services_Trustregistry_V1_GetMembershipStatusRequest, Services_Trustregistry_V1_GetMembershipStatusResponse>]
-
-    /// - Returns: Interceptors to use when invoking 'FetchData'.
-    func makeFetchDataInterceptors() -> [ClientInterceptor<Services_Trustregistry_V1_FetchDataRequest, Services_Trustregistry_V1_FetchDataResponse>]
 }
 
 public enum Services_Trustregistry_V1_TrustRegistryClientMetadata {
@@ -539,7 +480,6 @@ public enum Services_Trustregistry_V1_TrustRegistryClientMetadata {
             Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.RegisterMember,
             Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.UnregisterMember,
             Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.GetMembershipStatus,
-            Services_Trustregistry_V1_TrustRegistryClientMetadata.Methods.FetchData,
         ]
     )
 
@@ -579,12 +519,6 @@ public enum Services_Trustregistry_V1_TrustRegistryClientMetadata {
             path: "/services.trustregistry.v1.TrustRegistry/GetMembershipStatus",
             type: GRPCCallType.unary
         )
-
-        public static let FetchData = GRPCMethodDescriptor(
-            name: "FetchData",
-            path: "/services.trustregistry.v1.TrustRegistry/FetchData",
-            type: GRPCCallType.serverStreaming
-        )
     }
 }
 
@@ -609,9 +543,6 @@ public protocol Services_Trustregistry_V1_TrustRegistryProvider: CallHandlerProv
 
     /// Fetch the membership status of an issuer for a given credential schema in a trust registry
     func GetMembershipStatus(request: Services_Trustregistry_V1_GetMembershipStatusRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Trustregistry_V1_GetMembershipStatusResponse>
-
-    /// Not implemented.
-    func FetchData(request: Services_Trustregistry_V1_FetchDataRequest, context: StreamingResponseCallContext<Services_Trustregistry_V1_FetchDataResponse>) -> EventLoopFuture<GRPCStatus>
 }
 
 public extension Services_Trustregistry_V1_TrustRegistryProvider {
@@ -680,15 +611,6 @@ public extension Services_Trustregistry_V1_TrustRegistryProvider {
                 userFunction: GetMembershipStatus(request:context:)
             )
 
-        case "FetchData":
-            return ServerStreamingServerHandler(
-                context: context,
-                requestDeserializer: ProtobufDeserializer<Services_Trustregistry_V1_FetchDataRequest>(),
-                responseSerializer: ProtobufSerializer<Services_Trustregistry_V1_FetchDataResponse>(),
-                interceptors: interceptors?.makeFetchDataInterceptors() ?? [],
-                userFunction: FetchData(request:context:)
-            )
-
         default:
             return nil
         }
@@ -738,13 +660,6 @@ public extension Services_Trustregistry_V1_TrustRegistryProvider {
             request: Services_Trustregistry_V1_GetMembershipStatusRequest,
             context: GRPCAsyncServerCallContext
         ) async throws -> Services_Trustregistry_V1_GetMembershipStatusResponse
-
-        /// Not implemented.
-        @Sendable func FetchData(
-            request: Services_Trustregistry_V1_FetchDataRequest,
-            responseStream: GRPCAsyncResponseStreamWriter<Services_Trustregistry_V1_FetchDataResponse>,
-            context: GRPCAsyncServerCallContext
-        ) async throws
     }
 
     @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -820,15 +735,6 @@ public extension Services_Trustregistry_V1_TrustRegistryProvider {
                     wrapping: GetMembershipStatus(request:context:)
                 )
 
-            case "FetchData":
-                return GRPCAsyncServerHandler(
-                    context: context,
-                    requestDeserializer: ProtobufDeserializer<Services_Trustregistry_V1_FetchDataRequest>(),
-                    responseSerializer: ProtobufSerializer<Services_Trustregistry_V1_FetchDataResponse>(),
-                    interceptors: interceptors?.makeFetchDataInterceptors() ?? [],
-                    wrapping: FetchData(request:responseStream:context:)
-                )
-
             default:
                 return nil
             }
@@ -861,10 +767,6 @@ public protocol Services_Trustregistry_V1_TrustRegistryServerInterceptorFactoryP
     /// - Returns: Interceptors to use when handling 'GetMembershipStatus'.
     ///   Defaults to calling `self.makeInterceptors()`.
     func makeGetMembershipStatusInterceptors() -> [ServerInterceptor<Services_Trustregistry_V1_GetMembershipStatusRequest, Services_Trustregistry_V1_GetMembershipStatusResponse>]
-
-    /// - Returns: Interceptors to use when handling 'FetchData'.
-    ///   Defaults to calling `self.makeInterceptors()`.
-    func makeFetchDataInterceptors() -> [ServerInterceptor<Services_Trustregistry_V1_FetchDataRequest, Services_Trustregistry_V1_FetchDataResponse>]
 }
 
 public enum Services_Trustregistry_V1_TrustRegistryServerMetadata {
@@ -878,7 +780,6 @@ public enum Services_Trustregistry_V1_TrustRegistryServerMetadata {
             Services_Trustregistry_V1_TrustRegistryServerMetadata.Methods.RegisterMember,
             Services_Trustregistry_V1_TrustRegistryServerMetadata.Methods.UnregisterMember,
             Services_Trustregistry_V1_TrustRegistryServerMetadata.Methods.GetMembershipStatus,
-            Services_Trustregistry_V1_TrustRegistryServerMetadata.Methods.FetchData,
         ]
     )
 
@@ -917,12 +818,6 @@ public enum Services_Trustregistry_V1_TrustRegistryServerMetadata {
             name: "GetMembershipStatus",
             path: "/services.trustregistry.v1.TrustRegistry/GetMembershipStatus",
             type: GRPCCallType.unary
-        )
-
-        public static let FetchData = GRPCMethodDescriptor(
-            name: "FetchData",
-            path: "/services.trustregistry.v1.TrustRegistry/FetchData",
-            type: GRPCCallType.serverStreaming
         )
     }
 }
