@@ -97,7 +97,7 @@ public struct Services_Universalwallet_V1_SearchResponse {
     public var items: [String] = []
 
     /// Whether more results are available for this query via `continuation_token`
-    public var hasMore_p: Bool = false
+    public var hasMoreResults_p: Bool = false
 
     /// Token to fetch next set of results via `SearchRequest`
     public var continuationToken: String = .init()
@@ -711,7 +711,7 @@ extension Services_Universalwallet_V1_SearchResponse: SwiftProtobuf.Message, Swi
     public static let protoMessageName: String = _protobuf_package + ".SearchResponse"
     public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
         1: .same(proto: "items"),
-        2: .standard(proto: "has_more"),
+        2: .standard(proto: "has_more_results"),
         4: .standard(proto: "continuation_token"),
     ]
 
@@ -722,7 +722,7 @@ extension Services_Universalwallet_V1_SearchResponse: SwiftProtobuf.Message, Swi
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
             case 1: try try decoder.decodeRepeatedStringField(value: &items)
-            case 2: try try decoder.decodeSingularBoolField(value: &hasMore_p)
+            case 2: try try decoder.decodeSingularBoolField(value: &hasMoreResults_p)
             case 4: try try decoder.decodeSingularStringField(value: &continuationToken)
             default: break
             }
@@ -733,8 +733,8 @@ extension Services_Universalwallet_V1_SearchResponse: SwiftProtobuf.Message, Swi
         if !items.isEmpty {
             try visitor.visitRepeatedStringField(value: items, fieldNumber: 1)
         }
-        if hasMore_p != false {
-            try visitor.visitSingularBoolField(value: hasMore_p, fieldNumber: 2)
+        if hasMoreResults_p != false {
+            try visitor.visitSingularBoolField(value: hasMoreResults_p, fieldNumber: 2)
         }
         if !continuationToken.isEmpty {
             try visitor.visitSingularStringField(value: continuationToken, fieldNumber: 4)
@@ -744,7 +744,7 @@ extension Services_Universalwallet_V1_SearchResponse: SwiftProtobuf.Message, Swi
 
     public static func == (lhs: Services_Universalwallet_V1_SearchResponse, rhs: Services_Universalwallet_V1_SearchResponse) -> Bool {
         if lhs.items != rhs.items { return false }
-        if lhs.hasMore_p != rhs.hasMore_p { return false }
+        if lhs.hasMoreResults_p != rhs.hasMoreResults_p { return false }
         if lhs.continuationToken != rhs.continuationToken { return false }
         if lhs.unknownFields != rhs.unknownFields { return false }
         return true
