@@ -780,7 +780,7 @@ public struct Services_Provider_V1_SearchWalletConfigurationResponse {
     public var results: [Services_Provider_V1_WalletConfiguration] = []
 
     /// Whether more results are available for this query via `continuation_token`
-    public var hasMore_p: Bool = false
+    public var hasMoreResults_p: Bool = false
 
     /// Token to fetch next set of results via `SearchRequest`
     public var continuationToken: String = .init()
@@ -796,6 +796,7 @@ public struct Services_Provider_V1_WalletConfiguration {
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
 
+    /// Name/description of the wallet
     public var name: String = .init()
 
     public var email: String = .init()
@@ -804,6 +805,7 @@ public struct Services_Provider_V1_WalletConfiguration {
 
     public var walletID: String = .init()
 
+    /// The DID of the wallet
     public var publicDid: String = .init()
 
     public var configType: String = .init()
@@ -812,6 +814,9 @@ public struct Services_Provider_V1_WalletConfiguration {
     /// This list does not contain the issued token, only metadata
     /// such as ID, description, and creation date.
     public var authTokens: [Services_Account_V1_WalletAuthToken] = []
+
+    /// List of external identities associated with this wallet.
+    public var externalIdentities: [String] = []
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -2335,7 +2340,7 @@ extension Services_Provider_V1_SearchWalletConfigurationResponse: SwiftProtobuf.
     public static let protoMessageName: String = _protobuf_package + ".SearchWalletConfigurationResponse"
     public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
         1: .same(proto: "results"),
-        2: .standard(proto: "has_more"),
+        2: .standard(proto: "has_more_results"),
         4: .standard(proto: "continuation_token"),
     ]
 
@@ -2346,7 +2351,7 @@ extension Services_Provider_V1_SearchWalletConfigurationResponse: SwiftProtobuf.
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
             case 1: try try decoder.decodeRepeatedMessageField(value: &results)
-            case 2: try try decoder.decodeSingularBoolField(value: &hasMore_p)
+            case 2: try try decoder.decodeSingularBoolField(value: &hasMoreResults_p)
             case 4: try try decoder.decodeSingularStringField(value: &continuationToken)
             default: break
             }
@@ -2357,8 +2362,8 @@ extension Services_Provider_V1_SearchWalletConfigurationResponse: SwiftProtobuf.
         if !results.isEmpty {
             try visitor.visitRepeatedMessageField(value: results, fieldNumber: 1)
         }
-        if hasMore_p != false {
-            try visitor.visitSingularBoolField(value: hasMore_p, fieldNumber: 2)
+        if hasMoreResults_p != false {
+            try visitor.visitSingularBoolField(value: hasMoreResults_p, fieldNumber: 2)
         }
         if !continuationToken.isEmpty {
             try visitor.visitSingularStringField(value: continuationToken, fieldNumber: 4)
@@ -2368,7 +2373,7 @@ extension Services_Provider_V1_SearchWalletConfigurationResponse: SwiftProtobuf.
 
     public static func == (lhs: Services_Provider_V1_SearchWalletConfigurationResponse, rhs: Services_Provider_V1_SearchWalletConfigurationResponse) -> Bool {
         if lhs.results != rhs.results { return false }
-        if lhs.hasMore_p != rhs.hasMore_p { return false }
+        if lhs.hasMoreResults_p != rhs.hasMoreResults_p { return false }
         if lhs.continuationToken != rhs.continuationToken { return false }
         if lhs.unknownFields != rhs.unknownFields { return false }
         return true
@@ -2385,6 +2390,7 @@ extension Services_Provider_V1_WalletConfiguration: SwiftProtobuf.Message, Swift
         5: .standard(proto: "public_did"),
         6: .standard(proto: "config_type"),
         7: .standard(proto: "auth_tokens"),
+        8: .standard(proto: "external_identities"),
     ]
 
     public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -2400,6 +2406,7 @@ extension Services_Provider_V1_WalletConfiguration: SwiftProtobuf.Message, Swift
             case 5: try try decoder.decodeSingularStringField(value: &publicDid)
             case 6: try try decoder.decodeSingularStringField(value: &configType)
             case 7: try try decoder.decodeRepeatedMessageField(value: &authTokens)
+            case 8: try try decoder.decodeRepeatedStringField(value: &externalIdentities)
             default: break
             }
         }
@@ -2427,6 +2434,9 @@ extension Services_Provider_V1_WalletConfiguration: SwiftProtobuf.Message, Swift
         if !authTokens.isEmpty {
             try visitor.visitRepeatedMessageField(value: authTokens, fieldNumber: 7)
         }
+        if !externalIdentities.isEmpty {
+            try visitor.visitRepeatedStringField(value: externalIdentities, fieldNumber: 8)
+        }
         try unknownFields.traverse(visitor: &visitor)
     }
 
@@ -2438,6 +2448,7 @@ extension Services_Provider_V1_WalletConfiguration: SwiftProtobuf.Message, Swift
         if lhs.publicDid != rhs.publicDid { return false }
         if lhs.configType != rhs.configType { return false }
         if lhs.authTokens != rhs.authTokens { return false }
+        if lhs.externalIdentities != rhs.externalIdentities { return false }
         if lhs.unknownFields != rhs.unknownFields { return false }
         return true
     }
