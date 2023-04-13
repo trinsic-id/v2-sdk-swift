@@ -73,6 +73,7 @@ public extension Services_Verifiablecredentials_V1_VerifiableCredentialClientPro
 
     /// Sign and issue a verifiable credential from a submitted document.
     /// The document must be a valid JSON-LD document.
+    /// DEPRECATED, will be removed June 1st 2023
     ///
     /// - Parameters:
     ///   - request: Request to send to Issue.
@@ -595,6 +596,7 @@ public protocol Services_Verifiablecredentials_V1_VerifiableCredentialProvider: 
 
     /// Sign and issue a verifiable credential from a submitted document.
     /// The document must be a valid JSON-LD document.
+    /// DEPRECATED, will be removed June 1st 2023
     func Issue(request: Services_Verifiablecredentials_V1_IssueRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Verifiablecredentials_V1_IssueResponse>
 
     /// Sign and issue a verifiable credential from a pre-defined template.
@@ -711,6 +713,7 @@ public extension Services_Verifiablecredentials_V1_VerifiableCredentialProvider 
 
         /// Sign and issue a verifiable credential from a submitted document.
         /// The document must be a valid JSON-LD document.
+        /// DEPRECATED, will be removed June 1st 2023
         @Sendable func Issue(
             request: Services_Verifiablecredentials_V1_IssueRequest,
             context: GRPCAsyncServerCallContext

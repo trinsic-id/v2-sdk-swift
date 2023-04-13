@@ -20,7 +20,7 @@ private struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVer
     typealias Version = _2
 }
 
-/// Request to sign a JSON-LD Credential using public key tied to caller
+/// DEPRECATED, will be removed May 1st 2023
 public struct Services_Verifiablecredentials_V1_IssueRequest {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -34,7 +34,7 @@ public struct Services_Verifiablecredentials_V1_IssueRequest {
     public init() {}
 }
 
-/// Response to `IssueRequest`
+/// DEPRECATED, will be removed May 1st 2023
 public struct Services_Verifiablecredentials_V1_IssueResponse {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -308,7 +308,7 @@ public struct Services_Verifiablecredentials_V1_SendRequest {
 
     public var deliveryMethod: Services_Verifiablecredentials_V1_SendRequest.OneOf_DeliveryMethod?
 
-    /// Email address of user to send item to
+    /// Email address of user to whom you'll send the item
     public var email: String {
         get {
             if case let .email(v)? = deliveryMethod { return v }
@@ -335,6 +335,15 @@ public struct Services_Verifiablecredentials_V1_SendRequest {
         set { deliveryMethod = .didUri(newValue) }
     }
 
+    /// SMS of user to whom you'll send the item
+    public var phoneNumber: String {
+        get {
+            if case let .phoneNumber(v)? = deliveryMethod { return v }
+            return String()
+        }
+        set { deliveryMethod = .phoneNumber(newValue) }
+    }
+
     /// Send email notification that credential has been sent to a wallet
     public var sendNotification: Bool = false
 
@@ -344,12 +353,14 @@ public struct Services_Verifiablecredentials_V1_SendRequest {
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public enum OneOf_DeliveryMethod: Equatable {
-        /// Email address of user to send item to
+        /// Email address of user to whom you'll send the item
         case email(String)
         /// Wallet ID of the recipient within the ecosystem
         case walletID(String)
         /// DID URI of the recipient
         case didUri(String)
+        /// SMS of user to whom you'll send the item
+        case phoneNumber(String)
 
         #if !swift(>=4.1)
             public static func == (lhs: Services_Verifiablecredentials_V1_SendRequest.OneOf_DeliveryMethod, rhs: Services_Verifiablecredentials_V1_SendRequest.OneOf_DeliveryMethod) -> Bool {
@@ -367,6 +378,10 @@ public struct Services_Verifiablecredentials_V1_SendRequest {
                     }()
                 case (.didUri, .didUri): return {
                         guard case let .didUri(l) = lhs, case let .didUri(r) = rhs else { preconditionFailure() }
+                        return l == r
+                    }()
+                case (.phoneNumber, .phoneNumber): return {
+                        guard case let .phoneNumber(l) = lhs, case let .phoneNumber(r) = rhs else { preconditionFailure() }
                         return l == r
                     }()
                 default: return false
@@ -903,6 +918,7 @@ extension Services_Verifiablecredentials_V1_SendRequest: SwiftProtobuf.Message, 
         1: .same(proto: "email"),
         5: .standard(proto: "wallet_id"),
         6: .standard(proto: "did_uri"),
+        7: .standard(proto: "phone_number"),
         4: .standard(proto: "send_notification"),
         100: .standard(proto: "document_json"),
     ]
@@ -938,6 +954,14 @@ extension Services_Verifiablecredentials_V1_SendRequest: SwiftProtobuf.Message, 
                         self.deliveryMethod = .didUri(v)
                     }
                 }()
+            case 7: try {
+                    var v: String?
+                    try decoder.decodeSingularStringField(value: &v)
+                    if let v = v {
+                        if self.deliveryMethod != nil { try decoder.handleConflictingOneOf() }
+                        self.deliveryMethod = .phoneNumber(v)
+                    }
+                }()
             case 100: try try decoder.decodeSingularStringField(value: &documentJson)
             default: break
             }
@@ -963,6 +987,10 @@ extension Services_Verifiablecredentials_V1_SendRequest: SwiftProtobuf.Message, 
         case .didUri?: try {
                 guard case let .didUri(v)? = self.deliveryMethod else { preconditionFailure() }
                 try visitor.visitSingularStringField(value: v, fieldNumber: 6)
+            }()
+        case .phoneNumber?: try {
+                guard case let .phoneNumber(v)? = self.deliveryMethod else { preconditionFailure() }
+                try visitor.visitSingularStringField(value: v, fieldNumber: 7)
             }()
         default: break
         }
