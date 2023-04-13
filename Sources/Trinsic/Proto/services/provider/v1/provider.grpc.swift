@@ -119,7 +119,8 @@ public extension Services_Provider_V1_ProviderClientProtocol {
         )
     }
 
-    /// Update an existing ecosystem
+    /// The below display can be removed only once the Dashboard is updating this itself - currently it uses this request
+    /// DEPRECATED, will be removed June 1st 2023
     ///
     /// - Parameters:
     ///   - request: Request to send to UpdateEcosystem.
@@ -137,7 +138,8 @@ public extension Services_Provider_V1_ProviderClientProtocol {
         )
     }
 
-    /// Add a webhook endpoint to the ecosystem
+    /// The below display can be removed only once the Dashboard is updating this itself - currently it uses this request
+    /// DEPRECATED, will be removed April 1st 2023
     ///
     /// - Parameters:
     ///   - request: Request to send to AddWebhook.
@@ -155,7 +157,8 @@ public extension Services_Provider_V1_ProviderClientProtocol {
         )
     }
 
-    /// Delete a webhook endpoint from the ecosystem
+    /// The below display can be removed only once the Dashboard is updating this itself - currently it uses this request
+    /// DEPRECATED, will be removed April 1st 2023
     ///
     /// - Parameters:
     ///   - request: Request to send to DeleteWebhook.
@@ -173,7 +176,8 @@ public extension Services_Provider_V1_ProviderClientProtocol {
         )
     }
 
-    /// Get ecosystem information
+    /// The below display can be removed only once the Dashboard is updating this itself - currently it uses this request
+    /// DEPRECATED, will be removed June 1st 2023
     ///
     /// - Parameters:
     ///   - request: Request to send to EcosystemInfo.
@@ -191,7 +195,8 @@ public extension Services_Provider_V1_ProviderClientProtocol {
         )
     }
 
-    /// Get public ecosystem information about *any* ecosystem
+    /// The below display can be removed only once the Dashboard is updating this itself - currently it uses this request
+    /// DEPRECATED, will be removed June 1st 2023
     ///
     /// - Parameters:
     ///   - request: Request to send to GetPublicEcosystemInfo.
@@ -209,7 +214,7 @@ public extension Services_Provider_V1_ProviderClientProtocol {
         )
     }
 
-    /// Invite a user to the ecosystem
+    /// DEPRECATED, will be removed April 1st 2023
     ///
     /// - Parameters:
     ///   - request: Request to send to Invite.
@@ -227,7 +232,7 @@ public extension Services_Provider_V1_ProviderClientProtocol {
         )
     }
 
-    /// Check the status of an invitation
+    /// DEPRECATED, will be removed April 1st 2023
     ///
     /// - Parameters:
     ///   - request: Request to send to InvitationStatus.
@@ -963,25 +968,30 @@ public protocol Services_Provider_V1_ProviderProvider: CallHandlerProvider {
     /// Create new ecosystem and assign the authenticated user as owner
     func CreateEcosystem(request: Services_Provider_V1_CreateEcosystemRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_CreateEcosystemResponse>
 
-    /// Update an existing ecosystem
+    /// The below display can be removed only once the Dashboard is updating this itself - currently it uses this request
+    /// DEPRECATED, will be removed June 1st 2023
     func UpdateEcosystem(request: Services_Provider_V1_UpdateEcosystemRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_UpdateEcosystemResponse>
 
-    /// Add a webhook endpoint to the ecosystem
+    /// The below display can be removed only once the Dashboard is updating this itself - currently it uses this request
+    /// DEPRECATED, will be removed April 1st 2023
     func AddWebhook(request: Services_Provider_V1_AddWebhookRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_AddWebhookResponse>
 
-    /// Delete a webhook endpoint from the ecosystem
+    /// The below display can be removed only once the Dashboard is updating this itself - currently it uses this request
+    /// DEPRECATED, will be removed April 1st 2023
     func DeleteWebhook(request: Services_Provider_V1_DeleteWebhookRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_DeleteWebhookResponse>
 
-    /// Get ecosystem information
+    /// The below display can be removed only once the Dashboard is updating this itself - currently it uses this request
+    /// DEPRECATED, will be removed June 1st 2023
     func EcosystemInfo(request: Services_Provider_V1_EcosystemInfoRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_EcosystemInfoResponse>
 
-    /// Get public ecosystem information about *any* ecosystem
+    /// The below display can be removed only once the Dashboard is updating this itself - currently it uses this request
+    /// DEPRECATED, will be removed June 1st 2023
     func GetPublicEcosystemInfo(request: Services_Provider_V1_GetPublicEcosystemInfoRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_GetPublicEcosystemInfoResponse>
 
-    /// Invite a user to the ecosystem
+    /// DEPRECATED, will be removed April 1st 2023
     func Invite(request: Services_Provider_V1_InviteRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_InviteResponse>
 
-    /// Check the status of an invitation
+    /// DEPRECATED, will be removed April 1st 2023
     func InvitationStatus(request: Services_Provider_V1_InvitationStatusRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Provider_V1_InvitationStatusResponse>
 
     /// Returns the public key being used to create/verify oberon tokens
@@ -1149,43 +1159,48 @@ public extension Services_Provider_V1_ProviderProvider {
             context: GRPCAsyncServerCallContext
         ) async throws -> Services_Provider_V1_CreateEcosystemResponse
 
-        /// Update an existing ecosystem
+        /// The below display can be removed only once the Dashboard is updating this itself - currently it uses this request
+        /// DEPRECATED, will be removed June 1st 2023
         @Sendable func UpdateEcosystem(
             request: Services_Provider_V1_UpdateEcosystemRequest,
             context: GRPCAsyncServerCallContext
         ) async throws -> Services_Provider_V1_UpdateEcosystemResponse
 
-        /// Add a webhook endpoint to the ecosystem
+        /// The below display can be removed only once the Dashboard is updating this itself - currently it uses this request
+        /// DEPRECATED, will be removed April 1st 2023
         @Sendable func AddWebhook(
             request: Services_Provider_V1_AddWebhookRequest,
             context: GRPCAsyncServerCallContext
         ) async throws -> Services_Provider_V1_AddWebhookResponse
 
-        /// Delete a webhook endpoint from the ecosystem
+        /// The below display can be removed only once the Dashboard is updating this itself - currently it uses this request
+        /// DEPRECATED, will be removed April 1st 2023
         @Sendable func DeleteWebhook(
             request: Services_Provider_V1_DeleteWebhookRequest,
             context: GRPCAsyncServerCallContext
         ) async throws -> Services_Provider_V1_DeleteWebhookResponse
 
-        /// Get ecosystem information
+        /// The below display can be removed only once the Dashboard is updating this itself - currently it uses this request
+        /// DEPRECATED, will be removed June 1st 2023
         @Sendable func EcosystemInfo(
             request: Services_Provider_V1_EcosystemInfoRequest,
             context: GRPCAsyncServerCallContext
         ) async throws -> Services_Provider_V1_EcosystemInfoResponse
 
-        /// Get public ecosystem information about *any* ecosystem
+        /// The below display can be removed only once the Dashboard is updating this itself - currently it uses this request
+        /// DEPRECATED, will be removed June 1st 2023
         @Sendable func GetPublicEcosystemInfo(
             request: Services_Provider_V1_GetPublicEcosystemInfoRequest,
             context: GRPCAsyncServerCallContext
         ) async throws -> Services_Provider_V1_GetPublicEcosystemInfoResponse
 
-        /// Invite a user to the ecosystem
+        /// DEPRECATED, will be removed April 1st 2023
         @Sendable func Invite(
             request: Services_Provider_V1_InviteRequest,
             context: GRPCAsyncServerCallContext
         ) async throws -> Services_Provider_V1_InviteResponse
 
-        /// Check the status of an invitation
+        /// DEPRECATED, will be removed April 1st 2023
         @Sendable func InvitationStatus(
             request: Services_Provider_V1_InvitationStatusRequest,
             context: GRPCAsyncServerCallContext

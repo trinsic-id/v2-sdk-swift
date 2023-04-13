@@ -252,6 +252,7 @@ public struct Services_Account_V1_AccountInfoResponse {
     /// Clears the value of `details`. Subsequent reads from it will return its default value.
     public mutating func clearDetails() { _details = nil }
 
+    /// DEPRECATED, will be removed April 1st 2023
     /// Use `ecosystem_id` instead
     public var ecosystems: [Services_Account_V1_AccountEcosystem] = []
 
