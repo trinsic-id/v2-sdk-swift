@@ -97,6 +97,11 @@ public protocol Services_Universalwallet_V1_UniversalWalletClientProtocol: GRPCC
         callOptions: CallOptions?
     ) -> UnaryCall<Services_Universalwallet_V1_AddExternalIdentityConfirmRequest, Services_Universalwallet_V1_AddExternalIdentityConfirmResponse>
 
+    func RemoveExternalIdentity(
+        _ request: Services_Universalwallet_V1_RemoveExternalIdentityRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Universalwallet_V1_RemoveExternalIdentityRequest, Services_Universalwallet_V1_RemoveExternalIdentityResponse>
+
     func AuthenticateInit(
         _ request: Services_Universalwallet_V1_AuthenticateInitRequest,
         callOptions: CallOptions?
@@ -339,7 +344,7 @@ public extension Services_Universalwallet_V1_UniversalWalletClientProtocol {
         )
     }
 
-    /// Confirm identity added to the current wallet using `AddIdentity`
+    /// Confirm identity added to the current wallet using `AddExternalIdentityInit`
     ///
     /// - Parameters:
     ///   - request: Request to send to AddExternalIdentityConfirm.
@@ -354,6 +359,24 @@ public extension Services_Universalwallet_V1_UniversalWalletClientProtocol {
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
             interceptors: interceptors?.makeAddExternalIdentityConfirmInterceptors() ?? []
+        )
+    }
+
+    /// Remove an external identity from the current wallet
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to RemoveExternalIdentity.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func RemoveExternalIdentity(
+        _ request: Services_Universalwallet_V1_RemoveExternalIdentityRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Universalwallet_V1_RemoveExternalIdentityRequest, Services_Universalwallet_V1_RemoveExternalIdentityResponse> {
+        makeUnaryCall(
+            path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.RemoveExternalIdentity.path,
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeRemoveExternalIdentityInterceptors() ?? []
         )
     }
 
@@ -545,6 +568,11 @@ public struct Services_Universalwallet_V1_UniversalWalletNIOClient: Services_Uni
             callOptions: CallOptions?
         ) -> GRPCAsyncUnaryCall<Services_Universalwallet_V1_AddExternalIdentityConfirmRequest, Services_Universalwallet_V1_AddExternalIdentityConfirmResponse>
 
+        func makeRemoveExternalIdentityCall(
+            _ request: Services_Universalwallet_V1_RemoveExternalIdentityRequest,
+            callOptions: CallOptions?
+        ) -> GRPCAsyncUnaryCall<Services_Universalwallet_V1_RemoveExternalIdentityRequest, Services_Universalwallet_V1_RemoveExternalIdentityResponse>
+
         func makeAuthenticateInitCall(
             _ request: Services_Universalwallet_V1_AuthenticateInitRequest,
             callOptions: CallOptions?
@@ -724,6 +752,18 @@ public struct Services_Universalwallet_V1_UniversalWalletNIOClient: Services_Uni
                 request: request,
                 callOptions: callOptions ?? defaultCallOptions,
                 interceptors: interceptors?.makeAddExternalIdentityConfirmInterceptors() ?? []
+            )
+        }
+
+        func makeRemoveExternalIdentityCall(
+            _ request: Services_Universalwallet_V1_RemoveExternalIdentityRequest,
+            callOptions: CallOptions? = nil
+        ) -> GRPCAsyncUnaryCall<Services_Universalwallet_V1_RemoveExternalIdentityRequest, Services_Universalwallet_V1_RemoveExternalIdentityResponse> {
+            makeAsyncUnaryCall(
+                path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.RemoveExternalIdentity.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeRemoveExternalIdentityInterceptors() ?? []
             )
         }
 
@@ -922,6 +962,18 @@ public struct Services_Universalwallet_V1_UniversalWalletNIOClient: Services_Uni
             )
         }
 
+        func RemoveExternalIdentity(
+            _ request: Services_Universalwallet_V1_RemoveExternalIdentityRequest,
+            callOptions: CallOptions? = nil
+        ) async throws -> Services_Universalwallet_V1_RemoveExternalIdentityResponse {
+            try await performAsyncUnaryCall(
+                path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.RemoveExternalIdentity.path,
+                request: request,
+                callOptions: callOptions ?? defaultCallOptions,
+                interceptors: interceptors?.makeRemoveExternalIdentityInterceptors() ?? []
+            )
+        }
+
         func AuthenticateInit(
             _ request: Services_Universalwallet_V1_AuthenticateInitRequest,
             callOptions: CallOptions? = nil
@@ -1018,6 +1070,9 @@ public protocol Services_Universalwallet_V1_UniversalWalletClientInterceptorFact
     /// - Returns: Interceptors to use when invoking 'AddExternalIdentityConfirm'.
     func makeAddExternalIdentityConfirmInterceptors() -> [ClientInterceptor<Services_Universalwallet_V1_AddExternalIdentityConfirmRequest, Services_Universalwallet_V1_AddExternalIdentityConfirmResponse>]
 
+    /// - Returns: Interceptors to use when invoking 'RemoveExternalIdentity'.
+    func makeRemoveExternalIdentityInterceptors() -> [ClientInterceptor<Services_Universalwallet_V1_RemoveExternalIdentityRequest, Services_Universalwallet_V1_RemoveExternalIdentityResponse>]
+
     /// - Returns: Interceptors to use when invoking 'AuthenticateInit'.
     func makeAuthenticateInitInterceptors() -> [ClientInterceptor<Services_Universalwallet_V1_AuthenticateInitRequest, Services_Universalwallet_V1_AuthenticateInitResponse>]
 
@@ -1046,6 +1101,7 @@ public enum Services_Universalwallet_V1_UniversalWalletClientMetadata {
             Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.RevokeAuthToken,
             Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.AddExternalIdentityInit,
             Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.AddExternalIdentityConfirm,
+            Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.RemoveExternalIdentity,
             Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.AuthenticateInit,
             Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.AuthenticateConfirm,
             Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.ListWallets,
@@ -1131,6 +1187,12 @@ public enum Services_Universalwallet_V1_UniversalWalletClientMetadata {
             type: GRPCCallType.unary
         )
 
+        public static let RemoveExternalIdentity = GRPCMethodDescriptor(
+            name: "RemoveExternalIdentity",
+            path: "/services.universalwallet.v1.UniversalWallet/RemoveExternalIdentity",
+            type: GRPCCallType.unary
+        )
+
         public static let AuthenticateInit = GRPCMethodDescriptor(
             name: "AuthenticateInit",
             path: "/services.universalwallet.v1.UniversalWallet/AuthenticateInit",
@@ -1198,8 +1260,11 @@ public protocol Services_Universalwallet_V1_UniversalWalletProvider: CallHandler
     /// This identity ownership must be confirmed using `AddIdentityConfirm` via OTP, signature, etc.
     func AddExternalIdentityInit(request: Services_Universalwallet_V1_AddExternalIdentityInitRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Universalwallet_V1_AddExternalIdentityInitResponse>
 
-    /// Confirm identity added to the current wallet using `AddIdentity`
+    /// Confirm identity added to the current wallet using `AddExternalIdentityInit`
     func AddExternalIdentityConfirm(request: Services_Universalwallet_V1_AddExternalIdentityConfirmRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Universalwallet_V1_AddExternalIdentityConfirmResponse>
+
+    /// Remove an external identity from the current wallet
+    func RemoveExternalIdentity(request: Services_Universalwallet_V1_RemoveExternalIdentityRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Universalwallet_V1_RemoveExternalIdentityResponse>
 
     /// Sign-in to an already existing wallet, using an identity added that was previously registered
     /// This endpoint does not require authentication, and will return a challenge to be signed or verified
@@ -1341,6 +1406,15 @@ public extension Services_Universalwallet_V1_UniversalWalletProvider {
                 userFunction: AddExternalIdentityConfirm(request:context:)
             )
 
+        case "RemoveExternalIdentity":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Universalwallet_V1_RemoveExternalIdentityRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Universalwallet_V1_RemoveExternalIdentityResponse>(),
+                interceptors: interceptors?.makeRemoveExternalIdentityInterceptors() ?? [],
+                userFunction: RemoveExternalIdentity(request:context:)
+            )
+
         case "AuthenticateInit":
             return UnaryServerHandler(
                 context: context,
@@ -1461,11 +1535,17 @@ public extension Services_Universalwallet_V1_UniversalWalletProvider {
             context: GRPCAsyncServerCallContext
         ) async throws -> Services_Universalwallet_V1_AddExternalIdentityInitResponse
 
-        /// Confirm identity added to the current wallet using `AddIdentity`
+        /// Confirm identity added to the current wallet using `AddExternalIdentityInit`
         @Sendable func AddExternalIdentityConfirm(
             request: Services_Universalwallet_V1_AddExternalIdentityConfirmRequest,
             context: GRPCAsyncServerCallContext
         ) async throws -> Services_Universalwallet_V1_AddExternalIdentityConfirmResponse
+
+        /// Remove an external identity from the current wallet
+        @Sendable func RemoveExternalIdentity(
+            request: Services_Universalwallet_V1_RemoveExternalIdentityRequest,
+            context: GRPCAsyncServerCallContext
+        ) async throws -> Services_Universalwallet_V1_RemoveExternalIdentityResponse
 
         /// Sign-in to an already existing wallet, using an identity added that was previously registered
         /// This endpoint does not require authentication, and will return a challenge to be signed or verified
@@ -1623,6 +1703,15 @@ public extension Services_Universalwallet_V1_UniversalWalletProvider {
                     wrapping: AddExternalIdentityConfirm(request:context:)
                 )
 
+            case "RemoveExternalIdentity":
+                return GRPCAsyncServerHandler(
+                    context: context,
+                    requestDeserializer: ProtobufDeserializer<Services_Universalwallet_V1_RemoveExternalIdentityRequest>(),
+                    responseSerializer: ProtobufSerializer<Services_Universalwallet_V1_RemoveExternalIdentityResponse>(),
+                    interceptors: interceptors?.makeRemoveExternalIdentityInterceptors() ?? [],
+                    wrapping: RemoveExternalIdentity(request:context:)
+                )
+
             case "AuthenticateInit":
                 return GRPCAsyncServerHandler(
                     context: context,
@@ -1711,6 +1800,10 @@ public protocol Services_Universalwallet_V1_UniversalWalletServerInterceptorFact
     ///   Defaults to calling `self.makeInterceptors()`.
     func makeAddExternalIdentityConfirmInterceptors() -> [ServerInterceptor<Services_Universalwallet_V1_AddExternalIdentityConfirmRequest, Services_Universalwallet_V1_AddExternalIdentityConfirmResponse>]
 
+    /// - Returns: Interceptors to use when handling 'RemoveExternalIdentity'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeRemoveExternalIdentityInterceptors() -> [ServerInterceptor<Services_Universalwallet_V1_RemoveExternalIdentityRequest, Services_Universalwallet_V1_RemoveExternalIdentityResponse>]
+
     /// - Returns: Interceptors to use when handling 'AuthenticateInit'.
     ///   Defaults to calling `self.makeInterceptors()`.
     func makeAuthenticateInitInterceptors() -> [ServerInterceptor<Services_Universalwallet_V1_AuthenticateInitRequest, Services_Universalwallet_V1_AuthenticateInitResponse>]
@@ -1742,6 +1835,7 @@ public enum Services_Universalwallet_V1_UniversalWalletServerMetadata {
             Services_Universalwallet_V1_UniversalWalletServerMetadata.Methods.RevokeAuthToken,
             Services_Universalwallet_V1_UniversalWalletServerMetadata.Methods.AddExternalIdentityInit,
             Services_Universalwallet_V1_UniversalWalletServerMetadata.Methods.AddExternalIdentityConfirm,
+            Services_Universalwallet_V1_UniversalWalletServerMetadata.Methods.RemoveExternalIdentity,
             Services_Universalwallet_V1_UniversalWalletServerMetadata.Methods.AuthenticateInit,
             Services_Universalwallet_V1_UniversalWalletServerMetadata.Methods.AuthenticateConfirm,
             Services_Universalwallet_V1_UniversalWalletServerMetadata.Methods.ListWallets,
@@ -1824,6 +1918,12 @@ public enum Services_Universalwallet_V1_UniversalWalletServerMetadata {
         public static let AddExternalIdentityConfirm = GRPCMethodDescriptor(
             name: "AddExternalIdentityConfirm",
             path: "/services.universalwallet.v1.UniversalWallet/AddExternalIdentityConfirm",
+            type: GRPCCallType.unary
+        )
+
+        public static let RemoveExternalIdentity = GRPCMethodDescriptor(
+            name: "RemoveExternalIdentity",
+            path: "/services.universalwallet.v1.UniversalWallet/RemoveExternalIdentity",
             type: GRPCCallType.unary
         )
 
