@@ -20,6 +20,7 @@ private struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVer
     typealias Version = _2
 }
 
+/// DEPRECATED, will be removed April 1st 2023
 /// Type of participant being invited to ecosystem
 public enum Services_Provider_V1_ParticipantType: SwiftProtobuf.Enum {
     public typealias RawValue = Int
@@ -104,6 +105,7 @@ public struct Services_Provider_V1_InviteRequest {
     fileprivate var _details: Services_Account_V1_AccountDetails?
 }
 
+/// DEPRECATED, will be removed April 1st 2023
 /// Response to `InviteRequest`
 public struct Services_Provider_V1_InviteResponse {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -121,6 +123,7 @@ public struct Services_Provider_V1_InviteResponse {
     public init() {}
 }
 
+/// DEPRECATED, will be removed April 1st 2023
 /// Request details for the status of an invitation
 public struct Services_Provider_V1_InvitationStatusRequest {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -135,6 +138,7 @@ public struct Services_Provider_V1_InvitationStatusRequest {
     public init() {}
 }
 
+/// DEPRECATED, will be removed April 1st 2023
 /// Response to `InvitationStatusRequest`
 public struct Services_Provider_V1_InvitationStatusResponse {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -222,6 +226,7 @@ public struct Services_Provider_V1_Ecosystem {
     /// Ecosystem description
     public var description_p: String = .init()
 
+    /// DEPRECATED, will be removed April 1st 2023
     /// External URL associated with the organization or ecosystem entity
     public var uri: String = .init()
 
@@ -246,6 +251,7 @@ public struct Services_Provider_V1_Ecosystem {
     fileprivate var _display: Services_Provider_V1_EcosystemDisplay?
 }
 
+/// DEPRECATED, will be removed April 1st 2023
 /// Webhook configured on an ecosystem
 public struct Services_Provider_V1_WebhookConfig {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -284,6 +290,7 @@ public struct Services_Provider_V1_CreateEcosystemRequest {
     /// Ecosystem description
     public var description_p: String = .init()
 
+    /// DEPRECATED, will be removed April 1st 2023
     /// External URL associated with your organization or ecosystem entity
     public var uri: String = .init()
 
@@ -356,6 +363,7 @@ public struct Services_Provider_V1_UpdateEcosystemRequest {
     /// New description of the ecosystem
     public var description_p: String = .init()
 
+    /// DEPRECATED, will be removed April 1st 2023
     /// New external URL associated with the organization or ecosystem entity
     public var uri: String = .init()
 
@@ -483,6 +491,7 @@ public struct Services_Provider_V1_EcosystemDisplayDetails {
     public init() {}
 }
 
+/// DEPRECATED, will be removed April 1st 2023
 /// Request to add a webhook to an ecosystem
 public struct Services_Provider_V1_AddWebhookRequest {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -505,6 +514,7 @@ public struct Services_Provider_V1_AddWebhookRequest {
     public init() {}
 }
 
+/// DEPRECATED, will be removed April 1st 2023
 /// Response to `AddWebhookRequest`
 public struct Services_Provider_V1_AddWebhookResponse {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -529,6 +539,7 @@ public struct Services_Provider_V1_AddWebhookResponse {
     fileprivate var _ecosystem: Services_Provider_V1_Ecosystem?
 }
 
+/// DEPRECATED, will be removed April 1st 2023
 /// Request to delete a webhook from an ecosystem
 public struct Services_Provider_V1_DeleteWebhookRequest {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -543,6 +554,7 @@ public struct Services_Provider_V1_DeleteWebhookRequest {
     public init() {}
 }
 
+/// DEPRECATED, will be removed April 1st 2023
 /// Response to `DeleteWebhookRequest`
 public struct Services_Provider_V1_DeleteWebhookResponse {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -602,6 +614,7 @@ public struct Services_Provider_V1_EcosystemInfoResponse {
     fileprivate var _ecosystem: Services_Provider_V1_Ecosystem?
 }
 
+/// DEPRECATED, will be removed April 1st 2023
 /// Request to fetch information about an ecosystem
 public struct Services_Provider_V1_GetPublicEcosystemInfoRequest {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -615,6 +628,7 @@ public struct Services_Provider_V1_GetPublicEcosystemInfoRequest {
     public init() {}
 }
 
+/// DEPRECATED, will be removed April 1st 2023
 /// Response to `InfoRequest`
 public struct Services_Provider_V1_GetPublicEcosystemInfoResponse {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -639,6 +653,7 @@ public struct Services_Provider_V1_GetPublicEcosystemInfoResponse {
     fileprivate var _ecosystem: Services_Provider_V1_PublicEcosystemInformation?
 }
 
+/// DEPRECATED, will be removed April 1st 2023
 public struct Services_Provider_V1_PublicEcosystemInformation {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -700,6 +715,8 @@ public struct Services_Provider_V1_GetOberonKeyResponse {
     public init() {}
 }
 
+/// The below display can be removed only once the Dashboard is updating this itself - currently it uses this request
+/// DEPRECATED, will be removed June 1st 2023
 public struct Services_Provider_V1_RetrieveDomainVerificationRecordRequest {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -710,7 +727,8 @@ public struct Services_Provider_V1_RetrieveDomainVerificationRecordRequest {
     public init() {}
 }
 
-/// Response message containing a TXT record content for domain url verification
+/// The below display can be removed only once the Dashboard is updating this itself - currently it uses this request
+/// DEPRECATED, will be removed June 1st 2023
 public struct Services_Provider_V1_RetrieveDomainVerificationRecordResponse {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -727,6 +745,8 @@ public struct Services_Provider_V1_RetrieveDomainVerificationRecordResponse {
     public init() {}
 }
 
+/// The below display can be removed only once the Dashboard is updating this itself - currently it uses this request
+/// DEPRECATED, will be removed June 1st 2023
 public struct Services_Provider_V1_RefreshDomainVerificationStatusRequest {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -737,6 +757,8 @@ public struct Services_Provider_V1_RefreshDomainVerificationStatusRequest {
     public init() {}
 }
 
+/// The below display can be removed only once the Dashboard is updating this itself - currently it uses this request
+/// DEPRECATED, will be removed June 1st 2023
 public struct Services_Provider_V1_RefreshDomainVerificationStatusResponse {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for

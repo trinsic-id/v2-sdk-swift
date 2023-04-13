@@ -20,7 +20,7 @@ private struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVer
     typealias Version = _2
 }
 
-/// Request to sign a JSON-LD Credential using public key tied to caller
+/// DEPRECATED, will be removed May 1st 2023
 public struct Services_Verifiablecredentials_V1_IssueRequest {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -34,7 +34,7 @@ public struct Services_Verifiablecredentials_V1_IssueRequest {
     public init() {}
 }
 
-/// Response to `IssueRequest`
+/// DEPRECATED, will be removed May 1st 2023
 public struct Services_Verifiablecredentials_V1_IssueResponse {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for

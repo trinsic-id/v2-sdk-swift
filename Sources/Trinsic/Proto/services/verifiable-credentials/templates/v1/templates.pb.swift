@@ -453,7 +453,7 @@ public struct Services_Verifiablecredentials_Templates_V1_TemplateData {
         set { _uniqueStorage()._schemaUri = newValue }
     }
 
-    /// URI pointing to template JSON-LD context document
+    /// DEPRECATED, will be removed April 1st 2023
     public var contextUri: String {
         get { _storage._contextUri }
         set { _uniqueStorage()._contextUri = newValue }
