@@ -66,7 +66,7 @@ final class CredentialTests: XCTestCase {
         // Create 3 different profiles for each participant in the scenario
         // setupActors() {
         var createWalletRequest = Services_Universalwallet_V1_CreateWalletRequest()
-        createWalletRequest.ecosystemId = "default"
+        createWalletRequest.ecosystemID = "default"
         let allison = try trinsicService.wallet().createWallet(request: createWalletRequest)
         let clinic = try trinsicService.wallet().createWallet(request: createWalletRequest)
         let airline = try trinsicService.wallet().createWallet(request: createWalletRequest)

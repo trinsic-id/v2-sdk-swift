@@ -18,7 +18,7 @@ final class TrustRegistryTests: XCTestCase {
         options.serverEndpoint = testEndpoint
         let trinsicService = TrinsicService(options: options)
         var createWalletRequest = Services_Universalwallet_V1_CreateWalletRequest()
-        createWalletRequest.ecosystemId = "default"
+        createWalletRequest.ecosystemID = "default"
         let createdWallet = try trinsicService.wallet().createWallet(request: createWalletRequest)
         let authToken = createdWallet.authToken
         options.authToken = authToken
