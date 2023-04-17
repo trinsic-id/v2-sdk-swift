@@ -60,19 +60,18 @@ final class CredentialTests: XCTestCase {
         var options = Sdk_Options_V1_ServiceOptions()
         options.serverEndpoint = testEndpoint
 
-        let accountService = AccountService(options: options)
-        let credentialService = CredentialService(options: options)
-        let walletService = WalletService(options: options)
+        let trinsicService = TrinsicService(options: options)
 
-        let authToken = try accountService.loginAnonymous(ecosystemId: "default")
+        let createdWallet = try trinsicService.wallet().createWallet(request: Services_Universalwallet_V1_CreateWalletRequest(ecosystemId: "default"))
+        let authToken = createdWallet.authToken
         options.authToken = authToken
 
         // SETUP Actors
         // Create 3 different profiles for each participant in the scenario
         // setupActors() {
-        let allison = try accountService.loginAnonymous(ecosystemId: "default")
-        let clinic = try accountService.loginAnonymous(ecosystemId: "default")
-        let airline = try accountService.loginAnonymous(ecosystemId: "default")
+        let allison = try trinsicService.wallet().createWallet(request: Services_Universalwallet_V1_CreateWalletRequest(ecosystemId: "default"))
+        let clinic = try trinsicService.wallet().createWallet(request: Services_Universalwallet_V1_CreateWalletRequest(ecosystemId: "default"))
+        let airline = try trinsicService.wallet().createWallet(request: Services_Universalwallet_V1_CreateWalletRequest(ecosystemId: "default"))
         // }
 
         // Store profile for later use
@@ -81,7 +80,7 @@ final class CredentialTests: XCTestCase {
         // ISSUE CREDENTIAL
         // issueCredential() {
         // Sign a credential as the clinic and send it to Allison
-        credentialService.options.authToken = clinic
+        credentialService.options.authToken = clinic.authToken
 
         var issueRequest = Services_Verifiablecredentials_V1_IssueRequest()
         issueRequest.documentJson = try String(
@@ -100,7 +99,7 @@ final class CredentialTests: XCTestCase {
         // STORE CREDENTIAL
         // storeCredential() {
         // Alice stores the credential in her cloud wallet
-        walletService.options.authToken = allison
+        walletService.options.authToken = allison.authToken
 
         var insertRequest = Services_Universalwallet_V1_InsertItemRequest()
         insertRequest.itemJson = credential.signedDocumentJson
@@ -115,7 +114,7 @@ final class CredentialTests: XCTestCase {
         // The venue has communicated with Allison the details of the credential
         // that they require expressed as a Json-LD frame.
         // shareCredential() {
-        credentialService.options.authToken = allison
+        credentialService.options.authToken = allison.authToken
 
         var proofRequest = Services_Verifiablecredentials_V1_CreateProofRequest()
         proofRequest.itemID = insertResponse.itemID
@@ -127,7 +126,7 @@ final class CredentialTests: XCTestCase {
         // VERIFY CREDENTIAL
         // The airline verifies the credential
         // verifyCredential() {
-        credentialService.options.authToken = airline
+        credentialService.options.authToken = airline.authToken
 
         var verifyRequest = Services_Verifiablecredentials_V1_VerifyProofRequest()
         verifyRequest.proofDocumentJson = proofResponse.proofDocumentJson

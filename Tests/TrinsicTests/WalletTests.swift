@@ -11,19 +11,20 @@ import XCTest
 
 final class WalletTests: XCTestCase {
     let testEndpoint = "dev-internal.trinsic.cloud"
-    var service: WalletService?
+    var service: TrinsicService?
 
     override func setUpWithError() throws {
         var options = Sdk_Options_V1_ServiceOptions()
         options.serverEndpoint = testEndpoint
-        let accountService = AccountService(options: options)
-
-        options.authToken = try accountService.loginAnonymous(ecosystemId: "default")
-        service = WalletService(options: options)
+        let trinsicService = TrinsicService(options: options)
+        let createdWallet = try trinsicService.wallet().createWallet(request: Services_Universalwallet_V1_CreateWalletRequest(ecosystemId: "default"))
+        let authToken = createdWallet.authToken
+        options.authToken = authToken
+        service = TrinsicService(options: options)
     }
 
     func testSearch() throws {
-        let response = try service!.searchWallet()
+        let response = try service!.wallet().searchWallet()
 
         XCTAssertNotNil(response)
     }
@@ -32,7 +33,7 @@ final class WalletTests: XCTestCase {
         var insertRequest = Services_Universalwallet_V1_InsertItemRequest()
         insertRequest.itemJson = "{\"test\": \"document\"}"
 
-        let response = try service!.insertItem(request: insertRequest)
+        let response = try service!.wallet().insertItem(request: insertRequest)
 
         XCTAssertNotNil(response)
     }
