@@ -53,12 +53,9 @@ public class ServiceBase {
         metadataOptions.customMetadata.add(name: "TrinsicSDKLanguage", value: "swift")
         metadataOptions.customMetadata.add(name: "TrinsicSDKVersion", value: getSDKVersion())
         if request != nil {
-            if options.authToken.isEmpty {
-                throw SdkError.authTokenNotSet
-            }
             try metadataOptions.customMetadata.add(
                 name: "Authorization",
-                value: String(format: "Bearer %@", options.authToken)
+                value: String(format: "Bearer %@", options.authToken ?? "")
             )
         }
         return metadataOptions
