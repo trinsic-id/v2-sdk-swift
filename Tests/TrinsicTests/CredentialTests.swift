@@ -80,7 +80,7 @@ final class CredentialTests: XCTestCase {
         // ISSUE CREDENTIAL
         // issueCredential() {
         // Sign a credential as the clinic and send it to Allison
-        credentialService.options.authToken = clinic.authToken
+        trinsicService.options.authToken = clinic.authToken
 
         var issueRequest = Services_Verifiablecredentials_V1_IssueRequest()
         issueRequest.documentJson = try String(
@@ -91,7 +91,7 @@ final class CredentialTests: XCTestCase {
             as: UTF8.self
         )
 
-        let credential = try credentialService.issue(request: issueRequest)
+        let credential = try trinsicService.credential().issue(request: issueRequest)
         // }
         XCTAssertNotNil(credential)
         XCTAssertNotEqual("", credential.signedDocumentJson)
@@ -99,12 +99,12 @@ final class CredentialTests: XCTestCase {
         // STORE CREDENTIAL
         // storeCredential() {
         // Alice stores the credential in her cloud wallet
-        walletService.options.authToken = allison.authToken
+        trinsicService.options.authToken = allison.authToken
 
         var insertRequest = Services_Universalwallet_V1_InsertItemRequest()
         insertRequest.itemJson = credential.signedDocumentJson
 
-        let insertResponse = try walletService.insertItem(request: insertRequest)
+        let insertResponse = try trinsicService.wallet().insertItem(request: insertRequest)
         // }
         XCTAssertNotNil(insertResponse)
         XCTAssertNotEqual("", insertResponse.itemID)
@@ -114,24 +114,24 @@ final class CredentialTests: XCTestCase {
         // The venue has communicated with Allison the details of the credential
         // that they require expressed as a Json-LD frame.
         // shareCredential() {
-        credentialService.options.authToken = allison.authToken
+        trinsicService.options.authToken = allison.authToken
 
         var proofRequest = Services_Verifiablecredentials_V1_CreateProofRequest()
         proofRequest.itemID = insertResponse.itemID
 
-        let proofResponse = try credentialService.createProof(request: proofRequest)
+        let proofResponse = try trinsicService.credential().createProof(request: proofRequest)
         // }
         XCTAssertNotNil(proofResponse)
 
         // VERIFY CREDENTIAL
         // The airline verifies the credential
         // verifyCredential() {
-        credentialService.options.authToken = airline.authToken
+        trinsicService.options.authToken = airline.authToken
 
         var verifyRequest = Services_Verifiablecredentials_V1_VerifyProofRequest()
         verifyRequest.proofDocumentJson = proofResponse.proofDocumentJson
 
-        let verifyResponse = try credentialService.verifyProof(request: verifyRequest)
+        let verifyResponse = try trinsicService.credential().verifyProof(request: verifyRequest)
         // }
         XCTAssertNotNil(verifyResponse)
         XCTAssertTrue(verifyResponse.validationResults["SignatureVerification"]?.isValid ?? false, "Result should be valid")
