@@ -62,16 +62,14 @@ final class CredentialTests: XCTestCase {
 
         let trinsicService = TrinsicService(options: options)
 
-        let createdWallet = try trinsicService.wallet().createWallet(request: Services_Universalwallet_V1_CreateWalletRequest(ecosystemId: "default"))
-        let authToken = createdWallet.authToken
-        options.authToken = authToken
-
         // SETUP Actors
         // Create 3 different profiles for each participant in the scenario
         // setupActors() {
-        let allison = try trinsicService.wallet().createWallet(request: Services_Universalwallet_V1_CreateWalletRequest(ecosystemId: "default"))
-        let clinic = try trinsicService.wallet().createWallet(request: Services_Universalwallet_V1_CreateWalletRequest(ecosystemId: "default"))
-        let airline = try trinsicService.wallet().createWallet(request: Services_Universalwallet_V1_CreateWalletRequest(ecosystemId: "default"))
+        var createWalletRequest = Services_Universalwallet_V1_CreateWalletRequest()
+        createWalletRequest.ecosystemId = "default"
+        let allison = try trinsicService.wallet().createWallet(request: createWalletRequest)
+        let clinic = try trinsicService.wallet().createWallet(request: createWalletRequest)
+        let airline = try trinsicService.wallet().createWallet(request: createWalletRequest)
         // }
 
         // Store profile for later use

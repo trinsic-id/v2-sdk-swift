@@ -17,7 +17,9 @@ final class TemplateTests: XCTestCase {
         var options = Sdk_Options_V1_ServiceOptions()
         options.serverEndpoint = testEndpoint
         let trinsicService = TrinsicService(options: options)
-        let createdWallet = try trinsicService.wallet().createWallet(request: Services_Universalwallet_V1_CreateWalletRequest(ecosystemId: "default"))
+        var createWalletRequest = Services_Universalwallet_V1_CreateWalletRequest()
+        createWalletRequest.ecosystemId = "default"
+        let createdWallet = try trinsicService.wallet().createWallet(request: createWalletRequest)
         let authToken = createdWallet.authToken
         options.authToken = authToken
         service = TrinsicService(options: options)
