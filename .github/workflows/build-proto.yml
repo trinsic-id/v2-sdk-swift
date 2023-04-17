@@ -39,11 +39,4 @@ jobs:
         run: ./generate.bash
         shell: bash
 
-      - name: Mewmba Create PR
-        id: mewmba-create-pr
-        uses: trinsic-id/mewmba/actions/mewmba-pr@main
-        with:
-          apiGithubToken: ${{ secrets.GITHUB_TOKEN }}
-          githubAssignee: ${{ github.actor }}
-
       - uses: stefanzweifel/git-auto-commit-action@v4
