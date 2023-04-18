@@ -14,7 +14,7 @@ on:
 
 jobs:
   compile_proto:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
         with:
@@ -39,19 +39,4 @@ jobs:
         run: ./generate.bash
         shell: bash
 
-      - name: Commit changes
-        uses: EndBug/add-and-commit@v9
-        id: commit_changes
-        with:
-          author_name: Mewmba
-          author_email: mewmba@trinsic.id
-          message: 'Generated code from proto files on branch ${{ github.head_ref }}'
-          new_branch: 'mewmba-${{ github.head_ref }}-generated-protos'
-          push: '--force --set-upstream origin mewmba-${{ github.head_ref }}-generated-protos'
-
-      - name: pull-request
-        run: |
-          gh pr create --head "mewmba-${{ github.head_ref }}-generated-protos" --base "${{ github.head_ref }}" --title "Generated Protos for ${{ github.head_ref }}" --body ":rocket: Generated protos for ${{ github.head_ref }}"
-        if: ${{ steps.commit_changes.outputs.committed == 'true' }}
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: stefanzweifel/git-auto-commit-action@v4

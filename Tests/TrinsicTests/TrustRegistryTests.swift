@@ -11,15 +11,18 @@ import XCTest
 
 final class TrustRegistryTests: XCTestCase {
     let testEndpoint = "dev-internal.trinsic.cloud"
-    var service: TrustRegistryService?
+    var service: TrinsicService?
 
     override func setUpWithError() throws {
         var options = Sdk_Options_V1_ServiceOptions()
         options.serverEndpoint = testEndpoint
-        let accountService = AccountService(options: options)
-
-        options.authToken = try accountService.loginAnonymous(ecosystemId: "default")
-        service = TrustRegistryService(options: options)
+        let trinsicService = TrinsicService(options: options)
+        var createWalletRequest = Services_Universalwallet_V1_CreateWalletRequest()
+        createWalletRequest.ecosystemID = "default"
+        let createdWallet = try trinsicService.wallet().createWallet(request: createWalletRequest)
+        let authToken = createdWallet.authToken
+        options.authToken = authToken
+        service = TrinsicService(options: options)
     }
 
     func testAddFramework() throws {
@@ -28,7 +31,7 @@ final class TrustRegistryTests: XCTestCase {
         request.description_p = "test egf"
         request.name = "Example Framework: #\(UUID().uuidString)"
 
-        let response = try service!.addFramework(request: request)
+        let response = try service!.trustRegistry().addFramework(request: request)
 
         XCTAssertNotNil(response)
 
@@ -37,7 +40,7 @@ final class TrustRegistryTests: XCTestCase {
         registerRequest.didUri = "did:example:isser"
         registerRequest.schemaUri = "https://credential"
 
-        let response2 = try service!.registerMember(request: registerRequest)
+        let response2 = try service!.trustRegistry().registerMember(request: registerRequest)
 
         XCTAssertNotNil(response2)
     }

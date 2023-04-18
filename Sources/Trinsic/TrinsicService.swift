@@ -21,6 +21,10 @@ public class TrinsicService: ServiceBase {
         super.init(options: Sdk_Options_V1_ServiceOptions())
     }
 
+    override public init(options: Sdk_Options_V1_ServiceOptions) {
+        super.init(options: options)
+    }
+
     public func accessManagement() -> AccessManagementService {
         _accessManagementService = _accessManagementService ?? AccessManagementService(options: options)
         _accessManagementService?.options = options

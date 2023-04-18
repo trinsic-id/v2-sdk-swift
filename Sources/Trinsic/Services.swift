@@ -8,7 +8,6 @@
 import Foundation
 import GRPC
 import NIO
-import Okapi
 import SwiftProtobuf
 
 public class ServiceBase {
@@ -51,44 +50,12 @@ public class ServiceBase {
 
     internal func buildMetadata(_ request: Message?) throws -> CallOptions {
         var metadataOptions = CallOptions()
-        try metadataOptions.customMetadata.add(name: "TrinsicOkapiVersion", value: Okapi.Metadata.getMetadata(request: Okapi_Metadata_MetadataRequest()).version)
         metadataOptions.customMetadata.add(name: "TrinsicSDKLanguage", value: "swift")
-        // TODO: - Embed swift version const somewhere, it isn't uniformly recorded
         metadataOptions.customMetadata.add(name: "TrinsicSDKVersion", value: getSDKVersion())
         if request != nil {
-            if options.authToken.isEmpty {
-                throw SdkError.authTokenNotSet
-            }
-            let profile = try Services_Account_V1_AccountProfile(serializedData: Data(base64Encoded: options.authToken)!)
-
-            let requestBytes = try request!.serializedData()
-            var requestHash = Data()
-
-            if requestBytes.count > 0 {
-                var hashRequest = Okapi_Hashing_V1_Blake3HashRequest()
-                hashRequest.data = requestBytes
-                let hashResponse = try Hashing.Blake3Hash(request: hashRequest)
-
-                requestHash = hashResponse.digest
-            }
-
-            var nonce = Services_Common_V1_Nonce()
-            nonce.requestHash = requestHash
-            nonce.timestamp = Date().millisecondsSince1970
-
-            var proofRequest = Okapi_Security_V1_CreateOberonProofRequest()
-            proofRequest.nonce = try nonce.serializedData()
-            proofRequest.data = profile.authData
-            proofRequest.token = profile.authToken
-
-            let proof = try Oberon.createProof(request: proofRequest)
-
             try metadataOptions.customMetadata.add(
                 name: "Authorization",
-                value: String(format: "Oberon ver=1,proof=%@,data=%@,nonce=%@",
-                              proof.proof.toBase64URL(),
-                              profile.authData.toBase64URL(),
-                              nonce.serializedData().toBase64URL())
+                value: String(format: "Bearer %@", options.authToken ?? "")
             )
         }
         return metadataOptions
