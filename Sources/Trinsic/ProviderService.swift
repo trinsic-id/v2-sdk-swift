@@ -40,18 +40,6 @@ public class ProviderService: ServiceBase {
             .response
             .wait()
     }
-    @available(*, deprecated, message: "This will be removed June 1, 2023")
-    public func ecosystemInfo(request: Services_Provider_V1_EcosystemInfoRequest) throws -> Services_Provider_V1_EcosystemInfoResponse {
-        return try client!.EcosystemInfo(request, callOptions: try buildMetadata(request))
-            .response
-            .wait()
-    }
-    @available(*, deprecated, message: "This will be removed June 1, 2023")
-    public func getPublicEcosystemInfo(request: Services_Provider_V1_GetPublicEcosystemInfoRequest) throws -> Services_Provider_V1_GetPublicEcosystemInfoResponse {
-        return try client!.GetPublicEcosystemInfo(request, callOptions: try buildMetadata(nil))
-            .response
-            .wait()
-    }
     
     public func getOberonKey(request: Services_Provider_V1_GetOberonKeyRequest) throws -> Services_Provider_V1_GetOberonKeyResponse {
         return try client!.GetOberonKey(request, callOptions: try buildMetadata(nil))
