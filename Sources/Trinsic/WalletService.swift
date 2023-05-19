@@ -135,6 +135,12 @@ public class WalletService: ServiceBase {
             .wait()
     }
     
+    public func authenticateResendCode(request: Services_Universalwallet_V1_AuthenticateResendCodeRequest) throws -> Services_Universalwallet_V1_AuthenticateResendCodeResponse {
+        return try client!.AuthenticateResendCode(request, callOptions: try buildMetadata(request))
+            .response
+            .wait()
+    }
+    
     public func listWallets(request: Services_Universalwallet_V1_ListWalletsRequest) throws -> Services_Universalwallet_V1_ListWalletsResponse {
         return try client!.ListWallets(request, callOptions: try buildMetadata(request))
             .response
