@@ -112,7 +112,7 @@ message DeleteWalletRequest {
 // Response to `DeleteWalletRequest`. Empty payload.
 message DeleteWalletResponse {}
 
-message CreateWalletRequest{
+message CreateWalletRequest {
   // Ecosystem ID of the wallet to create
   string ecosystem_id = 1;
   // Wallet name or description.
@@ -120,15 +120,28 @@ message CreateWalletRequest{
   // such as email, phone, internal ID, or anything you'd like to associate
   // with this wallet. This field is searchable.
   optional string description = 2 [(options.optional) = true];
+  // Optional identity to add to the wallet (email or sms). 
+  // Use this field when inviting participants into an ecosystem.
+  // If this field is set, an auth token will not be sent in the response.
+  optional ExternalIdentity identity = 3 [(options.optional) = true];
+  message ExternalIdentity {
+    // The user identity to add to the wallet
+    // This can be an email address or phone number (formatted as +[country code][phone number])
+    string identity = 1;
+    // The type of identity provider, like EMAIL or PHONE
+    services.provider.v1.IdentityProvider provider = 2;
+  }
 }
+
 message CreateWalletResponse{
-  reserved 1;
   // Auth token for the newly created wallet
   string auth_token = 2;
   // Token ID of the newly generated token
   string token_id = 3;
   // Wallet configuration
   services.provider.v1.WalletConfiguration wallet = 4;
+
+  reserved 1;
 }
 
 message GenerateAuthTokenRequest{
@@ -198,7 +211,9 @@ service UniversalWallet {
   rpc GetWalletInfo(GetWalletInfoRequest) returns (GetWalletInfoResponse);
 
   // Retrieve wallet details and configuration about the currently authenticated wallet
-  rpc GetMyInfo(GetMyInfoRequest) returns (GetMyInfoResponse);
+  rpc GetMyInfo(GetMyInfoRequest) returns (GetMyInfoResponse) {
+    option (options.sdk_template_option).no_arguments = true;
+  }
 
   // Generate new token for a given wallet and add it to the collection of known auth tokens.
   // This endpoint requires authentication and will return a new token ID and auth token.
@@ -227,6 +242,9 @@ service UniversalWallet {
   // Confirm sign-in to an already existing wallet and return authentication token
   rpc AuthenticateConfirm(AuthenticateConfirmRequest) returns (AuthenticateConfirmResponse);
 
+  // Resend previous authentication code
+  rpc AuthenticateResendCode(AuthenticateResendCodeRequest) returns (AuthenticateResendCodeResponse);
+
   // List all wallets in the ecosystem
   rpc ListWallets(ListWalletsRequest) returns (ListWalletsResponse);
 }
@@ -236,20 +254,11 @@ message AddExternalIdentityInitRequest {
   // This can be an email address or phone number (formatted as +[country code][phone number])
   string identity = 1;
   // The type of identity provider, like EMAIL or PHONE
-  IdentityProvider provider = 2;
+  services.provider.v1.IdentityProvider provider = 2;
 }
 message AddExternalIdentityInitResponse {
   // Challenge or reference to the challenge to be used in the `AddExternalIdentityConfirm` endpoint
   string challenge = 1;
-}
-
-enum IdentityProvider {
-  // Identity provider is unknown
-  UNKNOWN = 0;
-  // Identity provider is email
-  EMAIL = 1;
-  // Identity provider is phone
-  PHONE = 2;
 }
 
 message AddExternalIdentityConfirmRequest {
@@ -272,7 +281,7 @@ message AuthenticateInitRequest {
   // Identity to add to the wallet
   string identity = 1;
   // Identity provider
-  IdentityProvider provider = 2;
+  services.provider.v1.IdentityProvider provider = 2;
   // Ecosystem ID to which the wallet belongs
   string ecosystem_id = 3;
 }
@@ -282,6 +291,13 @@ message AuthenticateInitResponse {
   // Pass this challenge back to the `AcquireAuthTokenConfirm` endpoint
   string challenge = 1;
 }
+
+message AuthenticateResendCodeRequest {
+  // Challenge for the code you want resent.
+  string challenge = 1;
+}
+
+message AuthenticateResendCodeResponse {}
 
 message AuthenticateConfirmRequest {
   // The challenge received from the `AcquireAuthTokenInit` endpoint
