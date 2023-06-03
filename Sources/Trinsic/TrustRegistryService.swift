@@ -55,8 +55,20 @@ public class TrustRegistryService: ServiceBase {
             .wait()
     }
     
-    public func getMembershipStatus(request: Services_Trustregistry_V1_GetMembershipStatusRequest) throws -> Services_Trustregistry_V1_GetMembershipStatusResponse {
-        return try client!.GetMembershipStatus(request, callOptions: try buildMetadata(request))
+    public func getMemberAuthorizationStatus(request: Services_Trustregistry_V1_GetMemberAuthorizationStatusRequest) throws -> Services_Trustregistry_V1_GetMemberAuthorizationStatusResponse {
+        return try client!.GetMemberAuthorizationStatus(request, callOptions: try buildMetadata(request))
+            .response
+            .wait()
+    }
+    
+    public func listAuthorizedMembers(request: Services_Trustregistry_V1_ListAuthorizedMembersRequest) throws -> Services_Trustregistry_V1_ListAuthorizedMembersResponse {
+        return try client!.ListAuthorizedMembers(request, callOptions: try buildMetadata(request))
+            .response
+            .wait()
+    }
+    
+    public func getMember(request: Services_Trustregistry_V1_GetMemberRequest) throws -> Services_Trustregistry_V1_GetMemberResponse {
+        return try client!.GetMember(request, callOptions: try buildMetadata(request))
             .response
             .wait()
     }
