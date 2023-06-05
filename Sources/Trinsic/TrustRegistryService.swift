@@ -25,18 +25,6 @@ public class TrustRegistryService: ServiceBase {
 // target: /home/runner/work/sdk-swift/sdk-swift/Sources/Trinsic/TrustRegistryService.swift
 
     
-    public func addFramework(request: Services_Trustregistry_V1_AddFrameworkRequest) throws -> Services_Trustregistry_V1_AddFrameworkResponse {
-        return try client!.AddFramework(request, callOptions: try buildMetadata(request))
-            .response
-            .wait()
-    }
-    
-    public func removeFramework(request: Services_Trustregistry_V1_RemoveFrameworkRequest) throws -> Services_Trustregistry_V1_RemoveFrameworkResponse {
-        return try client!.RemoveFramework(request, callOptions: try buildMetadata(request))
-            .response
-            .wait()
-    }
-    
     public func searchRegistry(request: Services_Trustregistry_V1_SearchRegistryRequest) throws -> Services_Trustregistry_V1_SearchRegistryResponse {
         return try client!.SearchRegistry(request, callOptions: try buildMetadata(request))
             .response
@@ -55,8 +43,20 @@ public class TrustRegistryService: ServiceBase {
             .wait()
     }
     
-    public func getMembershipStatus(request: Services_Trustregistry_V1_GetMembershipStatusRequest) throws -> Services_Trustregistry_V1_GetMembershipStatusResponse {
-        return try client!.GetMembershipStatus(request, callOptions: try buildMetadata(request))
+    public func getMemberAuthorizationStatus(request: Services_Trustregistry_V1_GetMemberAuthorizationStatusRequest) throws -> Services_Trustregistry_V1_GetMemberAuthorizationStatusResponse {
+        return try client!.GetMemberAuthorizationStatus(request, callOptions: try buildMetadata(request))
+            .response
+            .wait()
+    }
+    
+    public func listAuthorizedMembers(request: Services_Trustregistry_V1_ListAuthorizedMembersRequest) throws -> Services_Trustregistry_V1_ListAuthorizedMembersResponse {
+        return try client!.ListAuthorizedMembers(request, callOptions: try buildMetadata(request))
+            .response
+            .wait()
+    }
+    
+    public func getMember(request: Services_Trustregistry_V1_GetMemberRequest) throws -> Services_Trustregistry_V1_GetMemberResponse {
+        return try client!.GetMember(request, callOptions: try buildMetadata(request))
             .response
             .wait()
     }
