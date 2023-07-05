@@ -280,7 +280,6 @@ service CredentialTemplates {
   rpc Delete(DeleteCredentialTemplateRequest) returns (DeleteCredentialTemplateResponse);
 
   // Create/update verification templates
-  // TODO - Should this be in a separate `verification-templates.proto`?
   rpc CreateVerificationTemplate(CreateVerificationTemplateRequest) returns (CreateVerificationTemplateResponse);
   rpc ListVerificationTemplate(ListVerificationTemplatesRequest) returns (ListVerificationTemplatesResponse);
   rpc UpdateVerificationTemplate(UpdateVerificationTemplateRequest) returns (UpdateVerificationTemplateResponse);
@@ -292,7 +291,7 @@ message CreateVerificationTemplateRequest {
   // Name of new template. Must be a unique identifier within its ecosystem.
   string name = 1;
   // Fields which will be required in the verification proof template
-  repeated VerificationTemplateField fields = 2;
+  map<string,VerificationTemplateField> fields = 2;
   // TODO - Add support for predicate types - currently only equality.
 
   // Source credential template, used for verifying that the specified `fields` are present in the credential template
@@ -378,12 +377,10 @@ message ListVerificationTemplatesResponse {
 
 // A field defined in a template
 message VerificationTemplateField {
-  // Field name (must be unique within template)
-  string name = 1;
   // Whether this field may be omitted on proof creation
-  VerificationShareType field_share_type = 2;
+  VerificationShareType field_share_type = 1;
   // User-facing explanation of what is done with this data
-  string usage_policy = 3;
+  string usage_policy = 2;
   // TODO - Future work supporting proof conditionals/ranges/etc
 }
 
