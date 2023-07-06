@@ -122,6 +122,45 @@ public enum Services_Verifiablecredentials_Templates_V1_UriRenderMethod: SwiftPr
 
 #endif // swift(>=4.2)
 
+public enum Services_Verifiablecredentials_Templates_V1_VerificationShareType: SwiftProtobuf.Enum {
+    public typealias RawValue = Int
+    case required // = 0
+    case optional // = 1
+    case UNRECOGNIZED(Int)
+
+    public init() {
+        self = .required
+    }
+
+    public init?(rawValue: Int) {
+        switch rawValue {
+        case 0: self = .required
+        case 1: self = .optional
+        default: self = .UNRECOGNIZED(rawValue)
+        }
+    }
+
+    public var rawValue: Int {
+        switch self {
+        case .required: return 0
+        case .optional: return 1
+        case let .UNRECOGNIZED(i): return i
+        }
+    }
+}
+
+#if swift(>=4.2)
+
+    extension Services_Verifiablecredentials_Templates_V1_VerificationShareType: CaseIterable {
+        // The compiler won't synthesize support with the UNRECOGNIZED case.
+        public static var allCases: [Services_Verifiablecredentials_Templates_V1_VerificationShareType] = [
+            .required,
+            .optional,
+        ]
+    }
+
+#endif // swift(>=4.2)
+
 /// Request to fetch a template by ID
 public struct Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateRequest {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -157,7 +196,7 @@ public struct Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateR
 
     public init() {}
 
-    private var _template: Services_Verifiablecredentials_Templates_V1_TemplateData?
+    fileprivate var _template: Services_Verifiablecredentials_Templates_V1_TemplateData?
 }
 
 /// Request to search templates using a SQL query
@@ -228,7 +267,7 @@ public struct Services_Verifiablecredentials_Templates_V1_ListCredentialTemplate
     /// Whether more results are available for this query via `continuation_token`
     public var hasMoreResults_p: Bool = false
 
-    /// Token to fetch next set of resuts via `ListCredentialTemplatesRequest`
+    /// Token to fetch next set of results via `ListCredentialTemplatesRequest`
     public var continuationToken: String = .init()
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -326,7 +365,7 @@ public struct Services_Verifiablecredentials_Templates_V1_CreateCredentialTempla
 
     public init() {}
 
-    private var _data: Services_Verifiablecredentials_Templates_V1_TemplateData?
+    fileprivate var _data: Services_Verifiablecredentials_Templates_V1_TemplateData?
 }
 
 /// Request to update display information for a template
@@ -451,12 +490,6 @@ public struct Services_Verifiablecredentials_Templates_V1_TemplateData {
     public var schemaUri: String {
         get { _storage._schemaUri }
         set { _uniqueStorage()._schemaUri = newValue }
-    }
-
-    /// DEPRECATED, will be removed April 1st 2023
-    public var contextUri: String {
-        get { _storage._contextUri }
-        set { _uniqueStorage()._contextUri = newValue }
     }
 
     /// ID of ecosystem in which template resides
@@ -585,10 +618,6 @@ public struct Services_Verifiablecredentials_Templates_V1_TemplateField {
     /// The type of the field
     public var type: Services_Verifiablecredentials_Templates_V1_FieldType = .string
 
-    /// Do not use.
-    /// Annotations for the field that may be used to add additional information.
-    public var annotations: [String: String] = [:]
-
     /// How to deal with this URI field when rendering credential. Only use if `type` is `URI`.
     public var uriData: Services_Verifiablecredentials_Templates_V1_UriFieldData {
         get { _uriData ?? Services_Verifiablecredentials_Templates_V1_UriFieldData() }
@@ -673,9 +702,280 @@ public struct Services_Verifiablecredentials_Templates_V1_UriFieldData {
     public init() {}
 }
 
+public struct Services_Verifiablecredentials_Templates_V1_CreateVerificationTemplateRequest {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    /// Name of new template. Must be a unique identifier within its ecosystem.
+    public var name: String = .init()
+
+    /// Fields which will be required in the verification proof template
+    public var fields: [Services_Verifiablecredentials_Templates_V1_VerificationTemplateField] = []
+
+    /// Source credential template, used for verifying that the specified `fields` are present in the credential template
+    public var credentialTemplateID: String = .init()
+
+    /// Human-readable name of template
+    public var title: String = .init()
+
+    /// Human-readable description of template
+    public var description_p: String = .init()
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+}
+
+public struct Services_Verifiablecredentials_Templates_V1_CreateVerificationTemplateResponse {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var data: Services_Verifiablecredentials_Templates_V1_VerificationTemplateData {
+        get { _data ?? Services_Verifiablecredentials_Templates_V1_VerificationTemplateData() }
+        set { _data = newValue }
+    }
+
+    /// Returns true if `data` has been explicitly set.
+    public var hasData: Bool { _data != nil }
+    /// Clears the value of `data`. Subsequent reads from it will return its default value.
+    public mutating func clearData() { _data = nil }
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+
+    fileprivate var _data: Services_Verifiablecredentials_Templates_V1_VerificationTemplateData?
+}
+
+public struct Services_Verifiablecredentials_Templates_V1_UpdateVerificationTemplateRequest {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    /// ID of Template to update
+    public var id: String = .init()
+
+    /// New human-readable title of Template
+    public var title: String {
+        get { _title ?? String() }
+        set { _title = newValue }
+    }
+
+    /// Returns true if `title` has been explicitly set.
+    public var hasTitle: Bool { _title != nil }
+    /// Clears the value of `title`. Subsequent reads from it will return its default value.
+    public mutating func clearTitle() { _title = nil }
+
+    /// New human-readable description of Template
+    public var description_p: String {
+        get { _description_p ?? String() }
+        set { _description_p = newValue }
+    }
+
+    /// Returns true if `description_p` has been explicitly set.
+    public var hasDescription_p: Bool { _description_p != nil }
+    /// Clears the value of `description_p`. Subsequent reads from it will return its default value.
+    public mutating func clearDescription_p() { _description_p = nil }
+
+    /// Fields to update within the Template
+    public var fields: [String: Services_Verifiablecredentials_Templates_V1_VerificationTemplateFieldPatch] = [:]
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+
+    fileprivate var _title: String?
+    fileprivate var _description_p: String?
+}
+
+public struct Services_Verifiablecredentials_Templates_V1_UpdateVerificationTemplateResponse {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var template: Services_Verifiablecredentials_Templates_V1_VerificationTemplateData {
+        get { _template ?? Services_Verifiablecredentials_Templates_V1_VerificationTemplateData() }
+        set { _template = newValue }
+    }
+
+    /// Returns true if `template` has been explicitly set.
+    public var hasTemplate: Bool { _template != nil }
+    /// Clears the value of `template`. Subsequent reads from it will return its default value.
+    public mutating func clearTemplate() { _template = nil }
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+
+    fileprivate var _template: Services_Verifiablecredentials_Templates_V1_VerificationTemplateData?
+}
+
+public struct Services_Verifiablecredentials_Templates_V1_DeleteVerificationTemplateRequest {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var verificationTemplateID: String = .init()
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+}
+
+/// This space intentionally left blank
+public struct Services_Verifiablecredentials_Templates_V1_DeleteVerificationTemplateResponse {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+}
+
+/// Verification Template
+public struct Services_Verifiablecredentials_Templates_V1_VerificationTemplateData {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    /// Template ID
+    public var id: String = .init()
+
+    /// Template name
+    public var name: String = .init()
+
+    /// Template version number
+    public var version: Int32 = 0
+
+    /// Fields defined for the template
+    public var fields: [Services_Verifiablecredentials_Templates_V1_VerificationTemplateField] = []
+
+    /// URI pointing to template JSON schema document
+    public var schemaUri: String = .init()
+
+    /// ID of ecosystem in which template resides
+    public var ecosystemID: String = .init()
+
+    /// Template type (`VerificationTemplate`)
+    public var type: String = .init()
+
+    /// ID of template creator
+    public var createdBy: String = .init()
+
+    /// Date when template was created as ISO 8601 utc string
+    public var dateCreated: String = .init()
+
+    /// Human-readable template title
+    public var title: String = .init()
+
+    /// Human-readable template description
+    public var description_p: String = .init()
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+}
+
+/// Request to list templates using a SQL query
+public struct Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesRequest {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    /// SQL query to execute. Example: `SELECT * FROM c WHERE c.name = 'Diploma'`
+    public var query: String = .init()
+
+    /// Token provided by previous `ListCredentialTemplatesResponse`
+    /// if more data is available for query
+    public var continuationToken: String = .init()
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+}
+
+public struct Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesResponse {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    /// Templates found by query
+    public var templates: [Services_Verifiablecredentials_Templates_V1_VerificationTemplateData] = []
+
+    /// Whether more results are available for this query via `continuation_token`
+    public var hasMoreResults_p: Bool = false
+
+    /// Token to fetch next set of results via `ListVerificationTemplatesRequest`
+    public var continuationToken: String = .init()
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+}
+
+/// A field defined in a template
+public struct Services_Verifiablecredentials_Templates_V1_VerificationTemplateField {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    /// Field name (must be unique within template)
+    public var name: String = .init()
+
+    /// Whether this field may be omitted on proof creation
+    public var fieldShareType: Services_Verifiablecredentials_Templates_V1_VerificationShareType = .required
+
+    /// User-facing explanation of what is done with this data
+    public var usagePolicy: String = .init()
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+}
+
+/// A patch to apply to an existing template field
+public struct Services_Verifiablecredentials_Templates_V1_VerificationTemplateFieldPatch {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    /// Human-readable name of the field
+    public var title: String {
+        get { _title ?? String() }
+        set { _title = newValue }
+    }
+
+    /// Returns true if `title` has been explicitly set.
+    public var hasTitle: Bool { _title != nil }
+    /// Clears the value of `title`. Subsequent reads from it will return its default value.
+    public mutating func clearTitle() { _title = nil }
+
+    /// Human-readable description of the field
+    public var description_p: String {
+        get { _description_p ?? String() }
+        set { _description_p = newValue }
+    }
+
+    /// Returns true if `description_p` has been explicitly set.
+    public var hasDescription_p: Bool { _description_p != nil }
+    /// Clears the value of `description_p`. Subsequent reads from it will return its default value.
+    public mutating func clearDescription_p() { _description_p = nil }
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+
+    fileprivate var _title: String?
+    fileprivate var _description_p: String?
+}
+
 #if swift(>=5.5) && canImport(_Concurrency)
     extension Services_Verifiablecredentials_Templates_V1_FieldType: @unchecked Sendable {}
     extension Services_Verifiablecredentials_Templates_V1_UriRenderMethod: @unchecked Sendable {}
+    extension Services_Verifiablecredentials_Templates_V1_VerificationShareType: @unchecked Sendable {}
     extension Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateRequest: @unchecked Sendable {}
     extension Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateResponse: @unchecked Sendable {}
     extension Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesRequest: @unchecked Sendable {}
@@ -694,6 +994,17 @@ public struct Services_Verifiablecredentials_Templates_V1_UriFieldData {
     extension Services_Verifiablecredentials_Templates_V1_TemplateField: @unchecked Sendable {}
     extension Services_Verifiablecredentials_Templates_V1_TemplateFieldPatch: @unchecked Sendable {}
     extension Services_Verifiablecredentials_Templates_V1_UriFieldData: @unchecked Sendable {}
+    extension Services_Verifiablecredentials_Templates_V1_CreateVerificationTemplateRequest: @unchecked Sendable {}
+    extension Services_Verifiablecredentials_Templates_V1_CreateVerificationTemplateResponse: @unchecked Sendable {}
+    extension Services_Verifiablecredentials_Templates_V1_UpdateVerificationTemplateRequest: @unchecked Sendable {}
+    extension Services_Verifiablecredentials_Templates_V1_UpdateVerificationTemplateResponse: @unchecked Sendable {}
+    extension Services_Verifiablecredentials_Templates_V1_DeleteVerificationTemplateRequest: @unchecked Sendable {}
+    extension Services_Verifiablecredentials_Templates_V1_DeleteVerificationTemplateResponse: @unchecked Sendable {}
+    extension Services_Verifiablecredentials_Templates_V1_VerificationTemplateData: @unchecked Sendable {}
+    extension Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesRequest: @unchecked Sendable {}
+    extension Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesResponse: @unchecked Sendable {}
+    extension Services_Verifiablecredentials_Templates_V1_VerificationTemplateField: @unchecked Sendable {}
+    extension Services_Verifiablecredentials_Templates_V1_VerificationTemplateFieldPatch: @unchecked Sendable {}
 #endif // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -715,6 +1026,13 @@ extension Services_Verifiablecredentials_Templates_V1_UriRenderMethod: SwiftProt
         0: .same(proto: "TEXT"),
         1: .same(proto: "LINK"),
         2: .same(proto: "INLINE_IMAGE"),
+    ]
+}
+
+extension Services_Verifiablecredentials_Templates_V1_VerificationShareType: SwiftProtobuf._ProtoNameProviding {
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        0: .same(proto: "REQUIRED"),
+        1: .same(proto: "OPTIONAL"),
     ]
 }
 
@@ -1219,7 +1537,6 @@ extension Services_Verifiablecredentials_Templates_V1_TemplateData: SwiftProtobu
         4: .same(proto: "fields"),
         5: .standard(proto: "allow_additional_fields"),
         6: .standard(proto: "schema_uri"),
-        7: .standard(proto: "context_uri"),
         8: .standard(proto: "ecosystem_id"),
         9: .same(proto: "type"),
         10: .standard(proto: "created_by"),
@@ -1237,7 +1554,6 @@ extension Services_Verifiablecredentials_Templates_V1_TemplateData: SwiftProtobu
         var _fields: [String: Services_Verifiablecredentials_Templates_V1_TemplateField] = [:]
         var _allowAdditionalFields: Bool = false
         var _schemaUri: String = .init()
-        var _contextUri: String = .init()
         var _ecosystemID: String = .init()
         var _type: String = .init()
         var _createdBy: String = .init()
@@ -1258,7 +1574,6 @@ extension Services_Verifiablecredentials_Templates_V1_TemplateData: SwiftProtobu
             _fields = source._fields
             _allowAdditionalFields = source._allowAdditionalFields
             _schemaUri = source._schemaUri
-            _contextUri = source._contextUri
             _ecosystemID = source._ecosystemID
             _type = source._type
             _createdBy = source._createdBy
@@ -1291,7 +1606,6 @@ extension Services_Verifiablecredentials_Templates_V1_TemplateData: SwiftProtobu
                 case 4: try { try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString, Services_Verifiablecredentials_Templates_V1_TemplateField>.self, value: &_storage._fields) }()
                 case 5: try try decoder.decodeSingularBoolField(value: &_storage._allowAdditionalFields)
                 case 6: try try decoder.decodeSingularStringField(value: &_storage._schemaUri)
-                case 7: try try decoder.decodeSingularStringField(value: &_storage._contextUri)
                 case 8: try try decoder.decodeSingularStringField(value: &_storage._ecosystemID)
                 case 9: try try decoder.decodeSingularStringField(value: &_storage._type)
                 case 10: try try decoder.decodeSingularStringField(value: &_storage._createdBy)
@@ -1329,9 +1643,6 @@ extension Services_Verifiablecredentials_Templates_V1_TemplateData: SwiftProtobu
             }
             if !_storage._schemaUri.isEmpty {
                 try visitor.visitSingularStringField(value: _storage._schemaUri, fieldNumber: 6)
-            }
-            if !_storage._contextUri.isEmpty {
-                try visitor.visitSingularStringField(value: _storage._contextUri, fieldNumber: 7)
             }
             if !_storage._ecosystemID.isEmpty {
                 try visitor.visitSingularStringField(value: _storage._ecosystemID, fieldNumber: 8)
@@ -1372,7 +1683,6 @@ extension Services_Verifiablecredentials_Templates_V1_TemplateData: SwiftProtobu
                 if _storage._fields != rhs_storage._fields { return false }
                 if _storage._allowAdditionalFields != rhs_storage._allowAdditionalFields { return false }
                 if _storage._schemaUri != rhs_storage._schemaUri { return false }
-                if _storage._contextUri != rhs_storage._contextUri { return false }
                 if _storage._ecosystemID != rhs_storage._ecosystemID { return false }
                 if _storage._type != rhs_storage._type { return false }
                 if _storage._createdBy != rhs_storage._createdBy { return false }
@@ -1497,7 +1807,6 @@ extension Services_Verifiablecredentials_Templates_V1_TemplateField: SwiftProtob
         2: .same(proto: "description"),
         3: .same(proto: "optional"),
         4: .same(proto: "type"),
-        5: .same(proto: "annotations"),
         6: .standard(proto: "uri_data"),
     ]
 
@@ -1511,7 +1820,6 @@ extension Services_Verifiablecredentials_Templates_V1_TemplateField: SwiftProtob
             case 2: try try decoder.decodeSingularStringField(value: &description_p)
             case 3: try try decoder.decodeSingularBoolField(value: &optional)
             case 4: try try decoder.decodeSingularEnumField(value: &type)
-            case 5: try { try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMap<SwiftProtobuf.ProtobufString, SwiftProtobuf.ProtobufString>.self, value: &self.annotations) }()
             case 6: try try decoder.decodeSingularMessageField(value: &_uriData)
             default: break
             }
@@ -1535,9 +1843,6 @@ extension Services_Verifiablecredentials_Templates_V1_TemplateField: SwiftProtob
         if type != .string {
             try visitor.visitSingularEnumField(value: type, fieldNumber: 4)
         }
-        if !annotations.isEmpty {
-            try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMap<SwiftProtobuf.ProtobufString, SwiftProtobuf.ProtobufString>.self, value: annotations, fieldNumber: 5)
-        }
         try { if let v = self._uriData {
             try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
         } }()
@@ -1549,7 +1854,6 @@ extension Services_Verifiablecredentials_Templates_V1_TemplateField: SwiftProtob
         if lhs.description_p != rhs.description_p { return false }
         if lhs.optional != rhs.optional { return false }
         if lhs.type != rhs.type { return false }
-        if lhs.annotations != rhs.annotations { return false }
         if lhs._uriData != rhs._uriData { return false }
         if lhs.unknownFields != rhs.unknownFields { return false }
         return true
@@ -1637,6 +1941,498 @@ extension Services_Verifiablecredentials_Templates_V1_UriFieldData: SwiftProtobu
     public static func == (lhs: Services_Verifiablecredentials_Templates_V1_UriFieldData, rhs: Services_Verifiablecredentials_Templates_V1_UriFieldData) -> Bool {
         if lhs.mimeType != rhs.mimeType { return false }
         if lhs.renderMethod != rhs.renderMethod { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}
+
+extension Services_Verifiablecredentials_Templates_V1_CreateVerificationTemplateRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".CreateVerificationTemplateRequest"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .same(proto: "name"),
+        2: .same(proto: "fields"),
+        3: .standard(proto: "credential_template_id"),
+        4: .same(proto: "title"),
+        5: .same(proto: "description"),
+    ]
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 1: try try decoder.decodeSingularStringField(value: &name)
+            case 2: try try decoder.decodeRepeatedMessageField(value: &fields)
+            case 3: try try decoder.decodeSingularStringField(value: &credentialTemplateID)
+            case 4: try try decoder.decodeSingularStringField(value: &title)
+            case 5: try try decoder.decodeSingularStringField(value: &description_p)
+            default: break
+            }
+        }
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        if !name.isEmpty {
+            try visitor.visitSingularStringField(value: name, fieldNumber: 1)
+        }
+        if !fields.isEmpty {
+            try visitor.visitRepeatedMessageField(value: fields, fieldNumber: 2)
+        }
+        if !credentialTemplateID.isEmpty {
+            try visitor.visitSingularStringField(value: credentialTemplateID, fieldNumber: 3)
+        }
+        if !title.isEmpty {
+            try visitor.visitSingularStringField(value: title, fieldNumber: 4)
+        }
+        if !description_p.isEmpty {
+            try visitor.visitSingularStringField(value: description_p, fieldNumber: 5)
+        }
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Verifiablecredentials_Templates_V1_CreateVerificationTemplateRequest, rhs: Services_Verifiablecredentials_Templates_V1_CreateVerificationTemplateRequest) -> Bool {
+        if lhs.name != rhs.name { return false }
+        if lhs.fields != rhs.fields { return false }
+        if lhs.credentialTemplateID != rhs.credentialTemplateID { return false }
+        if lhs.title != rhs.title { return false }
+        if lhs.description_p != rhs.description_p { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}
+
+extension Services_Verifiablecredentials_Templates_V1_CreateVerificationTemplateResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".CreateVerificationTemplateResponse"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .same(proto: "data"),
+    ]
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 1: try try decoder.decodeSingularMessageField(value: &_data)
+            default: break
+            }
+        }
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every if/case branch local when no optimizations
+        // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+        // https://github.com/apple/swift-protobuf/issues/1182
+        try { if let v = self._data {
+            try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+        } }()
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Verifiablecredentials_Templates_V1_CreateVerificationTemplateResponse, rhs: Services_Verifiablecredentials_Templates_V1_CreateVerificationTemplateResponse) -> Bool {
+        if lhs._data != rhs._data { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}
+
+extension Services_Verifiablecredentials_Templates_V1_UpdateVerificationTemplateRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".UpdateVerificationTemplateRequest"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .same(proto: "id"),
+        2: .same(proto: "title"),
+        3: .same(proto: "description"),
+        4: .same(proto: "fields"),
+    ]
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 1: try try decoder.decodeSingularStringField(value: &id)
+            case 2: try try decoder.decodeSingularStringField(value: &_title)
+            case 3: try try decoder.decodeSingularStringField(value: &_description_p)
+            case 4: try { try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString, Services_Verifiablecredentials_Templates_V1_VerificationTemplateFieldPatch>.self, value: &self.fields) }()
+            default: break
+            }
+        }
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every if/case branch local when no optimizations
+        // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+        // https://github.com/apple/swift-protobuf/issues/1182
+        if !id.isEmpty {
+            try visitor.visitSingularStringField(value: id, fieldNumber: 1)
+        }
+        try { if let v = self._title {
+            try visitor.visitSingularStringField(value: v, fieldNumber: 2)
+        } }()
+        try { if let v = self._description_p {
+            try visitor.visitSingularStringField(value: v, fieldNumber: 3)
+        } }()
+        if !fields.isEmpty {
+            try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString, Services_Verifiablecredentials_Templates_V1_VerificationTemplateFieldPatch>.self, value: fields, fieldNumber: 4)
+        }
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Verifiablecredentials_Templates_V1_UpdateVerificationTemplateRequest, rhs: Services_Verifiablecredentials_Templates_V1_UpdateVerificationTemplateRequest) -> Bool {
+        if lhs.id != rhs.id { return false }
+        if lhs._title != rhs._title { return false }
+        if lhs._description_p != rhs._description_p { return false }
+        if lhs.fields != rhs.fields { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}
+
+extension Services_Verifiablecredentials_Templates_V1_UpdateVerificationTemplateResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".UpdateVerificationTemplateResponse"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .same(proto: "template"),
+    ]
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 1: try try decoder.decodeSingularMessageField(value: &_template)
+            default: break
+            }
+        }
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every if/case branch local when no optimizations
+        // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+        // https://github.com/apple/swift-protobuf/issues/1182
+        try { if let v = self._template {
+            try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+        } }()
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Verifiablecredentials_Templates_V1_UpdateVerificationTemplateResponse, rhs: Services_Verifiablecredentials_Templates_V1_UpdateVerificationTemplateResponse) -> Bool {
+        if lhs._template != rhs._template { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}
+
+extension Services_Verifiablecredentials_Templates_V1_DeleteVerificationTemplateRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".DeleteVerificationTemplateRequest"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .standard(proto: "verification_template_id"),
+    ]
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 1: try try decoder.decodeSingularStringField(value: &verificationTemplateID)
+            default: break
+            }
+        }
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        if !verificationTemplateID.isEmpty {
+            try visitor.visitSingularStringField(value: verificationTemplateID, fieldNumber: 1)
+        }
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Verifiablecredentials_Templates_V1_DeleteVerificationTemplateRequest, rhs: Services_Verifiablecredentials_Templates_V1_DeleteVerificationTemplateRequest) -> Bool {
+        if lhs.verificationTemplateID != rhs.verificationTemplateID { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}
+
+extension Services_Verifiablecredentials_Templates_V1_DeleteVerificationTemplateResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".DeleteVerificationTemplateResponse"
+    public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let _ = try decoder.nextFieldNumber() {}
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Verifiablecredentials_Templates_V1_DeleteVerificationTemplateResponse, rhs: Services_Verifiablecredentials_Templates_V1_DeleteVerificationTemplateResponse) -> Bool {
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}
+
+extension Services_Verifiablecredentials_Templates_V1_VerificationTemplateData: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".VerificationTemplateData"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .same(proto: "id"),
+        2: .same(proto: "name"),
+        3: .same(proto: "version"),
+        4: .same(proto: "fields"),
+        6: .standard(proto: "schema_uri"),
+        8: .standard(proto: "ecosystem_id"),
+        9: .same(proto: "type"),
+        10: .standard(proto: "created_by"),
+        11: .standard(proto: "date_created"),
+        12: .same(proto: "title"),
+        13: .same(proto: "description"),
+    ]
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 1: try try decoder.decodeSingularStringField(value: &id)
+            case 2: try try decoder.decodeSingularStringField(value: &name)
+            case 3: try try decoder.decodeSingularInt32Field(value: &version)
+            case 4: try try decoder.decodeRepeatedMessageField(value: &fields)
+            case 6: try try decoder.decodeSingularStringField(value: &schemaUri)
+            case 8: try try decoder.decodeSingularStringField(value: &ecosystemID)
+            case 9: try try decoder.decodeSingularStringField(value: &type)
+            case 10: try try decoder.decodeSingularStringField(value: &createdBy)
+            case 11: try try decoder.decodeSingularStringField(value: &dateCreated)
+            case 12: try try decoder.decodeSingularStringField(value: &title)
+            case 13: try try decoder.decodeSingularStringField(value: &description_p)
+            default: break
+            }
+        }
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        if !id.isEmpty {
+            try visitor.visitSingularStringField(value: id, fieldNumber: 1)
+        }
+        if !name.isEmpty {
+            try visitor.visitSingularStringField(value: name, fieldNumber: 2)
+        }
+        if version != 0 {
+            try visitor.visitSingularInt32Field(value: version, fieldNumber: 3)
+        }
+        if !fields.isEmpty {
+            try visitor.visitRepeatedMessageField(value: fields, fieldNumber: 4)
+        }
+        if !schemaUri.isEmpty {
+            try visitor.visitSingularStringField(value: schemaUri, fieldNumber: 6)
+        }
+        if !ecosystemID.isEmpty {
+            try visitor.visitSingularStringField(value: ecosystemID, fieldNumber: 8)
+        }
+        if !type.isEmpty {
+            try visitor.visitSingularStringField(value: type, fieldNumber: 9)
+        }
+        if !createdBy.isEmpty {
+            try visitor.visitSingularStringField(value: createdBy, fieldNumber: 10)
+        }
+        if !dateCreated.isEmpty {
+            try visitor.visitSingularStringField(value: dateCreated, fieldNumber: 11)
+        }
+        if !title.isEmpty {
+            try visitor.visitSingularStringField(value: title, fieldNumber: 12)
+        }
+        if !description_p.isEmpty {
+            try visitor.visitSingularStringField(value: description_p, fieldNumber: 13)
+        }
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Verifiablecredentials_Templates_V1_VerificationTemplateData, rhs: Services_Verifiablecredentials_Templates_V1_VerificationTemplateData) -> Bool {
+        if lhs.id != rhs.id { return false }
+        if lhs.name != rhs.name { return false }
+        if lhs.version != rhs.version { return false }
+        if lhs.fields != rhs.fields { return false }
+        if lhs.schemaUri != rhs.schemaUri { return false }
+        if lhs.ecosystemID != rhs.ecosystemID { return false }
+        if lhs.type != rhs.type { return false }
+        if lhs.createdBy != rhs.createdBy { return false }
+        if lhs.dateCreated != rhs.dateCreated { return false }
+        if lhs.title != rhs.title { return false }
+        if lhs.description_p != rhs.description_p { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}
+
+extension Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".ListVerificationTemplatesRequest"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .same(proto: "query"),
+        2: .standard(proto: "continuation_token"),
+    ]
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 1: try try decoder.decodeSingularStringField(value: &query)
+            case 2: try try decoder.decodeSingularStringField(value: &continuationToken)
+            default: break
+            }
+        }
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        if !query.isEmpty {
+            try visitor.visitSingularStringField(value: query, fieldNumber: 1)
+        }
+        if !continuationToken.isEmpty {
+            try visitor.visitSingularStringField(value: continuationToken, fieldNumber: 2)
+        }
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesRequest, rhs: Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesRequest) -> Bool {
+        if lhs.query != rhs.query { return false }
+        if lhs.continuationToken != rhs.continuationToken { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}
+
+extension Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".ListVerificationTemplatesResponse"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .same(proto: "templates"),
+        2: .standard(proto: "has_more_results"),
+        3: .standard(proto: "continuation_token"),
+    ]
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 1: try try decoder.decodeRepeatedMessageField(value: &templates)
+            case 2: try try decoder.decodeSingularBoolField(value: &hasMoreResults_p)
+            case 3: try try decoder.decodeSingularStringField(value: &continuationToken)
+            default: break
+            }
+        }
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        if !templates.isEmpty {
+            try visitor.visitRepeatedMessageField(value: templates, fieldNumber: 1)
+        }
+        if hasMoreResults_p != false {
+            try visitor.visitSingularBoolField(value: hasMoreResults_p, fieldNumber: 2)
+        }
+        if !continuationToken.isEmpty {
+            try visitor.visitSingularStringField(value: continuationToken, fieldNumber: 3)
+        }
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesResponse, rhs: Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesResponse) -> Bool {
+        if lhs.templates != rhs.templates { return false }
+        if lhs.hasMoreResults_p != rhs.hasMoreResults_p { return false }
+        if lhs.continuationToken != rhs.continuationToken { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}
+
+extension Services_Verifiablecredentials_Templates_V1_VerificationTemplateField: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".VerificationTemplateField"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .same(proto: "name"),
+        2: .standard(proto: "field_share_type"),
+        3: .standard(proto: "usage_policy"),
+    ]
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 1: try try decoder.decodeSingularStringField(value: &name)
+            case 2: try try decoder.decodeSingularEnumField(value: &fieldShareType)
+            case 3: try try decoder.decodeSingularStringField(value: &usagePolicy)
+            default: break
+            }
+        }
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        if !name.isEmpty {
+            try visitor.visitSingularStringField(value: name, fieldNumber: 1)
+        }
+        if fieldShareType != .required {
+            try visitor.visitSingularEnumField(value: fieldShareType, fieldNumber: 2)
+        }
+        if !usagePolicy.isEmpty {
+            try visitor.visitSingularStringField(value: usagePolicy, fieldNumber: 3)
+        }
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Verifiablecredentials_Templates_V1_VerificationTemplateField, rhs: Services_Verifiablecredentials_Templates_V1_VerificationTemplateField) -> Bool {
+        if lhs.name != rhs.name { return false }
+        if lhs.fieldShareType != rhs.fieldShareType { return false }
+        if lhs.usagePolicy != rhs.usagePolicy { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}
+
+extension Services_Verifiablecredentials_Templates_V1_VerificationTemplateFieldPatch: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".VerificationTemplateFieldPatch"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .same(proto: "title"),
+        2: .same(proto: "description"),
+    ]
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 1: try try decoder.decodeSingularStringField(value: &_title)
+            case 2: try try decoder.decodeSingularStringField(value: &_description_p)
+            default: break
+            }
+        }
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every if/case branch local when no optimizations
+        // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+        // https://github.com/apple/swift-protobuf/issues/1182
+        try { if let v = self._title {
+            try visitor.visitSingularStringField(value: v, fieldNumber: 1)
+        } }()
+        try { if let v = self._description_p {
+            try visitor.visitSingularStringField(value: v, fieldNumber: 2)
+        } }()
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Verifiablecredentials_Templates_V1_VerificationTemplateFieldPatch, rhs: Services_Verifiablecredentials_Templates_V1_VerificationTemplateFieldPatch) -> Bool {
+        if lhs._title != rhs._title { return false }
+        if lhs._description_p != rhs._description_p { return false }
         if lhs.unknownFields != rhs.unknownFields { return false }
         return true
     }
