@@ -200,7 +200,7 @@ public struct Services_Filemanagement_V1_ListFilesResponse {
     /// Whether more results are available for this query via `continuation_token`
     public var hasMoreResults_p: Bool = false
 
-    /// Token to fetch next set of resuts via `ListFilesRequest`
+    /// Token to fetch next set of results via `ListFilesRequest`
     public var continuationToken: String = .init()
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
