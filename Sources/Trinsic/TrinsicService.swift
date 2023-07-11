@@ -9,7 +9,6 @@ import Foundation
 
 public class TrinsicService: ServiceBase {
     private var _accessManagementService: AccessManagementService?
-    private var _accountService: AccountService?
     private var _credentialService: CredentialService?
     private var _fileManagementService: FileManagementService?
     private var _providerService: ProviderService?
@@ -29,12 +28,6 @@ public class TrinsicService: ServiceBase {
         _accessManagementService = _accessManagementService ?? AccessManagementService(options: options)
         _accessManagementService?.options = options
         return _accessManagementService!
-    }
-
-    public func account() -> AccountService {
-        _accountService = _accountService ?? AccountService(options: options)
-        _accountService?.options = options
-        return _accountService!
     }
 
     public func credential() -> CredentialService {

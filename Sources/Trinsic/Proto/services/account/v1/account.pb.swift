@@ -99,10 +99,6 @@ public struct Services_Account_V1_SignInRequest {
     /// Clears the value of `details`. Subsequent reads from it will return its default value.
     public mutating func clearDetails() { _details = nil }
 
-    /// DEPRECATED, will be removed April 1st 2023
-    /// Invitation code associated with this registration
-    public var invitationCode: String = .init()
-
     /// ID of Ecosystem to use
     /// Ignored if `invitation_code` is passed
     public var ecosystemID: String = .init()
@@ -123,7 +119,7 @@ public struct Services_Account_V1_AccountDetails {
     /// Account name
     public var name: String = .init()
 
-    /// Email address of account
+    /// Email address of account.
     public var email: String = .init()
 
     /// SMS number including country code
@@ -252,10 +248,6 @@ public struct Services_Account_V1_AccountInfoResponse {
     /// Clears the value of `details`. Subsequent reads from it will return its default value.
     public mutating func clearDetails() { _details = nil }
 
-    /// DEPRECATED, will be removed April 1st 2023
-    /// Use `ecosystem_id` instead
-    public var ecosystems: [Services_Account_V1_AccountEcosystem] = []
-
     /// The wallet ID associated with this account
     public var walletID: String = .init()
 
@@ -281,25 +273,6 @@ public struct Services_Account_V1_AccountInfoResponse {
     fileprivate var _details: Services_Account_V1_AccountDetails?
 }
 
-/// Deprecated
-public struct Services_Account_V1_AccountEcosystem {
-    // SwiftProtobuf.Message conformance is added in an extension below. See the
-    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-    // methods supported on all messages.
-
-    public var id: String = .init()
-
-    public var name: String = .init()
-
-    public var description_p: String = .init()
-
-    public var uri: String = .init()
-
-    public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-    public init() {}
-}
-
 /// Request to begin login flow
 public struct Services_Account_V1_LoginRequest {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -309,12 +282,7 @@ public struct Services_Account_V1_LoginRequest {
     /// Email address of account. If unspecified, an anonymous account will be created.
     public var email: String = .init()
 
-    /// DEPRECATED, will be removed April 1st 2023
-    /// Invitation code associated with this registration
-    public var invitationCode: String = .init()
-
     /// ID of Ecosystem to sign into.
-    /// Ignored if `invitation_code` is passed.
     public var ecosystemID: String = .init()
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -426,33 +394,7 @@ public struct Services_Account_V1_LoginConfirmResponse {
     fileprivate var _profile: Services_Account_V1_AccountProfile?
 }
 
-/// Request to authorize Ecosystem provider to receive webhooks for events
-/// which occur on this wallet.
-public struct Services_Account_V1_AuthorizeWebhookRequest {
-    // SwiftProtobuf.Message conformance is added in an extension below. See the
-    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-    // methods supported on all messages.
-
-    /// Events to authorize access to. Default is "*" (all events)
-    public var events: [String] = []
-
-    public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-    public init() {}
-}
-
-/// Response to `AuthorizeWebhookRequest`
-public struct Services_Account_V1_AuthorizeWebhookResponse {
-    // SwiftProtobuf.Message conformance is added in an extension below. See the
-    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-    // methods supported on all messages.
-
-    public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-    public init() {}
-}
-
-/// Information about authenticaton tokens for a wallet
+/// Information about authentication tokens for a wallet
 public struct Services_Account_V1_WalletAuthToken {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -492,14 +434,11 @@ public struct Services_Account_V1_WalletAuthToken {
     extension Services_Account_V1_TokenProtection: @unchecked Sendable {}
     extension Services_Account_V1_AccountInfoRequest: @unchecked Sendable {}
     extension Services_Account_V1_AccountInfoResponse: @unchecked Sendable {}
-    extension Services_Account_V1_AccountEcosystem: @unchecked Sendable {}
     extension Services_Account_V1_LoginRequest: @unchecked Sendable {}
     extension Services_Account_V1_LoginResponse: @unchecked Sendable {}
     extension Services_Account_V1_LoginResponse.OneOf_Response: @unchecked Sendable {}
     extension Services_Account_V1_LoginConfirmRequest: @unchecked Sendable {}
     extension Services_Account_V1_LoginConfirmResponse: @unchecked Sendable {}
-    extension Services_Account_V1_AuthorizeWebhookRequest: @unchecked Sendable {}
-    extension Services_Account_V1_AuthorizeWebhookResponse: @unchecked Sendable {}
     extension Services_Account_V1_WalletAuthToken: @unchecked Sendable {}
 #endif // swift(>=5.5) && canImport(_Concurrency)
 
@@ -521,7 +460,6 @@ extension Services_Account_V1_SignInRequest: SwiftProtobuf.Message, SwiftProtobu
     public static let protoMessageName: String = _protobuf_package + ".SignInRequest"
     public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
         1: .same(proto: "details"),
-        2: .standard(proto: "invitation_code"),
         3: .standard(proto: "ecosystem_id"),
     ]
 
@@ -532,7 +470,6 @@ extension Services_Account_V1_SignInRequest: SwiftProtobuf.Message, SwiftProtobu
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
             case 1: try try decoder.decodeSingularMessageField(value: &_details)
-            case 2: try try decoder.decodeSingularStringField(value: &invitationCode)
             case 3: try try decoder.decodeSingularStringField(value: &ecosystemID)
             default: break
             }
@@ -547,9 +484,6 @@ extension Services_Account_V1_SignInRequest: SwiftProtobuf.Message, SwiftProtobu
         try { if let v = self._details {
             try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
         } }()
-        if !invitationCode.isEmpty {
-            try visitor.visitSingularStringField(value: invitationCode, fieldNumber: 2)
-        }
         if !ecosystemID.isEmpty {
             try visitor.visitSingularStringField(value: ecosystemID, fieldNumber: 3)
         }
@@ -558,7 +492,6 @@ extension Services_Account_V1_SignInRequest: SwiftProtobuf.Message, SwiftProtobu
 
     public static func == (lhs: Services_Account_V1_SignInRequest, rhs: Services_Account_V1_SignInRequest) -> Bool {
         if lhs._details != rhs._details { return false }
-        if lhs.invitationCode != rhs.invitationCode { return false }
         if lhs.ecosystemID != rhs.ecosystemID { return false }
         if lhs.unknownFields != rhs.unknownFields { return false }
         return true
@@ -765,7 +698,6 @@ extension Services_Account_V1_AccountInfoResponse: SwiftProtobuf.Message, SwiftP
     public static let protoMessageName: String = _protobuf_package + ".AccountInfoResponse"
     public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
         1: .same(proto: "details"),
-        2: .same(proto: "ecosystems"),
         3: .standard(proto: "wallet_id"),
         4: .standard(proto: "device_id"),
         5: .standard(proto: "ecosystem_id"),
@@ -780,7 +712,6 @@ extension Services_Account_V1_AccountInfoResponse: SwiftProtobuf.Message, SwiftP
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
             case 1: try try decoder.decodeSingularMessageField(value: &_details)
-            case 2: try try decoder.decodeRepeatedMessageField(value: &ecosystems)
             case 3: try try decoder.decodeSingularStringField(value: &walletID)
             case 4: try try decoder.decodeSingularStringField(value: &deviceID)
             case 5: try try decoder.decodeSingularStringField(value: &ecosystemID)
@@ -799,9 +730,6 @@ extension Services_Account_V1_AccountInfoResponse: SwiftProtobuf.Message, SwiftP
         try { if let v = self._details {
             try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
         } }()
-        if !ecosystems.isEmpty {
-            try visitor.visitRepeatedMessageField(value: ecosystems, fieldNumber: 2)
-        }
         if !walletID.isEmpty {
             try visitor.visitSingularStringField(value: walletID, fieldNumber: 3)
         }
@@ -822,7 +750,6 @@ extension Services_Account_V1_AccountInfoResponse: SwiftProtobuf.Message, SwiftP
 
     public static func == (lhs: Services_Account_V1_AccountInfoResponse, rhs: Services_Account_V1_AccountInfoResponse) -> Bool {
         if lhs._details != rhs._details { return false }
-        if lhs.ecosystems != rhs.ecosystems { return false }
         if lhs.walletID != rhs.walletID { return false }
         if lhs.deviceID != rhs.deviceID { return false }
         if lhs.ecosystemID != rhs.ecosystemID { return false }
@@ -833,61 +760,10 @@ extension Services_Account_V1_AccountInfoResponse: SwiftProtobuf.Message, SwiftP
     }
 }
 
-extension Services_Account_V1_AccountEcosystem: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-    public static let protoMessageName: String = _protobuf_package + ".AccountEcosystem"
-    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-        1: .same(proto: "id"),
-        2: .same(proto: "name"),
-        3: .same(proto: "description"),
-        4: .same(proto: "uri"),
-    ]
-
-    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-        while let fieldNumber = try decoder.nextFieldNumber() {
-            // The use of inline closures is to circumvent an issue where the compiler
-            // allocates stack space for every case branch when no optimizations are
-            // enabled. https://github.com/apple/swift-protobuf/issues/1034
-            switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &id)
-            case 2: try try decoder.decodeSingularStringField(value: &name)
-            case 3: try try decoder.decodeSingularStringField(value: &description_p)
-            case 4: try try decoder.decodeSingularStringField(value: &uri)
-            default: break
-            }
-        }
-    }
-
-    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-        if !id.isEmpty {
-            try visitor.visitSingularStringField(value: id, fieldNumber: 1)
-        }
-        if !name.isEmpty {
-            try visitor.visitSingularStringField(value: name, fieldNumber: 2)
-        }
-        if !description_p.isEmpty {
-            try visitor.visitSingularStringField(value: description_p, fieldNumber: 3)
-        }
-        if !uri.isEmpty {
-            try visitor.visitSingularStringField(value: uri, fieldNumber: 4)
-        }
-        try unknownFields.traverse(visitor: &visitor)
-    }
-
-    public static func == (lhs: Services_Account_V1_AccountEcosystem, rhs: Services_Account_V1_AccountEcosystem) -> Bool {
-        if lhs.id != rhs.id { return false }
-        if lhs.name != rhs.name { return false }
-        if lhs.description_p != rhs.description_p { return false }
-        if lhs.uri != rhs.uri { return false }
-        if lhs.unknownFields != rhs.unknownFields { return false }
-        return true
-    }
-}
-
 extension Services_Account_V1_LoginRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
     public static let protoMessageName: String = _protobuf_package + ".LoginRequest"
     public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
         1: .same(proto: "email"),
-        2: .standard(proto: "invitation_code"),
         3: .standard(proto: "ecosystem_id"),
     ]
 
@@ -898,7 +774,6 @@ extension Services_Account_V1_LoginRequest: SwiftProtobuf.Message, SwiftProtobuf
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
             case 1: try try decoder.decodeSingularStringField(value: &email)
-            case 2: try try decoder.decodeSingularStringField(value: &invitationCode)
             case 3: try try decoder.decodeSingularStringField(value: &ecosystemID)
             default: break
             }
@@ -909,9 +784,6 @@ extension Services_Account_V1_LoginRequest: SwiftProtobuf.Message, SwiftProtobuf
         if !email.isEmpty {
             try visitor.visitSingularStringField(value: email, fieldNumber: 1)
         }
-        if !invitationCode.isEmpty {
-            try visitor.visitSingularStringField(value: invitationCode, fieldNumber: 2)
-        }
         if !ecosystemID.isEmpty {
             try visitor.visitSingularStringField(value: ecosystemID, fieldNumber: 3)
         }
@@ -920,7 +792,6 @@ extension Services_Account_V1_LoginRequest: SwiftProtobuf.Message, SwiftProtobuf
 
     public static func == (lhs: Services_Account_V1_LoginRequest, rhs: Services_Account_V1_LoginRequest) -> Bool {
         if lhs.email != rhs.email { return false }
-        if lhs.invitationCode != rhs.invitationCode { return false }
         if lhs.ecosystemID != rhs.ecosystemID { return false }
         if lhs.unknownFields != rhs.unknownFields { return false }
         return true
@@ -1061,56 +932,6 @@ extension Services_Account_V1_LoginConfirmResponse: SwiftProtobuf.Message, Swift
 
     public static func == (lhs: Services_Account_V1_LoginConfirmResponse, rhs: Services_Account_V1_LoginConfirmResponse) -> Bool {
         if lhs._profile != rhs._profile { return false }
-        if lhs.unknownFields != rhs.unknownFields { return false }
-        return true
-    }
-}
-
-extension Services_Account_V1_AuthorizeWebhookRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-    public static let protoMessageName: String = _protobuf_package + ".AuthorizeWebhookRequest"
-    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-        1: .same(proto: "events"),
-    ]
-
-    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-        while let fieldNumber = try decoder.nextFieldNumber() {
-            // The use of inline closures is to circumvent an issue where the compiler
-            // allocates stack space for every case branch when no optimizations are
-            // enabled. https://github.com/apple/swift-protobuf/issues/1034
-            switch fieldNumber {
-            case 1: try try decoder.decodeRepeatedStringField(value: &events)
-            default: break
-            }
-        }
-    }
-
-    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-        if !events.isEmpty {
-            try visitor.visitRepeatedStringField(value: events, fieldNumber: 1)
-        }
-        try unknownFields.traverse(visitor: &visitor)
-    }
-
-    public static func == (lhs: Services_Account_V1_AuthorizeWebhookRequest, rhs: Services_Account_V1_AuthorizeWebhookRequest) -> Bool {
-        if lhs.events != rhs.events { return false }
-        if lhs.unknownFields != rhs.unknownFields { return false }
-        return true
-    }
-}
-
-extension Services_Account_V1_AuthorizeWebhookResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-    public static let protoMessageName: String = _protobuf_package + ".AuthorizeWebhookResponse"
-    public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
-
-    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-        while let _ = try decoder.nextFieldNumber() {}
-    }
-
-    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-        try unknownFields.traverse(visitor: &visitor)
-    }
-
-    public static func == (lhs: Services_Account_V1_AuthorizeWebhookResponse, rhs: Services_Account_V1_AuthorizeWebhookResponse) -> Bool {
         if lhs.unknownFields != rhs.unknownFields { return false }
         return true
     }
