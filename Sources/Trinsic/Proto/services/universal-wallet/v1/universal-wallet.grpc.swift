@@ -106,6 +106,16 @@ public protocol Services_Universalwallet_V1_UniversalWalletClientProtocol: GRPCC
         _ request: Services_Universalwallet_V1_ListWalletsRequest,
         callOptions: CallOptions?
     ) -> UnaryCall<Services_Universalwallet_V1_ListWalletsRequest, Services_Universalwallet_V1_ListWalletsResponse>
+
+    func ListByVerificationTemplate(
+        _ request: Services_Universalwallet_V1_ListByVerificationTemplateRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Universalwallet_V1_ListByVerificationTemplateRequest, Services_Universalwallet_V1_ListByVerificationTemplateResponse>
+
+    func CreateDidWebDoc(
+        _ request: Services_Universalwallet_V1_CreateDidWebDocRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Universalwallet_V1_CreateDidWebDocRequest, Services_Universalwallet_V1_CreateDidWebDocResponse>
 }
 
 public extension Services_Universalwallet_V1_UniversalWalletClientProtocol {
@@ -442,6 +452,42 @@ public extension Services_Universalwallet_V1_UniversalWalletClientProtocol {
             interceptors: interceptors?.makeListWalletsInterceptors() ?? []
         )
     }
+
+    /// List credentials which match a given verification template
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to ListByVerificationTemplate.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func ListByVerificationTemplate(
+        _ request: Services_Universalwallet_V1_ListByVerificationTemplateRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Universalwallet_V1_ListByVerificationTemplateRequest, Services_Universalwallet_V1_ListByVerificationTemplateResponse> {
+        makeUnaryCall(
+            path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.ListByVerificationTemplate.path,
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeListByVerificationTemplateInterceptors() ?? []
+        )
+    }
+
+    /// Create a `did:web` document from a wallet's key(s)
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to CreateDidWebDoc.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func CreateDidWebDoc(
+        _ request: Services_Universalwallet_V1_CreateDidWebDocRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Universalwallet_V1_CreateDidWebDocRequest, Services_Universalwallet_V1_CreateDidWebDocResponse> {
+        makeUnaryCall(
+            path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.CreateDidWebDoc.path,
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeCreateDidWebDocInterceptors() ?? []
+        )
+    }
 }
 
 @available(*, deprecated)
@@ -597,6 +643,16 @@ public protocol Services_Universalwallet_V1_UniversalWalletAsyncClientProtocol: 
         _ request: Services_Universalwallet_V1_ListWalletsRequest,
         callOptions: CallOptions?
     ) -> GRPCAsyncUnaryCall<Services_Universalwallet_V1_ListWalletsRequest, Services_Universalwallet_V1_ListWalletsResponse>
+
+    func makeListByVerificationTemplateCall(
+        _ request: Services_Universalwallet_V1_ListByVerificationTemplateRequest,
+        callOptions: CallOptions?
+    ) -> GRPCAsyncUnaryCall<Services_Universalwallet_V1_ListByVerificationTemplateRequest, Services_Universalwallet_V1_ListByVerificationTemplateResponse>
+
+    func makeCreateDidWebDocCall(
+        _ request: Services_Universalwallet_V1_CreateDidWebDocRequest,
+        callOptions: CallOptions?
+    ) -> GRPCAsyncUnaryCall<Services_Universalwallet_V1_CreateDidWebDocRequest, Services_Universalwallet_V1_CreateDidWebDocResponse>
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -824,6 +880,30 @@ public extension Services_Universalwallet_V1_UniversalWalletAsyncClientProtocol 
             interceptors: interceptors?.makeListWalletsInterceptors() ?? []
         )
     }
+
+    func makeListByVerificationTemplateCall(
+        _ request: Services_Universalwallet_V1_ListByVerificationTemplateRequest,
+        callOptions: CallOptions? = nil
+    ) -> GRPCAsyncUnaryCall<Services_Universalwallet_V1_ListByVerificationTemplateRequest, Services_Universalwallet_V1_ListByVerificationTemplateResponse> {
+        makeAsyncUnaryCall(
+            path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.ListByVerificationTemplate.path,
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeListByVerificationTemplateInterceptors() ?? []
+        )
+    }
+
+    func makeCreateDidWebDocCall(
+        _ request: Services_Universalwallet_V1_CreateDidWebDocRequest,
+        callOptions: CallOptions? = nil
+    ) -> GRPCAsyncUnaryCall<Services_Universalwallet_V1_CreateDidWebDocRequest, Services_Universalwallet_V1_CreateDidWebDocResponse> {
+        makeAsyncUnaryCall(
+            path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.CreateDidWebDoc.path,
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeCreateDidWebDocInterceptors() ?? []
+        )
+    }
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -1043,6 +1123,30 @@ public extension Services_Universalwallet_V1_UniversalWalletAsyncClientProtocol 
             interceptors: interceptors?.makeListWalletsInterceptors() ?? []
         )
     }
+
+    func ListByVerificationTemplate(
+        _ request: Services_Universalwallet_V1_ListByVerificationTemplateRequest,
+        callOptions: CallOptions? = nil
+    ) async throws -> Services_Universalwallet_V1_ListByVerificationTemplateResponse {
+        try await performAsyncUnaryCall(
+            path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.ListByVerificationTemplate.path,
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeListByVerificationTemplateInterceptors() ?? []
+        )
+    }
+
+    func CreateDidWebDoc(
+        _ request: Services_Universalwallet_V1_CreateDidWebDocRequest,
+        callOptions: CallOptions? = nil
+    ) async throws -> Services_Universalwallet_V1_CreateDidWebDocResponse {
+        try await performAsyncUnaryCall(
+            path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.CreateDidWebDoc.path,
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeCreateDidWebDocInterceptors() ?? []
+        )
+    }
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -1116,6 +1220,12 @@ public protocol Services_Universalwallet_V1_UniversalWalletClientInterceptorFact
 
     /// - Returns: Interceptors to use when invoking 'ListWallets'.
     func makeListWalletsInterceptors() -> [ClientInterceptor<Services_Universalwallet_V1_ListWalletsRequest, Services_Universalwallet_V1_ListWalletsResponse>]
+
+    /// - Returns: Interceptors to use when invoking 'ListByVerificationTemplate'.
+    func makeListByVerificationTemplateInterceptors() -> [ClientInterceptor<Services_Universalwallet_V1_ListByVerificationTemplateRequest, Services_Universalwallet_V1_ListByVerificationTemplateResponse>]
+
+    /// - Returns: Interceptors to use when invoking 'CreateDidWebDoc'.
+    func makeCreateDidWebDocInterceptors() -> [ClientInterceptor<Services_Universalwallet_V1_CreateDidWebDocRequest, Services_Universalwallet_V1_CreateDidWebDocResponse>]
 }
 
 public enum Services_Universalwallet_V1_UniversalWalletClientMetadata {
@@ -1141,6 +1251,8 @@ public enum Services_Universalwallet_V1_UniversalWalletClientMetadata {
             Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.AuthenticateConfirm,
             Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.AuthenticateResendCode,
             Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.ListWallets,
+            Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.ListByVerificationTemplate,
+            Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.CreateDidWebDoc,
         ]
     )
 
@@ -1252,6 +1364,18 @@ public enum Services_Universalwallet_V1_UniversalWalletClientMetadata {
             path: "/services.universalwallet.v1.UniversalWallet/ListWallets",
             type: GRPCCallType.unary
         )
+
+        public static let ListByVerificationTemplate = GRPCMethodDescriptor(
+            name: "ListByVerificationTemplate",
+            path: "/services.universalwallet.v1.UniversalWallet/ListByVerificationTemplate",
+            type: GRPCCallType.unary
+        )
+
+        public static let CreateDidWebDoc = GRPCMethodDescriptor(
+            name: "CreateDidWebDoc",
+            path: "/services.universalwallet.v1.UniversalWallet/CreateDidWebDoc",
+            type: GRPCCallType.unary
+        )
     }
 }
 
@@ -1320,6 +1444,12 @@ public protocol Services_Universalwallet_V1_UniversalWalletProvider: CallHandler
 
     /// List all wallets in the ecosystem
     func ListWallets(request: Services_Universalwallet_V1_ListWalletsRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Universalwallet_V1_ListWalletsResponse>
+
+    /// List credentials which match a given verification template
+    func ListByVerificationTemplate(request: Services_Universalwallet_V1_ListByVerificationTemplateRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Universalwallet_V1_ListByVerificationTemplateResponse>
+
+    /// Create a `did:web` document from a wallet's key(s)
+    func CreateDidWebDoc(request: Services_Universalwallet_V1_CreateDidWebDocRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Universalwallet_V1_CreateDidWebDocResponse>
 }
 
 public extension Services_Universalwallet_V1_UniversalWalletProvider {
@@ -1496,6 +1626,24 @@ public extension Services_Universalwallet_V1_UniversalWalletProvider {
                 userFunction: ListWallets(request:context:)
             )
 
+        case "ListByVerificationTemplate":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Universalwallet_V1_ListByVerificationTemplateRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Universalwallet_V1_ListByVerificationTemplateResponse>(),
+                interceptors: interceptors?.makeListByVerificationTemplateInterceptors() ?? [],
+                userFunction: ListByVerificationTemplate(request:context:)
+            )
+
+        case "CreateDidWebDoc":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Universalwallet_V1_CreateDidWebDocRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Universalwallet_V1_CreateDidWebDocResponse>(),
+                interceptors: interceptors?.makeCreateDidWebDocInterceptors() ?? [],
+                userFunction: CreateDidWebDoc(request:context:)
+            )
+
         default:
             return nil
         }
@@ -1623,6 +1771,18 @@ public protocol Services_Universalwallet_V1_UniversalWalletAsyncProvider: CallHa
         request: Services_Universalwallet_V1_ListWalletsRequest,
         context: GRPCAsyncServerCallContext
     ) async throws -> Services_Universalwallet_V1_ListWalletsResponse
+
+    /// List credentials which match a given verification template
+    func ListByVerificationTemplate(
+        request: Services_Universalwallet_V1_ListByVerificationTemplateRequest,
+        context: GRPCAsyncServerCallContext
+    ) async throws -> Services_Universalwallet_V1_ListByVerificationTemplateResponse
+
+    /// Create a `did:web` document from a wallet's key(s)
+    func CreateDidWebDoc(
+        request: Services_Universalwallet_V1_CreateDidWebDocRequest,
+        context: GRPCAsyncServerCallContext
+    ) async throws -> Services_Universalwallet_V1_CreateDidWebDocResponse
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -1806,6 +1966,24 @@ public extension Services_Universalwallet_V1_UniversalWalletAsyncProvider {
                 wrapping: { try await self.ListWallets(request: $0, context: $1) }
             )
 
+        case "ListByVerificationTemplate":
+            return GRPCAsyncServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Universalwallet_V1_ListByVerificationTemplateRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Universalwallet_V1_ListByVerificationTemplateResponse>(),
+                interceptors: interceptors?.makeListByVerificationTemplateInterceptors() ?? [],
+                wrapping: { try await self.ListByVerificationTemplate(request: $0, context: $1) }
+            )
+
+        case "CreateDidWebDoc":
+            return GRPCAsyncServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Universalwallet_V1_CreateDidWebDocRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Universalwallet_V1_CreateDidWebDocResponse>(),
+                interceptors: interceptors?.makeCreateDidWebDocInterceptors() ?? [],
+                wrapping: { try await self.CreateDidWebDoc(request: $0, context: $1) }
+            )
+
         default:
             return nil
         }
@@ -1884,6 +2062,14 @@ public protocol Services_Universalwallet_V1_UniversalWalletServerInterceptorFact
     /// - Returns: Interceptors to use when handling 'ListWallets'.
     ///   Defaults to calling `self.makeInterceptors()`.
     func makeListWalletsInterceptors() -> [ServerInterceptor<Services_Universalwallet_V1_ListWalletsRequest, Services_Universalwallet_V1_ListWalletsResponse>]
+
+    /// - Returns: Interceptors to use when handling 'ListByVerificationTemplate'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeListByVerificationTemplateInterceptors() -> [ServerInterceptor<Services_Universalwallet_V1_ListByVerificationTemplateRequest, Services_Universalwallet_V1_ListByVerificationTemplateResponse>]
+
+    /// - Returns: Interceptors to use when handling 'CreateDidWebDoc'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeCreateDidWebDocInterceptors() -> [ServerInterceptor<Services_Universalwallet_V1_CreateDidWebDocRequest, Services_Universalwallet_V1_CreateDidWebDocResponse>]
 }
 
 public enum Services_Universalwallet_V1_UniversalWalletServerMetadata {
@@ -1909,6 +2095,8 @@ public enum Services_Universalwallet_V1_UniversalWalletServerMetadata {
             Services_Universalwallet_V1_UniversalWalletServerMetadata.Methods.AuthenticateConfirm,
             Services_Universalwallet_V1_UniversalWalletServerMetadata.Methods.AuthenticateResendCode,
             Services_Universalwallet_V1_UniversalWalletServerMetadata.Methods.ListWallets,
+            Services_Universalwallet_V1_UniversalWalletServerMetadata.Methods.ListByVerificationTemplate,
+            Services_Universalwallet_V1_UniversalWalletServerMetadata.Methods.CreateDidWebDoc,
         ]
     )
 
@@ -2018,6 +2206,18 @@ public enum Services_Universalwallet_V1_UniversalWalletServerMetadata {
         public static let ListWallets = GRPCMethodDescriptor(
             name: "ListWallets",
             path: "/services.universalwallet.v1.UniversalWallet/ListWallets",
+            type: GRPCCallType.unary
+        )
+
+        public static let ListByVerificationTemplate = GRPCMethodDescriptor(
+            name: "ListByVerificationTemplate",
+            path: "/services.universalwallet.v1.UniversalWallet/ListByVerificationTemplate",
+            type: GRPCCallType.unary
+        )
+
+        public static let CreateDidWebDoc = GRPCMethodDescriptor(
+            name: "CreateDidWebDoc",
+            path: "/services.universalwallet.v1.UniversalWallet/CreateDidWebDoc",
             type: GRPCCallType.unary
         )
     }

@@ -503,6 +503,30 @@ public struct Services_Universalwallet_V1_ListWalletsResponse {
     public init() {}
 }
 
+/// Request to create a did:web document
+public struct Services_Universalwallet_V1_CreateDidWebDocRequest {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+}
+
+public struct Services_Universalwallet_V1_CreateDidWebDocResponse {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    /// JSON of `did:web` document
+    public var didWebJson: String = .init()
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+}
+
 public struct Services_Universalwallet_V1_AddExternalIdentityInitRequest {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -670,6 +694,44 @@ public struct Services_Universalwallet_V1_AuthenticateConfirmResponse {
     public init() {}
 }
 
+/// Request to list templates by
+public struct Services_Universalwallet_V1_ListByVerificationTemplateRequest {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    /// ID of verification template to list matching credentials
+    public var verificationTemplateID: String = .init()
+
+    /// Token provided by previous `ListCredentialTemplatesResponse`
+    /// if more data is available for query
+    public var continuationToken: String = .init()
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+}
+
+/// Response to `ListByVerificationTemplateRequest`
+public struct Services_Universalwallet_V1_ListByVerificationTemplateResponse {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    /// Array of query results, as JSON strings
+    public var items: [String] = []
+
+    /// Whether more results are available for this query via `continuation_token`
+    public var hasMoreResults_p: Bool = false
+
+    /// Token to fetch next set of results via `ListByVerificationTemplateRequest`
+    public var continuationToken: String = .init()
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+}
+
 #if swift(>=5.5) && canImport(_Concurrency)
     extension Services_Universalwallet_V1_SearchRequest: @unchecked Sendable {}
     extension Services_Universalwallet_V1_SearchResponse: @unchecked Sendable {}
@@ -697,6 +759,8 @@ public struct Services_Universalwallet_V1_AuthenticateConfirmResponse {
     extension Services_Universalwallet_V1_RevokeAuthTokenResponse: @unchecked Sendable {}
     extension Services_Universalwallet_V1_ListWalletsRequest: @unchecked Sendable {}
     extension Services_Universalwallet_V1_ListWalletsResponse: @unchecked Sendable {}
+    extension Services_Universalwallet_V1_CreateDidWebDocRequest: @unchecked Sendable {}
+    extension Services_Universalwallet_V1_CreateDidWebDocResponse: @unchecked Sendable {}
     extension Services_Universalwallet_V1_AddExternalIdentityInitRequest: @unchecked Sendable {}
     extension Services_Universalwallet_V1_AddExternalIdentityInitResponse: @unchecked Sendable {}
     extension Services_Universalwallet_V1_AddExternalIdentityConfirmRequest: @unchecked Sendable {}
@@ -709,6 +773,8 @@ public struct Services_Universalwallet_V1_AuthenticateConfirmResponse {
     extension Services_Universalwallet_V1_AuthenticateResendCodeResponse: @unchecked Sendable {}
     extension Services_Universalwallet_V1_AuthenticateConfirmRequest: @unchecked Sendable {}
     extension Services_Universalwallet_V1_AuthenticateConfirmResponse: @unchecked Sendable {}
+    extension Services_Universalwallet_V1_ListByVerificationTemplateRequest: @unchecked Sendable {}
+    extension Services_Universalwallet_V1_ListByVerificationTemplateResponse: @unchecked Sendable {}
 #endif // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -1586,6 +1652,56 @@ extension Services_Universalwallet_V1_ListWalletsResponse: SwiftProtobuf.Message
     }
 }
 
+extension Services_Universalwallet_V1_CreateDidWebDocRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".CreateDidWebDocRequest"
+    public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let _ = try decoder.nextFieldNumber() {}
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Universalwallet_V1_CreateDidWebDocRequest, rhs: Services_Universalwallet_V1_CreateDidWebDocRequest) -> Bool {
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}
+
+extension Services_Universalwallet_V1_CreateDidWebDocResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".CreateDidWebDocResponse"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .same(proto: "didWebJson"),
+    ]
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 1: try try decoder.decodeSingularStringField(value: &didWebJson)
+            default: break
+            }
+        }
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        if !didWebJson.isEmpty {
+            try visitor.visitSingularStringField(value: didWebJson, fieldNumber: 1)
+        }
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Universalwallet_V1_CreateDidWebDocResponse, rhs: Services_Universalwallet_V1_CreateDidWebDocResponse) -> Bool {
+        if lhs.didWebJson != rhs.didWebJson { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}
+
 extension Services_Universalwallet_V1_AddExternalIdentityInitRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
     public static let protoMessageName: String = _protobuf_package + ".AddExternalIdentityInitRequest"
     public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -1953,6 +2069,88 @@ extension Services_Universalwallet_V1_AuthenticateConfirmResponse: SwiftProtobuf
 
     public static func == (lhs: Services_Universalwallet_V1_AuthenticateConfirmResponse, rhs: Services_Universalwallet_V1_AuthenticateConfirmResponse) -> Bool {
         if lhs.authToken != rhs.authToken { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}
+
+extension Services_Universalwallet_V1_ListByVerificationTemplateRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".ListByVerificationTemplateRequest"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .standard(proto: "verification_template_id"),
+        2: .standard(proto: "continuation_token"),
+    ]
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 1: try try decoder.decodeSingularStringField(value: &verificationTemplateID)
+            case 2: try try decoder.decodeSingularStringField(value: &continuationToken)
+            default: break
+            }
+        }
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        if !verificationTemplateID.isEmpty {
+            try visitor.visitSingularStringField(value: verificationTemplateID, fieldNumber: 1)
+        }
+        if !continuationToken.isEmpty {
+            try visitor.visitSingularStringField(value: continuationToken, fieldNumber: 2)
+        }
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Universalwallet_V1_ListByVerificationTemplateRequest, rhs: Services_Universalwallet_V1_ListByVerificationTemplateRequest) -> Bool {
+        if lhs.verificationTemplateID != rhs.verificationTemplateID { return false }
+        if lhs.continuationToken != rhs.continuationToken { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}
+
+extension Services_Universalwallet_V1_ListByVerificationTemplateResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".ListByVerificationTemplateResponse"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .same(proto: "items"),
+        2: .standard(proto: "has_more_results"),
+        3: .standard(proto: "continuation_token"),
+    ]
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 1: try try decoder.decodeRepeatedStringField(value: &items)
+            case 2: try try decoder.decodeSingularBoolField(value: &hasMoreResults_p)
+            case 3: try try decoder.decodeSingularStringField(value: &continuationToken)
+            default: break
+            }
+        }
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        if !items.isEmpty {
+            try visitor.visitRepeatedStringField(value: items, fieldNumber: 1)
+        }
+        if hasMoreResults_p != false {
+            try visitor.visitSingularBoolField(value: hasMoreResults_p, fieldNumber: 2)
+        }
+        if !continuationToken.isEmpty {
+            try visitor.visitSingularStringField(value: continuationToken, fieldNumber: 3)
+        }
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Universalwallet_V1_ListByVerificationTemplateResponse, rhs: Services_Universalwallet_V1_ListByVerificationTemplateResponse) -> Bool {
+        if lhs.items != rhs.items { return false }
+        if lhs.hasMoreResults_p != rhs.hasMoreResults_p { return false }
+        if lhs.continuationToken != rhs.continuationToken { return false }
         if lhs.unknownFields != rhs.unknownFields { return false }
         return true
     }

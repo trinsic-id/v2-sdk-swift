@@ -711,7 +711,7 @@ public struct Services_Verifiablecredentials_Templates_V1_CreateVerificationTemp
     public var name: String = .init()
 
     /// Fields which will be required in the verification proof template
-    public var fields: [Services_Verifiablecredentials_Templates_V1_VerificationTemplateField] = []
+    public var fields: [String: Services_Verifiablecredentials_Templates_V1_VerificationTemplateField] = [:]
 
     /// Source credential template, used for verifying that the specified `fields` are present in the credential template
     public var credentialTemplateID: String = .init()
@@ -922,9 +922,6 @@ public struct Services_Verifiablecredentials_Templates_V1_VerificationTemplateFi
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
 
-    /// Field name (must be unique within template)
-    public var name: String = .init()
-
     /// Whether this field may be omitted on proof creation
     public var fieldShareType: Services_Verifiablecredentials_Templates_V1_VerificationShareType = .required
 
@@ -943,33 +940,21 @@ public struct Services_Verifiablecredentials_Templates_V1_VerificationTemplateFi
     // methods supported on all messages.
 
     /// Human-readable name of the field
-    public var title: String {
-        get { _title ?? String() }
-        set { _title = newValue }
+    public var usagePolicy: String {
+        get { _usagePolicy ?? String() }
+        set { _usagePolicy = newValue }
     }
 
-    /// Returns true if `title` has been explicitly set.
-    public var hasTitle: Bool { _title != nil }
-    /// Clears the value of `title`. Subsequent reads from it will return its default value.
-    public mutating func clearTitle() { _title = nil }
-
-    /// Human-readable description of the field
-    public var description_p: String {
-        get { _description_p ?? String() }
-        set { _description_p = newValue }
-    }
-
-    /// Returns true if `description_p` has been explicitly set.
-    public var hasDescription_p: Bool { _description_p != nil }
-    /// Clears the value of `description_p`. Subsequent reads from it will return its default value.
-    public mutating func clearDescription_p() { _description_p = nil }
+    /// Returns true if `usagePolicy` has been explicitly set.
+    public var hasUsagePolicy: Bool { _usagePolicy != nil }
+    /// Clears the value of `usagePolicy`. Subsequent reads from it will return its default value.
+    public mutating func clearUsagePolicy() { _usagePolicy = nil }
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
 
-    fileprivate var _title: String?
-    fileprivate var _description_p: String?
+    private var _usagePolicy: String?
 }
 
 #if swift(>=5.5) && canImport(_Concurrency)
@@ -1963,7 +1948,7 @@ extension Services_Verifiablecredentials_Templates_V1_CreateVerificationTemplate
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
             case 1: try try decoder.decodeSingularStringField(value: &name)
-            case 2: try try decoder.decodeRepeatedMessageField(value: &fields)
+            case 2: try { try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString, Services_Verifiablecredentials_Templates_V1_VerificationTemplateField>.self, value: &self.fields) }()
             case 3: try try decoder.decodeSingularStringField(value: &credentialTemplateID)
             case 4: try try decoder.decodeSingularStringField(value: &title)
             case 5: try try decoder.decodeSingularStringField(value: &description_p)
@@ -1977,7 +1962,7 @@ extension Services_Verifiablecredentials_Templates_V1_CreateVerificationTemplate
             try visitor.visitSingularStringField(value: name, fieldNumber: 1)
         }
         if !fields.isEmpty {
-            try visitor.visitRepeatedMessageField(value: fields, fieldNumber: 2)
+            try visitor.visitMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString, Services_Verifiablecredentials_Templates_V1_VerificationTemplateField>.self, value: fields, fieldNumber: 2)
         }
         if !credentialTemplateID.isEmpty {
             try visitor.visitSingularStringField(value: credentialTemplateID, fieldNumber: 3)
@@ -2355,9 +2340,8 @@ extension Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesR
 extension Services_Verifiablecredentials_Templates_V1_VerificationTemplateField: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
     public static let protoMessageName: String = _protobuf_package + ".VerificationTemplateField"
     public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-        1: .same(proto: "name"),
-        2: .standard(proto: "field_share_type"),
-        3: .standard(proto: "usage_policy"),
+        1: .standard(proto: "field_share_type"),
+        2: .standard(proto: "usage_policy"),
     ]
 
     public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -2366,29 +2350,24 @@ extension Services_Verifiablecredentials_Templates_V1_VerificationTemplateField:
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &name)
-            case 2: try try decoder.decodeSingularEnumField(value: &fieldShareType)
-            case 3: try try decoder.decodeSingularStringField(value: &usagePolicy)
+            case 1: try try decoder.decodeSingularEnumField(value: &fieldShareType)
+            case 2: try try decoder.decodeSingularStringField(value: &usagePolicy)
             default: break
             }
         }
     }
 
     public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-        if !name.isEmpty {
-            try visitor.visitSingularStringField(value: name, fieldNumber: 1)
-        }
         if fieldShareType != .required {
-            try visitor.visitSingularEnumField(value: fieldShareType, fieldNumber: 2)
+            try visitor.visitSingularEnumField(value: fieldShareType, fieldNumber: 1)
         }
         if !usagePolicy.isEmpty {
-            try visitor.visitSingularStringField(value: usagePolicy, fieldNumber: 3)
+            try visitor.visitSingularStringField(value: usagePolicy, fieldNumber: 2)
         }
         try unknownFields.traverse(visitor: &visitor)
     }
 
     public static func == (lhs: Services_Verifiablecredentials_Templates_V1_VerificationTemplateField, rhs: Services_Verifiablecredentials_Templates_V1_VerificationTemplateField) -> Bool {
-        if lhs.name != rhs.name { return false }
         if lhs.fieldShareType != rhs.fieldShareType { return false }
         if lhs.usagePolicy != rhs.usagePolicy { return false }
         if lhs.unknownFields != rhs.unknownFields { return false }
@@ -2399,8 +2378,7 @@ extension Services_Verifiablecredentials_Templates_V1_VerificationTemplateField:
 extension Services_Verifiablecredentials_Templates_V1_VerificationTemplateFieldPatch: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
     public static let protoMessageName: String = _protobuf_package + ".VerificationTemplateFieldPatch"
     public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-        1: .same(proto: "title"),
-        2: .same(proto: "description"),
+        1: .standard(proto: "usage_policy"),
     ]
 
     public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -2409,8 +2387,7 @@ extension Services_Verifiablecredentials_Templates_V1_VerificationTemplateFieldP
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &_title)
-            case 2: try try decoder.decodeSingularStringField(value: &_description_p)
+            case 1: try try decoder.decodeSingularStringField(value: &_usagePolicy)
             default: break
             }
         }
@@ -2421,18 +2398,14 @@ extension Services_Verifiablecredentials_Templates_V1_VerificationTemplateFieldP
         // allocates stack space for every if/case branch local when no optimizations
         // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
         // https://github.com/apple/swift-protobuf/issues/1182
-        try { if let v = self._title {
+        try { if let v = self._usagePolicy {
             try visitor.visitSingularStringField(value: v, fieldNumber: 1)
-        } }()
-        try { if let v = self._description_p {
-            try visitor.visitSingularStringField(value: v, fieldNumber: 2)
         } }()
         try unknownFields.traverse(visitor: &visitor)
     }
 
     public static func == (lhs: Services_Verifiablecredentials_Templates_V1_VerificationTemplateFieldPatch, rhs: Services_Verifiablecredentials_Templates_V1_VerificationTemplateFieldPatch) -> Bool {
-        if lhs._title != rhs._title { return false }
-        if lhs._description_p != rhs._description_p { return false }
+        if lhs._usagePolicy != rhs._usagePolicy { return false }
         if lhs.unknownFields != rhs.unknownFields { return false }
         return true
     }

@@ -180,7 +180,6 @@ public extension Services_Verifiablecredentials_Templates_V1_CredentialTemplates
     }
 
     /// Create/update verification templates
-    /// TODO - Should this be in a separate `verification-templates.proto`?
     ///
     /// - Parameters:
     ///   - request: Request to send to CreateVerificationTemplate.
@@ -774,7 +773,6 @@ public protocol Services_Verifiablecredentials_Templates_V1_CredentialTemplatesP
     func Delete(request: Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateResponse>
 
     /// Create/update verification templates
-    /// TODO - Should this be in a separate `verification-templates.proto`?
     func CreateVerificationTemplate(request: Services_Verifiablecredentials_Templates_V1_CreateVerificationTemplateRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Verifiablecredentials_Templates_V1_CreateVerificationTemplateResponse>
 
     func ListVerificationTemplate(request: Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesResponse>
@@ -935,7 +933,6 @@ public protocol Services_Verifiablecredentials_Templates_V1_CredentialTemplatesA
     ) async throws -> Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateResponse
 
     /// Create/update verification templates
-    /// TODO - Should this be in a separate `verification-templates.proto`?
     func CreateVerificationTemplate(
         request: Services_Verifiablecredentials_Templates_V1_CreateVerificationTemplateRequest,
         context: GRPCAsyncServerCallContext
