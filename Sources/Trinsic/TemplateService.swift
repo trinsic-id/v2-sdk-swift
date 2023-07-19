@@ -85,8 +85,14 @@ public class TemplateService: ServiceBase {
             .wait()
     }
     @available(*, deprecated, message: "This method is experimental")
-    public func listVerificationTemplate(request: Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesRequest) throws -> Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesResponse {
-        return try client!.ListVerificationTemplate(request, callOptions: try buildMetadata(request))
+    public func listVerificationTemplates(request: Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesRequest) throws -> Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesResponse {
+        return try client!.ListVerificationTemplates(request, callOptions: try buildMetadata(request))
+            .response
+            .wait()
+    }
+    @available(*, deprecated, message: "This method is experimental")
+    public func getVerificationTemplate(request: Services_Verifiablecredentials_Templates_V1_GetVerificationTemplateRequest) throws -> Services_Verifiablecredentials_Templates_V1_GetVerificationTemplateResponse {
+        return try client!.GetVerificationTemplate(request, callOptions: try buildMetadata(request))
             .response
             .wait()
     }
