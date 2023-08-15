@@ -16,8 +16,9 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(name: "grpc-swift", url: "https://github.com/grpc/grpc-swift.git", from: "1.18.0"),
-        .package(name: "SwiftProtobuf", url: "https://github.com/apple/swift-protobuf.git", from: "1.22.0"),
+        .package(name: "grpc-swift", url: "https://github.com/grpc/grpc-swift.git", from: "1.19.0"),
+        .package(name: "SwiftProtobuf", url: "https://github.com/apple/swift-protobuf.git", from: "1.22.1"),
+        .package(url: "https://github.com/openid/AppAuth-iOS.git", .upToNextMajor(from: "1.6.2"))
     ],
     targets: [
         .target(

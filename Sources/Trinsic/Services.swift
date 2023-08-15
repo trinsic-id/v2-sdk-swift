@@ -44,7 +44,7 @@ public class ServiceBase {
     }
 
     internal func getSDKVersion() -> String {
-        let version = "1.7.0"
+        let version = "1.11.0"
         return version
     }
 
@@ -55,7 +55,7 @@ public class ServiceBase {
         if request != nil {
             try metadataOptions.customMetadata.add(
                 name: "Authorization",
-                value: String(format: "Bearer %@", options.authToken ?? "")
+                value: String(format: "Bearer %@", options.authToken )
             )
         }
         return metadataOptions
