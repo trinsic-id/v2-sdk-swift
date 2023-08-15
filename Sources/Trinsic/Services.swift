@@ -43,8 +43,8 @@ public class ServiceBase {
         return builder.connect(host: options.serverEndpoint, port: Int(options.serverPort))
     }
 
-    func getSDKVersion() -> String {
-        let version = "1.7.0"
+    internal func getSDKVersion() -> String {
+        let version = "1.11.0"
         return version
     }
 
@@ -55,7 +55,7 @@ public class ServiceBase {
         if request != nil {
             try metadataOptions.customMetadata.add(
                 name: "Authorization",
-                value: String(format: "Bearer %@", options.authToken ?? "")
+                value: String(format: "Bearer %@", options.authToken )
             )
         }
         return metadataOptions
