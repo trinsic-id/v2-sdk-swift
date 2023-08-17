@@ -12,13 +12,13 @@ let package = Package(
     products: [
         .library(
             name: "Trinsic",
-            targets: ["Trinsic"]
+            targets: ["Trinsic", "Connect"]
         ),
     ],
     dependencies: [
         .package(name: "grpc-swift", url: "https://github.com/grpc/grpc-swift.git", from: "1.19.0"),
         .package(name: "SwiftProtobuf", url: "https://github.com/apple/swift-protobuf.git", from: "1.22.1"),
-        .package(url: "https://github.com/openid/AppAuth-iOS.git", .upToNextMajor(from: "1.6.2"))
+        .package(name: "AppAuth", url: "https://github.com/openid/AppAuth-iOS.git", .upToNextMajor(from: "1.6.2"))
     ],
     targets: [
         .target(
@@ -26,6 +26,12 @@ let package = Package(
             dependencies: [
                 .product(name: "GRPC", package: "grpc-swift"),
                 .product(name: "SwiftProtobuf", package: "SwiftProtobuf"),
+            ]
+        ),
+        .target(
+            name: "Connect",
+            dependencies: [
+                .product(name: "AppAuth", package: "AppAuth"),
             ]
         ),
         .testTarget(
