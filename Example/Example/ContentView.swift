@@ -10,23 +10,40 @@ import Connect
 
 struct ContentView: View {
     let connect = ConnectClient()
+    
+    @State private var path = NavigationPath()
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
-                .padding(.bottom, 10)
-            Button("Verify with Trinsic Connect") {
-                let request = VerifiablePresentationRequest(ecosystem: "did-hack",
-                                                            schema: "https://schema.trinsic.cloud/did-hack/attendance-credential")
-                
-                connect.requestVerifiableCredential(request) { result, error in
-                    print(result)
+        NavigationStack(path: $path) {
+            VStack {
+                Image(systemName: "globe")
+                    .imageScale(.large)
+                    .foregroundColor(.accentColor)
+                Text("Hello, world!")
+                    .padding(.bottom, 10)
+                Button("Verify with Trinsic Connect") {
+                    let request = VerifiablePresentationRequest(ecosystem: "did-hack",
+                                                                schema: "https://schema.trinsic.cloud/did-hack/attendance-credential")
+                    
+                    connect.requestVerifiableCredential(request) { result, error in
+                        path.append(result)
+                    }
                 }
             }
+            .padding()
+            .navigationDestination(for: String.self) { value in
+                SecondView(text: value)
+            }
         }
-        .padding()
+    }
+}
+
+struct SecondView: View {
+    let text: String
+    var body: some View {
+        VStack {
+            Text(text)
+        }
     }
 }
 

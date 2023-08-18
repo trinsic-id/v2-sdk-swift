@@ -42,8 +42,6 @@ public class ConnectClient: NSObject, ASWebAuthenticationPresentationContextProv
                                                     "trinsic:schema": request.schema
                                                   ])
             
-            var requestUrl = request.authorizationRequestURL()
-            
             let session = ASWebAuthenticationSession(url: request.authorizationRequestURL(), callbackURLScheme: "com.example") { url, error in
                 let tokenRequest = OIDTokenRequest(configuration: config,
                                                    grantType: OIDGrantTypeAuthorizationCode,
