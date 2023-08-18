@@ -16,11 +16,6 @@ struct ContentView: View {
     var body: some View {
         NavigationStack(path: $path) {
             VStack {
-                Image(systemName: "globe")
-                    .imageScale(.large)
-                    .foregroundColor(.accentColor)
-                Text("Hello, world!")
-                    .padding(.bottom, 10)
                 Button("Verify with Trinsic Connect") {
                     let request = VerifiablePresentationRequest(ecosystem: "did-hack",
                                                                 schema: "https://schema.trinsic.cloud/did-hack/attendance-credential")
