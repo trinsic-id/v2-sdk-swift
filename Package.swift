@@ -7,7 +7,6 @@ let package = Package(
     name: "Trinsic",
     platforms: [
         .iOS(.v13),
-        .macOS(.v11),
     ],
     products: [
         .library(

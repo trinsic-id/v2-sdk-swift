@@ -10,22 +10,20 @@ import AppAuth
 import UIKit
 import AuthenticationServices
 
-public class VerificationClient: NSObject, ASWebAuthenticationPresentationContextProviding {
+public class ConnectClient: NSObject, ASWebAuthenticationPresentationContextProviding {
     public func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
-//        UIApplication.SharedApplication.ConnectedScenes
-//                        .ToArray()
-//                        .OfType<UIWindowScene>()
-//                        .SelectMany(scene => scene.Windows)
-//                        .First(window => window.IsKeyWindow)
-        ASPresentationAnchor()
-//        session.presentationContextProvider?.presentationAnchor(for: session) ?? ASPresentationAnchor()
+        UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .flatMap { $0.windows }
+            .first { $0.isKeyWindow }
+        ?? ASPresentationAnchor()
     }
     
     public override init() {}
     
-    public func identityVerification(presenting controller: UIViewController, completion: @escaping (String, Bool) -> Void) -> Void {
-        let issuer = URL(string: "https://did-hack.connect.trinsic.cloud")!
-
+    public func requestVerifiableCredential(_ request: VerifiablePresentationRequest, completion: @escaping (String, Bool) -> Void) -> Void {
+        let issuer = URL(string: "https://\(request.ecosystem).connect.trinsic.cloud")!
+        
         // discovers endpoints
         OIDAuthorizationService.discoverConfiguration(forIssuer: issuer) { configuration, error in
             guard let config = configuration else {
@@ -40,15 +38,13 @@ public class VerificationClient: NSObject, ASWebAuthenticationPresentationContex
                                                   redirectURL: URL(string: "com.example://oauth2redirect")!,
                                                   responseType: OIDResponseTypeCode,
                                                   additionalParameters: [
-                                                    "trinsic:ecosystem": "did-hack",
-                                                    "trinsic:schema": "https://schema.trinsic.cloud/did-hack/attendance-credential"
+                                                    "trinsic:ecosystem": request.ecosystem,
+                                                    "trinsic:schema": request.schema
                                                   ])
             
             var requestUrl = request.authorizationRequestURL()
             
             let session = ASWebAuthenticationSession(url: request.authorizationRequestURL(), callbackURLScheme: "com.example") { url, error in
-                print(url)
-                
                 let tokenRequest = OIDTokenRequest(configuration: config,
                                                    grantType: OIDGrantTypeAuthorizationCode,
                                                    authorizationCode: url?.valueOfQueryParameter(named: "code"),
@@ -61,18 +57,43 @@ public class VerificationClient: NSObject, ASWebAuthenticationPresentationContex
                                                    additionalParameters: nil)
                 
                 OIDAuthorizationService.perform(tokenRequest) { tokenResponse, tokenError in
-                    print(tokenResponse)
-                    
-                    completion(tokenResponse.debugDescription, true)
+                    completion((tokenResponse?.additionalParameters!.debugDescription)!, true)
                 }
             }
             
             session.presentationContextProvider = self
             session.start()
-        
         }
     }
+    
+    public func requestIdentityVerification (_ completion: @escaping (String, Bool) -> Void) -> Void {
+    }
 }
+
+public struct VerifiablePresentationRequest: Codable {
+    public init(ecosystem: String, schema: String) {
+        self.ecosystem = ecosystem
+        self.schema = schema
+        self.issuer = nil
+        self.challenge = nil
+        self.domain = nil
+    }
+    
+    public init(ecosystem: String, schema: String, issuer: String?, challenge: String?, domain: String?) {
+        self.ecosystem = ecosystem
+        self.schema = schema
+        self.issuer = issuer
+        self.challenge = challenge
+        self.domain = domain
+    }
+    
+    public var schema: String
+    public var ecosystem: String
+    public var issuer: String?
+    public var challenge: String?
+    public var domain: String?
+}
+
 
 extension UIApplication {
     public var topViewController: UIViewController? {

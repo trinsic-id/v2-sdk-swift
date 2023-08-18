@@ -8,54 +8,30 @@
 import SwiftUI
 import Connect
 
-import AuthenticationServices
-
 struct ContentView: View {
+    let connect = ConnectClient()
     var body: some View {
         VStack {
             Image(systemName: "globe")
                 .imageScale(.large)
                 .foregroundColor(.accentColor)
             Text("Hello, world!")
-            Button("Connect") {
-                let connect = VerificationClient()
-                // get reference to the current view controller
+                .padding(.bottom, 10)
+            Button("Verify with Trinsic Connect") {
+                let request = VerifiablePresentationRequest(ecosystem: "did-hack",
+                                                            schema: "https://schema.trinsic.cloud/did-hack/attendance-credential")
                 
-                let vc = UIApplication.shared.topViewController
-                
-                connect.identityVerification(presenting: vc!) { (result, success) in
+                connect.requestVerifiableCredential(request) { result, error in
                     print(result)
                 }
             }
-        
         }
         .padding()
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
-
-//extension UIApplication {
-//    var topViewController: UIViewController? {
-//        var topViewController: UIViewController? = nil
-//        if #available(iOS 13, *) {
-//            topViewController = connectedScenes.compactMap {
-//                return ($0 as? UIWindowScene)?.windows.filter { $0.isKeyWindow  }.first?.rootViewController
-//            }.first
-//        } else {
-//            topViewController = keyWindow?.rootViewController
-//        }
-//        if let presented = topViewController?.presentedViewController {
-//            topViewController = presented
-//        } else if let navController = topViewController as? UINavigationController {
-//            topViewController = navController.topViewController
-//        } else if let tabBarController = topViewController as? UITabBarController {
-//            topViewController = tabBarController.selectedViewController
-//        }
-//        return topViewController
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView()
 //    }
 //}
