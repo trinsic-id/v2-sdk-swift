@@ -21,8 +21,9 @@ public class ConnectClient: NSObject, ASWebAuthenticationPresentationContextProv
     
     public override init() {}
     
-    public func requestVerifiableCredential(_ request: VerifiablePresentationRequest, completion: @escaping (String, Bool) -> Void) -> Void {
-        let issuer = URL(string: "https://\(request.ecosystem).connect.trinsic.cloud")!
+    public func requestVerifiableCredential(_ request: VerifiablePresentationRequest, completion: @escaping (VerifiablePresentation?, ConnectError?) -> Void) -> Void {
+        let ecosystem = request.ecosystem.ecosystemName()
+        let issuer = URL(string: "https://\(ecosystem).connect.trinsic.cloud")!
         
         // discovers endpoints
         OIDAuthorizationService.discoverConfiguration(forIssuer: issuer) { configuration, error in
@@ -38,7 +39,7 @@ public class ConnectClient: NSObject, ASWebAuthenticationPresentationContextProv
                                                   redirectURL: URL(string: "com.example://oauth2redirect")!,
                                                   responseType: OIDResponseTypeCode,
                                                   additionalParameters: [
-                                                    "trinsic:ecosystem": request.ecosystem,
+                                                    "trinsic:ecosystem": ecosystem,
                                                     "trinsic:schema": request.schema
                                                   ])
             
@@ -54,8 +55,19 @@ public class ConnectClient: NSObject, ASWebAuthenticationPresentationContextProv
                                                    codeVerifier: request.codeVerifier,
                                                    additionalParameters: nil)
                 
-                OIDAuthorizationService.perform(tokenRequest) { tokenResponse, tokenError in
-                    completion((tokenResponse?.additionalParameters!.debugDescription)!, true)
+                OIDAuthorizationService.perform(tokenRequest)  { tokenResponse, tokenError in
+                    if let error = tokenError {
+                        completion(nil, .networkError(reason: error.localizedDescription))
+                        return
+                    }
+                    guard let response = tokenResponse,
+                          let additionalParams = response.additionalParameters,
+                          let vp = additionalParams["vp_token"] as? Dictionary<String, Any> else {
+                        completion(nil, .networkError(reason: "No response"))
+                        return
+                    }
+                    
+                    completion(VerifiablePresentation(data: vp), nil)
                 }
             }
             
@@ -66,6 +78,14 @@ public class ConnectClient: NSObject, ASWebAuthenticationPresentationContextProv
     
     public func requestIdentityVerification (_ completion: @escaping (String, Bool) -> Void) -> Void {
     }
+}
+
+public class VerifiablePresentation: NSObject {
+    public init(data: Dictionary<String, Any>) {
+        self.data = data
+    }
+    
+    public let data: Dictionary<String, Any>
 }
 
 public struct VerifiablePresentationRequest: Codable {
@@ -92,6 +112,10 @@ public struct VerifiablePresentationRequest: Codable {
     public var domain: String?
 }
 
+public enum ConnectError: Swift.Error {
+    case invalidArgument(name: String, reason: String)
+    case networkError(reason: String)
+}
 
 extension UIApplication {
     public var topViewController: UIViewController? {
@@ -118,5 +142,17 @@ extension URL {
     func valueOfQueryParameter(named name: String) -> String? {
         guard let components = URLComponents(url: self, resolvingAgainstBaseURL: false) else { return nil }
         return components.queryItems?.first(where: { $0.name == name })?.value
+    }
+}
+
+extension String {
+    func ecosystemName() -> String {
+        if self.hasPrefix("urn:trinsic:ecosystems:") {
+            return String(self.dropFirst("urn:trinsic:ecosystems:".count))
+        }
+        if self.hasPrefix("urn:ecosystems:") {
+            return String(self.dropFirst("urn:ecosystems:".count))
+        }
+        return self
     }
 }

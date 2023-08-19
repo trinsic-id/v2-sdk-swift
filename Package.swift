@@ -11,7 +11,7 @@ let package = Package(
     products: [
         .library(
             name: "Trinsic",
-            targets: ["Trinsic", "Connect"]
+            targets: ["Trinsic"]
         ),
     ],
     dependencies: [
@@ -25,11 +25,6 @@ let package = Package(
             dependencies: [
                 .product(name: "GRPC", package: "grpc-swift"),
                 .product(name: "SwiftProtobuf", package: "SwiftProtobuf"),
-            ]
-        ),
-        .target(
-            name: "Connect",
-            dependencies: [
                 .product(name: "AppAuth", package: "AppAuth"),
             ]
         ),

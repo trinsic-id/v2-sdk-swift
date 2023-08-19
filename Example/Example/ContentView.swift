@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import Connect
+import Trinsic
 
 struct ContentView: View {
     let connect = ConnectClient()
@@ -21,23 +21,35 @@ struct ContentView: View {
                                                                 schema: "https://schema.trinsic.cloud/did-hack/attendance-credential")
                     
                     connect.requestVerifiableCredential(request) { result, error in
-                        path.append(result)
+                        guard let vp = result else {
+                            return
+                        }
+                        path.append(vp)
                     }
                 }
             }
             .padding()
-            .navigationDestination(for: String.self) { value in
-                SecondView(text: value)
+            .navigationDestination(for: VerifiablePresentation.self) { value in
+                PresentationView(vp: value)
             }
         }
     }
 }
 
-struct SecondView: View {
-    let text: String
+struct PresentationView: View {
+    let vp: VerifiablePresentation
     var body: some View {
         VStack {
-            Text(text)
+            Text(parseJson())
+        }
+    }
+    
+    func parseJson() -> String {
+        if let jsonData = try? JSONSerialization.data(withJSONObject: self.vp.data, options: .prettyPrinted),
+           let jsonString = String(data: jsonData, encoding: .utf8) {
+            return jsonString.replacingOccurrences(of: "\\/", with: "/")
+        } else {
+            return "Error converting NSDictionary to JSON string"
         }
     }
 }
