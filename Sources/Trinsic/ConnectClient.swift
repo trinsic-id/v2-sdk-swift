@@ -7,16 +7,23 @@
 
 import Foundation
 import AppAuth
-import UIKit
 import AuthenticationServices
+#if os(iOS)
+import UIKit
+#elseif os(macOS)
+import AppKit
+#endif
 
 public class ConnectClient: NSObject, ASWebAuthenticationPresentationContextProviding {
     public func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
+        #if os(iOS)
         UIApplication.shared.connectedScenes
             .compactMap { $0 as? UIWindowScene }
             .flatMap { $0.windows }
-            .first { $0.isKeyWindow }
-        ?? ASPresentationAnchor()
+            .first { $0.isKeyWindow } ?? ASPresentationAnchor()
+        #elseif os(macOS)
+        NSApplication.shared.windows.first { $0.isKeyWindow } ?? ASPresentationAnchor()
+        #endif
     }
     
     public override init() {}
@@ -117,6 +124,7 @@ public enum ConnectError: Swift.Error {
     case networkError(reason: String)
 }
 
+#if os(iOS)
 extension UIApplication {
     public var topViewController: UIViewController? {
         var topViewController: UIViewController? = nil
@@ -137,6 +145,7 @@ extension UIApplication {
         return topViewController
     }
 }
+#endif
 
 extension URL {
     func valueOfQueryParameter(named name: String) -> String? {

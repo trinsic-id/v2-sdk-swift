@@ -10,7 +10,7 @@ import Foundation
 import XCTest
 
 final class CredentialTests: XCTestCase {
-    let testEndpoint = "dev-internal.trinsic.cloud"
+    let testEndpoint = "prod.trinsic.cloud"
 
     func testDemo() throws {
         var options = Sdk_Options_V1_ServiceOptions()
@@ -35,7 +35,7 @@ final class CredentialTests: XCTestCase {
         field.description_p = "The full name of the entity"
         createTemplateRequest.fields["name"] = field
 
-        var createTemplateResponse = try trinsicService.template().create(request: createTemplateRequest)
+        let createTemplateResponse = try trinsicService.template().create(request: createTemplateRequest)
 
         XCTAssertNotNil(createTemplateResponse)
         XCTAssertNotEqual("", createTemplateResponse.data.id)
