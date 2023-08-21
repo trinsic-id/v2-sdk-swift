@@ -69,7 +69,7 @@ public class ConnectClient: NSObject, ASWebAuthenticationPresentationContextProv
                     }
                     guard let response = tokenResponse,
                           let additionalParams = response.additionalParameters,
-                          let vp = additionalParams["vp_token"] as? Dictionary<String, Any> else {
+                          let vp = additionalParams["vp_token"] as? NSDictionary else {
                         completion(nil, .networkError(reason: "No response"))
                         return
                     }
@@ -88,11 +88,20 @@ public class ConnectClient: NSObject, ASWebAuthenticationPresentationContextProv
 }
 
 public class VerifiablePresentation: NSObject {
-    public init(data: Dictionary<String, Any>) {
+    public init(data: NSDictionary) {
         self.data = data
     }
     
-    public let data: Dictionary<String, Any>
+    public let data: NSDictionary
+    
+    public var jsonString: String {
+        if let jsonData = try? JSONSerialization.data(withJSONObject: self.data, options: .withoutEscapingSlashes),
+           let jsonString = String(data: jsonData, encoding: .utf8) {
+            return jsonString
+        } else {
+            return "Error converting NSDictionary to JSON string"
+        }
+    }
 }
 
 public struct VerifiablePresentationRequest: Codable {

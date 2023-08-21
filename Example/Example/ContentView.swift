@@ -30,26 +30,8 @@ struct ContentView: View {
             }
             .padding()
             .navigationDestination(for: VerifiablePresentation.self) { value in
-                PresentationView(vp: value)
+                JsonObjectView(object: value.data)
             }
-        }
-    }
-}
-
-struct PresentationView: View {
-    let vp: VerifiablePresentation
-    var body: some View {
-        VStack {
-            Text(parseJson())
-        }
-    }
-    
-    func parseJson() -> String {
-        if let jsonData = try? JSONSerialization.data(withJSONObject: self.vp.data, options: .prettyPrinted),
-           let jsonString = String(data: jsonData, encoding: .utf8) {
-            return jsonString.replacingOccurrences(of: "\\/", with: "/")
-        } else {
-            return "Error converting NSDictionary to JSON string"
         }
     }
 }

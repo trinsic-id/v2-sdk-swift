@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		922DB9E72A93BF2700944347 /* JsonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 922DB9E62A93BF2700944347 /* JsonView.swift */; };
 		9296A98E2A8E4EB50070D362 /* ExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9296A98D2A8E4EB50070D362 /* ExampleApp.swift */; };
 		9296A9902A8E4EB50070D362 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9296A98F2A8E4EB50070D362 /* ContentView.swift */; };
 		9296A9922A8E4EB60070D362 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9296A9912A8E4EB60070D362 /* Assets.xcassets */; };
@@ -15,6 +16,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		922DB9E62A93BF2700944347 /* JsonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonView.swift; sourceTree = "<group>"; };
 		9296A98A2A8E4EB50070D362 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9296A98D2A8E4EB50070D362 /* ExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleApp.swift; sourceTree = "<group>"; };
 		9296A98F2A8E4EB50070D362 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -57,6 +59,7 @@
 		9296A98C2A8E4EB50070D362 /* Example */ = {
 			isa = PBXGroup;
 			children = (
+				922DB9E62A93BF2700944347 /* JsonView.swift */,
 				9296A98D2A8E4EB50070D362 /* ExampleApp.swift */,
 				9296A98F2A8E4EB50070D362 /* ContentView.swift */,
 				9296A9912A8E4EB60070D362 /* Assets.xcassets */,
@@ -163,6 +166,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9296A9902A8E4EB50070D362 /* ContentView.swift in Sources */,
+				922DB9E72A93BF2700944347 /* JsonView.swift in Sources */,
 				9296A98E2A8E4EB50070D362 /* ExampleApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -285,6 +289,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Example/Example.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Example/Preview Content\"";
@@ -321,6 +326,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Example/Example.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Example/Preview Content\"";
