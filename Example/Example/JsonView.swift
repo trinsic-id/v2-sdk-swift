@@ -49,7 +49,6 @@ struct JsonObjectView: View {
 struct JsonArrayView: View {
     let object: NSArray
     var body: some View {
-        let keys = object.map { $0 }
         let items = object as! [Any]
         
         List {
