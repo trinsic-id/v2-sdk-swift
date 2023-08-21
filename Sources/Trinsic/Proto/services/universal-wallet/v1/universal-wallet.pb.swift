@@ -503,30 +503,6 @@ public struct Services_Universalwallet_V1_ListWalletsResponse {
     public init() {}
 }
 
-/// Request to create a did:web document
-public struct Services_Universalwallet_V1_CreateDidWebDocRequest {
-    // SwiftProtobuf.Message conformance is added in an extension below. See the
-    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-    // methods supported on all messages.
-
-    public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-    public init() {}
-}
-
-public struct Services_Universalwallet_V1_CreateDidWebDocResponse {
-    // SwiftProtobuf.Message conformance is added in an extension below. See the
-    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-    // methods supported on all messages.
-
-    /// JSON of `did:web` document
-    public var didWebJson: String = .init()
-
-    public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-    public init() {}
-}
-
 public struct Services_Universalwallet_V1_AddExternalIdentityInitRequest {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -759,8 +735,6 @@ public struct Services_Universalwallet_V1_ListByVerificationTemplateResponse {
     extension Services_Universalwallet_V1_RevokeAuthTokenResponse: @unchecked Sendable {}
     extension Services_Universalwallet_V1_ListWalletsRequest: @unchecked Sendable {}
     extension Services_Universalwallet_V1_ListWalletsResponse: @unchecked Sendable {}
-    extension Services_Universalwallet_V1_CreateDidWebDocRequest: @unchecked Sendable {}
-    extension Services_Universalwallet_V1_CreateDidWebDocResponse: @unchecked Sendable {}
     extension Services_Universalwallet_V1_AddExternalIdentityInitRequest: @unchecked Sendable {}
     extension Services_Universalwallet_V1_AddExternalIdentityInitResponse: @unchecked Sendable {}
     extension Services_Universalwallet_V1_AddExternalIdentityConfirmRequest: @unchecked Sendable {}
@@ -1647,56 +1621,6 @@ extension Services_Universalwallet_V1_ListWalletsResponse: SwiftProtobuf.Message
 
     public static func == (lhs: Services_Universalwallet_V1_ListWalletsResponse, rhs: Services_Universalwallet_V1_ListWalletsResponse) -> Bool {
         if lhs.wallets != rhs.wallets { return false }
-        if lhs.unknownFields != rhs.unknownFields { return false }
-        return true
-    }
-}
-
-extension Services_Universalwallet_V1_CreateDidWebDocRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-    public static let protoMessageName: String = _protobuf_package + ".CreateDidWebDocRequest"
-    public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
-
-    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-        while let _ = try decoder.nextFieldNumber() {}
-    }
-
-    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-        try unknownFields.traverse(visitor: &visitor)
-    }
-
-    public static func == (lhs: Services_Universalwallet_V1_CreateDidWebDocRequest, rhs: Services_Universalwallet_V1_CreateDidWebDocRequest) -> Bool {
-        if lhs.unknownFields != rhs.unknownFields { return false }
-        return true
-    }
-}
-
-extension Services_Universalwallet_V1_CreateDidWebDocResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-    public static let protoMessageName: String = _protobuf_package + ".CreateDidWebDocResponse"
-    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-        1: .same(proto: "didWebJson"),
-    ]
-
-    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-        while let fieldNumber = try decoder.nextFieldNumber() {
-            // The use of inline closures is to circumvent an issue where the compiler
-            // allocates stack space for every case branch when no optimizations are
-            // enabled. https://github.com/apple/swift-protobuf/issues/1034
-            switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &didWebJson)
-            default: break
-            }
-        }
-    }
-
-    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-        if !didWebJson.isEmpty {
-            try visitor.visitSingularStringField(value: didWebJson, fieldNumber: 1)
-        }
-        try unknownFields.traverse(visitor: &visitor)
-    }
-
-    public static func == (lhs: Services_Universalwallet_V1_CreateDidWebDocResponse, rhs: Services_Universalwallet_V1_CreateDidWebDocResponse) -> Bool {
-        if lhs.didWebJson != rhs.didWebJson { return false }
         if lhs.unknownFields != rhs.unknownFields { return false }
         return true
     }

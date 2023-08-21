@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  IntegrationTests.swift
 //
 //
 //  Created by Tomislav Markovski on 11/30/21.
@@ -10,7 +10,7 @@ import Foundation
 import XCTest
 
 final class CredentialTests: XCTestCase {
-    let testEndpoint = "dev-internal.trinsic.cloud"
+    let testEndpoint = "prod.trinsic.cloud"
 
     func testDemo() throws {
         var options = Sdk_Options_V1_ServiceOptions()
@@ -35,7 +35,7 @@ final class CredentialTests: XCTestCase {
         field.description_p = "The full name of the entity"
         createTemplateRequest.fields["name"] = field
 
-        var createTemplateResponse = try trinsicService.template().create(request: createTemplateRequest)
+        let createTemplateResponse = try trinsicService.template().create(request: createTemplateRequest)
 
         XCTAssertNotNil(createTemplateResponse)
         XCTAssertNotEqual("", createTemplateResponse.data.id)
@@ -71,5 +71,13 @@ final class CredentialTests: XCTestCase {
         for validationPolicy in verifyResponse.validationResults {
             XCTAssertTrue(validationPolicy.value.isValid, "Validation [\(validationPolicy.key)] is not valid")
         }
+    }
+    
+    func testNormalizeEcosystem() {
+        let ecosystem = "urn:trinsic:ecosystems:example"
+        
+        let actual = ecosystem.ecosystemName()
+        
+        XCTAssertEqual("example", actual)
     }
 }

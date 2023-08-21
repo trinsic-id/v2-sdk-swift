@@ -50,10 +50,15 @@ public protocol Services_Verifiablecredentials_Templates_V1_CredentialTemplatesC
         callOptions: CallOptions?
     ) -> UnaryCall<Services_Verifiablecredentials_Templates_V1_CreateVerificationTemplateRequest, Services_Verifiablecredentials_Templates_V1_CreateVerificationTemplateResponse>
 
-    func ListVerificationTemplate(
+    func ListVerificationTemplates(
         _ request: Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesRequest,
         callOptions: CallOptions?
     ) -> UnaryCall<Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesRequest, Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesResponse>
+
+    func GetVerificationTemplate(
+        _ request: Services_Verifiablecredentials_Templates_V1_GetVerificationTemplateRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Verifiablecredentials_Templates_V1_GetVerificationTemplateRequest, Services_Verifiablecredentials_Templates_V1_GetVerificationTemplateResponse>
 
     func UpdateVerificationTemplate(
         _ request: Services_Verifiablecredentials_Templates_V1_UpdateVerificationTemplateRequest,
@@ -197,21 +202,39 @@ public extension Services_Verifiablecredentials_Templates_V1_CredentialTemplates
         )
     }
 
-    /// Unary call to ListVerificationTemplate
+    /// Unary call to ListVerificationTemplates
     ///
     /// - Parameters:
-    ///   - request: Request to send to ListVerificationTemplate.
+    ///   - request: Request to send to ListVerificationTemplates.
     ///   - callOptions: Call options.
     /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-    func ListVerificationTemplate(
+    func ListVerificationTemplates(
         _ request: Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesRequest,
         callOptions: CallOptions? = nil
     ) -> UnaryCall<Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesRequest, Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesResponse> {
         makeUnaryCall(
-            path: Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientMetadata.Methods.ListVerificationTemplate.path,
+            path: Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientMetadata.Methods.ListVerificationTemplates.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
-            interceptors: interceptors?.makeListVerificationTemplateInterceptors() ?? []
+            interceptors: interceptors?.makeListVerificationTemplatesInterceptors() ?? []
+        )
+    }
+
+    /// Unary call to GetVerificationTemplate
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to GetVerificationTemplate.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func GetVerificationTemplate(
+        _ request: Services_Verifiablecredentials_Templates_V1_GetVerificationTemplateRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Verifiablecredentials_Templates_V1_GetVerificationTemplateRequest, Services_Verifiablecredentials_Templates_V1_GetVerificationTemplateResponse> {
+        makeUnaryCall(
+            path: Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientMetadata.Methods.GetVerificationTemplate.path,
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeGetVerificationTemplateInterceptors() ?? []
         )
     }
 
@@ -350,10 +373,15 @@ public protocol Services_Verifiablecredentials_Templates_V1_CredentialTemplatesA
         callOptions: CallOptions?
     ) -> GRPCAsyncUnaryCall<Services_Verifiablecredentials_Templates_V1_CreateVerificationTemplateRequest, Services_Verifiablecredentials_Templates_V1_CreateVerificationTemplateResponse>
 
-    func makeListVerificationTemplateCall(
+    func makeListVerificationTemplatesCall(
         _ request: Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesRequest,
         callOptions: CallOptions?
     ) -> GRPCAsyncUnaryCall<Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesRequest, Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesResponse>
+
+    func makeGetVerificationTemplateCall(
+        _ request: Services_Verifiablecredentials_Templates_V1_GetVerificationTemplateRequest,
+        callOptions: CallOptions?
+    ) -> GRPCAsyncUnaryCall<Services_Verifiablecredentials_Templates_V1_GetVerificationTemplateRequest, Services_Verifiablecredentials_Templates_V1_GetVerificationTemplateResponse>
 
     func makeUpdateVerificationTemplateCall(
         _ request: Services_Verifiablecredentials_Templates_V1_UpdateVerificationTemplateRequest,
@@ -460,15 +488,27 @@ public extension Services_Verifiablecredentials_Templates_V1_CredentialTemplates
         )
     }
 
-    func makeListVerificationTemplateCall(
+    func makeListVerificationTemplatesCall(
         _ request: Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesRequest,
         callOptions: CallOptions? = nil
     ) -> GRPCAsyncUnaryCall<Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesRequest, Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesResponse> {
         makeAsyncUnaryCall(
-            path: Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientMetadata.Methods.ListVerificationTemplate.path,
+            path: Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientMetadata.Methods.ListVerificationTemplates.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
-            interceptors: interceptors?.makeListVerificationTemplateInterceptors() ?? []
+            interceptors: interceptors?.makeListVerificationTemplatesInterceptors() ?? []
+        )
+    }
+
+    func makeGetVerificationTemplateCall(
+        _ request: Services_Verifiablecredentials_Templates_V1_GetVerificationTemplateRequest,
+        callOptions: CallOptions? = nil
+    ) -> GRPCAsyncUnaryCall<Services_Verifiablecredentials_Templates_V1_GetVerificationTemplateRequest, Services_Verifiablecredentials_Templates_V1_GetVerificationTemplateResponse> {
+        makeAsyncUnaryCall(
+            path: Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientMetadata.Methods.GetVerificationTemplate.path,
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeGetVerificationTemplateInterceptors() ?? []
         )
     }
 
@@ -583,15 +623,27 @@ public extension Services_Verifiablecredentials_Templates_V1_CredentialTemplates
         )
     }
 
-    func ListVerificationTemplate(
+    func ListVerificationTemplates(
         _ request: Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesRequest,
         callOptions: CallOptions? = nil
     ) async throws -> Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesResponse {
         try await performAsyncUnaryCall(
-            path: Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientMetadata.Methods.ListVerificationTemplate.path,
+            path: Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientMetadata.Methods.ListVerificationTemplates.path,
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
-            interceptors: interceptors?.makeListVerificationTemplateInterceptors() ?? []
+            interceptors: interceptors?.makeListVerificationTemplatesInterceptors() ?? []
+        )
+    }
+
+    func GetVerificationTemplate(
+        _ request: Services_Verifiablecredentials_Templates_V1_GetVerificationTemplateRequest,
+        callOptions: CallOptions? = nil
+    ) async throws -> Services_Verifiablecredentials_Templates_V1_GetVerificationTemplateResponse {
+        try await performAsyncUnaryCall(
+            path: Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientMetadata.Methods.GetVerificationTemplate.path,
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeGetVerificationTemplateInterceptors() ?? []
         )
     }
 
@@ -659,8 +711,11 @@ public protocol Services_Verifiablecredentials_Templates_V1_CredentialTemplatesC
     /// - Returns: Interceptors to use when invoking 'CreateVerificationTemplate'.
     func makeCreateVerificationTemplateInterceptors() -> [ClientInterceptor<Services_Verifiablecredentials_Templates_V1_CreateVerificationTemplateRequest, Services_Verifiablecredentials_Templates_V1_CreateVerificationTemplateResponse>]
 
-    /// - Returns: Interceptors to use when invoking 'ListVerificationTemplate'.
-    func makeListVerificationTemplateInterceptors() -> [ClientInterceptor<Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesRequest, Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesResponse>]
+    /// - Returns: Interceptors to use when invoking 'ListVerificationTemplates'.
+    func makeListVerificationTemplatesInterceptors() -> [ClientInterceptor<Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesRequest, Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesResponse>]
+
+    /// - Returns: Interceptors to use when invoking 'GetVerificationTemplate'.
+    func makeGetVerificationTemplateInterceptors() -> [ClientInterceptor<Services_Verifiablecredentials_Templates_V1_GetVerificationTemplateRequest, Services_Verifiablecredentials_Templates_V1_GetVerificationTemplateResponse>]
 
     /// - Returns: Interceptors to use when invoking 'UpdateVerificationTemplate'.
     func makeUpdateVerificationTemplateInterceptors() -> [ClientInterceptor<Services_Verifiablecredentials_Templates_V1_UpdateVerificationTemplateRequest, Services_Verifiablecredentials_Templates_V1_UpdateVerificationTemplateResponse>]
@@ -681,7 +736,8 @@ public enum Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClien
             Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientMetadata.Methods.Search,
             Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientMetadata.Methods.Delete,
             Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientMetadata.Methods.CreateVerificationTemplate,
-            Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientMetadata.Methods.ListVerificationTemplate,
+            Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientMetadata.Methods.ListVerificationTemplates,
+            Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientMetadata.Methods.GetVerificationTemplate,
             Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientMetadata.Methods.UpdateVerificationTemplate,
             Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClientMetadata.Methods.DeleteVerificationTemplate,
         ]
@@ -730,9 +786,15 @@ public enum Services_Verifiablecredentials_Templates_V1_CredentialTemplatesClien
             type: GRPCCallType.unary
         )
 
-        public static let ListVerificationTemplate = GRPCMethodDescriptor(
-            name: "ListVerificationTemplate",
-            path: "/services.verifiablecredentials.templates.v1.CredentialTemplates/ListVerificationTemplate",
+        public static let ListVerificationTemplates = GRPCMethodDescriptor(
+            name: "ListVerificationTemplates",
+            path: "/services.verifiablecredentials.templates.v1.CredentialTemplates/ListVerificationTemplates",
+            type: GRPCCallType.unary
+        )
+
+        public static let GetVerificationTemplate = GRPCMethodDescriptor(
+            name: "GetVerificationTemplate",
+            path: "/services.verifiablecredentials.templates.v1.CredentialTemplates/GetVerificationTemplate",
             type: GRPCCallType.unary
         )
 
@@ -775,7 +837,9 @@ public protocol Services_Verifiablecredentials_Templates_V1_CredentialTemplatesP
     /// Create/update verification templates
     func CreateVerificationTemplate(request: Services_Verifiablecredentials_Templates_V1_CreateVerificationTemplateRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Verifiablecredentials_Templates_V1_CreateVerificationTemplateResponse>
 
-    func ListVerificationTemplate(request: Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesResponse>
+    func ListVerificationTemplates(request: Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesResponse>
+
+    func GetVerificationTemplate(request: Services_Verifiablecredentials_Templates_V1_GetVerificationTemplateRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Verifiablecredentials_Templates_V1_GetVerificationTemplateResponse>
 
     func UpdateVerificationTemplate(request: Services_Verifiablecredentials_Templates_V1_UpdateVerificationTemplateRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Verifiablecredentials_Templates_V1_UpdateVerificationTemplateResponse>
 
@@ -857,13 +921,22 @@ public extension Services_Verifiablecredentials_Templates_V1_CredentialTemplates
                 userFunction: CreateVerificationTemplate(request:context:)
             )
 
-        case "ListVerificationTemplate":
+        case "ListVerificationTemplates":
             return UnaryServerHandler(
                 context: context,
                 requestDeserializer: ProtobufDeserializer<Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesRequest>(),
                 responseSerializer: ProtobufSerializer<Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesResponse>(),
-                interceptors: interceptors?.makeListVerificationTemplateInterceptors() ?? [],
-                userFunction: ListVerificationTemplate(request:context:)
+                interceptors: interceptors?.makeListVerificationTemplatesInterceptors() ?? [],
+                userFunction: ListVerificationTemplates(request:context:)
+            )
+
+        case "GetVerificationTemplate":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Verifiablecredentials_Templates_V1_GetVerificationTemplateRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Verifiablecredentials_Templates_V1_GetVerificationTemplateResponse>(),
+                interceptors: interceptors?.makeGetVerificationTemplateInterceptors() ?? [],
+                userFunction: GetVerificationTemplate(request:context:)
             )
 
         case "UpdateVerificationTemplate":
@@ -938,10 +1011,15 @@ public protocol Services_Verifiablecredentials_Templates_V1_CredentialTemplatesA
         context: GRPCAsyncServerCallContext
     ) async throws -> Services_Verifiablecredentials_Templates_V1_CreateVerificationTemplateResponse
 
-    func ListVerificationTemplate(
+    func ListVerificationTemplates(
         request: Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesRequest,
         context: GRPCAsyncServerCallContext
     ) async throws -> Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesResponse
+
+    func GetVerificationTemplate(
+        request: Services_Verifiablecredentials_Templates_V1_GetVerificationTemplateRequest,
+        context: GRPCAsyncServerCallContext
+    ) async throws -> Services_Verifiablecredentials_Templates_V1_GetVerificationTemplateResponse
 
     func UpdateVerificationTemplate(
         request: Services_Verifiablecredentials_Templates_V1_UpdateVerificationTemplateRequest,
@@ -1036,13 +1114,22 @@ public extension Services_Verifiablecredentials_Templates_V1_CredentialTemplates
                 wrapping: { try await self.CreateVerificationTemplate(request: $0, context: $1) }
             )
 
-        case "ListVerificationTemplate":
+        case "ListVerificationTemplates":
             return GRPCAsyncServerHandler(
                 context: context,
                 requestDeserializer: ProtobufDeserializer<Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesRequest>(),
                 responseSerializer: ProtobufSerializer<Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesResponse>(),
-                interceptors: interceptors?.makeListVerificationTemplateInterceptors() ?? [],
-                wrapping: { try await self.ListVerificationTemplate(request: $0, context: $1) }
+                interceptors: interceptors?.makeListVerificationTemplatesInterceptors() ?? [],
+                wrapping: { try await self.ListVerificationTemplates(request: $0, context: $1) }
+            )
+
+        case "GetVerificationTemplate":
+            return GRPCAsyncServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Verifiablecredentials_Templates_V1_GetVerificationTemplateRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Verifiablecredentials_Templates_V1_GetVerificationTemplateResponse>(),
+                interceptors: interceptors?.makeGetVerificationTemplateInterceptors() ?? [],
+                wrapping: { try await self.GetVerificationTemplate(request: $0, context: $1) }
             )
 
         case "UpdateVerificationTemplate":
@@ -1098,9 +1185,13 @@ public protocol Services_Verifiablecredentials_Templates_V1_CredentialTemplatesS
     ///   Defaults to calling `self.makeInterceptors()`.
     func makeCreateVerificationTemplateInterceptors() -> [ServerInterceptor<Services_Verifiablecredentials_Templates_V1_CreateVerificationTemplateRequest, Services_Verifiablecredentials_Templates_V1_CreateVerificationTemplateResponse>]
 
-    /// - Returns: Interceptors to use when handling 'ListVerificationTemplate'.
+    /// - Returns: Interceptors to use when handling 'ListVerificationTemplates'.
     ///   Defaults to calling `self.makeInterceptors()`.
-    func makeListVerificationTemplateInterceptors() -> [ServerInterceptor<Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesRequest, Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesResponse>]
+    func makeListVerificationTemplatesInterceptors() -> [ServerInterceptor<Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesRequest, Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesResponse>]
+
+    /// - Returns: Interceptors to use when handling 'GetVerificationTemplate'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeGetVerificationTemplateInterceptors() -> [ServerInterceptor<Services_Verifiablecredentials_Templates_V1_GetVerificationTemplateRequest, Services_Verifiablecredentials_Templates_V1_GetVerificationTemplateResponse>]
 
     /// - Returns: Interceptors to use when handling 'UpdateVerificationTemplate'.
     ///   Defaults to calling `self.makeInterceptors()`.
@@ -1123,7 +1214,8 @@ public enum Services_Verifiablecredentials_Templates_V1_CredentialTemplatesServe
             Services_Verifiablecredentials_Templates_V1_CredentialTemplatesServerMetadata.Methods.Search,
             Services_Verifiablecredentials_Templates_V1_CredentialTemplatesServerMetadata.Methods.Delete,
             Services_Verifiablecredentials_Templates_V1_CredentialTemplatesServerMetadata.Methods.CreateVerificationTemplate,
-            Services_Verifiablecredentials_Templates_V1_CredentialTemplatesServerMetadata.Methods.ListVerificationTemplate,
+            Services_Verifiablecredentials_Templates_V1_CredentialTemplatesServerMetadata.Methods.ListVerificationTemplates,
+            Services_Verifiablecredentials_Templates_V1_CredentialTemplatesServerMetadata.Methods.GetVerificationTemplate,
             Services_Verifiablecredentials_Templates_V1_CredentialTemplatesServerMetadata.Methods.UpdateVerificationTemplate,
             Services_Verifiablecredentials_Templates_V1_CredentialTemplatesServerMetadata.Methods.DeleteVerificationTemplate,
         ]
@@ -1172,9 +1264,15 @@ public enum Services_Verifiablecredentials_Templates_V1_CredentialTemplatesServe
             type: GRPCCallType.unary
         )
 
-        public static let ListVerificationTemplate = GRPCMethodDescriptor(
-            name: "ListVerificationTemplate",
-            path: "/services.verifiablecredentials.templates.v1.CredentialTemplates/ListVerificationTemplate",
+        public static let ListVerificationTemplates = GRPCMethodDescriptor(
+            name: "ListVerificationTemplates",
+            path: "/services.verifiablecredentials.templates.v1.CredentialTemplates/ListVerificationTemplates",
+            type: GRPCCallType.unary
+        )
+
+        public static let GetVerificationTemplate = GRPCMethodDescriptor(
+            name: "GetVerificationTemplate",
+            path: "/services.verifiablecredentials.templates.v1.CredentialTemplates/GetVerificationTemplate",
             type: GRPCCallType.unary
         )
 

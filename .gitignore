@@ -91,3 +91,5 @@ iOSInjectionProject/
 .idea/
 
 .swiftpm/
+
+.DS_Store

@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  Services.swift
 //
 //
 //  Created by Tomislav Markovski on 11/30/21.
@@ -30,11 +30,11 @@ public class ServiceBase {
         }
     }
 
-    internal func setAuthToken(token: String) {
+    func setAuthToken(token: String) {
         options.authToken = token
     }
 
-    internal func createChannel() -> GRPCChannel {
+    func createChannel() -> GRPCChannel {
         let group = MultiThreadedEventLoopGroup(numberOfThreads: 10)
         let builder = options.serverUseTls ?
             ClientConnection.usingPlatformAppropriateTLS(for: group) :
@@ -44,18 +44,18 @@ public class ServiceBase {
     }
 
     internal func getSDKVersion() -> String {
-        let version = "1.7.0"
+        let version = "1.11.0"
         return version
     }
 
-    internal func buildMetadata(_ request: Message?) throws -> CallOptions {
+    func buildMetadata(_ request: Message?) throws -> CallOptions {
         var metadataOptions = CallOptions()
         metadataOptions.customMetadata.add(name: "TrinsicSDKLanguage", value: "swift")
         metadataOptions.customMetadata.add(name: "TrinsicSDKVersion", value: getSDKVersion())
         if request != nil {
             try metadataOptions.customMetadata.add(
                 name: "Authorization",
-                value: String(format: "Bearer %@", options.authToken ?? "")
+                value: String(format: "Bearer %@", options.authToken )
             )
         }
         return metadataOptions
