@@ -93,6 +93,12 @@ public class WalletService: ServiceBase {
             .wait()
     }
     
+    public func getWalletFromExternalIdentity(request: Services_Universalwallet_V1_GetWalletFromExternalIdentityRequest) throws -> Services_Universalwallet_V1_GetWalletFromExternalIdentityResponse {
+        return try client!.GetWalletFromExternalIdentity(request, callOptions: try buildMetadata(request))
+            .response
+            .wait()
+    }
+    
     public func generateAuthToken(request: Services_Universalwallet_V1_GenerateAuthTokenRequest) throws -> Services_Universalwallet_V1_GenerateAuthTokenResponse {
         return try client!.GenerateAuthToken(request, callOptions: try buildMetadata(request))
             .response
