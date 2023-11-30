@@ -319,7 +319,7 @@ public struct Services_Universalwallet_V1_CreateWalletRequest {
     public init() {}
 
     private var _description_p: String?
-    private var _identity: Services_Universalwallet_V1_CreateWalletRequest.ExternalIdentity?
+    fileprivate var _identity: Services_Universalwallet_V1_CreateWalletRequest.ExternalIdentity?
 }
 
 public struct Services_Universalwallet_V1_CreateWalletResponse {
@@ -501,6 +501,52 @@ public struct Services_Universalwallet_V1_ListWalletsResponse {
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
+}
+
+public struct Services_Universalwallet_V1_GetWalletFromExternalIdentityRequest {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var identity: Services_Provider_V1_WalletExternalIdentity {
+        get { _identity ?? Services_Provider_V1_WalletExternalIdentity() }
+        set { _identity = newValue }
+    }
+
+    /// Returns true if `identity` has been explicitly set.
+    public var hasIdentity: Bool { _identity != nil }
+    /// Clears the value of `identity`. Subsequent reads from it will return its default value.
+    public mutating func clearIdentity() { _identity = nil }
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+
+    fileprivate var _identity: Services_Provider_V1_WalletExternalIdentity?
+}
+
+/// Response to `GetWalletFromExternalIdentityRequest`
+public struct Services_Universalwallet_V1_GetWalletFromExternalIdentityResponse {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    /// Wallet configuration
+    public var wallet: Services_Provider_V1_WalletConfiguration {
+        get { _wallet ?? Services_Provider_V1_WalletConfiguration() }
+        set { _wallet = newValue }
+    }
+
+    /// Returns true if `wallet` has been explicitly set.
+    public var hasWallet: Bool { _wallet != nil }
+    /// Clears the value of `wallet`. Subsequent reads from it will return its default value.
+    public mutating func clearWallet() { _wallet = nil }
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+
+    fileprivate var _wallet: Services_Provider_V1_WalletConfiguration?
 }
 
 public struct Services_Universalwallet_V1_AddExternalIdentityInitRequest {
@@ -735,6 +781,8 @@ public struct Services_Universalwallet_V1_ListByVerificationTemplateResponse {
     extension Services_Universalwallet_V1_RevokeAuthTokenResponse: @unchecked Sendable {}
     extension Services_Universalwallet_V1_ListWalletsRequest: @unchecked Sendable {}
     extension Services_Universalwallet_V1_ListWalletsResponse: @unchecked Sendable {}
+    extension Services_Universalwallet_V1_GetWalletFromExternalIdentityRequest: @unchecked Sendable {}
+    extension Services_Universalwallet_V1_GetWalletFromExternalIdentityResponse: @unchecked Sendable {}
     extension Services_Universalwallet_V1_AddExternalIdentityInitRequest: @unchecked Sendable {}
     extension Services_Universalwallet_V1_AddExternalIdentityInitResponse: @unchecked Sendable {}
     extension Services_Universalwallet_V1_AddExternalIdentityConfirmRequest: @unchecked Sendable {}
@@ -768,8 +816,8 @@ extension Services_Universalwallet_V1_SearchRequest: SwiftProtobuf.Message, Swif
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &query)
-            case 2: try try decoder.decodeSingularStringField(value: &continuationToken)
+            case 1: try decoder.decodeSingularStringField(value: &query)
+            case 2: try decoder.decodeSingularStringField(value: &continuationToken)
             default: break
             }
         }
@@ -807,9 +855,9 @@ extension Services_Universalwallet_V1_SearchResponse: SwiftProtobuf.Message, Swi
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeRepeatedStringField(value: &items)
-            case 2: try try decoder.decodeSingularBoolField(value: &hasMoreResults_p)
-            case 4: try try decoder.decodeSingularStringField(value: &continuationToken)
+            case 1: try decoder.decodeRepeatedStringField(value: &items)
+            case 2: try decoder.decodeSingularBoolField(value: &hasMoreResults_p)
+            case 4: try decoder.decodeSingularStringField(value: &continuationToken)
             default: break
             }
         }
@@ -849,7 +897,7 @@ extension Services_Universalwallet_V1_GetItemRequest: SwiftProtobuf.Message, Swi
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &itemID)
+            case 1: try decoder.decodeSingularStringField(value: &itemID)
             default: break
             }
         }
@@ -882,8 +930,8 @@ extension Services_Universalwallet_V1_GetItemResponse: SwiftProtobuf.Message, Sw
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &itemJson)
-            case 2: try try decoder.decodeSingularStringField(value: &itemType)
+            case 1: try decoder.decodeSingularStringField(value: &itemJson)
+            case 2: try decoder.decodeSingularStringField(value: &itemType)
             default: break
             }
         }
@@ -920,8 +968,8 @@ extension Services_Universalwallet_V1_UpdateItemRequest: SwiftProtobuf.Message, 
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &itemID)
-            case 2: try try decoder.decodeSingularStringField(value: &itemType)
+            case 1: try decoder.decodeSingularStringField(value: &itemID)
+            case 2: try decoder.decodeSingularStringField(value: &itemType)
             default: break
             }
         }
@@ -976,8 +1024,8 @@ extension Services_Universalwallet_V1_InsertItemRequest: SwiftProtobuf.Message, 
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &itemJson)
-            case 2: try try decoder.decodeSingularStringField(value: &itemType)
+            case 1: try decoder.decodeSingularStringField(value: &itemJson)
+            case 2: try decoder.decodeSingularStringField(value: &itemType)
             default: break
             }
         }
@@ -1013,7 +1061,7 @@ extension Services_Universalwallet_V1_InsertItemResponse: SwiftProtobuf.Message,
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 2: try try decoder.decodeSingularStringField(value: &itemID)
+            case 2: try decoder.decodeSingularStringField(value: &itemID)
             default: break
             }
         }
@@ -1045,7 +1093,7 @@ extension Services_Universalwallet_V1_DeleteItemRequest: SwiftProtobuf.Message, 
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &itemID)
+            case 1: try decoder.decodeSingularStringField(value: &itemID)
             default: break
             }
         }
@@ -1188,9 +1236,9 @@ extension Services_Universalwallet_V1_CreateWalletRequest: SwiftProtobuf.Message
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &ecosystemID)
-            case 2: try try decoder.decodeSingularStringField(value: &_description_p)
-            case 3: try try decoder.decodeSingularMessageField(value: &_identity)
+            case 1: try decoder.decodeSingularStringField(value: &ecosystemID)
+            case 2: try decoder.decodeSingularStringField(value: &_description_p)
+            case 3: try decoder.decodeSingularMessageField(value: &_identity)
             default: break
             }
         }
@@ -1235,8 +1283,8 @@ extension Services_Universalwallet_V1_CreateWalletRequest.ExternalIdentity: Swif
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &identity)
-            case 2: try try decoder.decodeSingularEnumField(value: &provider)
+            case 1: try decoder.decodeSingularStringField(value: &identity)
+            case 2: try decoder.decodeSingularEnumField(value: &provider)
             default: break
             }
         }
@@ -1274,9 +1322,9 @@ extension Services_Universalwallet_V1_CreateWalletResponse: SwiftProtobuf.Messag
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 2: try try decoder.decodeSingularStringField(value: &authToken)
-            case 3: try try decoder.decodeSingularStringField(value: &tokenID)
-            case 4: try try decoder.decodeSingularMessageField(value: &_wallet)
+            case 2: try decoder.decodeSingularStringField(value: &authToken)
+            case 3: try decoder.decodeSingularStringField(value: &tokenID)
+            case 4: try decoder.decodeSingularMessageField(value: &_wallet)
             default: break
             }
         }
@@ -1321,8 +1369,8 @@ extension Services_Universalwallet_V1_GenerateAuthTokenRequest: SwiftProtobuf.Me
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &walletID)
-            case 2: try try decoder.decodeSingularStringField(value: &tokenDescription)
+            case 1: try decoder.decodeSingularStringField(value: &walletID)
+            case 2: try decoder.decodeSingularStringField(value: &tokenDescription)
             default: break
             }
         }
@@ -1359,8 +1407,8 @@ extension Services_Universalwallet_V1_GenerateAuthTokenResponse: SwiftProtobuf.M
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &tokenID)
-            case 2: try try decoder.decodeSingularStringField(value: &authToken)
+            case 1: try decoder.decodeSingularStringField(value: &tokenID)
+            case 2: try decoder.decodeSingularStringField(value: &authToken)
             default: break
             }
         }
@@ -1396,7 +1444,7 @@ extension Services_Universalwallet_V1_GetWalletInfoRequest: SwiftProtobuf.Messag
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &walletID)
+            case 1: try decoder.decodeSingularStringField(value: &walletID)
             default: break
             }
         }
@@ -1428,7 +1476,7 @@ extension Services_Universalwallet_V1_GetWalletInfoResponse: SwiftProtobuf.Messa
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularMessageField(value: &_wallet)
+            case 1: try decoder.decodeSingularMessageField(value: &_wallet)
             default: break
             }
         }
@@ -1482,7 +1530,7 @@ extension Services_Universalwallet_V1_GetMyInfoResponse: SwiftProtobuf.Message, 
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularMessageField(value: &_wallet)
+            case 1: try decoder.decodeSingularMessageField(value: &_wallet)
             default: break
             }
         }
@@ -1519,8 +1567,8 @@ extension Services_Universalwallet_V1_RevokeAuthTokenRequest: SwiftProtobuf.Mess
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &walletID)
-            case 2: try try decoder.decodeSingularStringField(value: &tokenID)
+            case 1: try decoder.decodeSingularStringField(value: &walletID)
+            case 2: try decoder.decodeSingularStringField(value: &tokenID)
             default: break
             }
         }
@@ -1574,7 +1622,7 @@ extension Services_Universalwallet_V1_ListWalletsRequest: SwiftProtobuf.Message,
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &filter)
+            case 1: try decoder.decodeSingularStringField(value: &filter)
             default: break
             }
         }
@@ -1606,7 +1654,7 @@ extension Services_Universalwallet_V1_ListWalletsResponse: SwiftProtobuf.Message
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeRepeatedMessageField(value: &wallets)
+            case 1: try decoder.decodeRepeatedMessageField(value: &wallets)
             default: break
             }
         }
@@ -1626,6 +1674,78 @@ extension Services_Universalwallet_V1_ListWalletsResponse: SwiftProtobuf.Message
     }
 }
 
+extension Services_Universalwallet_V1_GetWalletFromExternalIdentityRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".GetWalletFromExternalIdentityRequest"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .same(proto: "identity"),
+    ]
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 1: try decoder.decodeSingularMessageField(value: &_identity)
+            default: break
+            }
+        }
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every if/case branch local when no optimizations
+        // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+        // https://github.com/apple/swift-protobuf/issues/1182
+        try { if let v = self._identity {
+            try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+        } }()
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Universalwallet_V1_GetWalletFromExternalIdentityRequest, rhs: Services_Universalwallet_V1_GetWalletFromExternalIdentityRequest) -> Bool {
+        if lhs._identity != rhs._identity { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}
+
+extension Services_Universalwallet_V1_GetWalletFromExternalIdentityResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+    public static let protoMessageName: String = _protobuf_package + ".GetWalletFromExternalIdentityResponse"
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        1: .same(proto: "wallet"),
+    ]
+
+    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+        while let fieldNumber = try decoder.nextFieldNumber() {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch fieldNumber {
+            case 1: try decoder.decodeSingularMessageField(value: &_wallet)
+            default: break
+            }
+        }
+    }
+
+    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every if/case branch local when no optimizations
+        // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+        // https://github.com/apple/swift-protobuf/issues/1182
+        try { if let v = self._wallet {
+            try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+        } }()
+        try unknownFields.traverse(visitor: &visitor)
+    }
+
+    public static func == (lhs: Services_Universalwallet_V1_GetWalletFromExternalIdentityResponse, rhs: Services_Universalwallet_V1_GetWalletFromExternalIdentityResponse) -> Bool {
+        if lhs._wallet != rhs._wallet { return false }
+        if lhs.unknownFields != rhs.unknownFields { return false }
+        return true
+    }
+}
+
 extension Services_Universalwallet_V1_AddExternalIdentityInitRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
     public static let protoMessageName: String = _protobuf_package + ".AddExternalIdentityInitRequest"
     public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -1639,8 +1759,8 @@ extension Services_Universalwallet_V1_AddExternalIdentityInitRequest: SwiftProto
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &identity)
-            case 2: try try decoder.decodeSingularEnumField(value: &provider)
+            case 1: try decoder.decodeSingularStringField(value: &identity)
+            case 2: try decoder.decodeSingularEnumField(value: &provider)
             default: break
             }
         }
@@ -1676,7 +1796,7 @@ extension Services_Universalwallet_V1_AddExternalIdentityInitResponse: SwiftProt
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &challenge)
+            case 1: try decoder.decodeSingularStringField(value: &challenge)
             default: break
             }
         }
@@ -1709,8 +1829,8 @@ extension Services_Universalwallet_V1_AddExternalIdentityConfirmRequest: SwiftPr
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &challenge)
-            case 2: try try decoder.decodeSingularStringField(value: &response)
+            case 1: try decoder.decodeSingularStringField(value: &challenge)
+            case 2: try decoder.decodeSingularStringField(value: &response)
             default: break
             }
         }
@@ -1764,7 +1884,7 @@ extension Services_Universalwallet_V1_RemoveExternalIdentityRequest: SwiftProtob
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &identity)
+            case 1: try decoder.decodeSingularStringField(value: &identity)
             default: break
             }
         }
@@ -1816,9 +1936,9 @@ extension Services_Universalwallet_V1_AuthenticateInitRequest: SwiftProtobuf.Mes
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &identity)
-            case 2: try try decoder.decodeSingularEnumField(value: &provider)
-            case 3: try try decoder.decodeSingularStringField(value: &ecosystemID)
+            case 1: try decoder.decodeSingularStringField(value: &identity)
+            case 2: try decoder.decodeSingularEnumField(value: &provider)
+            case 3: try decoder.decodeSingularStringField(value: &ecosystemID)
             default: break
             }
         }
@@ -1858,7 +1978,7 @@ extension Services_Universalwallet_V1_AuthenticateInitResponse: SwiftProtobuf.Me
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &challenge)
+            case 1: try decoder.decodeSingularStringField(value: &challenge)
             default: break
             }
         }
@@ -1890,7 +2010,7 @@ extension Services_Universalwallet_V1_AuthenticateResendCodeRequest: SwiftProtob
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &challenge)
+            case 1: try decoder.decodeSingularStringField(value: &challenge)
             default: break
             }
         }
@@ -1941,8 +2061,8 @@ extension Services_Universalwallet_V1_AuthenticateConfirmRequest: SwiftProtobuf.
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &challenge)
-            case 2: try try decoder.decodeSingularStringField(value: &response)
+            case 1: try decoder.decodeSingularStringField(value: &challenge)
+            case 2: try decoder.decodeSingularStringField(value: &response)
             default: break
             }
         }
@@ -1978,7 +2098,7 @@ extension Services_Universalwallet_V1_AuthenticateConfirmResponse: SwiftProtobuf
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &authToken)
+            case 1: try decoder.decodeSingularStringField(value: &authToken)
             default: break
             }
         }
@@ -2011,8 +2131,8 @@ extension Services_Universalwallet_V1_ListByVerificationTemplateRequest: SwiftPr
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &verificationTemplateID)
-            case 2: try try decoder.decodeSingularStringField(value: &continuationToken)
+            case 1: try decoder.decodeSingularStringField(value: &verificationTemplateID)
+            case 2: try decoder.decodeSingularStringField(value: &continuationToken)
             default: break
             }
         }
@@ -2050,9 +2170,9 @@ extension Services_Universalwallet_V1_ListByVerificationTemplateResponse: SwiftP
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeRepeatedStringField(value: &items)
-            case 2: try try decoder.decodeSingularBoolField(value: &hasMoreResults_p)
-            case 3: try try decoder.decodeSingularStringField(value: &continuationToken)
+            case 1: try decoder.decodeRepeatedStringField(value: &items)
+            case 2: try decoder.decodeSingularBoolField(value: &hasMoreResults_p)
+            case 3: try decoder.decodeSingularStringField(value: &continuationToken)
             default: break
             }
         }

@@ -34,6 +34,9 @@ public enum Services_Provider_V1_IdentityProvider: SwiftProtobuf.Enum {
 
     /// Identity provider is passkey (WebAuthn) -- for Trinsic internal use only
     case passkey // = 3
+
+    /// Identity provider is passkey using Trinsic Authenticator for mobile phones
+    case trinsicAuthenticator // = 4
     case UNRECOGNIZED(Int)
 
     public init() {
@@ -46,6 +49,7 @@ public enum Services_Provider_V1_IdentityProvider: SwiftProtobuf.Enum {
         case 1: self = .email
         case 2: self = .phone
         case 3: self = .passkey
+        case 4: self = .trinsicAuthenticator
         default: self = .UNRECOGNIZED(rawValue)
         }
     }
@@ -56,6 +60,7 @@ public enum Services_Provider_V1_IdentityProvider: SwiftProtobuf.Enum {
         case .email: return 1
         case .phone: return 2
         case .passkey: return 3
+        case .trinsicAuthenticator: return 4
         case let .UNRECOGNIZED(i): return i
         }
     }
@@ -65,11 +70,12 @@ public enum Services_Provider_V1_IdentityProvider: SwiftProtobuf.Enum {
 
     extension Services_Provider_V1_IdentityProvider: CaseIterable {
         // The compiler won't synthesize support with the UNRECOGNIZED case.
-        public static var allCases: [Services_Provider_V1_IdentityProvider] = [
+        public static let allCases: [Services_Provider_V1_IdentityProvider] = [
             .unknown,
             .email,
             .phone,
             .passkey,
+            .trinsicAuthenticator,
         ]
     }
 
@@ -231,66 +237,6 @@ public struct Services_Provider_V1_GetOberonKeyResponse {
     public init() {}
 }
 
-/// The below display can be removed only once the Dashboard is updating this itself - currently it uses this request
-/// DEPRECATED, will be removed June 1st 2023
-public struct Services_Provider_V1_RetrieveDomainVerificationRecordRequest {
-    // SwiftProtobuf.Message conformance is added in an extension below. See the
-    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-    // methods supported on all messages.
-
-    public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-    public init() {}
-}
-
-/// The below display can be removed only once the Dashboard is updating this itself - currently it uses this request
-/// DEPRECATED, will be removed June 1st 2023
-public struct Services_Provider_V1_RetrieveDomainVerificationRecordResponse {
-    // SwiftProtobuf.Message conformance is added in an extension below. See the
-    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-    // methods supported on all messages.
-
-    /// TXT record name to use for domain verification
-    public var verificationRecordName: String = .init()
-
-    /// TXT code for domain verification
-    public var verificationRecordValue: String = .init()
-
-    public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-    public init() {}
-}
-
-/// The below display can be removed only once the Dashboard is updating this itself - currently it uses this request
-/// DEPRECATED, will be removed June 1st 2023
-public struct Services_Provider_V1_RefreshDomainVerificationStatusRequest {
-    // SwiftProtobuf.Message conformance is added in an extension below. See the
-    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-    // methods supported on all messages.
-
-    public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-    public init() {}
-}
-
-/// The below display can be removed only once the Dashboard is updating this itself - currently it uses this request
-/// DEPRECATED, will be removed June 1st 2023
-public struct Services_Provider_V1_RefreshDomainVerificationStatusResponse {
-    // SwiftProtobuf.Message conformance is added in an extension below. See the
-    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-    // methods supported on all messages.
-
-    /// Domain URL verified
-    public var domain: String = .init()
-
-    /// Specifies if the above `domain` was successfully verified
-    public var domainVerified: Bool = false
-
-    public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-    public init() {}
-}
-
 /// Search for issuers/holders/verifiers
 public struct Services_Provider_V1_SearchWalletConfigurationsRequest {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -435,7 +381,7 @@ public struct Services_Provider_V1_IonOptions {
 
     extension Services_Provider_V1_IonOptions.IonNetwork: CaseIterable {
         // The compiler won't synthesize support with the UNRECOGNIZED case.
-        public static var allCases: [Services_Provider_V1_IonOptions.IonNetwork] = [
+        public static let allCases: [Services_Provider_V1_IonOptions.IonNetwork] = [
             .testNet,
             .mainNet,
         ]
@@ -509,7 +455,7 @@ public struct Services_Provider_V1_IndyOptions {
 
     extension Services_Provider_V1_IndyOptions.IndyNetwork: CaseIterable {
         // The compiler won't synthesize support with the UNRECOGNIZED case.
-        public static var allCases: [Services_Provider_V1_IndyOptions.IndyNetwork] = [
+        public static let allCases: [Services_Provider_V1_IndyOptions.IndyNetwork] = [
             .danube,
             .sovrinBuilder,
             .sovrinStaging,
@@ -674,10 +620,6 @@ public struct Services_Provider_V1_UpgradeDidResponse {
     extension Services_Provider_V1_EcosystemInfoResponse: @unchecked Sendable {}
     extension Services_Provider_V1_GetOberonKeyRequest: @unchecked Sendable {}
     extension Services_Provider_V1_GetOberonKeyResponse: @unchecked Sendable {}
-    extension Services_Provider_V1_RetrieveDomainVerificationRecordRequest: @unchecked Sendable {}
-    extension Services_Provider_V1_RetrieveDomainVerificationRecordResponse: @unchecked Sendable {}
-    extension Services_Provider_V1_RefreshDomainVerificationStatusRequest: @unchecked Sendable {}
-    extension Services_Provider_V1_RefreshDomainVerificationStatusResponse: @unchecked Sendable {}
     extension Services_Provider_V1_SearchWalletConfigurationsRequest: @unchecked Sendable {}
     extension Services_Provider_V1_SearchWalletConfigurationResponse: @unchecked Sendable {}
     extension Services_Provider_V1_WalletConfiguration: @unchecked Sendable {}
@@ -702,6 +644,7 @@ extension Services_Provider_V1_IdentityProvider: SwiftProtobuf._ProtoNameProvidi
         1: .same(proto: "Email"),
         2: .same(proto: "Phone"),
         3: .same(proto: "Passkey"),
+        4: .same(proto: "TrinsicAuthenticator"),
     ]
 }
 
@@ -719,9 +662,9 @@ extension Services_Provider_V1_Ecosystem: SwiftProtobuf.Message, SwiftProtobuf._
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &id)
-            case 2: try try decoder.decodeSingularStringField(value: &name)
-            case 3: try try decoder.decodeSingularStringField(value: &description_p)
+            case 1: try decoder.decodeSingularStringField(value: &id)
+            case 2: try decoder.decodeSingularStringField(value: &name)
+            case 3: try decoder.decodeSingularStringField(value: &description_p)
             default: break
             }
         }
@@ -764,10 +707,10 @@ extension Services_Provider_V1_CreateEcosystemRequest: SwiftProtobuf.Message, Sw
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &name)
-            case 2: try try decoder.decodeSingularStringField(value: &description_p)
-            case 4: try try decoder.decodeSingularMessageField(value: &_details)
-            case 5: try try decoder.decodeSingularStringField(value: &domain)
+            case 1: try decoder.decodeSingularStringField(value: &name)
+            case 2: try decoder.decodeSingularStringField(value: &description_p)
+            case 4: try decoder.decodeSingularMessageField(value: &_details)
+            case 5: try decoder.decodeSingularStringField(value: &domain)
             default: break
             }
         }
@@ -817,9 +760,9 @@ extension Services_Provider_V1_CreateEcosystemResponse: SwiftProtobuf.Message, S
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularMessageField(value: &_ecosystem)
-            case 2: try try decoder.decodeSingularMessageField(value: &_profile)
-            case 3: try try decoder.decodeSingularEnumField(value: &confirmationMethod)
+            case 1: try decoder.decodeSingularMessageField(value: &_ecosystem)
+            case 2: try decoder.decodeSingularMessageField(value: &_profile)
+            case 3: try decoder.decodeSingularEnumField(value: &confirmationMethod)
             default: break
             }
         }
@@ -881,7 +824,7 @@ extension Services_Provider_V1_EcosystemInfoResponse: SwiftProtobuf.Message, Swi
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularMessageField(value: &_ecosystem)
+            case 1: try decoder.decodeSingularMessageField(value: &_ecosystem)
             default: break
             }
         }
@@ -935,7 +878,7 @@ extension Services_Provider_V1_GetOberonKeyResponse: SwiftProtobuf.Message, Swif
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &key)
+            case 1: try decoder.decodeSingularStringField(value: &key)
             default: break
             }
         }
@@ -955,118 +898,6 @@ extension Services_Provider_V1_GetOberonKeyResponse: SwiftProtobuf.Message, Swif
     }
 }
 
-extension Services_Provider_V1_RetrieveDomainVerificationRecordRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-    public static let protoMessageName: String = _protobuf_package + ".RetrieveDomainVerificationRecordRequest"
-    public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
-
-    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-        while let _ = try decoder.nextFieldNumber() {}
-    }
-
-    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-        try unknownFields.traverse(visitor: &visitor)
-    }
-
-    public static func == (lhs: Services_Provider_V1_RetrieveDomainVerificationRecordRequest, rhs: Services_Provider_V1_RetrieveDomainVerificationRecordRequest) -> Bool {
-        if lhs.unknownFields != rhs.unknownFields { return false }
-        return true
-    }
-}
-
-extension Services_Provider_V1_RetrieveDomainVerificationRecordResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-    public static let protoMessageName: String = _protobuf_package + ".RetrieveDomainVerificationRecordResponse"
-    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-        1: .standard(proto: "verification_record_name"),
-        2: .standard(proto: "verification_record_value"),
-    ]
-
-    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-        while let fieldNumber = try decoder.nextFieldNumber() {
-            // The use of inline closures is to circumvent an issue where the compiler
-            // allocates stack space for every case branch when no optimizations are
-            // enabled. https://github.com/apple/swift-protobuf/issues/1034
-            switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &verificationRecordName)
-            case 2: try try decoder.decodeSingularStringField(value: &verificationRecordValue)
-            default: break
-            }
-        }
-    }
-
-    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-        if !verificationRecordName.isEmpty {
-            try visitor.visitSingularStringField(value: verificationRecordName, fieldNumber: 1)
-        }
-        if !verificationRecordValue.isEmpty {
-            try visitor.visitSingularStringField(value: verificationRecordValue, fieldNumber: 2)
-        }
-        try unknownFields.traverse(visitor: &visitor)
-    }
-
-    public static func == (lhs: Services_Provider_V1_RetrieveDomainVerificationRecordResponse, rhs: Services_Provider_V1_RetrieveDomainVerificationRecordResponse) -> Bool {
-        if lhs.verificationRecordName != rhs.verificationRecordName { return false }
-        if lhs.verificationRecordValue != rhs.verificationRecordValue { return false }
-        if lhs.unknownFields != rhs.unknownFields { return false }
-        return true
-    }
-}
-
-extension Services_Provider_V1_RefreshDomainVerificationStatusRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-    public static let protoMessageName: String = _protobuf_package + ".RefreshDomainVerificationStatusRequest"
-    public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
-
-    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-        while let _ = try decoder.nextFieldNumber() {}
-    }
-
-    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-        try unknownFields.traverse(visitor: &visitor)
-    }
-
-    public static func == (lhs: Services_Provider_V1_RefreshDomainVerificationStatusRequest, rhs: Services_Provider_V1_RefreshDomainVerificationStatusRequest) -> Bool {
-        if lhs.unknownFields != rhs.unknownFields { return false }
-        return true
-    }
-}
-
-extension Services_Provider_V1_RefreshDomainVerificationStatusResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-    public static let protoMessageName: String = _protobuf_package + ".RefreshDomainVerificationStatusResponse"
-    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-        1: .same(proto: "domain"),
-        2: .standard(proto: "domain_verified"),
-    ]
-
-    public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-        while let fieldNumber = try decoder.nextFieldNumber() {
-            // The use of inline closures is to circumvent an issue where the compiler
-            // allocates stack space for every case branch when no optimizations are
-            // enabled. https://github.com/apple/swift-protobuf/issues/1034
-            switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &domain)
-            case 2: try try decoder.decodeSingularBoolField(value: &domainVerified)
-            default: break
-            }
-        }
-    }
-
-    public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-        if !domain.isEmpty {
-            try visitor.visitSingularStringField(value: domain, fieldNumber: 1)
-        }
-        if domainVerified != false {
-            try visitor.visitSingularBoolField(value: domainVerified, fieldNumber: 2)
-        }
-        try unknownFields.traverse(visitor: &visitor)
-    }
-
-    public static func == (lhs: Services_Provider_V1_RefreshDomainVerificationStatusResponse, rhs: Services_Provider_V1_RefreshDomainVerificationStatusResponse) -> Bool {
-        if lhs.domain != rhs.domain { return false }
-        if lhs.domainVerified != rhs.domainVerified { return false }
-        if lhs.unknownFields != rhs.unknownFields { return false }
-        return true
-    }
-}
-
 extension Services_Provider_V1_SearchWalletConfigurationsRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
     public static let protoMessageName: String = _protobuf_package + ".SearchWalletConfigurationsRequest"
     public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -1080,8 +911,8 @@ extension Services_Provider_V1_SearchWalletConfigurationsRequest: SwiftProtobuf.
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &queryFilter)
-            case 2: try try decoder.decodeSingularStringField(value: &continuationToken)
+            case 1: try decoder.decodeSingularStringField(value: &queryFilter)
+            case 2: try decoder.decodeSingularStringField(value: &continuationToken)
             default: break
             }
         }
@@ -1119,9 +950,9 @@ extension Services_Provider_V1_SearchWalletConfigurationResponse: SwiftProtobuf.
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeRepeatedMessageField(value: &results)
-            case 2: try try decoder.decodeSingularBoolField(value: &hasMoreResults_p)
-            case 4: try try decoder.decodeSingularStringField(value: &continuationToken)
+            case 1: try decoder.decodeRepeatedMessageField(value: &results)
+            case 2: try decoder.decodeSingularBoolField(value: &hasMoreResults_p)
+            case 4: try decoder.decodeSingularStringField(value: &continuationToken)
             default: break
             }
         }
@@ -1171,17 +1002,17 @@ extension Services_Provider_V1_WalletConfiguration: SwiftProtobuf.Message, Swift
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &name)
-            case 2: try try decoder.decodeSingularStringField(value: &email)
-            case 3: try try decoder.decodeSingularStringField(value: &sms)
-            case 4: try try decoder.decodeSingularStringField(value: &walletID)
-            case 5: try try decoder.decodeSingularStringField(value: &publicDid)
-            case 6: try try decoder.decodeSingularStringField(value: &configType)
-            case 7: try try decoder.decodeRepeatedMessageField(value: &authTokens)
-            case 8: try try decoder.decodeRepeatedStringField(value: &externalIdentityIds)
-            case 9: try try decoder.decodeSingularStringField(value: &ecosystemID)
-            case 10: try try decoder.decodeSingularStringField(value: &description_p)
-            case 11: try try decoder.decodeRepeatedMessageField(value: &externalIdentities)
+            case 1: try decoder.decodeSingularStringField(value: &name)
+            case 2: try decoder.decodeSingularStringField(value: &email)
+            case 3: try decoder.decodeSingularStringField(value: &sms)
+            case 4: try decoder.decodeSingularStringField(value: &walletID)
+            case 5: try decoder.decodeSingularStringField(value: &publicDid)
+            case 6: try decoder.decodeSingularStringField(value: &configType)
+            case 7: try decoder.decodeRepeatedMessageField(value: &authTokens)
+            case 8: try decoder.decodeRepeatedStringField(value: &externalIdentityIds)
+            case 9: try decoder.decodeSingularStringField(value: &ecosystemID)
+            case 10: try decoder.decodeSingularStringField(value: &description_p)
+            case 11: try decoder.decodeRepeatedMessageField(value: &externalIdentities)
             default: break
             }
         }
@@ -1254,8 +1085,8 @@ extension Services_Provider_V1_WalletExternalIdentity: SwiftProtobuf.Message, Sw
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularEnumField(value: &provider)
-            case 2: try try decoder.decodeSingularStringField(value: &id)
+            case 1: try decoder.decodeSingularEnumField(value: &provider)
+            case 2: try decoder.decodeSingularStringField(value: &id)
             default: break
             }
         }
@@ -1291,7 +1122,7 @@ extension Services_Provider_V1_IonOptions: SwiftProtobuf.Message, SwiftProtobuf.
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularEnumField(value: &network)
+            case 1: try decoder.decodeSingularEnumField(value: &network)
             default: break
             }
         }
@@ -1330,7 +1161,7 @@ extension Services_Provider_V1_IndyOptions: SwiftProtobuf.Message, SwiftProtobuf
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularEnumField(value: &network)
+            case 1: try decoder.decodeSingularEnumField(value: &network)
             default: break
             }
         }
@@ -1397,7 +1228,7 @@ extension Services_Provider_V1_UpgradeDidRequest: SwiftProtobuf.Message, SwiftPr
                         self.account = .walletID(v)
                     }
                 }()
-            case 3: try try decoder.decodeSingularEnumField(value: &method)
+            case 3: try decoder.decodeSingularEnumField(value: &method)
             case 4: try {
                     var v: Services_Provider_V1_IonOptions?
                     var hadOneofValue = false
@@ -1494,7 +1325,7 @@ extension Services_Provider_V1_UpgradeDidResponse: SwiftProtobuf.Message, SwiftP
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &did)
+            case 1: try decoder.decodeSingularStringField(value: &did)
             default: break
             }
         }

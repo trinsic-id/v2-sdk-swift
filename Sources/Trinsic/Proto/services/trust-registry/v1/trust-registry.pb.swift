@@ -70,7 +70,7 @@ public enum Services_Trustregistry_V1_RegistrationStatus: SwiftProtobuf.Enum {
 
     extension Services_Trustregistry_V1_RegistrationStatus: CaseIterable {
         // The compiler won't synthesize support with the UNRECOGNIZED case.
-        public static var allCases: [Services_Trustregistry_V1_RegistrationStatus] = [
+        public static let allCases: [Services_Trustregistry_V1_RegistrationStatus] = [
             .current,
             .expired,
             .terminated,
@@ -176,6 +176,7 @@ public struct Services_Trustregistry_V1_RegisterMemberResponse {
 
 /// Request to unregister a member as a valid issuer of a specific credential schema.
 /// Only one of `did_uri`, `wallet_id`, or `email` may be specified.
+/// The URI of the credential schema must be specified.
 public struct Services_Trustregistry_V1_UnregisterMemberRequest {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -261,7 +262,7 @@ public struct Services_Trustregistry_V1_UnregisterMemberResponse {
     public init() {}
 }
 
-/// Request to fetch member status in governance framework for a specific credential schema.
+/// Request to fetch member status in Trust Registry for a specific credential schema.
 public struct Services_Trustregistry_V1_GetMemberAuthorizationStatusRequest {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -381,7 +382,7 @@ public struct Services_Trustregistry_V1_AuthorizedMemberSchema {
     public init() {}
 }
 
-/// Request to get a member of the governance framework
+/// Request to get a member of the Trust Registry
 public struct Services_Trustregistry_V1_GetMemberRequest {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -551,9 +552,9 @@ extension Services_Trustregistry_V1_RegisterMemberRequest: SwiftProtobuf.Message
                         self.member = .email(v)
                     }
                 }()
-            case 10: try try decoder.decodeSingularStringField(value: &schemaUri)
-            case 11: try try decoder.decodeSingularUInt64Field(value: &validFromUtc)
-            case 12: try try decoder.decodeSingularUInt64Field(value: &validUntilUtc)
+            case 10: try decoder.decodeSingularStringField(value: &schemaUri)
+            case 11: try decoder.decodeSingularUInt64Field(value: &validFromUtc)
+            case 12: try decoder.decodeSingularUInt64Field(value: &validUntilUtc)
             default: break
             }
         }
@@ -658,7 +659,7 @@ extension Services_Trustregistry_V1_UnregisterMemberRequest: SwiftProtobuf.Messa
                         self.member = .email(v)
                     }
                 }()
-            case 10: try try decoder.decodeSingularStringField(value: &schemaUri)
+            case 10: try decoder.decodeSingularStringField(value: &schemaUri)
             default: break
             }
         }
@@ -729,8 +730,8 @@ extension Services_Trustregistry_V1_GetMemberAuthorizationStatusRequest: SwiftPr
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &didUri)
-            case 2: try try decoder.decodeSingularStringField(value: &schemaUri)
+            case 1: try decoder.decodeSingularStringField(value: &didUri)
+            case 2: try decoder.decodeSingularStringField(value: &schemaUri)
             default: break
             }
         }
@@ -766,7 +767,7 @@ extension Services_Trustregistry_V1_GetMemberAuthorizationStatusResponse: SwiftP
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularEnumField(value: &status)
+            case 1: try decoder.decodeSingularEnumField(value: &status)
             default: break
             }
         }
@@ -799,8 +800,8 @@ extension Services_Trustregistry_V1_ListAuthorizedMembersRequest: SwiftProtobuf.
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &_schemaUri)
-            case 2: try try decoder.decodeSingularStringField(value: &_continuationToken)
+            case 1: try decoder.decodeSingularStringField(value: &_schemaUri)
+            case 2: try decoder.decodeSingularStringField(value: &_continuationToken)
             default: break
             }
         }
@@ -842,9 +843,9 @@ extension Services_Trustregistry_V1_ListAuthorizedMembersResponse: SwiftProtobuf
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeRepeatedMessageField(value: &authorizedMembers)
-            case 2: try try decoder.decodeSingularBoolField(value: &hasMoreResults_p)
-            case 3: try try decoder.decodeSingularStringField(value: &continuationToken)
+            case 1: try decoder.decodeRepeatedMessageField(value: &authorizedMembers)
+            case 2: try decoder.decodeSingularBoolField(value: &hasMoreResults_p)
+            case 3: try decoder.decodeSingularStringField(value: &continuationToken)
             default: break
             }
         }
@@ -885,8 +886,8 @@ extension Services_Trustregistry_V1_AuthorizedMember: SwiftProtobuf.Message, Swi
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &did)
-            case 2: try try decoder.decodeRepeatedMessageField(value: &authorizedMemberSchemas)
+            case 1: try decoder.decodeSingularStringField(value: &did)
+            case 2: try decoder.decodeRepeatedMessageField(value: &authorizedMemberSchemas)
             default: break
             }
         }
@@ -926,11 +927,11 @@ extension Services_Trustregistry_V1_AuthorizedMemberSchema: SwiftProtobuf.Messag
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &schemaUri)
-            case 2: try try decoder.decodeSingularStringField(value: &status)
-            case 3: try try decoder.decodeSingularStringField(value: &statusDetails)
-            case 4: try try decoder.decodeSingularUInt64Field(value: &validFrom)
-            case 5: try try decoder.decodeSingularUInt64Field(value: &validUntil)
+            case 1: try decoder.decodeSingularStringField(value: &schemaUri)
+            case 2: try decoder.decodeSingularStringField(value: &status)
+            case 3: try decoder.decodeSingularStringField(value: &statusDetails)
+            case 4: try decoder.decodeSingularUInt64Field(value: &validFrom)
+            case 5: try decoder.decodeSingularUInt64Field(value: &validUntil)
             default: break
             }
         }
@@ -1051,7 +1052,7 @@ extension Services_Trustregistry_V1_GetMemberResponse: SwiftProtobuf.Message, Sw
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularMessageField(value: &_authorizedMember)
+            case 1: try decoder.decodeSingularMessageField(value: &_authorizedMember)
             default: break
             }
         }

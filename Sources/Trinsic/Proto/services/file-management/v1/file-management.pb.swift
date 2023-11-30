@@ -279,12 +279,12 @@ extension Services_Filemanagement_V1_File: SwiftProtobuf.Message, SwiftProtobuf.
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &id)
-            case 2: try try decoder.decodeSingularStringField(value: &uploaderID)
-            case 3: try try decoder.decodeSingularUInt32Field(value: &size)
-            case 4: try try decoder.decodeSingularStringField(value: &mimeType)
-            case 5: try try decoder.decodeSingularStringField(value: &uploaded)
-            case 6: try try decoder.decodeSingularStringField(value: &url)
+            case 1: try decoder.decodeSingularStringField(value: &id)
+            case 2: try decoder.decodeSingularStringField(value: &uploaderID)
+            case 3: try decoder.decodeSingularUInt32Field(value: &size)
+            case 4: try decoder.decodeSingularStringField(value: &mimeType)
+            case 5: try decoder.decodeSingularStringField(value: &uploaded)
+            case 6: try decoder.decodeSingularStringField(value: &url)
             default: break
             }
         }
@@ -337,8 +337,8 @@ extension Services_Filemanagement_V1_StorageStats: SwiftProtobuf.Message, SwiftP
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularUInt32Field(value: &numFiles)
-            case 2: try try decoder.decodeSingularUInt64Field(value: &totalSize)
+            case 1: try decoder.decodeSingularUInt32Field(value: &numFiles)
+            case 2: try decoder.decodeSingularUInt64Field(value: &totalSize)
             default: break
             }
         }
@@ -375,8 +375,8 @@ extension Services_Filemanagement_V1_UploadFileRequest: SwiftProtobuf.Message, S
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularBytesField(value: &contents)
-            case 2: try try decoder.decodeSingularStringField(value: &mimeType)
+            case 1: try decoder.decodeSingularBytesField(value: &contents)
+            case 2: try decoder.decodeSingularStringField(value: &mimeType)
             default: break
             }
         }
@@ -412,7 +412,7 @@ extension Services_Filemanagement_V1_UploadFileResponse: SwiftProtobuf.Message, 
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularMessageField(value: &_uploadedFile)
+            case 1: try decoder.decodeSingularMessageField(value: &_uploadedFile)
             default: break
             }
         }
@@ -448,7 +448,7 @@ extension Services_Filemanagement_V1_GetFileRequest: SwiftProtobuf.Message, Swif
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &id)
+            case 1: try decoder.decodeSingularStringField(value: &id)
             default: break
             }
         }
@@ -480,7 +480,7 @@ extension Services_Filemanagement_V1_GetFileResponse: SwiftProtobuf.Message, Swi
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularMessageField(value: &_file)
+            case 1: try decoder.decodeSingularMessageField(value: &_file)
             default: break
             }
         }
@@ -516,7 +516,7 @@ extension Services_Filemanagement_V1_DeleteFileRequest: SwiftProtobuf.Message, S
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &id)
+            case 1: try decoder.decodeSingularStringField(value: &id)
             default: break
             }
         }
@@ -567,8 +567,8 @@ extension Services_Filemanagement_V1_ListFilesRequest: SwiftProtobuf.Message, Sw
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &query)
-            case 2: try try decoder.decodeSingularStringField(value: &continuationToken)
+            case 1: try decoder.decodeSingularStringField(value: &query)
+            case 2: try decoder.decodeSingularStringField(value: &continuationToken)
             default: break
             }
         }
@@ -606,9 +606,9 @@ extension Services_Filemanagement_V1_ListFilesResponse: SwiftProtobuf.Message, S
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeRepeatedMessageField(value: &files)
-            case 2: try try decoder.decodeSingularBoolField(value: &hasMoreResults_p)
-            case 3: try try decoder.decodeSingularStringField(value: &continuationToken)
+            case 1: try decoder.decodeRepeatedMessageField(value: &files)
+            case 2: try decoder.decodeSingularBoolField(value: &hasMoreResults_p)
+            case 3: try decoder.decodeSingularStringField(value: &continuationToken)
             default: break
             }
         }
@@ -666,7 +666,7 @@ extension Services_Filemanagement_V1_GetStorageStatsResponse: SwiftProtobuf.Mess
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularMessageField(value: &_stats)
+            case 1: try decoder.decodeSingularMessageField(value: &_stats)
             default: break
             }
         }

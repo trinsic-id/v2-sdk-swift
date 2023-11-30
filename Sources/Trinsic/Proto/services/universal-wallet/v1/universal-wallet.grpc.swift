@@ -62,6 +62,11 @@ public protocol Services_Universalwallet_V1_UniversalWalletClientProtocol: GRPCC
         callOptions: CallOptions?
     ) -> UnaryCall<Services_Universalwallet_V1_GetMyInfoRequest, Services_Universalwallet_V1_GetMyInfoResponse>
 
+    func GetWalletFromExternalIdentity(
+        _ request: Services_Universalwallet_V1_GetWalletFromExternalIdentityRequest,
+        callOptions: CallOptions?
+    ) -> UnaryCall<Services_Universalwallet_V1_GetWalletFromExternalIdentityRequest, Services_Universalwallet_V1_GetWalletFromExternalIdentityResponse>
+
     func GenerateAuthToken(
         _ request: Services_Universalwallet_V1_GenerateAuthTokenRequest,
         callOptions: CallOptions?
@@ -277,6 +282,24 @@ public extension Services_Universalwallet_V1_UniversalWalletClientProtocol {
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
             interceptors: interceptors?.makeGetMyInfoInterceptors() ?? []
+        )
+    }
+
+    /// Retrieve information from an ecosystem wallet by searching for its external identity (email or phone)
+    ///
+    /// - Parameters:
+    ///   - request: Request to send to GetWalletFromExternalIdentity.
+    ///   - callOptions: Call options.
+    /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+    func GetWalletFromExternalIdentity(
+        _ request: Services_Universalwallet_V1_GetWalletFromExternalIdentityRequest,
+        callOptions: CallOptions? = nil
+    ) -> UnaryCall<Services_Universalwallet_V1_GetWalletFromExternalIdentityRequest, Services_Universalwallet_V1_GetWalletFromExternalIdentityResponse> {
+        makeUnaryCall(
+            path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.GetWalletFromExternalIdentity.path,
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeGetWalletFromExternalIdentityInterceptors() ?? []
         )
     }
 
@@ -576,6 +599,11 @@ public protocol Services_Universalwallet_V1_UniversalWalletAsyncClientProtocol: 
         callOptions: CallOptions?
     ) -> GRPCAsyncUnaryCall<Services_Universalwallet_V1_GetMyInfoRequest, Services_Universalwallet_V1_GetMyInfoResponse>
 
+    func makeGetWalletFromExternalIdentityCall(
+        _ request: Services_Universalwallet_V1_GetWalletFromExternalIdentityRequest,
+        callOptions: CallOptions?
+    ) -> GRPCAsyncUnaryCall<Services_Universalwallet_V1_GetWalletFromExternalIdentityRequest, Services_Universalwallet_V1_GetWalletFromExternalIdentityResponse>
+
     func makeGenerateAuthTokenCall(
         _ request: Services_Universalwallet_V1_GenerateAuthTokenRequest,
         callOptions: CallOptions?
@@ -742,6 +770,18 @@ public extension Services_Universalwallet_V1_UniversalWalletAsyncClientProtocol 
             request: request,
             callOptions: callOptions ?? defaultCallOptions,
             interceptors: interceptors?.makeGetMyInfoInterceptors() ?? []
+        )
+    }
+
+    func makeGetWalletFromExternalIdentityCall(
+        _ request: Services_Universalwallet_V1_GetWalletFromExternalIdentityRequest,
+        callOptions: CallOptions? = nil
+    ) -> GRPCAsyncUnaryCall<Services_Universalwallet_V1_GetWalletFromExternalIdentityRequest, Services_Universalwallet_V1_GetWalletFromExternalIdentityResponse> {
+        makeAsyncUnaryCall(
+            path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.GetWalletFromExternalIdentity.path,
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeGetWalletFromExternalIdentityInterceptors() ?? []
         )
     }
 
@@ -976,6 +1016,18 @@ public extension Services_Universalwallet_V1_UniversalWalletAsyncClientProtocol 
         )
     }
 
+    func GetWalletFromExternalIdentity(
+        _ request: Services_Universalwallet_V1_GetWalletFromExternalIdentityRequest,
+        callOptions: CallOptions? = nil
+    ) async throws -> Services_Universalwallet_V1_GetWalletFromExternalIdentityResponse {
+        try await performAsyncUnaryCall(
+            path: Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.GetWalletFromExternalIdentity.path,
+            request: request,
+            callOptions: callOptions ?? defaultCallOptions,
+            interceptors: interceptors?.makeGetWalletFromExternalIdentityInterceptors() ?? []
+        )
+    }
+
     func GenerateAuthToken(
         _ request: Services_Universalwallet_V1_GenerateAuthTokenRequest,
         callOptions: CallOptions? = nil
@@ -1142,6 +1194,9 @@ public protocol Services_Universalwallet_V1_UniversalWalletClientInterceptorFact
     /// - Returns: Interceptors to use when invoking 'GetMyInfo'.
     func makeGetMyInfoInterceptors() -> [ClientInterceptor<Services_Universalwallet_V1_GetMyInfoRequest, Services_Universalwallet_V1_GetMyInfoResponse>]
 
+    /// - Returns: Interceptors to use when invoking 'GetWalletFromExternalIdentity'.
+    func makeGetWalletFromExternalIdentityInterceptors() -> [ClientInterceptor<Services_Universalwallet_V1_GetWalletFromExternalIdentityRequest, Services_Universalwallet_V1_GetWalletFromExternalIdentityResponse>]
+
     /// - Returns: Interceptors to use when invoking 'GenerateAuthToken'.
     func makeGenerateAuthTokenInterceptors() -> [ClientInterceptor<Services_Universalwallet_V1_GenerateAuthTokenRequest, Services_Universalwallet_V1_GenerateAuthTokenResponse>]
 
@@ -1187,6 +1242,7 @@ public enum Services_Universalwallet_V1_UniversalWalletClientMetadata {
             Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.CreateWallet,
             Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.GetWalletInfo,
             Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.GetMyInfo,
+            Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.GetWalletFromExternalIdentity,
             Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.GenerateAuthToken,
             Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.RevokeAuthToken,
             Services_Universalwallet_V1_UniversalWalletClientMetadata.Methods.AddExternalIdentityInit,
@@ -1252,6 +1308,12 @@ public enum Services_Universalwallet_V1_UniversalWalletClientMetadata {
         public static let GetMyInfo = GRPCMethodDescriptor(
             name: "GetMyInfo",
             path: "/services.universalwallet.v1.UniversalWallet/GetMyInfo",
+            type: GRPCCallType.unary
+        )
+
+        public static let GetWalletFromExternalIdentity = GRPCMethodDescriptor(
+            name: "GetWalletFromExternalIdentity",
+            path: "/services.universalwallet.v1.UniversalWallet/GetWalletFromExternalIdentity",
             type: GRPCCallType.unary
         )
 
@@ -1349,6 +1411,9 @@ public protocol Services_Universalwallet_V1_UniversalWalletProvider: CallHandler
 
     /// Retrieve wallet details and configuration about the currently authenticated wallet
     func GetMyInfo(request: Services_Universalwallet_V1_GetMyInfoRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Universalwallet_V1_GetMyInfoResponse>
+
+    /// Retrieve information from an ecosystem wallet by searching for its external identity (email or phone)
+    func GetWalletFromExternalIdentity(request: Services_Universalwallet_V1_GetWalletFromExternalIdentityRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Services_Universalwallet_V1_GetWalletFromExternalIdentityResponse>
 
     /// Generate new token for a given wallet and add it to the collection of known auth tokens.
     /// This endpoint requires authentication and will return a new token ID and auth token.
@@ -1478,6 +1543,15 @@ public extension Services_Universalwallet_V1_UniversalWalletProvider {
                 responseSerializer: ProtobufSerializer<Services_Universalwallet_V1_GetMyInfoResponse>(),
                 interceptors: interceptors?.makeGetMyInfoInterceptors() ?? [],
                 userFunction: GetMyInfo(request:context:)
+            )
+
+        case "GetWalletFromExternalIdentity":
+            return UnaryServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Universalwallet_V1_GetWalletFromExternalIdentityRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Universalwallet_V1_GetWalletFromExternalIdentityResponse>(),
+                interceptors: interceptors?.makeGetWalletFromExternalIdentityInterceptors() ?? [],
+                userFunction: GetWalletFromExternalIdentity(request:context:)
             )
 
         case "GenerateAuthToken":
@@ -1637,6 +1711,12 @@ public protocol Services_Universalwallet_V1_UniversalWalletAsyncProvider: CallHa
         request: Services_Universalwallet_V1_GetMyInfoRequest,
         context: GRPCAsyncServerCallContext
     ) async throws -> Services_Universalwallet_V1_GetMyInfoResponse
+
+    /// Retrieve information from an ecosystem wallet by searching for its external identity (email or phone)
+    func GetWalletFromExternalIdentity(
+        request: Services_Universalwallet_V1_GetWalletFromExternalIdentityRequest,
+        context: GRPCAsyncServerCallContext
+    ) async throws -> Services_Universalwallet_V1_GetWalletFromExternalIdentityResponse
 
     /// Generate new token for a given wallet and add it to the collection of known auth tokens.
     /// This endpoint requires authentication and will return a new token ID and auth token.
@@ -1805,6 +1885,15 @@ public extension Services_Universalwallet_V1_UniversalWalletAsyncProvider {
                 wrapping: { try await self.GetMyInfo(request: $0, context: $1) }
             )
 
+        case "GetWalletFromExternalIdentity":
+            return GRPCAsyncServerHandler(
+                context: context,
+                requestDeserializer: ProtobufDeserializer<Services_Universalwallet_V1_GetWalletFromExternalIdentityRequest>(),
+                responseSerializer: ProtobufSerializer<Services_Universalwallet_V1_GetWalletFromExternalIdentityResponse>(),
+                interceptors: interceptors?.makeGetWalletFromExternalIdentityInterceptors() ?? [],
+                wrapping: { try await self.GetWalletFromExternalIdentity(request: $0, context: $1) }
+            )
+
         case "GenerateAuthToken":
             return GRPCAsyncServerHandler(
                 context: context,
@@ -1938,6 +2027,10 @@ public protocol Services_Universalwallet_V1_UniversalWalletServerInterceptorFact
     ///   Defaults to calling `self.makeInterceptors()`.
     func makeGetMyInfoInterceptors() -> [ServerInterceptor<Services_Universalwallet_V1_GetMyInfoRequest, Services_Universalwallet_V1_GetMyInfoResponse>]
 
+    /// - Returns: Interceptors to use when handling 'GetWalletFromExternalIdentity'.
+    ///   Defaults to calling `self.makeInterceptors()`.
+    func makeGetWalletFromExternalIdentityInterceptors() -> [ServerInterceptor<Services_Universalwallet_V1_GetWalletFromExternalIdentityRequest, Services_Universalwallet_V1_GetWalletFromExternalIdentityResponse>]
+
     /// - Returns: Interceptors to use when handling 'GenerateAuthToken'.
     ///   Defaults to calling `self.makeInterceptors()`.
     func makeGenerateAuthTokenInterceptors() -> [ServerInterceptor<Services_Universalwallet_V1_GenerateAuthTokenRequest, Services_Universalwallet_V1_GenerateAuthTokenResponse>]
@@ -1993,6 +2086,7 @@ public enum Services_Universalwallet_V1_UniversalWalletServerMetadata {
             Services_Universalwallet_V1_UniversalWalletServerMetadata.Methods.CreateWallet,
             Services_Universalwallet_V1_UniversalWalletServerMetadata.Methods.GetWalletInfo,
             Services_Universalwallet_V1_UniversalWalletServerMetadata.Methods.GetMyInfo,
+            Services_Universalwallet_V1_UniversalWalletServerMetadata.Methods.GetWalletFromExternalIdentity,
             Services_Universalwallet_V1_UniversalWalletServerMetadata.Methods.GenerateAuthToken,
             Services_Universalwallet_V1_UniversalWalletServerMetadata.Methods.RevokeAuthToken,
             Services_Universalwallet_V1_UniversalWalletServerMetadata.Methods.AddExternalIdentityInit,
@@ -2058,6 +2152,12 @@ public enum Services_Universalwallet_V1_UniversalWalletServerMetadata {
         public static let GetMyInfo = GRPCMethodDescriptor(
             name: "GetMyInfo",
             path: "/services.universalwallet.v1.UniversalWallet/GetMyInfo",
+            type: GRPCCallType.unary
+        )
+
+        public static let GetWalletFromExternalIdentity = GRPCMethodDescriptor(
+            name: "GetWalletFromExternalIdentity",
+            path: "/services.universalwallet.v1.UniversalWallet/GetWalletFromExternalIdentity",
             type: GRPCCallType.unary
         )
 

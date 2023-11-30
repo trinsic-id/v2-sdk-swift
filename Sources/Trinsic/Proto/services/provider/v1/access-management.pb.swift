@@ -349,7 +349,7 @@ extension Services_Provider_V1_AddRoleAssignmentRequest: SwiftProtobuf.Message, 
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &role)
+            case 1: try decoder.decodeSingularStringField(value: &role)
             case 2: try {
                     var v: String?
                     try decoder.decodeSingularStringField(value: &v)
@@ -446,7 +446,7 @@ extension Services_Provider_V1_RemoveRoleAssignmentRequest: SwiftProtobuf.Messag
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &role)
+            case 1: try decoder.decodeSingularStringField(value: &role)
             case 2: try {
                     var v: String?
                     try decoder.decodeSingularStringField(value: &v)
@@ -613,7 +613,7 @@ extension Services_Provider_V1_ListRoleAssignmentsResponse: SwiftProtobuf.Messag
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeRepeatedStringField(value: &roles)
+            case 1: try decoder.decodeRepeatedStringField(value: &roles)
             default: break
             }
         }
@@ -663,7 +663,7 @@ extension Services_Provider_V1_ListAvailableRolesResponse: SwiftProtobuf.Message
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeRepeatedStringField(value: &roles)
+            case 1: try decoder.decodeRepeatedStringField(value: &roles)
             default: break
             }
         }

@@ -66,10 +66,10 @@ extension Sdk_Options_V1_ServiceOptions: SwiftProtobuf.Message, SwiftProtobuf._M
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &serverEndpoint)
-            case 2: try try decoder.decodeSingularInt32Field(value: &serverPort)
-            case 3: try try decoder.decodeSingularBoolField(value: &serverUseTls)
-            case 4: try try decoder.decodeSingularStringField(value: &authToken)
+            case 1: try decoder.decodeSingularStringField(value: &serverEndpoint)
+            case 2: try decoder.decodeSingularInt32Field(value: &serverPort)
+            case 3: try decoder.decodeSingularBoolField(value: &serverUseTls)
+            case 4: try decoder.decodeSingularStringField(value: &authToken)
             default: break
             }
         }

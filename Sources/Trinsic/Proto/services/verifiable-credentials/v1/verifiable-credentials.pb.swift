@@ -20,6 +20,57 @@ private struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAPIVer
     typealias Version = _2
 }
 
+public enum Services_Verifiablecredentials_V1_SignatureType: SwiftProtobuf.Enum {
+    public typealias RawValue = Int
+
+    /// The signature type is not specified. The experimental signature type will be used.
+    case unspecified // = 0
+
+    /// The signature type uses EdDSA with the Ed25519 curve (NIST compliant).
+    /// This type of signature does not support selective disclosure of attributes.
+    case standard // = 1
+
+    /// The signature type uses BBS signatures with BLS12-381 curve (experimental).
+    /// This type of signature allows for selective disclosure of attributes.
+    case experimental // = 2
+    case UNRECOGNIZED(Int)
+
+    public init() {
+        self = .unspecified
+    }
+
+    public init?(rawValue: Int) {
+        switch rawValue {
+        case 0: self = .unspecified
+        case 1: self = .standard
+        case 2: self = .experimental
+        default: self = .UNRECOGNIZED(rawValue)
+        }
+    }
+
+    public var rawValue: Int {
+        switch self {
+        case .unspecified: return 0
+        case .standard: return 1
+        case .experimental: return 2
+        case let .UNRECOGNIZED(i): return i
+        }
+    }
+}
+
+#if swift(>=4.2)
+
+    extension Services_Verifiablecredentials_V1_SignatureType: CaseIterable {
+        // The compiler won't synthesize support with the UNRECOGNIZED case.
+        public static let allCases: [Services_Verifiablecredentials_V1_SignatureType] = [
+            .unspecified,
+            .standard,
+            .experimental,
+        ]
+    }
+
+#endif // swift(>=4.2)
+
 /// Request to create and sign a JSON-LD Verifiable Credential from a template using public key tied to caller
 public struct Services_Verifiablecredentials_V1_IssueFromTemplateRequest {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -44,8 +95,11 @@ public struct Services_Verifiablecredentials_V1_IssueFromTemplateRequest {
     public var expirationDate: String = .init()
 
     /// If true, the issued credential will contain an attestation of the issuer's membership in the ecosystem's
-    /// governance framework.
+    /// Trust Registry.
     public var includeGovernance: Bool = false
+
+    /// The type of signature to use when signing the credential. Defaults to `EXPERIMENTAL`.
+    public var signatureType: Services_Verifiablecredentials_V1_SignatureType = .unspecified
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -466,12 +520,15 @@ public struct Services_Verifiablecredentials_V1_CreateCredentialOfferRequest {
     public var holderBinding: Bool = false
 
     /// If true, the issued credential will contain an attestation of the issuer's membership in the ecosystem's
-    /// governance framework.
+    /// Trust Registry.
     public var includeGovernance: Bool = false
 
     /// If true, a short URL link will be generated that can be used to share the credential offer with the holder.
     /// This link will point to the credential offer in the wallet app.
     public var generateShareURL: Bool = false
+
+    /// The type of signature to use when signing the credential. Defaults to `EXPERIMENTAL`.
+    public var signatureType: Services_Verifiablecredentials_V1_SignatureType = .unspecified
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -512,7 +569,7 @@ public struct Services_Verifiablecredentials_V1_AcceptCredentialRequest {
         set { offer = .documentJson(newValue) }
     }
 
-    /// The ID of the item in the wallet that contains the credential offer
+    /// The ID of the credential offer (Parameter ID inside the JSON document)
     public var itemID: String {
         get {
             if case let .itemID(v)? = offer { return v }
@@ -526,7 +583,7 @@ public struct Services_Verifiablecredentials_V1_AcceptCredentialRequest {
     public enum OneOf_Offer: Equatable {
         /// The JSON document that contains the credential offer
         case documentJson(String)
-        /// The ID of the item in the wallet that contains the credential offer
+        /// The ID of the credential offer (Parameter ID inside the JSON document)
         case itemID(String)
 
         #if !swift(>=4.1)
@@ -585,7 +642,7 @@ public struct Services_Verifiablecredentials_V1_RejectCredentialRequest {
         set { offer = .documentJson(newValue) }
     }
 
-    /// The ID of the item in the wallet that contains the credential offer
+    /// The ID of the credential offer (Parameter ID inside the JSON document)
     public var itemID: String {
         get {
             if case let .itemID(v)? = offer { return v }
@@ -599,7 +656,7 @@ public struct Services_Verifiablecredentials_V1_RejectCredentialRequest {
     public enum OneOf_Offer: Equatable {
         /// The JSON document that contains the credential offer
         case documentJson(String)
-        /// The ID of the item in the wallet that contains the credential offer
+        /// The ID of the credential offer (Parameter ID inside the JSON document)
         case itemID(String)
 
         #if !swift(>=4.1)
@@ -636,6 +693,7 @@ public struct Services_Verifiablecredentials_V1_RejectCredentialResponse {
 }
 
 #if swift(>=5.5) && canImport(_Concurrency)
+    extension Services_Verifiablecredentials_V1_SignatureType: @unchecked Sendable {}
     extension Services_Verifiablecredentials_V1_IssueFromTemplateRequest: @unchecked Sendable {}
     extension Services_Verifiablecredentials_V1_IssueFromTemplateResponse: @unchecked Sendable {}
     extension Services_Verifiablecredentials_V1_CreateProofRequest: @unchecked Sendable {}
@@ -667,6 +725,14 @@ public struct Services_Verifiablecredentials_V1_RejectCredentialResponse {
 
 private let _protobuf_package = "services.verifiablecredentials.v1"
 
+extension Services_Verifiablecredentials_V1_SignatureType: SwiftProtobuf._ProtoNameProviding {
+    public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+        0: .same(proto: "UNSPECIFIED"),
+        1: .same(proto: "STANDARD"),
+        2: .same(proto: "EXPERIMENTAL"),
+    ]
+}
+
 extension Services_Verifiablecredentials_V1_IssueFromTemplateRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
     public static let protoMessageName: String = _protobuf_package + ".IssueFromTemplateRequest"
     public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -675,6 +741,7 @@ extension Services_Verifiablecredentials_V1_IssueFromTemplateRequest: SwiftProto
         4: .standard(proto: "save_copy"),
         5: .standard(proto: "expiration_date"),
         6: .standard(proto: "include_governance"),
+        7: .standard(proto: "signature_type"),
     ]
 
     public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -683,11 +750,12 @@ extension Services_Verifiablecredentials_V1_IssueFromTemplateRequest: SwiftProto
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &templateID)
-            case 2: try try decoder.decodeSingularStringField(value: &valuesJson)
-            case 4: try try decoder.decodeSingularBoolField(value: &saveCopy)
-            case 5: try try decoder.decodeSingularStringField(value: &expirationDate)
-            case 6: try try decoder.decodeSingularBoolField(value: &includeGovernance)
+            case 1: try decoder.decodeSingularStringField(value: &templateID)
+            case 2: try decoder.decodeSingularStringField(value: &valuesJson)
+            case 4: try decoder.decodeSingularBoolField(value: &saveCopy)
+            case 5: try decoder.decodeSingularStringField(value: &expirationDate)
+            case 6: try decoder.decodeSingularBoolField(value: &includeGovernance)
+            case 7: try decoder.decodeSingularEnumField(value: &signatureType)
             default: break
             }
         }
@@ -709,6 +777,9 @@ extension Services_Verifiablecredentials_V1_IssueFromTemplateRequest: SwiftProto
         if includeGovernance != false {
             try visitor.visitSingularBoolField(value: includeGovernance, fieldNumber: 6)
         }
+        if signatureType != .unspecified {
+            try visitor.visitSingularEnumField(value: signatureType, fieldNumber: 7)
+        }
         try unknownFields.traverse(visitor: &visitor)
     }
 
@@ -718,6 +789,7 @@ extension Services_Verifiablecredentials_V1_IssueFromTemplateRequest: SwiftProto
         if lhs.saveCopy != rhs.saveCopy { return false }
         if lhs.expirationDate != rhs.expirationDate { return false }
         if lhs.includeGovernance != rhs.includeGovernance { return false }
+        if lhs.signatureType != rhs.signatureType { return false }
         if lhs.unknownFields != rhs.unknownFields { return false }
         return true
     }
@@ -735,7 +807,7 @@ extension Services_Verifiablecredentials_V1_IssueFromTemplateResponse: SwiftProt
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &documentJson)
+            case 1: try decoder.decodeSingularStringField(value: &documentJson)
             default: break
             }
         }
@@ -797,8 +869,8 @@ extension Services_Verifiablecredentials_V1_CreateProofRequest: SwiftProtobuf.Me
                         self.proof = .documentJson(v)
                     }
                 }()
-            case 4: try try decoder.decodeSingularBoolField(value: &useVerifiablePresentation)
-            case 10: try try decoder.decodeSingularBytesField(value: &nonce)
+            case 4: try decoder.decodeSingularBoolField(value: &useVerifiablePresentation)
+            case 10: try decoder.decodeSingularBytesField(value: &nonce)
             case 11: try {
                     var v: Services_Verifiablecredentials_V1_RevealTemplateAttributes?
                     var hadOneofValue = false
@@ -886,7 +958,7 @@ extension Services_Verifiablecredentials_V1_RevealTemplateAttributes: SwiftProto
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeRepeatedStringField(value: &templateAttributes)
+            case 1: try decoder.decodeRepeatedStringField(value: &templateAttributes)
             default: break
             }
         }
@@ -918,7 +990,7 @@ extension Services_Verifiablecredentials_V1_CreateProofResponse: SwiftProtobuf.M
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &proofDocumentJson)
+            case 1: try decoder.decodeSingularStringField(value: &proofDocumentJson)
             default: break
             }
         }
@@ -950,7 +1022,7 @@ extension Services_Verifiablecredentials_V1_VerifyProofRequest: SwiftProtobuf.Me
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &proofDocumentJson)
+            case 1: try decoder.decodeSingularStringField(value: &proofDocumentJson)
             default: break
             }
         }
@@ -983,8 +1055,8 @@ extension Services_Verifiablecredentials_V1_VerifyProofResponse: SwiftProtobuf.M
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularBoolField(value: &isValid)
-            case 3: try { try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString, Services_Verifiablecredentials_V1_ValidationMessage>.self, value: &self.validationResults) }()
+            case 1: try decoder.decodeSingularBoolField(value: &isValid)
+            case 3: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString, Services_Verifiablecredentials_V1_ValidationMessage>.self, value: &validationResults)
             default: break
             }
         }
@@ -1021,8 +1093,8 @@ extension Services_Verifiablecredentials_V1_ValidationMessage: SwiftProtobuf.Mes
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularBoolField(value: &isValid)
-            case 2: try try decoder.decodeRepeatedStringField(value: &messages)
+            case 1: try decoder.decodeSingularBoolField(value: &isValid)
+            case 2: try decoder.decodeRepeatedStringField(value: &messages)
             default: break
             }
         }
@@ -1071,7 +1143,7 @@ extension Services_Verifiablecredentials_V1_SendRequest: SwiftProtobuf.Message, 
                         self.deliveryMethod = .email(v)
                     }
                 }()
-            case 4: try try decoder.decodeSingularBoolField(value: &sendNotification)
+            case 4: try decoder.decodeSingularBoolField(value: &sendNotification)
             case 5: try {
                     var v: String?
                     try decoder.decodeSingularStringField(value: &v)
@@ -1096,7 +1168,7 @@ extension Services_Verifiablecredentials_V1_SendRequest: SwiftProtobuf.Message, 
                         self.deliveryMethod = .phoneNumber(v)
                     }
                 }()
-            case 100: try try decoder.decodeSingularStringField(value: &documentJson)
+            case 100: try decoder.decodeSingularStringField(value: &documentJson)
             default: break
             }
         }
@@ -1174,8 +1246,8 @@ extension Services_Verifiablecredentials_V1_UpdateStatusRequest: SwiftProtobuf.M
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &credentialStatusID)
-            case 2: try try decoder.decodeSingularBoolField(value: &revoked)
+            case 1: try decoder.decodeSingularStringField(value: &credentialStatusID)
+            case 2: try decoder.decodeSingularBoolField(value: &revoked)
             default: break
             }
         }
@@ -1229,7 +1301,7 @@ extension Services_Verifiablecredentials_V1_CheckStatusRequest: SwiftProtobuf.Me
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &credentialStatusID)
+            case 1: try decoder.decodeSingularStringField(value: &credentialStatusID)
             default: break
             }
         }
@@ -1261,7 +1333,7 @@ extension Services_Verifiablecredentials_V1_CheckStatusResponse: SwiftProtobuf.M
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularBoolField(value: &revoked)
+            case 1: try decoder.decodeSingularBoolField(value: &revoked)
             default: break
             }
         }
@@ -1289,6 +1361,7 @@ extension Services_Verifiablecredentials_V1_CreateCredentialOfferRequest: SwiftP
         3: .standard(proto: "holder_binding"),
         4: .standard(proto: "include_governance"),
         5: .standard(proto: "generate_share_url"),
+        7: .standard(proto: "signature_type"),
     ]
 
     public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -1297,11 +1370,12 @@ extension Services_Verifiablecredentials_V1_CreateCredentialOfferRequest: SwiftP
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &templateID)
-            case 2: try try decoder.decodeSingularStringField(value: &valuesJson)
-            case 3: try try decoder.decodeSingularBoolField(value: &holderBinding)
-            case 4: try try decoder.decodeSingularBoolField(value: &includeGovernance)
-            case 5: try try decoder.decodeSingularBoolField(value: &generateShareURL)
+            case 1: try decoder.decodeSingularStringField(value: &templateID)
+            case 2: try decoder.decodeSingularStringField(value: &valuesJson)
+            case 3: try decoder.decodeSingularBoolField(value: &holderBinding)
+            case 4: try decoder.decodeSingularBoolField(value: &includeGovernance)
+            case 5: try decoder.decodeSingularBoolField(value: &generateShareURL)
+            case 7: try decoder.decodeSingularEnumField(value: &signatureType)
             default: break
             }
         }
@@ -1323,6 +1397,9 @@ extension Services_Verifiablecredentials_V1_CreateCredentialOfferRequest: SwiftP
         if generateShareURL != false {
             try visitor.visitSingularBoolField(value: generateShareURL, fieldNumber: 5)
         }
+        if signatureType != .unspecified {
+            try visitor.visitSingularEnumField(value: signatureType, fieldNumber: 7)
+        }
         try unknownFields.traverse(visitor: &visitor)
     }
 
@@ -1332,6 +1409,7 @@ extension Services_Verifiablecredentials_V1_CreateCredentialOfferRequest: SwiftP
         if lhs.holderBinding != rhs.holderBinding { return false }
         if lhs.includeGovernance != rhs.includeGovernance { return false }
         if lhs.generateShareURL != rhs.generateShareURL { return false }
+        if lhs.signatureType != rhs.signatureType { return false }
         if lhs.unknownFields != rhs.unknownFields { return false }
         return true
     }
@@ -1350,8 +1428,8 @@ extension Services_Verifiablecredentials_V1_CreateCredentialOfferResponse: Swift
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &documentJson)
-            case 2: try try decoder.decodeSingularStringField(value: &shareURL)
+            case 1: try decoder.decodeSingularStringField(value: &documentJson)
+            case 2: try decoder.decodeSingularStringField(value: &shareURL)
             default: break
             }
         }
@@ -1448,8 +1526,8 @@ extension Services_Verifiablecredentials_V1_AcceptCredentialResponse: SwiftProto
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &itemID)
-            case 2: try try decoder.decodeSingularStringField(value: &documentJson)
+            case 1: try decoder.decodeSingularStringField(value: &itemID)
+            case 2: try decoder.decodeSingularStringField(value: &documentJson)
             default: break
             }
         }

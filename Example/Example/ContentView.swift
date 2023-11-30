@@ -10,17 +10,17 @@ import Trinsic
 
 struct ContentView: View {
     let connect = ConnectClient()
-    
+
     @State private var path = NavigationPath()
-    
+
     var body: some View {
         NavigationStack(path: $path) {
             VStack {
                 Button("Verify with Trinsic Connect") {
                     let request = VerifiablePresentationRequest(ecosystem: "did-hack",
                                                                 schema: "https://schema.trinsic.cloud/did-hack/attendance-credential")
-                    
-                    connect.requestVerifiableCredential(request) { result, error in
+
+                    connect.requestVerifiableCredential(request) { result, _ in
                         guard let vp = result else {
                             return
                         }
@@ -36,8 +36,8 @@ struct ContentView: View {
     }
 }
 
-//struct ContentView_Previews: PreviewProvider {
+// struct ContentView_Previews: PreviewProvider {
 //    static var previews: some View {
 //        ContentView()
 //    }
-//}
+// }

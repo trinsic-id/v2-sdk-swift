@@ -72,12 +72,12 @@ final class CredentialTests: XCTestCase {
             XCTAssertTrue(validationPolicy.value.isValid, "Validation [\(validationPolicy.key)] is not valid")
         }
     }
-    
+
     func testNormalizeEcosystem() {
         let ecosystem = "urn:trinsic:ecosystems:example"
-        
+
         let actual = ecosystem.ecosystemName()
-        
+
         XCTAssertEqual("example", actual)
     }
 }

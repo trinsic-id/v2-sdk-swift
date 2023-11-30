@@ -183,8 +183,8 @@ extension Services_Options_AnnotationOption: SwiftProtobuf.Message, SwiftProtobu
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularBoolField(value: &active)
-            case 2: try try decoder.decodeSingularStringField(value: &message)
+            case 1: try decoder.decodeSingularBoolField(value: &active)
+            case 2: try decoder.decodeSingularStringField(value: &message)
             default: break
             }
         }
@@ -224,11 +224,11 @@ extension Services_Options_SdkTemplateOption: SwiftProtobuf.Message, SwiftProtob
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularBoolField(value: &anonymous)
-            case 2: try try decoder.decodeSingularBoolField(value: &ignore)
-            case 3: try try decoder.decodeSingularBoolField(value: &noArguments)
-            case 4: try try decoder.decodeSingularMessageField(value: &_experimental)
-            case 5: try try decoder.decodeSingularMessageField(value: &_deprecated)
+            case 1: try decoder.decodeSingularBoolField(value: &anonymous)
+            case 2: try decoder.decodeSingularBoolField(value: &ignore)
+            case 3: try decoder.decodeSingularBoolField(value: &noArguments)
+            case 4: try decoder.decodeSingularMessageField(value: &_experimental)
+            case 5: try decoder.decodeSingularMessageField(value: &_deprecated)
             default: break
             }
         }

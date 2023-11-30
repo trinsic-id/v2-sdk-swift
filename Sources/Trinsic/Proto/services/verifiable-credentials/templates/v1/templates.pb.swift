@@ -61,7 +61,7 @@ public enum Services_Verifiablecredentials_Templates_V1_FieldType: SwiftProtobuf
 
     extension Services_Verifiablecredentials_Templates_V1_FieldType: CaseIterable {
         // The compiler won't synthesize support with the UNRECOGNIZED case.
-        public static var allCases: [Services_Verifiablecredentials_Templates_V1_FieldType] = [
+        public static let allCases: [Services_Verifiablecredentials_Templates_V1_FieldType] = [
             .string,
             .number,
             .bool,
@@ -113,7 +113,7 @@ public enum Services_Verifiablecredentials_Templates_V1_UriRenderMethod: SwiftPr
 
     extension Services_Verifiablecredentials_Templates_V1_UriRenderMethod: CaseIterable {
         // The compiler won't synthesize support with the UNRECOGNIZED case.
-        public static var allCases: [Services_Verifiablecredentials_Templates_V1_UriRenderMethod] = [
+        public static let allCases: [Services_Verifiablecredentials_Templates_V1_UriRenderMethod] = [
             .text,
             .link,
             .inlineImage,
@@ -153,7 +153,7 @@ public enum Services_Verifiablecredentials_Templates_V1_VerificationShareType: S
 
     extension Services_Verifiablecredentials_Templates_V1_VerificationShareType: CaseIterable {
         // The compiler won't synthesize support with the UNRECOGNIZED case.
-        public static var allCases: [Services_Verifiablecredentials_Templates_V1_VerificationShareType] = [
+        public static let allCases: [Services_Verifiablecredentials_Templates_V1_VerificationShareType] = [
             .optional,
             .required,
         ]
@@ -894,9 +894,6 @@ public struct Services_Verifiablecredentials_Templates_V1_VerificationTemplateDa
     /// Source credential template, used for verifying that the specified `fields` are present in the credential template
     public var credentialTemplateID: String = .init()
 
-    /// URI pointing to template JSON schema document
-    public var schemaUri: String = .init()
-
     /// ID of ecosystem in which template resides
     public var ecosystemID: String = .init()
 
@@ -981,21 +978,14 @@ public struct Services_Verifiablecredentials_Templates_V1_VerificationTemplateFi
     // methods supported on all messages.
 
     /// Human-readable name of the field
-    public var usagePolicy: String {
-        get { _usagePolicy ?? String() }
-        set { _usagePolicy = newValue }
-    }
+    public var fieldShareType: Services_Verifiablecredentials_Templates_V1_VerificationShareType = .optional
 
-    /// Returns true if `usagePolicy` has been explicitly set.
-    public var hasUsagePolicy: Bool { _usagePolicy != nil }
-    /// Clears the value of `usagePolicy`. Subsequent reads from it will return its default value.
-    public mutating func clearUsagePolicy() { _usagePolicy = nil }
+    /// User-facing explanation of what is done with this data
+    public var usagePolicy: String = .init()
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
-
-    private var _usagePolicy: String?
 }
 
 #if swift(>=5.5) && canImport(_Concurrency)
@@ -1076,7 +1066,7 @@ extension Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateReque
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &id)
+            case 1: try decoder.decodeSingularStringField(value: &id)
             default: break
             }
         }
@@ -1108,7 +1098,7 @@ extension Services_Verifiablecredentials_Templates_V1_GetCredentialTemplateRespo
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularMessageField(value: &_template)
+            case 1: try decoder.decodeSingularMessageField(value: &_template)
             default: break
             }
         }
@@ -1145,8 +1135,8 @@ extension Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesR
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &query)
-            case 2: try try decoder.decodeSingularStringField(value: &continuationToken)
+            case 1: try decoder.decodeSingularStringField(value: &query)
+            case 2: try decoder.decodeSingularStringField(value: &continuationToken)
             default: break
             }
         }
@@ -1184,9 +1174,9 @@ extension Services_Verifiablecredentials_Templates_V1_SearchCredentialTemplatesR
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &itemsJson)
-            case 2: try try decoder.decodeSingularBoolField(value: &hasMoreResults_p)
-            case 4: try try decoder.decodeSingularStringField(value: &continuationToken)
+            case 1: try decoder.decodeSingularStringField(value: &itemsJson)
+            case 2: try decoder.decodeSingularBoolField(value: &hasMoreResults_p)
+            case 4: try decoder.decodeSingularStringField(value: &continuationToken)
             default: break
             }
         }
@@ -1227,8 +1217,8 @@ extension Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesReq
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &query)
-            case 2: try try decoder.decodeSingularStringField(value: &continuationToken)
+            case 1: try decoder.decodeSingularStringField(value: &query)
+            case 2: try decoder.decodeSingularStringField(value: &continuationToken)
             default: break
             }
         }
@@ -1266,9 +1256,9 @@ extension Services_Verifiablecredentials_Templates_V1_ListCredentialTemplatesRes
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeRepeatedMessageField(value: &templates)
-            case 2: try try decoder.decodeSingularBoolField(value: &hasMoreResults_p)
-            case 3: try try decoder.decodeSingularStringField(value: &continuationToken)
+            case 1: try decoder.decodeRepeatedMessageField(value: &templates)
+            case 2: try decoder.decodeSingularBoolField(value: &hasMoreResults_p)
+            case 3: try decoder.decodeSingularStringField(value: &continuationToken)
             default: break
             }
         }
@@ -1308,7 +1298,7 @@ extension Services_Verifiablecredentials_Templates_V1_DeleteCredentialTemplateRe
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &id)
+            case 1: try decoder.decodeSingularStringField(value: &id)
             default: break
             }
         }
@@ -1364,13 +1354,13 @@ extension Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateRe
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &name)
-            case 2: try { try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString, Services_Verifiablecredentials_Templates_V1_TemplateField>.self, value: &self.fields) }()
-            case 3: try try decoder.decodeSingularBoolField(value: &allowAdditionalFields)
-            case 4: try try decoder.decodeSingularStringField(value: &title)
-            case 5: try try decoder.decodeSingularStringField(value: &description_p)
-            case 6: try { try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString, Services_Verifiablecredentials_Templates_V1_FieldOrdering>.self, value: &self.fieldOrdering) }()
-            case 7: try try decoder.decodeSingularMessageField(value: &_appleWalletOptions)
+            case 1: try decoder.decodeSingularStringField(value: &name)
+            case 2: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString, Services_Verifiablecredentials_Templates_V1_TemplateField>.self, value: &fields)
+            case 3: try decoder.decodeSingularBoolField(value: &allowAdditionalFields)
+            case 4: try decoder.decodeSingularStringField(value: &title)
+            case 5: try decoder.decodeSingularStringField(value: &description_p)
+            case 6: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString, Services_Verifiablecredentials_Templates_V1_FieldOrdering>.self, value: &fieldOrdering)
+            case 7: try decoder.decodeSingularMessageField(value: &_appleWalletOptions)
             default: break
             }
         }
@@ -1430,7 +1420,7 @@ extension Services_Verifiablecredentials_Templates_V1_CreateCredentialTemplateRe
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularMessageField(value: &_data)
+            case 1: try decoder.decodeSingularMessageField(value: &_data)
             default: break
             }
         }
@@ -1471,12 +1461,12 @@ extension Services_Verifiablecredentials_Templates_V1_UpdateCredentialTemplateRe
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &id)
-            case 2: try try decoder.decodeSingularStringField(value: &_title)
-            case 3: try try decoder.decodeSingularStringField(value: &_description_p)
-            case 4: try { try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString, Services_Verifiablecredentials_Templates_V1_TemplateFieldPatch>.self, value: &self.fields) }()
-            case 5: try { try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString, Services_Verifiablecredentials_Templates_V1_FieldOrdering>.self, value: &self.fieldOrdering) }()
-            case 6: try try decoder.decodeSingularMessageField(value: &_appleWalletOptions)
+            case 1: try decoder.decodeSingularStringField(value: &id)
+            case 2: try decoder.decodeSingularStringField(value: &_title)
+            case 3: try decoder.decodeSingularStringField(value: &_description_p)
+            case 4: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString, Services_Verifiablecredentials_Templates_V1_TemplateFieldPatch>.self, value: &fields)
+            case 5: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString, Services_Verifiablecredentials_Templates_V1_FieldOrdering>.self, value: &fieldOrdering)
+            case 6: try decoder.decodeSingularMessageField(value: &_appleWalletOptions)
             default: break
             }
         }
@@ -1532,7 +1522,7 @@ extension Services_Verifiablecredentials_Templates_V1_UpdateCredentialTemplateRe
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularMessageField(value: &_updatedTemplate)
+            case 1: try decoder.decodeSingularMessageField(value: &_updatedTemplate)
             default: break
             }
         }
@@ -1628,20 +1618,20 @@ extension Services_Verifiablecredentials_Templates_V1_TemplateData: SwiftProtobu
                 // allocates stack space for every case branch when no optimizations are
                 // enabled. https://github.com/apple/swift-protobuf/issues/1034
                 switch fieldNumber {
-                case 1: try try decoder.decodeSingularStringField(value: &_storage._id)
-                case 2: try try decoder.decodeSingularStringField(value: &_storage._name)
-                case 3: try try decoder.decodeSingularInt32Field(value: &_storage._version)
-                case 4: try { try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString, Services_Verifiablecredentials_Templates_V1_TemplateField>.self, value: &_storage._fields) }()
-                case 5: try try decoder.decodeSingularBoolField(value: &_storage._allowAdditionalFields)
-                case 6: try try decoder.decodeSingularStringField(value: &_storage._schemaUri)
-                case 8: try try decoder.decodeSingularStringField(value: &_storage._ecosystemID)
-                case 9: try try decoder.decodeSingularStringField(value: &_storage._type)
-                case 10: try try decoder.decodeSingularStringField(value: &_storage._createdBy)
-                case 11: try try decoder.decodeSingularStringField(value: &_storage._dateCreated)
-                case 12: try try decoder.decodeSingularStringField(value: &_storage._title)
-                case 13: try try decoder.decodeSingularStringField(value: &_storage._description_p)
-                case 14: try { try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString, Services_Verifiablecredentials_Templates_V1_FieldOrdering>.self, value: &_storage._fieldOrdering) }()
-                case 15: try try decoder.decodeSingularMessageField(value: &_storage._appleWalletOptions)
+                case 1: try decoder.decodeSingularStringField(value: &_storage._id)
+                case 2: try decoder.decodeSingularStringField(value: &_storage._name)
+                case 3: try decoder.decodeSingularInt32Field(value: &_storage._version)
+                case 4: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString, Services_Verifiablecredentials_Templates_V1_TemplateField>.self, value: &_storage._fields)
+                case 5: try decoder.decodeSingularBoolField(value: &_storage._allowAdditionalFields)
+                case 6: try decoder.decodeSingularStringField(value: &_storage._schemaUri)
+                case 8: try decoder.decodeSingularStringField(value: &_storage._ecosystemID)
+                case 9: try decoder.decodeSingularStringField(value: &_storage._type)
+                case 10: try decoder.decodeSingularStringField(value: &_storage._createdBy)
+                case 11: try decoder.decodeSingularStringField(value: &_storage._dateCreated)
+                case 12: try decoder.decodeSingularStringField(value: &_storage._title)
+                case 13: try decoder.decodeSingularStringField(value: &_storage._description_p)
+                case 14: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString, Services_Verifiablecredentials_Templates_V1_FieldOrdering>.self, value: &_storage._fieldOrdering)
+                case 15: try decoder.decodeSingularMessageField(value: &_storage._appleWalletOptions)
                 default: break
                 }
             }
@@ -1745,12 +1735,12 @@ extension Services_Verifiablecredentials_Templates_V1_AppleWalletOptions: SwiftP
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &backgroundColor)
-            case 2: try try decoder.decodeSingularStringField(value: &foregroundColor)
-            case 3: try try decoder.decodeSingularStringField(value: &labelColor)
-            case 4: try try decoder.decodeSingularStringField(value: &primaryField)
-            case 5: try try decoder.decodeRepeatedStringField(value: &secondaryFields)
-            case 6: try try decoder.decodeRepeatedStringField(value: &auxiliaryFields)
+            case 1: try decoder.decodeSingularStringField(value: &backgroundColor)
+            case 2: try decoder.decodeSingularStringField(value: &foregroundColor)
+            case 3: try decoder.decodeSingularStringField(value: &labelColor)
+            case 4: try decoder.decodeSingularStringField(value: &primaryField)
+            case 5: try decoder.decodeRepeatedStringField(value: &secondaryFields)
+            case 6: try decoder.decodeRepeatedStringField(value: &auxiliaryFields)
             default: break
             }
         }
@@ -1803,8 +1793,8 @@ extension Services_Verifiablecredentials_Templates_V1_FieldOrdering: SwiftProtob
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularInt32Field(value: &order)
-            case 2: try try decoder.decodeSingularStringField(value: &section)
+            case 1: try decoder.decodeSingularInt32Field(value: &order)
+            case 2: try decoder.decodeSingularStringField(value: &section)
             default: break
             }
         }
@@ -1844,11 +1834,11 @@ extension Services_Verifiablecredentials_Templates_V1_TemplateField: SwiftProtob
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &title)
-            case 2: try try decoder.decodeSingularStringField(value: &description_p)
-            case 3: try try decoder.decodeSingularBoolField(value: &optional)
-            case 4: try try decoder.decodeSingularEnumField(value: &type)
-            case 6: try try decoder.decodeSingularMessageField(value: &_uriData)
+            case 1: try decoder.decodeSingularStringField(value: &title)
+            case 2: try decoder.decodeSingularStringField(value: &description_p)
+            case 3: try decoder.decodeSingularBoolField(value: &optional)
+            case 4: try decoder.decodeSingularEnumField(value: &type)
+            case 6: try decoder.decodeSingularMessageField(value: &_uriData)
             default: break
             }
         }
@@ -1902,9 +1892,9 @@ extension Services_Verifiablecredentials_Templates_V1_TemplateFieldPatch: SwiftP
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &_title)
-            case 2: try try decoder.decodeSingularStringField(value: &_description_p)
-            case 3: try try decoder.decodeSingularMessageField(value: &_uriData)
+            case 1: try decoder.decodeSingularStringField(value: &_title)
+            case 2: try decoder.decodeSingularStringField(value: &_description_p)
+            case 3: try decoder.decodeSingularMessageField(value: &_uriData)
             default: break
             }
         }
@@ -1949,8 +1939,8 @@ extension Services_Verifiablecredentials_Templates_V1_UriFieldData: SwiftProtobu
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &mimeType)
-            case 2: try try decoder.decodeSingularEnumField(value: &renderMethod)
+            case 1: try decoder.decodeSingularStringField(value: &mimeType)
+            case 2: try decoder.decodeSingularEnumField(value: &renderMethod)
             default: break
             }
         }
@@ -1986,7 +1976,7 @@ extension Services_Verifiablecredentials_Templates_V1_GetVerificationTemplateReq
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &id)
+            case 1: try decoder.decodeSingularStringField(value: &id)
             default: break
             }
         }
@@ -2018,7 +2008,7 @@ extension Services_Verifiablecredentials_Templates_V1_GetVerificationTemplateRes
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularMessageField(value: &_template)
+            case 1: try decoder.decodeSingularMessageField(value: &_template)
             default: break
             }
         }
@@ -2058,11 +2048,11 @@ extension Services_Verifiablecredentials_Templates_V1_CreateVerificationTemplate
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &name)
-            case 2: try { try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString, Services_Verifiablecredentials_Templates_V1_VerificationTemplateField>.self, value: &self.fields) }()
-            case 3: try try decoder.decodeSingularStringField(value: &credentialTemplateID)
-            case 4: try try decoder.decodeSingularStringField(value: &title)
-            case 5: try try decoder.decodeSingularStringField(value: &description_p)
+            case 1: try decoder.decodeSingularStringField(value: &name)
+            case 2: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString, Services_Verifiablecredentials_Templates_V1_VerificationTemplateField>.self, value: &fields)
+            case 3: try decoder.decodeSingularStringField(value: &credentialTemplateID)
+            case 4: try decoder.decodeSingularStringField(value: &title)
+            case 5: try decoder.decodeSingularStringField(value: &description_p)
             default: break
             }
         }
@@ -2110,7 +2100,7 @@ extension Services_Verifiablecredentials_Templates_V1_CreateVerificationTemplate
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularMessageField(value: &_data)
+            case 1: try decoder.decodeSingularMessageField(value: &_data)
             default: break
             }
         }
@@ -2149,10 +2139,10 @@ extension Services_Verifiablecredentials_Templates_V1_UpdateVerificationTemplate
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &id)
-            case 2: try try decoder.decodeSingularStringField(value: &_title)
-            case 3: try try decoder.decodeSingularStringField(value: &_description_p)
-            case 4: try { try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString, Services_Verifiablecredentials_Templates_V1_VerificationTemplateFieldPatch>.self, value: &self.fields) }()
+            case 1: try decoder.decodeSingularStringField(value: &id)
+            case 2: try decoder.decodeSingularStringField(value: &_title)
+            case 3: try decoder.decodeSingularStringField(value: &_description_p)
+            case 4: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString, Services_Verifiablecredentials_Templates_V1_VerificationTemplateFieldPatch>.self, value: &fields)
             default: break
             }
         }
@@ -2200,7 +2190,7 @@ extension Services_Verifiablecredentials_Templates_V1_UpdateVerificationTemplate
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularMessageField(value: &_template)
+            case 1: try decoder.decodeSingularMessageField(value: &_template)
             default: break
             }
         }
@@ -2236,7 +2226,7 @@ extension Services_Verifiablecredentials_Templates_V1_DeleteVerificationTemplate
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &verificationTemplateID)
+            case 1: try decoder.decodeSingularStringField(value: &verificationTemplateID)
             default: break
             }
         }
@@ -2282,7 +2272,6 @@ extension Services_Verifiablecredentials_Templates_V1_VerificationTemplateData: 
         3: .same(proto: "version"),
         4: .same(proto: "fields"),
         5: .standard(proto: "credential_template_id"),
-        6: .standard(proto: "schema_uri"),
         8: .standard(proto: "ecosystem_id"),
         9: .same(proto: "type"),
         10: .standard(proto: "created_by"),
@@ -2297,18 +2286,17 @@ extension Services_Verifiablecredentials_Templates_V1_VerificationTemplateData: 
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &id)
-            case 2: try try decoder.decodeSingularStringField(value: &name)
-            case 3: try try decoder.decodeSingularInt32Field(value: &version)
-            case 4: try { try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString, Services_Verifiablecredentials_Templates_V1_VerificationTemplateField>.self, value: &self.fields) }()
-            case 5: try try decoder.decodeSingularStringField(value: &credentialTemplateID)
-            case 6: try try decoder.decodeSingularStringField(value: &schemaUri)
-            case 8: try try decoder.decodeSingularStringField(value: &ecosystemID)
-            case 9: try try decoder.decodeSingularStringField(value: &type)
-            case 10: try try decoder.decodeSingularStringField(value: &createdBy)
-            case 11: try try decoder.decodeSingularStringField(value: &dateCreated)
-            case 12: try try decoder.decodeSingularStringField(value: &title)
-            case 13: try try decoder.decodeSingularStringField(value: &description_p)
+            case 1: try decoder.decodeSingularStringField(value: &id)
+            case 2: try decoder.decodeSingularStringField(value: &name)
+            case 3: try decoder.decodeSingularInt32Field(value: &version)
+            case 4: try decoder.decodeMapField(fieldType: SwiftProtobuf._ProtobufMessageMap<SwiftProtobuf.ProtobufString, Services_Verifiablecredentials_Templates_V1_VerificationTemplateField>.self, value: &fields)
+            case 5: try decoder.decodeSingularStringField(value: &credentialTemplateID)
+            case 8: try decoder.decodeSingularStringField(value: &ecosystemID)
+            case 9: try decoder.decodeSingularStringField(value: &type)
+            case 10: try decoder.decodeSingularStringField(value: &createdBy)
+            case 11: try decoder.decodeSingularStringField(value: &dateCreated)
+            case 12: try decoder.decodeSingularStringField(value: &title)
+            case 13: try decoder.decodeSingularStringField(value: &description_p)
             default: break
             }
         }
@@ -2329,9 +2317,6 @@ extension Services_Verifiablecredentials_Templates_V1_VerificationTemplateData: 
         }
         if !credentialTemplateID.isEmpty {
             try visitor.visitSingularStringField(value: credentialTemplateID, fieldNumber: 5)
-        }
-        if !schemaUri.isEmpty {
-            try visitor.visitSingularStringField(value: schemaUri, fieldNumber: 6)
         }
         if !ecosystemID.isEmpty {
             try visitor.visitSingularStringField(value: ecosystemID, fieldNumber: 8)
@@ -2360,7 +2345,6 @@ extension Services_Verifiablecredentials_Templates_V1_VerificationTemplateData: 
         if lhs.version != rhs.version { return false }
         if lhs.fields != rhs.fields { return false }
         if lhs.credentialTemplateID != rhs.credentialTemplateID { return false }
-        if lhs.schemaUri != rhs.schemaUri { return false }
         if lhs.ecosystemID != rhs.ecosystemID { return false }
         if lhs.type != rhs.type { return false }
         if lhs.createdBy != rhs.createdBy { return false }
@@ -2385,8 +2369,8 @@ extension Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesR
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &query)
-            case 2: try try decoder.decodeSingularStringField(value: &continuationToken)
+            case 1: try decoder.decodeSingularStringField(value: &query)
+            case 2: try decoder.decodeSingularStringField(value: &continuationToken)
             default: break
             }
         }
@@ -2424,9 +2408,9 @@ extension Services_Verifiablecredentials_Templates_V1_ListVerificationTemplatesR
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeRepeatedMessageField(value: &templates)
-            case 2: try try decoder.decodeSingularBoolField(value: &hasMoreResults_p)
-            case 3: try try decoder.decodeSingularStringField(value: &continuationToken)
+            case 1: try decoder.decodeRepeatedMessageField(value: &templates)
+            case 2: try decoder.decodeSingularBoolField(value: &hasMoreResults_p)
+            case 3: try decoder.decodeSingularStringField(value: &continuationToken)
             default: break
             }
         }
@@ -2467,8 +2451,8 @@ extension Services_Verifiablecredentials_Templates_V1_VerificationTemplateField:
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularEnumField(value: &fieldShareType)
-            case 2: try try decoder.decodeSingularStringField(value: &usagePolicy)
+            case 1: try decoder.decodeSingularEnumField(value: &fieldShareType)
+            case 2: try decoder.decodeSingularStringField(value: &usagePolicy)
             default: break
             }
         }
@@ -2495,7 +2479,8 @@ extension Services_Verifiablecredentials_Templates_V1_VerificationTemplateField:
 extension Services_Verifiablecredentials_Templates_V1_VerificationTemplateFieldPatch: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
     public static let protoMessageName: String = _protobuf_package + ".VerificationTemplateFieldPatch"
     public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-        1: .standard(proto: "usage_policy"),
+        1: .standard(proto: "field_share_type"),
+        2: .standard(proto: "usage_policy"),
     ]
 
     public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -2504,25 +2489,26 @@ extension Services_Verifiablecredentials_Templates_V1_VerificationTemplateFieldP
             // allocates stack space for every case branch when no optimizations are
             // enabled. https://github.com/apple/swift-protobuf/issues/1034
             switch fieldNumber {
-            case 1: try try decoder.decodeSingularStringField(value: &_usagePolicy)
+            case 1: try decoder.decodeSingularEnumField(value: &fieldShareType)
+            case 2: try decoder.decodeSingularStringField(value: &usagePolicy)
             default: break
             }
         }
     }
 
     public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-        // The use of inline closures is to circumvent an issue where the compiler
-        // allocates stack space for every if/case branch local when no optimizations
-        // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-        // https://github.com/apple/swift-protobuf/issues/1182
-        try { if let v = self._usagePolicy {
-            try visitor.visitSingularStringField(value: v, fieldNumber: 1)
-        } }()
+        if fieldShareType != .optional {
+            try visitor.visitSingularEnumField(value: fieldShareType, fieldNumber: 1)
+        }
+        if !usagePolicy.isEmpty {
+            try visitor.visitSingularStringField(value: usagePolicy, fieldNumber: 2)
+        }
         try unknownFields.traverse(visitor: &visitor)
     }
 
     public static func == (lhs: Services_Verifiablecredentials_Templates_V1_VerificationTemplateFieldPatch, rhs: Services_Verifiablecredentials_Templates_V1_VerificationTemplateFieldPatch) -> Bool {
-        if lhs._usagePolicy != rhs._usagePolicy { return false }
+        if lhs.fieldShareType != rhs.fieldShareType { return false }
+        if lhs.usagePolicy != rhs.usagePolicy { return false }
         if lhs.unknownFields != rhs.unknownFields { return false }
         return true
     }
